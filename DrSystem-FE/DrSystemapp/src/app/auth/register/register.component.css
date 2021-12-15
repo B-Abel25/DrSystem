@@ -1,0 +1,28 @@
+input{
+    border:none;
+    background-color: rgba(189, 45, 45, 0);
+    border-bottom:solid black;
+    size:3px;
+    margin-left: 20px;
+    width: 70%;
+   
+   
+}
+
+label{
+    color: grey;
+}
+.form-group{
+    margin-top:20px;
+    
+}
+form{
+    padding:30px;
+}
+
+#submitButton{
+    margin: 25px;
+    width: 40%;
+}
+
+

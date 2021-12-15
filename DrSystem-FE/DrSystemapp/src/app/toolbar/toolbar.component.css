@@ -1,0 +1,13 @@
+.mat-sidenav-container {
+    background: rgba(0, 0, 0, 0.08);
+    height: 30%;
+  }
+  
+  .blank-grow {
+    flex: 1 1 auto;
+  }
+  #cardStyle{
+    background-color: rgb(255,255,255,0.4);
+    box-shadow: 5px 3px 10px 5px gray;
+    margin-top: 50px;
+}

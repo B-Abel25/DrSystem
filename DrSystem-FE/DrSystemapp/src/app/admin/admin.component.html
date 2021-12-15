@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <form [formGroup]="adminForm" (ngSubmit)="login()">
+
+                <div class="form-group">
+                    <label for="Admin" class='fa fa-user'></label>
+                    <input type="text" placeholder="Your Admin Name" formControlName="Admin">
+                    <span class="text-danger" *ngIf="adminForm.controls['Admin'].errors && adminForm.controls['Admin'].touched"><br>Invalid Admin Name</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="fa fa-lock"></label>
+                    <input type="password" placeholder="Password" formControlName="password">
+                    <span class="text-danger" *ngIf="adminForm.controls['password'].errors && adminForm.controls['password'].touched"><br>Invalid Password</span>
+                </div>
+
+                <div class="text-center">
+                    <button id="submitButton" type="submit" class="btn btn-primary" [disabled]="!adminForm.valid">Login</button>
+                </div>
+                <div class="text-center text-success" *ngIf="successMessage">{{successMessage}}</div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+#appContainer{
+    height: 10%;
+    width: 100%;
+    background-image: linear-gradient(to right, rgb(230, 225, 228), rgb(127, 167, 238));
+}
+
+#cardStyle{
+    background-color: rgb(255,255,255,0.4);
+    box-shadow: 5px 3px 10px 5px gray;
+}
+
+  
