@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorSystem.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20211208074537_Teszt2")]
-    partial class Teszt2
+    [Migration("20220104204932_Teszt6")]
+    partial class Teszt6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,20 +25,11 @@ namespace DoctorSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("LastName")
                         .HasColumnType("longtext");
 
                     b.Property<string>("MedNumber")
@@ -51,12 +42,21 @@ namespace DoctorSystem.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Password")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("user");
+                    b.ToTable("users");
+
+                    b
+                        .HasCharSet("utf8");
                 });
 #pragma warning restore 612, 618
         }

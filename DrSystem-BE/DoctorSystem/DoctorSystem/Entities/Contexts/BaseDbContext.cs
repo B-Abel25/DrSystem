@@ -18,7 +18,7 @@ namespace DoctorSystem.Entities.Contexts
             _configuration = configuration;
         }
 
-        public virtual DbSet<User> _user { get; set; }
+        public virtual DbSet<User> _users { get; set; }
 
 
 
@@ -42,13 +42,14 @@ namespace DoctorSystem.Entities.Contexts
 
         protected override void OnModelCreating(ModelBuilder objModelBuilder)
         {
-            objModelBuilder.Entity<User>().ToTable("user");
+            objModelBuilder.Entity<User>().ToTable("users");
 
 
             //TODO: Ez ide miért kell? 
             base.OnModelCreating(objModelBuilder);
         }
 
-        //dotnet ef migrations add Teszt1
+        //dotnet ef migrations add Teszt2 --context BaseDbContext
+        //dotnet ef database update --context BaseDbContext
     }
 }

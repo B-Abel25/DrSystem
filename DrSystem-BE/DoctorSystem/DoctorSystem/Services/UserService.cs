@@ -37,23 +37,22 @@ namespace DoctorSystem.Services
 
         public UserDto PostUser(UserDto userDto)
         {
-            _dbContext._user.Add(new User(userDto));      
+            _dbContext._users.Add(new User(userDto));      
             _dbContext.SaveChanges();
             return userDto;
         }
 
         public UserDto PutUser(string id, UserDto userDto)
         {
-            User userEntity = _dbContext._user.Find(id);
-            userDto.Id = userEntity.Id;
-            userEntity.FirstName = userDto.FirstName;
-            userEntity.LastName = userDto.LastName;
+            User userEntity = _dbContext._users.Find(id);
+            userDto.UserId = userEntity.Id;
+            userEntity.Name = userDto.Name;
             userEntity.Email = userDto.Email;
             userEntity.Password = userDto.Password;
 
 
 
-            _dbContext._user.Update(userEntity);
+            _dbContext._users.Update(userEntity);
             _dbContext.SaveChanges();
             return userDto;
 
@@ -62,7 +61,7 @@ namespace DoctorSystem.Services
         public UserDto DeleteUser(string userDtoId)
         {
 
-            User userEntity = _dbContext._user.Find(userDtoId);
+            User userEntity = _dbContext._users.Find(userDtoId);
             _dbContext.Remove(userEntity);
             _dbContext.SaveChanges();
             return new UserDto(userEntity);
@@ -75,13 +74,13 @@ namespace DoctorSystem.Services
 
         public UserDto GetUser(string userDtoId)
         {
-            return new UserDto(_dbContext._user.Find(userDtoId));
+            return new UserDto(_dbContext._users.Find(userDtoId));
         }
 
         private void ExchangeData(User userOld, UserDto userNew)
         {
            
-            userNew.Id = userOld.Id;
+            userNew.UserId = userOld.Id;
             //userNew.CreateDate = userOld.CreateDate;
 
         }

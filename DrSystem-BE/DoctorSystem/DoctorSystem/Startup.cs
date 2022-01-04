@@ -33,7 +33,10 @@ namespace DoctorSystem
             services.AddDbContext<UserDbContext>();
 
             services.AddControllers();
+            services.AddScoped<AccountService>();
+            services.AddScoped<EmailService>();
             services.AddScoped<IUserService, UserService>();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DoctorSystem", Version = "v1" });
