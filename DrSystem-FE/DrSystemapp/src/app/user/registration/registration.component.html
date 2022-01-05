@@ -1,41 +1,41 @@
 <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
     <div class="form-group required">
       <label>Teljes név</label>
-      <input class="form-control" formControlName="FullName" type="text">
+      <input class="form-control" formControlName="FullName" type="text" [(ngModel)]="FullName">
       <label class="text-danger" *ngIf="service.formModel.get('FullName')?.touched && service.formModel.get('FullName')?.errors">Szükséges mező!</label>
     </div>
     <div class="form-group required">
       <label>TAJ-szám</label>
-      <input class="form-control" formControlName="TAJnumber" type="text">
+      <input class="form-control" formControlName="TAJnumber" type="text" [(ngModel)]="TAJnumber">
       <label class="text-danger" *ngIf="service.formModel.get('TAJnumber')?.touched && service.formModel.get('TAJnumber')?.errors">Szükséges mező!</label>
     </div>
     <div class="form-group required">
       <label>Email cím</label>
-      <input class="form-control" formControlName="Email" type="email">
+      <input class="form-control" formControlName="Email" type="email" [(ngModel)]="Email" value="0525.b.abel@gmail.com">
       <label class="text-danger" *ngIf="service.formModel.get('Email')?.touched && service.formModel.get('Email')?.errors">Nem megfelelő email cím!</label>
     </div>
     <div class="form-group required">
       <label>Telefonszám</label>
-      <input class="form-control" formControlName="PhoneNumber">
+      <input class="form-control" formControlName="PhoneNumber" [(ngModel)]="PhoneNumber">
       <label class="text-danger" *ngIf="service.formModel.get('PhoneNumber')?.touched && service.formModel.get('PhoneNumber')?.errors">Szükséges mező!</label>
     </div>
     <div formGroupName="Passwords ">
       <div class="form-group required">
         <label>Jelszó</label>
-        <input type="password" class="form-control" formControlName="Password">
+        <input type="password" class="form-control" formControlName="Password" [(ngModel)]="Password" value="asdf1234">
         <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password')?.touched && service.formModel.get('Passwords.Password')?.errors">Jelszó megadása szükséges!</label>
         <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password')?.touched && service.formModel.get('Passwords.Password')?.errors">Minimum 8 karakter!</label>
       </div>
       <div class="form-group required">
         <label>Jelszó megerősítése</label>
-        <input type="password" class="form-control" formControlName="ConfirmPassword">
+        <input type="password" class="form-control" formControlName="ConfirmPassword" [(ngModel)]="ConfirmPassword" value="asdf1234">
         <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword')?.touched && service.formModel.get('Passwords.ConfirmPassword')?.errors">Jelszó megerősítése szükséges!</label>
         <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword')?.touched && service.formModel.get('Passwords.ConfirmPassword')?.errors">Nem egyezik a jelszó!</label>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-8 offset-md-2">
-        <button type="submit" class="btn btn-lg btn-block" [disabled]="!service.formModel.valid">Kérelem küldése</button>
+        <button type="submit" class="btn btn-lg btn-block" [disabled]="service.formModel.valid">Kérelem küldése</button>
       </div>
     </div>
   </form>

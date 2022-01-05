@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorSystem.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20220104204932_Teszt6")]
-    partial class Teszt6
+    [Migration("20220105090939_Teszt9")]
+    partial class Teszt9
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,9 +54,6 @@ namespace DoctorSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("users");
-
-                    b
-                        .HasCharSet("utf8");
                 });
 #pragma warning restore 612, 618
         }

@@ -36,12 +36,14 @@ export class UserService {
 
   register() {
     var body = {
-      FullName: this.formModel.value.FullName,
-      TAJnumber: this.formModel.value.UserName,
-      Email: this.formModel.value.Email,
-      PhoneNumber: this.formModel.value.PhoneNumber,
-      Password: this.formModel.value.Passwords.Password
+      name: this.formModel.value.FullName,
+      medNumber: this.formModel.value.TAJnumber,
+      email: this.formModel.value.Email,
+      phoneNumber: this.formModel.value.PhoneNumber,
+      password: this.formModel.value.Passwords.Password
     };
+console.log(this.formModel.value.Passwords);
+    console.log(body);
     return this.http.post(this.BaseURI + '/public/register', body);
   }
 
