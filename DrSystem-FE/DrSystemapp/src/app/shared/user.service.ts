@@ -37,7 +37,7 @@ export class UserService {
   register() {
     var body = {
       FullName: this.formModel.value.FullName,
-      TAJnumber: this.formModel.value.UserName,
+      TAJnumber: this.formModel.value.TAJnumber,
       Email: this.formModel.value.Email,
       PhoneNumber: this.formModel.value.PhoneNumber,
       Password: this.formModel.value.Passwords.Password
