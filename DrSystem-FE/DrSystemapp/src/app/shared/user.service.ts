@@ -8,19 +8,16 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class UserService {
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
-  readonly BaseURI = 'localhost:44347';
+  readonly BaseURI = 'http://localhost:44347';
 
   formModel = this.fb.group({
-    FullName:['', Validators.required],
-    TAJnumber: ['', Validators.required],
-    Email: ['', Validators.email],
-   PhoneNumber:['', Validators.required],
-    Passwords: this.fb.group({
+      FullName:['', Validators.required],
+      TAJnumber: ['', Validators.required],
+      Email: ['', Validators.email],
+      PhoneNumber:['', Validators.required],
       Password: ['', [Validators.required, Validators.minLength(4)]],
       ConfirmPassword: ['', Validators.required]
-    }, { validator: this.comparePasswords })
-
-  });
+    });
 
   comparePasswords(fb: FormGroup) {
     let confirmPswrdCtrl = fb.get('ConfirmPassword');
@@ -40,9 +37,8 @@ export class UserService {
       medNumber: this.formModel.value.TAJnumber,
       email: this.formModel.value.Email,
       phoneNumber: this.formModel.value.PhoneNumber,
-      password: this.formModel.value.Passwords.Password
+      password: this.formModel.value.Password
     };
-console.log(this.formModel.value.Passwords);
     console.log(body);
     return this.http.post(this.BaseURI + '/public/register', body);
   }
