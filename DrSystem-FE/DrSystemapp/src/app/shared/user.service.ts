@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { RegisterModel } from '../model/registerModel';
+import { LostPasswordModel } from '../model/lostPasswordModel';
+import { LoginModel } from '../model/loginModel';
+import { catchError, map, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -31,23 +35,57 @@ export class UserService {
     }
   }
 
-  register() {
-    var body = {
-      name: this.formModel.value.FullName,
-      medNumber: this.formModel.value.TAJnumber,
-      email: this.formModel.value.Email,
-      phoneNumber: this.formModel.value.PhoneNumber,
-      password: this.formModel.value.Password
-    };
-    console.log(body);
-    return this.http.post(this.BaseURI + '/public/register', body);
-  }
-
-  login(formData: any) {
-    return this.http.post(this.BaseURI + '/public/login', formData);
-  }
-
   getUserProfile() {
     return this.http.get(this.BaseURI + '/public/lost-password');
+  }
+
+  urlBase : string = "http://localhost:44347";
+  registerUrl : string = this.urlBase +  "/public/register";
+  loginUrl : string = this.urlBase +  "/public/login";
+  lostPasswordUrl : string = this.urlBase +  "/public/lost-password";
+
+  login(body: LoginModel) {
+    console.log('login called');
+    return this.callPostBackend(body, this.loginUrl);
+  }
+  
+  lostPassword(body: LostPasswordModel) {
+    console.log('lost-password called');
+    return this.callPostBackend(body, this.lostPasswordUrl);
+  }
+
+  register(body: RegisterModel) {
+    console.log('register called');
+    return this.callPostBackend(body, this.registerUrl);
+  }
+
+  callPostBackend(body: Object, url: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    const bodyJson : string = JSON.stringify(body);
+    console.log(bodyJson);
+    return this.http.post(url, body).pipe(map((response: Object) => {
+      console.log('post called with response: ' + JSON.stringify(response));
+      return response;
+    }));
+  }
+
+  callPutBackend(body: Object, url: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    const bodyJson : string = JSON.stringify(body);
+    console.log(bodyJson);
+    return this.http.put(url, body).pipe(map((response: Object) => {
+      console.log('put called with response: ' + JSON.stringify(response));
+      return response;
+    }));
   }
 }
