@@ -15,23 +15,21 @@ namespace DoctorSystem.Dtos
 
         public UserDto(User user)
         {
-            this.Id = user.Id;
-            this.FirstName = user.FirstName;
-            this.LastName = user.LastName;
+            this.UserId = user.Id;
+            this.Name = user.Name;
             this.MedNumber = user.MedNumber;
             this.Email = user.Email;
             this.Password = user.Password;
             this.Member = user.Member;
-            //this.Active = user.Active;
+            this.PhoneNumber = user.PhoneNumber;
         }
 
-        public string Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string UserId { get; set; }
+        public string Name { get; set; }
         public string MedNumber { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string PhoneNumber { get; set; }
         public bool Member { get; set; }
-        //public bool Active { get; set; }
     }
 }
