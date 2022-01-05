@@ -10,7 +10,7 @@
 
       <!-- The following menu items will be hidden on both SM and XS screen sizes -->
 
-      <a routerLink="/login" mat-button>Log in</a>
+      <a routerLink="/login" class="active" mat-button>Log in</a>
 
       <a routerLink="/register" mat-button>Registration</a>
 
@@ -20,8 +20,8 @@
 
     <div fxShow="true" fxHide.gt-sm="true">
 
-      <a href="#" (click)="sidenav.toggle()">Show Side Menu</a>
-
+     
+      <a routerLink="/login" (click)="sidenav.toggle()"> <mat-icon class="mat-icon-rtl-mirror" svgIcon="thumb-up">Menu</mat-icon></a>
     </div>
 
   </mat-toolbar>
@@ -34,9 +34,9 @@
 
         <a (click)="sidenav.toggle()" href="#" mat-button>Close</a>
 
-        <a href="#" mat-button>Log in</a>
+        <a routerLink="/login" mat-button>Log in</a>
 
-        <a href="#" mat-button>Registration</a>
+        <a routerLink="/register" mat-button>Registration</a>
 
         
 
