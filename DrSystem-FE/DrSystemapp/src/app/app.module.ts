@@ -1,48 +1,46 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-
-import { AdminComponent } from './admin/admin.component';
-import { ToolbarComponent } from './toolbar/toolbar.component'
-import {MaterialExampleModule} from '../material.module';
-
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatNativeDateModule} from '@angular/material/core';
-import {HttpClientModule} from '@angular/common/http';
-import { MatToolbarModule} from '@angular/material/toolbar';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { HomeComponent } from './home/home.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './user/registration/registration.component';
+import { UserService } from './shared/user.service';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+   
+    HomeComponent,
+    UserComponent,
     LoginComponent,
-    RegisterComponent,
-    AdminComponent,
+    RegistrationComponent,
     ToolbarComponent
-    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    MatToolbarModule,
-    BrowserModule,
-    FormsModule,
     HttpClientModule,
-    MatNativeDateModule,
-    MaterialExampleModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
-    
+    ToastrModule.forRoot({
+      progressBar: true
+    }),
+    FormsModule
   ],
-  providers: [],
+  providers: [UserService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
