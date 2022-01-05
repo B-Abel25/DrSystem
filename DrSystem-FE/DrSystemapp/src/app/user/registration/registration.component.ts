@@ -8,8 +8,23 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+  
+  FullName;
+  Email;
+  TAJnumber;
+  PhoneNumber;
+  Password;
+  ConfirmPassword;
+  
+  constructor(public service: UserService, private toastr: ToastrService) {
 
-  constructor(public service: UserService, private toastr: ToastrService) { }
+    this.FullName = 'Kiss Béla';
+    this.Email ="0525.b.abel@gmail.com";
+    this.TAJnumber ="123456789";
+    this.PhoneNumber = "06987654321";
+    this.Password = "asdf1234";
+    this.ConfirmPassword = "asdf1234";
+   }
 
   ngOnInit() {
     this.service.formModel.reset();
