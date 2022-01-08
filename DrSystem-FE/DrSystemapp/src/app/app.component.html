@@ -1,0 +1,14 @@
+<app-navbar></app-navbar>
+<div class="wrapper">
+    <div class="wrapped-div">
+      <div class="tab-header">
+        <h2 routerLink='/login' routerLinkActive='active'>Bejelentkezés</h2>
+        <h2 routerLink='/register' routerLinkActive='active'>Regisztráció</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
