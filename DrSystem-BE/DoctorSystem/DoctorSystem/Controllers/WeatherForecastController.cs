@@ -23,16 +23,16 @@ namespace DoctorSystem.Controllers
             _logger = logger;
         }
 
-        [Route("{summaryId}")]
+        
         [HttpGet]
-        public ActionResult<WeatherForecast> Get(int summaryId)
+        public ActionResult<WeatherForecast> Get()
         {
             var rng = new Random();
             return Ok(new WeatherForecast()
             {
                 Date = DateTime.Now.AddDays(1),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[summaryId]
+                Summary = Summaries[3]
             });
         }
     }

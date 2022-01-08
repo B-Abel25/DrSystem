@@ -12,11 +12,11 @@ import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { Axios } from 'axios';
+
 
 @NgModule({
   declarations: [
-    Axios,
+   
     AppComponent,
     LoginComponent,
     RegisterComponent,

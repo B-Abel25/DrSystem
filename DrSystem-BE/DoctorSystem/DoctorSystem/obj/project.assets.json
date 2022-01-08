@@ -6909,25 +6909,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\0525b\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\fgeri\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\GIT\\DoctorSystem\\DoctorSystem\\DoctorSystem.csproj",
+      "projectUniqueName": "C:\\Repo\\DrSystem\\DrSystem-BE\\DoctorSystem\\DoctorSystem\\DoctorSystem.csproj",
       "projectName": "DoctorSystem",
-      "projectPath": "F:\\GIT\\DoctorSystem\\DoctorSystem\\DoctorSystem.csproj",
-      "packagesPath": "C:\\Users\\0525b\\.nuget\\packages\\",
-      "outputPath": "F:\\GIT\\DoctorSystem\\DoctorSystem\\obj\\",
+      "projectPath": "C:\\Repo\\DrSystem\\DrSystem-BE\\DoctorSystem\\DoctorSystem\\DoctorSystem.csproj",
+      "packagesPath": "C:\\Users\\fgeri\\.nuget\\packages\\",
+      "outputPath": "C:\\Repo\\DrSystem\\DrSystem-BE\\DoctorSystem\\DoctorSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\0525b\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\fgeri\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -6997,12 +7000,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.13, 5.0.13]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -7011,7 +7008,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

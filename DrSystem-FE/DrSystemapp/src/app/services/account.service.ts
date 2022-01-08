@@ -3,7 +3,7 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { map } from 'rxjs';
 import { LoginModel } from '../models/loginModel';
 import { RegisterModel } from '../models/registerModel';
-import { Axios } from 'axios';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +20,9 @@ export class AccountService {
  
    }
   
-   urlBase : string = "http://localhost:44347";
-   registerUrl : string = this.urlBase +  "/public/register";
-   loginUrl : string = this.urlBase +  "/public/login";
+   urlBase : string = 'https://localhost:5001/';
+   registerUrl : string = this.urlBase +  'public/register';
+   loginUrl : string = this.urlBase +  'public/login';
   // lostPasswordUrl : string = this.urlBase +  "/public/lost-password";
   // newPasswordUrl : string = this.urlBase +  "/public/new-password";
  
@@ -37,6 +37,9 @@ export class AccountService {
      console.log(this.registerUrl);
      return this.callPostBackend(body, this.registerUrl);
    }
+  
+
+   
  
    callPostBackend(body: Object, url: string) {
      
@@ -45,7 +48,7 @@ export class AccountService {
           'Content-Type':  'application/json'
         })
       };
-  /*
+  console.log(url);
       const bodyJson : string = JSON.stringify(body);
       console.log(bodyJson);
       return this.http.post(url, body).pipe(map((response: Object) => {
@@ -53,17 +56,9 @@ export class AccountService {
         console.log(response);
         return response;
       }));
-*/
-      const axios = require('axios').default;
-      axios.post(url,body)
-      .then(function (response: Object){
-        // handle success
-        console.log(response);
-      });
+    }
       
-      
-   }
- //TODO dlsfikjhdsl
+ 
    callPutBackend(body: Object, url: string) {
      const httpOptions = {
        headers: new HttpHeaders({

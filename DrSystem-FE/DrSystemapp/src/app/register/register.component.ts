@@ -13,14 +13,15 @@ export class RegisterComponent implements OnInit {
   modalRef!: BsModalRef;
   constructor(private modalService: BsModalService, private accountService: AccountService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.register();
   }
   register() {
     console.log('register called');
-    this.accountService.register(this.registerModel);/*.subscribe((response: any) => {
+    this.accountService.register(this.registerModel).subscribe((response) => {
       console.log(response);
     });
     console.log(this.registerModel)
-*/
+
   }
 }
