@@ -1,0 +1,61 @@
+html{
+    background-color:blue;
+    
+}
+
+input.form-control,input.form-control:focus{
+    background-color: #fbfbfb;
+    color: #fff;
+    border: 1px solid #636b7b;
+
+}
+
+input.form-control:focus{
+    box-shadow: none;
+}
+
+button[type=submit].btn{
+    
+    border-radius: 20px;
+    background-color: #77b6e9;
+    color: rgb(8, 2, 61);
+}
+
+div.form-group label:not(.text-danger){
+    color: #ffffff;
+    font-weight: 700;
+}
+
+div.form-group.required>label:first-child:after{
+    content:'*';
+    color: #fff;
+    padding-left: 5px;
+}
+
+#toast-container > div {
+    opacity:1;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+  }
+
+ 
+
+  
+  form{
+      margin: 0px 16px;
+  }
+
+ div.form-group input.invalid{
+    border: 1px solid #dc3545; 
+ }
+ div.form-group label:first-child{
+    text-transform: uppercase;
+    font-size: 0.9rem;
+ }
