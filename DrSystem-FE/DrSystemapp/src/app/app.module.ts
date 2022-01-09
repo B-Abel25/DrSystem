@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    HomepageComponent
+    HomepageComponent,
+    AdminLoginComponent
   ],
   imports: [
     ModalModule.forRoot(),FormsModule,

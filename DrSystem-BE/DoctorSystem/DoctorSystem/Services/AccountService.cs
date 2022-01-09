@@ -35,7 +35,7 @@ namespace DoctorSystem.Services
             this._customDbContext._users.Add(user);
             this._customDbContext.SaveChanges();
 
-            string content = $"<h1>Ezt az emailt azért kapja mert regisztrált a DrSystem-be</h1>"+
+            string content = $"<h1>Ezt az emailt azért kapja mert regisztrált a DrSystem-be kedves "+user.Name+"</h1>"+
                 "<p>Amint az Doktor úr/Doktornő elfogadja vagy elutasítja jelentkezési kérelmét azonnal értesítjük emailbe.</p>";
             this._emailService.sendEmail(registerDto.Email, content, "Regisztráció visszajelzése");
         }
