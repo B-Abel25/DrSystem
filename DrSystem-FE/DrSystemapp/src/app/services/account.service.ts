@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { map } from 'rxjs';
 import { LoginModel } from '../models/loginModel';
+import { LostPasswordModel } from '../models/lostPasswordModel';
+import { NewPasswordModel } from '../models/newPasswordModel';
 import { RegisterModel } from '../models/registerModel';
 
 
@@ -9,6 +11,8 @@ import { RegisterModel } from '../models/registerModel';
   providedIn: 'root'
 })
 export class AccountService {
+  
+  
   @Output() loggedInEvent = new EventEmitter();
   users: any
   loggedIn: boolean = false
@@ -23,8 +27,8 @@ export class AccountService {
    urlBase : string = 'https://localhost:5001/';
    registerUrl : string = this.urlBase +  'public/register';
    loginUrl : string = this.urlBase +  'public/login';
-  // lostPasswordUrl : string = this.urlBase +  "/public/lost-password";
-  // newPasswordUrl : string = this.urlBase +  "/public/new-password";
+   lostPasswordUrl : string = this.urlBase +  "/public/lost-password";
+  newPasswordUrl : string = this.urlBase +  "/public/new-password";
  
    login(body: LoginModel) {
 
@@ -37,8 +41,14 @@ export class AccountService {
      console.log(this.registerUrl);
      return this.callPostBackend(body, this.registerUrl);
    }
-  
-
+   lostPassword(body: LostPasswordModel) {
+    console.log('lost-password called');
+    return this.callPostBackend(body, this.lostPasswordUrl);
+  }
+  setNewPassword(body: NewPasswordModel) {
+    console.log('new-password called wtih token: ' + body.token);
+    return this.callPutBackend(body, this.newPasswordUrl);
+  }
    
  
    callPostBackend(body: Object, url: string) {

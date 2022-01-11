@@ -6,7 +6,7 @@ html{
 input.form-control,input.form-control:focus{
     background-color: #fbfbfb;
     color: rgb(2, 3, 65);
-    border: 1px solid #636b7b;
+    border: 1px solid #22458b;
 
 }
 
@@ -22,13 +22,13 @@ button[type=submit].btn{
 }
 
 div.form-group label:not(.text-danger){
-    color: #ffffff;
+    color: #11176b;
     font-weight: 700;
 }
 
 div.form-group.required>label:first-child:after{
     content:'*';
-    color: #fff;
+    color: rgb(255, 255, 255);
     padding-left: 5px;
 }
 

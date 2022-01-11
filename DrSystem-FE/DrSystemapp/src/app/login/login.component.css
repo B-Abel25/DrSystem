@@ -5,8 +5,8 @@ html{
 
 input.form-control,input.form-control:focus{
     background-color:#fbfbfb;
-    color: #fff;
-    border: 1px solid #636b7b;
+    color: rgb(10, 17, 56);
+    border: 1px solid #1950bd;
 
 }
 
@@ -17,11 +17,11 @@ input.form-control:focus{
 button[type=submit].btn{
     border-radius: 20px;
     background-color: #77b6e9;
-    color: #fff;
+    color: rgb(10, 16, 68);
 }
 
 div.form-group label:not(.text-danger){
-    color: #545d6a;
+    color: #082042;
     font-weight: 700;
 }
 
@@ -46,4 +46,8 @@ div.form-group.required>label:first-child:after{
  div.form-group label:first-child{
     text-transform: uppercase;
     font-size: 0.9rem;
+ }
+ #link{
+     
+     text-align: center;
  }
