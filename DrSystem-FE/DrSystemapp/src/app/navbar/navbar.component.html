@@ -10,13 +10,23 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 " *ngIf="!loggedIn">
           
           <li class="nav-item">
             <a class="nav-link" routerLink="/login" routerLinkActive="active">Bejelentkezés</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/register" routerLinkActive="active">Regisztráció</a>
+          </li>
+          
+        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 " *ngIf="loggedIn">
+          
+          <li class="nav-item">
+            <a class="nav-link" routerLink="" routerLinkActive="active">Időpont foglalás </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="" routerLinkActive="active">Panasz</a>
           </li>
           
         </ul>
