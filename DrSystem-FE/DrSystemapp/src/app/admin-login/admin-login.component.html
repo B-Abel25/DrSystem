@@ -1,15 +1,28 @@
-<!-- <form #loginForm class="mb-4" autocomplete="off" (ngSubmit)="login()">
-    <div class="form-group">
-      <label>Felhasználónév</label>
-      <input class="form-control" id="medNumber"  name="medNumber" [(ngModel)]="loginModel.medNumber" required>
-    </div>
-    <div class="form-group">
-      <label>Jelszó</label>
-      <input type="password" class="form-control"  name="password" [(ngModel)]="loginModel.password" required>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-8 offset-md-2">
-        <button type="submit" class="btn btn-lg btn-block" [disabled]="modalRef.hide()">Belépés</button>
+<div class="modal-body" >
+  <form #loginFrom (ngSubmit)="adminlogin()" autocomplete="off">
+  
+
+      <div class="form-group">
+          <label for="email">Email cím</label>
+          <input name="email" type="email" class="form-control" id="email" 
+          [(ngModel)]="adminLoginModel.email">
       </div>
-    </div>
-  </form> -->
+      <div class="form-group">
+          <label for="password">Jelszó</label>
+          <input name="password" type="password" class="form-control" id="password" 
+          [(ngModel)]="adminLoginModel.password">
+      </div>
+  
+      <div class="checkbox mb-3">
+          <label>
+          <input type="checkbox" value="remember-me"> Emlékezz rám
+          </label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit" (click)="modalRef.hide()">Belépés</button>
+  </form>  
+  <br>
+  
+
+</div>
+
+

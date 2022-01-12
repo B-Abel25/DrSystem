@@ -1,3 +1,3 @@
 export class LostPasswordModel {
-    email!: string;  
+    medNumber!: string;  
 }

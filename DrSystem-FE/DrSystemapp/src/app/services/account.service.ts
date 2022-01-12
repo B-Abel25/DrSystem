@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { map } from 'rxjs';
+import { AdminLoginModel } from '../models/adminLoginModul';
 import { LoginModel } from '../models/loginModel';
 import { LostPasswordModel } from '../models/lostPasswordModel';
 import { NewPasswordModel } from '../models/newPasswordModel';
@@ -27,9 +28,9 @@ export class AccountService {
    urlBase : string = 'https://localhost:5001/';
    registerUrl : string = this.urlBase +  'public/register';
    loginUrl : string = this.urlBase +  'public/login';
-   lostPasswordUrl : string = this.urlBase +  "/public/lost-password";
-  newPasswordUrl : string = this.urlBase +  "/public/new-password";
- 
+   lostPasswordUrl : string = this.urlBase +  "public/lost-password";
+  newPasswordUrl : string = this.urlBase +  "public/new-password";
+ adminLogin: string =this.urlBase+ "public/adminlogin";
    login(body: LoginModel) {
 
      console.log('login called');
@@ -48,6 +49,11 @@ export class AccountService {
   setNewPassword(body: NewPasswordModel) {
     console.log('new-password called wtih token: ' + body.token);
     return this.callPutBackend(body, this.newPasswordUrl);
+  }
+  adminlogin(body: AdminLoginModel) {
+
+    console.log('login called');
+    return this.callPostBackend(body, this.loginUrl);
   }
    
  
