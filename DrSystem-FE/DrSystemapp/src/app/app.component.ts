@@ -10,11 +10,18 @@ export class AppComponent implements OnInit {
   title = 'DrSystemapp';
   users:any;
   @Output() loggedInEvent = new EventEmitter();
+  @Output() adminloggedInEvent= new EventEmitter();
   loggedIn: boolean = false;
+  adminloggedIn: boolean=false;
   constructor(private http:HttpClient) {}
     handleLogin(state: boolean) {
       this.loggedIn = state
       this.loggedInEvent.emit(this.loggedIn);
+   
+     }
+     adminhandleLogin(state: boolean) {
+      this.adminloggedIn = state
+      this.adminloggedInEvent.emit(this.adminloggedIn);
    
      }
   
