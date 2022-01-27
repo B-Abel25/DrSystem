@@ -12,11 +12,12 @@ import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { AdminLoginComponent } from './admin-login/admin-login.component';
-import { LostpasswordComponent } from './lostpassword/lostpassword.component';
-import { NewpasswordComponent } from './newpassword/newpassword.component';
-import { UserLoginComponent } from './user-login/user-login.component';
 
+
+
+import{ToastrModule} from 'ngx-toastr';
+
+import { LostPasswordRequestComponent } from './lostpassword/lost-password-request/lost-password-request.component';
 
 @NgModule({
   declarations: [
@@ -26,17 +27,22 @@ import { UserLoginComponent } from './user-login/user-login.component';
     RegisterComponent,
     NavbarComponent,
     HomepageComponent,
-    AdminLoginComponent,
-    LostpasswordComponent,
-    NewpasswordComponent,
-    UserLoginComponent
+    
+    LostPasswordRequestComponent,
+    
+  
+  
+    
   ],
   imports: [
     ModalModule.forRoot(),FormsModule,
     BrowserModule, HttpClientModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    ToastrModule.forRoot({
+      positionClass:'toast-bottom-right'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

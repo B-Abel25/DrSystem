@@ -1,2 +1,6 @@
-<p *ngIf="!loggedIn"><app-user-login></app-user-login></p>
-<p *ngIf="loggedIn"><app-homepage></app-homepage></p>
+<app-navbar></app-navbar>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
+   
+

@@ -1,7 +1,4 @@
-html{
-    background-color:blue;
-    
-}
+
 
 input.form-control,input.form-control:focus{
     background-color:#fbfbfb;
@@ -50,4 +47,62 @@ div.form-group.required>label:first-child:after{
  #link{
      
      text-align: center;
+    
  }
+
+ .btn {
+color:#fff
+
+ }
+ 
+
+
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+
+  .wrapped-div {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #5384e7;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  }
+
+  /* Tabs
+.tab-header{
+    text-align: center;
+}
+
+  .tab-header h2.active {
+    color: #fff;
+    border-bottom: 4px solid #fff;
+  }
+
+  .tab-header h2 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    display:inline-block;
+    padding: 30px 40px 10px 40px;
+    cursor: pointer;
+    color: #041a38;
+    border-bottom: 2px solid #051c3b;
+  }
+
+  .tab-header h2:focus {
+      outline: none;
+  } */
+
+ 

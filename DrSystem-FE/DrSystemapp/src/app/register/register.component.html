@@ -1,44 +1,84 @@
-<form #loginForm autocomplete="off" (ngSubmit)="register()" >
+<div class="container">
+  
+  <div class="wrapped-div">
+    
+    <div class="row" >
+      <div class="col-md-10 offset-md-1 " >
+<form class="form-inline" #loginForm="ngForm" autocomplete="off" (ngSubmit)="register()" >
+  <br>
+  
+
     <div class="form-group required">
       <label>Teljes név</label>
-      <input class="form-control" id="name" name="name" type="text" [(ngModel)]="registerModel.name" required>
-      <!-- <label class="text-danger" *ngIf="service.formModel.get('name')?.touched && service.formModel.get('name')?.errors">Szükséges mező!</label> -->
+      <input class="form-control" id="name" name="name" type="text" [(ngModel)]="model.name" required>
     </div>
+
+  <div class="form-group col-5 required">
+    <label>Születési dátum</label>
+    <input class="form-control" id="name" name="name" type="date" [(ngModel)]="model.DateOfBirth" required>
+  </div>
+
+  <div class="form-group   col-5 required">
+   
+      <label>Irányítószám</label>
+      <input class="form-control" id="name" name="name" type="number" [(ngModel)]="model.PostCode" required>
+      
+   
+   
+  </div>
+  <div class="form-group   col-5 required">
+   
+    <label>Város</label>
+    <input class="form-control" id="name" name="name" type="text" [(ngModel)]="model.city" required>
+    </div>
+
+    <div class="form-group   col-5 required">
+   
+      <label>Utca</label>
+      <input class="form-control" id="name" name="name" type="text" [(ngModel)]="model.Street" required>
+     </div>
+     <div class="form-group   col-5 required">
+   
+      <label>Házszám</label>
+      <input class="form-control" id="name" name="name" type="number" [(ngModel)]="model.HouseNumber" required>
+      
+      </div>
+   
+
     <div class="form-group required">
       <label>TAJ-szám</label>
-      <input class="form-control" name="medNumber" id="medNumber" type="text" [(ngModel)]="registerModel.medNumber" required>
-      <!-- <label class="text-danger" *ngIf="service.formModel.get('medNumber')?.touched && service.formModel.get('medNumber')?.errors">Szükséges mező!</label> -->
+      <input class="form-control" name="medNumber" id="medNumber" type="text" [(ngModel)]="model.medNumber" required>
+     
     </div>
     <div class="form-group required">
       <label>Email cím</label>
-      <input class="form-control" name="email" id="email" type="email" [(ngModel)]="registerModel.email">
-      <!--<label class="text-danger" *ngIf="service.formModel.get('email')?.touched && service.formModel.get('email')?.errors">Nem megfelelő email cím!</label>!-->
+      <input class="form-control" name="email" id="email" type="email" [(ngModel)]="model.email">
+      
     </div>
     <div class="form-group required">
       <label>Telefonszám</label>
-      <input class="form-control" name="phoneNumber" [(ngModel)]="registerModel.phoneNumber">
-      <!--<label class="text-danger" *ngIf="service.formModel.get('phoneNumber')?.touched && service.formModel.get('phoneNumber')?.errors">Szükséges mező!</label> -->
+      <input class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber">
+     
     </div>
    
       <div class="form-group required">
         <label>Jelszó</label>
-        <input type="password" class="form-control" name="password" id="password"[(ngModel)]="registerModel.password" >
-        <!-- <label class="text-danger" *ngIf="service.formModel.get('password')?.touched && service.formModel.get('password')?.errors">Jelszó megadása szükséges!</label> -->
-        <!-- <label class="text-danger" *ngIf="service.formModel.get('Password')?.touched && service.formModel.get('Password')?.errors">Minimum 8 karakter!</label> -->
-      </div>
-      <!-- <div class="form-group required">
-        <label>Jelszó megerősítése</label>
-        <input type="password" class="form-control" formControlName="ConfirmPassword" [(ngModel)]="ConfirmPassword" value="asdf1234">
-        <!-- <label class="text-danger" *ngIf="service.formModel.get('ConfirmPassword')?.touched && service.formModel.get('ConfirmPassword')?.errors">Jelszó megerősítése szükséges!</label> -->
-        <!-- <label class="text-danger" *ngIf="service.formModel.get('ConfirmPassword')?.touched && service.formModel.get('ConfirmPassword')?.errors">Nem egyezik a jelszó!</label> -->
-      <!-- </div> -->
-      <br>
-    <div class="form-row">
-      <div class="form-group col-md-8 offset-md-2">
+        <input type="password" class="form-control" name="password" id="password"[(ngModel)]="model.password" >
         
-        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="modalRef.hide()">Register</button>
+      </div>
+      <br>
+      <div class="form-row">
+        <div class="form-group col-md-8 offset-md-2">
+          
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+        </div>
+      </div>
+      
+         </form>
+  
+  <br>
       </div>
     </div>
-  </form>
-  <br>
+  </div>
+  
 

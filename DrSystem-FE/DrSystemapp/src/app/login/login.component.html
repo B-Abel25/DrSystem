@@ -1,4 +1,9 @@
 
+  <div class="container">
+    <div class="wrapped-div">
+      
+      <div class="row" >
+        <div class="col-md-10 offset-md-1 " >
   <div class="modal-body" >
     <form #loginFrom (ngSubmit)="login()" autocomplete="off">
     
@@ -6,12 +11,12 @@
         <div class="form-group">
             <label for="medNumber">TAJ-szám</label>
             <input name="medNumber" type="text" class="form-control" id="medNumber" 
-            [(ngModel)]="loginModel.medNumber">
+            [(ngModel)]="model.medNumber">
         </div>
         <div class="form-group">
             <label for="password">Jelszó</label>
             <input name="password" type="password" class="form-control" id="password" 
-            [(ngModel)]="loginModel.password">
+            [(ngModel)]="model.password">
         </div>
     
         <div class="checkbox mb-3">
@@ -19,11 +24,16 @@
             <input type="checkbox" value="remember-me"> Emlékezz rám
             </label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" (click)="modalRef.hide()">Belépés</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" >Belépés</button>
     </form>  
     <br>
     <p id="link"><a class="btn btn-link p-0" routerLink="/register">Nincs fiókja?</a></p>
-    <p id="link"><app-lostpassword (lostPasswordOpenedEvent) = "closeModal()"></app-lostpassword></p> 
+    <p id="link"><app-lost-password-request (lostPasswordOpenedEvent) = "closeModal()"></app-lost-password-request></p>
 
 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
