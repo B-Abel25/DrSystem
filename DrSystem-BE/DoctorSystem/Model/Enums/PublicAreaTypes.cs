@@ -1,0 +1,43 @@
+﻿namespace DoctorSystem.Model.Enums
+{
+    public enum PublicAreaTypes
+    {
+        árok,
+        átjáró,
+        dűlő,
+        dűlőút,
+        erdősor,
+        fasor,
+        forduló,
+        gát,
+        határsor,
+        határút,
+        kapu,
+        körönd,
+        körtér,
+        körút,
+        köz,
+        lakótelep,
+        lejáró,
+        lejtő,
+        lépcső,
+        liget,
+        mélyút,
+        orom,
+        ösvény,
+        park,
+        part,
+        pincesor,
+        rakpart,
+        sétány,
+        sikátor,
+        sor,
+        sugárút,
+        tér,
+        tere,
+        udvar,
+        út,
+        utca,
+        üdülőpart
+    }
+}

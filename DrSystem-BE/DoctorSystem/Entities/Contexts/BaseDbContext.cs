@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DoctorSystem.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,10 @@ namespace DoctorSystem.Entities.Contexts
         }
 
         public virtual DbSet<User> _users { get; set; }
-
+        public virtual DbSet<Doctor> _doctors { get; set; }
+        public virtual DbSet<Place> _place { get; set; }
+        public virtual DbSet<County> _county { get; set; }
+        public virtual DbSet<City> _city { get; set; }
 
 
 
@@ -39,7 +43,7 @@ namespace DoctorSystem.Entities.Contexts
             //    });
         }
 
-
+        /*
         protected override void OnModelCreating(ModelBuilder objModelBuilder)
         {
             objModelBuilder.Entity<User>().ToTable("users");
@@ -48,6 +52,8 @@ namespace DoctorSystem.Entities.Contexts
             //TODO: Ez ide miért kell? 
             base.OnModelCreating(objModelBuilder);
         }
+        */
+
         //ctrl+shift+b --> build
         //cd doc [TAB]
         //dotnet ef migrations add Teszt2 --context BaseDbContext
