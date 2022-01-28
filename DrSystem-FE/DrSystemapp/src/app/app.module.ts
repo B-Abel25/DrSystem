@@ -18,6 +18,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import{ToastrModule} from 'ngx-toastr';
 
 import { LostPasswordRequestComponent } from './lostpassword/lost-password-request/lost-password-request.component';
+import { BookingComponent } from './users/booking/booking.component';
+import { ComplaintComponent } from './users/complaint/complaint.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { LostPasswordRequestComponent } from './lostpassword/lost-password-reque
     HomepageComponent,
     
     LostPasswordRequestComponent,
+          BookingComponent,
+          ComplaintComponent,
+          NewPasswordComponent,
     
   
   

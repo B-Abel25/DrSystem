@@ -4,26 +4,32 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import { LoginComponent } from './login/login.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
+
 
 import { RegisterComponent } from './register/register.component';
+import { BookingComponent } from './users/booking/booking.component';
+import { ComplaintComponent } from './users/complaint/complaint.component';
 
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
-
-  {path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+ {path: 'new-password/:id', component: NewPasswordComponent},
+  {path: '', component: LoginComponent},
   
   {
     path:'',
     runGuardsAndResolvers:'always',
     canActivate: [AuthGuard],
     children:[
+      {path: 'booking', component: BookingComponent},
+      {path: 'complaint', component: ComplaintComponent},
       
     ]
   },
- 
+  {path: '**', component: LoginComponent, pathMatch: 'full'},
  
  
   
