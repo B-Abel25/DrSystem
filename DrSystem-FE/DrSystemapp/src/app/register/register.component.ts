@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { RegisterModel } from '../models/registerModel';
-import { AccountService } from '../services/account.service';
+import { ToastrService } from 'ngx-toastr';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-register',
@@ -9,19 +9,24 @@ import { AccountService } from '../services/account.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerModel: RegisterModel = new RegisterModel();
-  modalRef!: BsModalRef;
-  constructor(private modalService: BsModalService, private accountService: AccountService) { }
+  
+  @Output() cancelRegister= new EventEmitter();
+model: any={}
+  constructor(private accountService:AccountService, private toatsr:ToastrService) { }
 
-  ngOnInit() {
-    this.register();
+  ngOnInit(): void {
   }
-  register() {
-    console.log('register called');
-    this.accountService.register(this.registerModel).subscribe((response) => {
-      console.log(response);
-    });
-    console.log(this.registerModel)
+register(){
+  this.accountService.register(this.model).subscribe(response=>{
+    console.log(response);
+    this.cancel();
+  }, error=>{
+    console.log(error);
+    this.toatsr.error(error.error);
 
+  })
+}
+cancel(){
+  this.cancelRegister.emit(false);
   }
 }

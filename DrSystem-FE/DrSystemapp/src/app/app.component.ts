@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'DrSystemapp';
   users:any;
-  constructor(private http:HttpClient) {
-
-  }
+  @Output() loggedInEvent = new EventEmitter();
+  @Output() adminloggedInEvent= new EventEmitter();
+  loggedIn: boolean = false;
+  adminloggedIn: boolean=false;
+  constructor(private http:HttpClient) {}
+    handleLogin(state: boolean) {
+      this.loggedIn = state
+      this.loggedInEvent.emit(this.loggedIn);
+   
+     }
+     adminhandleLogin(state: boolean) {
+      this.adminloggedIn = state
+      this.adminloggedInEvent.emit(this.adminloggedIn);
+   
+     }
+  
   ngOnInit() {
     this.getUsers();
   }
@@ -24,3 +37,5 @@ export class AppComponent implements OnInit {
     console.log(error);
   })
 }}
+
+

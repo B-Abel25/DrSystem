@@ -1,7 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { LoginModel } from '../models/loginModel';
-import { AccountService } from '../services/account.service';
+import { ToastrService } from 'ngx-toastr';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -9,50 +10,51 @@ import { AccountService } from '../services/account.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent  {
-  loggedIn: boolean = false
-  loginModel: LoginModel = new LoginModel();
+  public model: any={}
+  loggedIn: boolean = false;
   modalRef!: BsModalRef;
-  constructor(private modalService: BsModalService, private accountService: AccountService) { }
+  constructor(public accountService:AccountService, private router:Router, private toastr: ToastrService,private modalService: BsModalService ) { }
 
-  
-  login() {
-    
-    // this.loggedIn = true
-    // this.loggedInEvent.emit(this.loggedIn);
-    this.accountService.login(this.loginModel).subscribe((response: any) => {
-      console.log(response);
-      this.loggedIn = true;
-      this.accountService.handleLogin(true);
-    }, (error: any) => {
-      console.log(error);
-    });
-
-  
-    // console.log('login with ' + this.loginModel.username)
+  ngOnInit(): void {
+   
+    this.getCurrentUser();
   }
-
-  logout() {
-    this.loggedIn = false;
-
-    this.accountService.handleLogin(false);
-    // this.loggedIn = false
-    // this.loggedInEvent.emit(this.loggedIn);
-    // console.log('logging out')
-  }
+login(){
+ this.accountService.login(this.model).subscribe(response=>{
+  this.router.navigateByUrl('/booking');
+   this.loggedIn=true;
+   }, error=>{
+   console.log(error);
+   this.toastr.error(error.error);
+ })
+}
+logout()
+{
+  this.accountService.logout();
+  this.router.navigateByUrl('/');
  
-  openModal(template: TemplateRef<any>) {
-    if (this.modalRef != null) {
-      this.modalRef.hide();
+}
+getCurrentUser(){
+  this.accountService.currentUser$.subscribe(user=>{
+    this.loggedIn=!!user;
+  }, error=>{
+console.log(error);
+  });
+  
+}
 
-    }
-    this.modalRef = this.modalService.show(template);
+openModal(template: TemplateRef<any>) {
+  if (this.modalRef != null) {
+    this.modalRef.hide();
+
   }
-  closeModal() {
-    console.log('force close')
-    if (this.modalRef != null) {
-      this.modalRef.hide();
+  this.modalRef = this.modalService.show(template);
+}
+closeModal() {
+  console.log('force close')
+  if (this.modalRef != null) {
+    this.modalRef.hide();
 
-    }
   }
-
+}
 }
