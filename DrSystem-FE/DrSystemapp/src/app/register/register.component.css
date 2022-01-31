@@ -49,9 +49,7 @@ div.form-group.required>label:first-child:after{
      
      text-align: center;
  }
- .wrapper{
-    background-color: blue;
-}
+ 
 
 .container{
     display: flex;

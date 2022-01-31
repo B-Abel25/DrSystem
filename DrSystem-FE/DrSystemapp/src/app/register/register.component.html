@@ -4,13 +4,13 @@
     
     <div class="row" >
       <div class="col-md-10 offset-md-1 " >
-<form class="form-inline" #loginForm="ngForm" autocomplete="off" (ngSubmit)="register()" >
+<form  [formGroup]="registerForm" autocomplete="off" (ngSubmit)="register()" >
   <br>
   
 
     <div class="form-group required">
       <label>Teljes név</label>
-      <input class="form-control" id="name" name="name" type="text" [(ngModel)]="model.name" required>
+      <input class="form-control" id="name" name="name" type="text" formControlName="name" [(ngModel)]="model.name" required>
     </div>
 
   <div class="form-group col-5 required">
@@ -57,28 +57,36 @@
     </div>
     <div class="form-group required">
       <label>Telefonszám</label>
-      <input class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber">
+      <input class="form-control" name="phoneNumber" type="tel" [(ngModel)]="model.phoneNumber">
      
     </div>
 
     <div class="form-group required">
         <label>Jelszó</label>
-        <input type="password" class="form-control" name="password" id="password"[(ngModel)]="model.password" >
+        <input type="password" class="form-control" name="password" id="password" formGroupName="password" [(ngModel)]="model.password" >
+        
+      </div>
+      <div class="form-group required">
+        <label>Jelszó megerősítés</label>
+        <input type="password" class="form-control" formGroupName="confirmPassword" name="passwordConfirm" id="passwordConfirm" >
         
       </div>
       <br>
       <div class="form-row">
         <div class="form-group col-md-8 offset-md-2">
           
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Regisztráció</button>
         </div>
       </div>
       
          </form>
+ 
   
   <br>
       </div>
     </div>
   </div>
+  <p>Form value: {{registerForm.value | json}}</p>
+  <p>Form value: {{registerForm.status | json}}</p>
   
 

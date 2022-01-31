@@ -19,6 +19,7 @@ export class LostPasswordRequestComponent implements OnInit {
   @Output() lostPasswordOpenedEvent = new EventEmitter(); 
   paswwordLost: boolean = false
   public model: any={}
+  editForm: any;
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event:any){
     if (this.requestForm.dirty) {
       $event.returnValue=true;

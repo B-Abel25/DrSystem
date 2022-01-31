@@ -9,6 +9,6 @@ export interface User{
     Street:string;
     HouseNumber:string;
     Password:string;
-
+    photoUrl:string;    
     
  }
