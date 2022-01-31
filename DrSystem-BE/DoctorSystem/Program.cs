@@ -25,7 +25,8 @@ namespace DoctorSystem
             {
                 var _context = services.GetRequiredService<BaseDbContext>();
                 await _context.Database.MigrateAsync();
-                await Seed.SeedCounties(_context);
+                await Seed.SeedAddress(_context);
+                //await Seed.SeedCities(_context);
             }
             catch ( Exception e)
             {

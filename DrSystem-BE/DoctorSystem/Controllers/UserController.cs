@@ -42,7 +42,6 @@ namespace DoctorSystem.Controllers
         public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctors()
         {
            return await _context._doctors.ToListAsync();
-     
         }
     }
 }

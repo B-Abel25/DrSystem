@@ -33,7 +33,7 @@ namespace DoctorSystem.Services
             {
                 throw new AlreadyRegisteredException("MedNumber already registered");
             };
-            User user = new User(registerDto);
+            User user = new User();
 
 
 
