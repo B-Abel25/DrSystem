@@ -1,6 +1,9 @@
 import { registerLocaleData } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import { LoginComponent } from './login/login.component';
@@ -23,6 +26,10 @@ const routes: Routes = [
       
     ]
   },
+
+  {path: 'not-found', component: NotFoundComponent},
+  {path: 'server-error', component: ServerErrorComponent},
+  {path: '**', component: NotFoundComponent, pathMatch:'full'},
  
  
  

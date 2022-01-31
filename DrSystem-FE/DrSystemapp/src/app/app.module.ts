@@ -1,23 +1,29 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 
-import{ToastrModule} from 'ngx-toastr';
 
-import { LostPasswordRequestComponent } from './lostpassword/lost-password-request/lost-password-request.component';
+
+
+import { LostPasswordRequestComponent } from './lost-newpassword/lost-password-request/lost-password-request.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { SharedModule } from './_modules/shared.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,22 +35,28 @@ import { LostPasswordRequestComponent } from './lostpassword/lost-password-reque
     HomepageComponent,
     
     LostPasswordRequestComponent,
+          NotFoundComponent,
+          ServerErrorComponent,
     
   
   
     
   ],
   imports: [
-    ModalModule.forRoot(),FormsModule,
-    BrowserModule, HttpClientModule,
+    FormsModule,
+    BrowserModule, 
+    HttpClientModule,
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot(),
+   NgxSpinnerModule,
     AppRoutingModule,
-    ToastrModule.forRoot({
-      positionClass:'toast-bottom-right'
-    })
+    SharedModule,
+    ReactiveFormsModule,
+    
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
