@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { Doctors } from '../_models/doctor';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -14,11 +15,12 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister= new EventEmitter();
 model: any={}
   registerForm!: FormGroup;
-  control:any;
+  doctors!:Doctors[];
   constructor(private accountService:AccountService, private toatsr:ToastrService) { }
 
   ngOnInit(): void {
     this.intitializeForm();
+    this.loadDoctors();
   }
 
   intitializeForm()
@@ -48,5 +50,11 @@ register(){
 }
 cancel(){
   this.cancelRegister.emit(false);
+  }
+
+  loadDoctors(){
+    this.accountService.getDoctors().subscribe(doctors=>{
+      this.doctors=doctors;
+    })
   }
 }

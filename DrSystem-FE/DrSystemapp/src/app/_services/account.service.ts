@@ -1,15 +1,19 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, ReplaySubject } from 'rxjs';
+import { map, Observable, ReplaySubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Doctors } from '../_models/doctor';
 import { LostPassword } from '../_models/lostpasswordrequest';
 import { User } from '../_models/user';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
 
-  baseUrl='https://localhost:5001/';
+  baseUrl=environment.apiUrl;
   private currentUserSource= new ReplaySubject<User>(1);
   currentUser$=this.currentUserSource.asObservable();
 
@@ -59,5 +63,9 @@ this.currentUserSource.next(user);
   {
     localStorage.removeItem('user');
     this.currentUserSource.next(null as any);
+  }
+
+  getDoctors(){
+    return this.http.get<Doctors[]>(this.baseUrl+'public/doctors')
   }
 }

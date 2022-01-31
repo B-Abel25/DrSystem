@@ -7,7 +7,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { HomepageComponent } from './homepage/homepage.component';
 
 import { LoginComponent } from './login/login.component';
-import { NewPasswordComponent } from './new-password/new-password.component';
+import { NewPasswordComponent } from './lost-newpassword/new-password/new-password.component';
 
 
 import { RegisterComponent } from './register/register.component';
