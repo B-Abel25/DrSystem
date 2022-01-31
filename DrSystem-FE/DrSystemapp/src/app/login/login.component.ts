@@ -21,7 +21,7 @@ export class LoginComponent  {
   }
 login(){
  this.accountService.login(this.model).subscribe(response=>{
-  this.router.navigateByUrl('/members');
+  this.router.navigateByUrl('/booking');
    this.loggedIn=true;
    }, error=>{
    console.log(error);

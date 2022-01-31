@@ -1,5 +1,6 @@
 import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 
@@ -25,12 +26,14 @@ export class LostPasswordRequestComponent implements OnInit {
     }
   }
   modalRef!: BsModalRef;
-  constructor(private modalService: BsModalService, private accountService: AccountService, private toastr:ToastrService) {
+  constructor(private modalService: BsModalService, private accountService: AccountService
+    , private toastr:ToastrService, private router:Router) {
 
   }
 
   sendResetMail() {
     this.accountService.lostPassword(this.model).subscribe(response => {
+      this.router.navigateByUrl('/lostpasswordpage');
       console.log(response);
      
     }, error => {
