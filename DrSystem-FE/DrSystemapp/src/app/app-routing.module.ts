@@ -17,11 +17,11 @@ import { ComplaintComponent } from './users/complaint/complaint.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
+  
   {path: 'register', component: RegisterComponent},
  {path: 'new-password/:id', component: NewPasswordComponent},
   {path: '', component: LoginComponent},
-  
+  {path: 'login', component: LoginComponent},
   {
     path:'',
     runGuardsAndResolvers:'always',
