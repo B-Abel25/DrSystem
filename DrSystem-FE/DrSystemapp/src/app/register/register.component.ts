@@ -1,10 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn,Validators} from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmedValidator } from '../confirmed.validator';
 import { Doctors } from '../_models/doctor';
 import { AccountService } from '../_services/account.service';
 import { DoctorService } from '../_services/doctor.service';
+
 
 @Component({
   selector: 'app-register',
@@ -17,27 +19,47 @@ export class RegisterComponent implements OnInit {
 model: any={}
   registerForm!: FormGroup;
   doctors!:Doctors[];
-  constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService) { }
+  constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService, private fb:FormBuilder) { 
+    this.registerForm= this.fb.group ({
+      name: new FormControl('',Validators.required),
+      password: new FormControl('',[Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
+      confirmPassword: new FormControl('', Validators.required)
+     
+    },
+    {
+Validators:this.MustMatch('password', 'confirmPassword'),
+    })
+  }
+
+  MustMatch(controlName: string, matchingControlName: string){
+return (formGroup:FormGroup)=>{
+  const control= formGroup.controls[controlName];
+  const matchingControl= formGroup.controls[matchingControlName];
+  if (matchingControl.errors && !matchingControl.errors['MustMatch']) {
+    return
+  }
+  if (control.value !== matchingControl.value) {
+    matchingControl.setErrors({MustMatch:true});
+  }
+  else {
+    matchingControl.setErrors(null);
+  }
+}
+  }
+
+  get validate (){return this.registerForm.controls}
 
   ngOnInit(): void {
-    this.intitializeForm();
+    
     this.loadDoctors();
   }
 
-  intitializeForm()
-  {
-    this.registerForm= new FormGroup({
-      name: new FormControl('',Validators.required),
-      password: new FormControl('',[Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
-      confirmPassword: new FormControl('', Validators.required),
-    })
-  }
-  // matchValue(matchTo: string  ): ValidatorFn{
-  //   return (control: AbstractControl) => {
-  //     return control?.value === control?.parent?.controls[matchTo].value
-  //     ? null : {isMatching: true}
-  //   }
-  // }
+  
+  
+  
+
+  
+ 
 
 register(){
   this.accountService.register(this.model).subscribe(response=>{
