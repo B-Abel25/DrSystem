@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using MySql.EntityFrameworkCore.DataAnnotations;
 
 namespace DoctorSystem.Entities
@@ -14,6 +15,7 @@ namespace DoctorSystem.Entities
         [StringLength(22)]
         public string Name { get; set; }
 
+        [JsonIgnore]
         public ICollection<City> Cities { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace DoctorSystem.Entities
 {
@@ -14,11 +15,13 @@ namespace DoctorSystem.Entities
         [StringLength(22)]
         public string Name { get; set; }
 
+        [JsonIgnore]
         public ICollection<Place> Places { get; set; }
         /*
         [ForeignKey("Id")]
         public string CountyId { get; set; }
         */
         public County County { get; set; }
+        public string CountyId { get; set; }
     }
 }

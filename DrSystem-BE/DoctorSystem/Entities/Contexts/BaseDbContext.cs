@@ -46,27 +46,29 @@ namespace DoctorSystem.Entities.Contexts
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
+           
+/*
             // Add the shadow property to the model
             modelBuilder.Entity<City>()
                 .Property<string>("CountyFK");
-
+*/
             // Use the shadow property as a foreign key
             modelBuilder.Entity<City>()
                 .HasOne(ci => ci.County)
                 .WithMany(co => co.Cities)
-                .HasForeignKey("CountyFK");
+                .HasForeignKey(ci => ci.CountyId);
             
-
+/*
             // Add the shadow property to the model
             modelBuilder.Entity<Place>()
                 .Property<string>("CityFK");
-            
+*/ 
             // Use the shadow property as a foreign key
             modelBuilder.Entity<Place>()
                 .HasOne(p => p.City)
                 .WithMany(ci => ci.Places)
-                .HasForeignKey("CityFK");
+                .HasForeignKey(p => p.CityId);
             
 
             //TODO: Ez ide miért kell? 

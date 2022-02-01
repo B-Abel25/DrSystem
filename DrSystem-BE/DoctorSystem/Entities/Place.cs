@@ -15,6 +15,7 @@ namespace DoctorSystem.Entities
         public string CityId { get; set; }
         */
         public City City { get; set; }
+        public string CityId { get; set; }
 
 
     }
