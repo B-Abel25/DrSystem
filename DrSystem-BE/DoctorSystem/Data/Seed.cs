@@ -2,7 +2,10 @@
 using DoctorSystem.Entities;
 using DoctorSystem.Entities.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -24,17 +27,23 @@ namespace DoctorSystem.Data
         public string SealNumber { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public string Postcode { get; set; }
+        public string PostCode { get; set; }
         public string Street { get; set; }
         public string HouseNumber { get; set; }
-
-
-
+        public string Password { get; set; }
     }
 
     public class Seed
     {
-        public static async Task SeedAddress(BaseDbContext _context)
+        private static readonly Random random = new Random();
+
+        public static async Task SeedDatas(BaseDbContext _context)
+        {
+            await SeedAddress(_context);
+            await SeedDoctors(_context);
+        }
+
+        private static async Task SeedAddress(BaseDbContext _context)
         {
             if (await _context._county.AnyAsync()) return;
 
@@ -69,17 +78,48 @@ namespace DoctorSystem.Data
 
         }
 
-        public static async Task SeedDoctors(BaseDbContext _context)
+        private static async Task SeedDoctors(BaseDbContext _context)
         {
             if (await _context._doctors.AnyAsync()) return;
 
             var docData = await System.IO.File.ReadAllTextAsync("Data/DoctorSeedData.json", Encoding.UTF8);
             var docModels = JsonSerializer.Deserialize<List<DoctorSeedModel>>(docData);
 
-          
+            foreach (var doctorModel in docModels)
+            {
+                Doctor doc = new Doctor();
+
+                
+
+                doc.Name = doctorModel.Name;
+                doc.DateOfBirth = DateTime.Parse(doctorModel.DateOfBirth);
+                do
+                {
+                    doc.SealNumber = random.Next(10000, 100000).ToString();
+                } while (await _context._doctors.SingleOrDefaultAsync(x => x.SealNumber == doc.SealNumber) != null);
+                doc.Email = doctorModel.Email;
+                doc.PhoneNumber = doctorModel.PhoneNumber;
+                string PC = doctorModel.PostCode.Split(' ')[0];
+                string CT = doctorModel.PostCode.Split(' ')[1];
+                doc.Place = await _context._place.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
+                doc.Street = doctorModel.Street;
+                doc.HouseNumber = doctorModel.HouseNumber;
+                doc.Token = GenerateToken(10);
+                var hmac = new HMACSHA512();
+                doc.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(doctorModel.Password));
+                doc.PasswordSalt = hmac.Key;
+
+                _context._doctors.Add(doc);
+                await _context.SaveChangesAsync();
+            }
 
         }
 
-        
+        private static string GenerateToken(int length)
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#&@";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
     }
 }
