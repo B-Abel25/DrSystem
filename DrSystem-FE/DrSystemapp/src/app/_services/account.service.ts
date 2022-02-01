@@ -16,7 +16,7 @@ export class AccountService {
   baseUrl=environment.apiUrl;
   private currentUserSource= new ReplaySubject<User>(1);
   currentUser$=this.currentUserSource.asObservable();
-
+ 
   constructor(private http:HttpClient) { }
 
   login(model:any)
@@ -65,7 +65,5 @@ this.currentUserSource.next(user);
     this.currentUserSource.next(null as any);
   }
 
-  getDoctors(){
-    return this.http.get<Doctors[]>(this.baseUrl+'public/doctors')
-  }
+  
 }

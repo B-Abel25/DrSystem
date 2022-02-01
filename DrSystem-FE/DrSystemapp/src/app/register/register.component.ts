@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Doctors } from '../_models/doctor';
 import { AccountService } from '../_services/account.service';
+import { DoctorService } from '../_services/doctor.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class RegisterComponent implements OnInit {
 model: any={}
   registerForm!: FormGroup;
   doctors!:Doctors[];
-  constructor(private accountService:AccountService, private toatsr:ToastrService) { }
+  constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService) { }
 
   ngOnInit(): void {
     this.intitializeForm();
@@ -53,7 +54,7 @@ cancel(){
   }
 
   loadDoctors(){
-    this.accountService.getDoctors().subscribe(doctors=>{
+    this.doctorService.getDoctors().subscribe(doctors=>{
       this.doctors=doctors;
     })
   }
