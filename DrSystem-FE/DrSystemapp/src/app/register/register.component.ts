@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmedValidator } from '../confirmed.validator';
 import { Doctors } from '../_models/doctor';
 import { AccountService } from '../_services/account.service';
+import { CustomvalidationService } from '../_services/customvalidation.service';
 import { DoctorService } from '../_services/doctor.service';
 
 
@@ -17,52 +18,88 @@ export class RegisterComponent implements OnInit {
   
   @Output() cancelRegister= new EventEmitter();
 model: any={}
-  registerForm: FormGroup= new FormGroup({});
+  
   doctors!:Doctors[];
   submitted:boolean=false;
-  constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService, private fb:FormBuilder) { 
-    this.registerForm= fb.group ({
-      name:['',[Validators.required]],
-      password:['',[Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
-      confirmPassword:['', [Validators.required]]
+  registerForm!:FormGroup;
+  constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService, private fb:FormBuilder,private customValidator: CustomvalidationService) { 
+    
      
+   
+  }
+
+  // initializeForm(){
+  //   this.registerForm= new FormGroup({
+  //     username: new FormControl('', Validators.required),
+  //     password: new FormControl('',[Validators.required, Validators.maxLength(12), Validators.minLength(6)]),
+  //     confirmPassword: new FormControl('', [Validators.required, this.matchValues('password')]),
+  //   })
+  //   this.registerForm.controls['password'].valueChanges.subscribe(()=>{
+  //     this.registerForm.controls['confirmPassword'].updateValueAndValidity();
+  //   })
+  // }
+
+//   MustMatch(controlName: string, matchingControlName: string){
+// return (formGroup:FormGroup)=>{
+//   const control= formGroup.controls[controlName];
+//   const matchingControl= formGroup.controls[matchingControlName];
+//   if (matchingControl.errors && !matchingControl.errors['MustMatch']) {
+//     return
+//   }
+//   if (control.value !== matchingControl.value) {
+//     matchingControl.setErrors({MustMatch:true});
+//   }
+//   else {
+//     matchingControl.setErrors(null);
+//   }
+// }
+//   }
+
+  // onSubmit(){
+  //   this.submitted=true;
+  //   if (this.registerForm.invalid) {
+  //     return;
+  //   }
+  // }
+  // get validate (){return this.registerForm.controls}
+
+  ngOnInit() {
+    this.registerForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required], this.customValidator.userNameValidator.bind(this.customValidator)],
+      password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator()])],
+      confirmPassword: ['', [Validators.required]],
     },
-    {
-Validators:this.MustMatch('password', 'confirmPassword'),
-    })
+      {
+        validator: this.customValidator.MustMatch('password', 'confirmPassword'),
+      }
+    );
+  }
+  get registerFormControl() {
+    return this.registerForm.controls;
   }
 
-  MustMatch(controlName: string, matchingControlName: string){
-return (formGroup:FormGroup)=>{
-  const control= formGroup.controls[controlName];
-  const matchingControl= formGroup.controls[matchingControlName];
-  if (matchingControl.errors && !matchingControl.errors['MustMatch']) {
-    return
-  }
-  if (control.value !== matchingControl.value) {
-    matchingControl.setErrors({MustMatch:true});
-  }
-  else {
-    matchingControl.setErrors(null);
-  }
-}
-  }
-
-  onSubmit(){
-    this.submitted=true;
-    if (this.registerForm.invalid) {
-      return;
+  onSubmit() {
+    this.submitted = true;
+    if (this.registerForm.valid) {
+      alert('Form Submitted succesfully!!!\n Check the values in browser console.');
+      console.table(this.registerForm.value);
     }
   }
-  get validate (){return this.registerForm.controls}
-
-  ngOnInit(): void {
     
-    this.loadDoctors();
-    this.onSubmit();
-  }
-
+    
+    // this.initializeForm();
+   
+   
   
+  
+
+  // matchValues(matchTo:string) : ValidatorFn{
+  //   return (control:AbstractControl | any)=>{
+  //     return control?.value == control?.parent?.controls[matchTo].value ? null : {isMatching: true}
+  //   }
+  // }
   
   
 
@@ -70,18 +107,17 @@ return (formGroup:FormGroup)=>{
  
 
 register(){
+
   this.accountService.register(this.model).subscribe(response=>{
     console.log(response);
-    this.cancel();
+   
   }, error=>{
     console.log(error);
     this.toatsr.error(error.error);
 
   })
 }
-cancel(){
-  this.cancelRegister.emit(false);
-  }
+
 
   loadDoctors(){
     this.doctorService.getDoctors().subscribe(doctors=>{
