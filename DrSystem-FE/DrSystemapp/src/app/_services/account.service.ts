@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Doctors } from '../_models/doctor';
 import { LostPassword } from '../_models/lostpasswordrequest';
 import { User } from '../_models/user';
+import { DoctorService } from './doctor.service';
 
 
 
@@ -16,7 +17,7 @@ export class AccountService {
   baseUrl=environment.apiUrl;
   private currentUserSource= new ReplaySubject<User>(1);
   currentUser$=this.currentUserSource.asObservable();
- 
+ id!:User;
   constructor(private http:HttpClient) { }
 
   login(model:any)
@@ -36,11 +37,14 @@ return this.http.post<User>(this.baseUrl + 'public/register',model).pipe(
   map((user: User)=>{
     if(user){
      this.setCurrentUser(user);
+     this.getDoctorId();
       this.currentUserSource.next(user);
       console.log(model);
     }
+    
    
   })
+  
 )
   }
   lostPassword(model:any){
@@ -65,5 +69,14 @@ this.currentUserSource.next(user);
     this.currentUserSource.next(null as any);
   }
 
+  getDoctorId(){
+    const doctorId=[];
+    for (const id of this.id.doctorId ) {
+     doctorId.push({
+       doctor:id.id
+     })
+   }
+    return doctorId;
+  }
   
 }

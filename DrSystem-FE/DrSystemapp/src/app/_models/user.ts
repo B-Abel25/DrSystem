@@ -1,4 +1,6 @@
+import { Doctors } from "./doctor";
 export interface User{
+
     name:string;
     medNumber:string;
     email:string;
@@ -9,6 +11,8 @@ export interface User{
     Street:string;
     HouseNumber:string;
     Password:string;
-    photoUrl:string;    
+    photoUrl:string;   
+    doctorId: Doctors[]; 
+    
     
  }
