@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 namespace DoctorSystem.Controllers
 {
@@ -100,23 +101,6 @@ namespace DoctorSystem.Controllers
                 Token = _tokenService.CreateToken(user)
             };
         }
-        
-        [Route("address")]
-        [HttpPost]
-        public async Task<ActionResult> Address(Place address)
-        {
-            try
-            {
-                _context._place.Add(address);
-                await _context.SaveChangesAsync();
-                return Ok();
-
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
 
         [Route("lost-password")]
         [HttpPut]
@@ -152,6 +136,7 @@ namespace DoctorSystem.Controllers
             try
             {
                 var user = await _context._users.SingleOrDefaultAsync(x => x.Token == newDto.Token);
+                if (user == null) return Unauthorized("Invalid token");
                 user.Token = "true";
                 var hmac = new HMACSHA512();
                 user.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(newDto.Password));
@@ -161,7 +146,6 @@ namespace DoctorSystem.Controllers
             catch ( Exception e)
             {
                 return Unauthorized(e.Message);
-                
             }
         }
 

@@ -41,8 +41,14 @@ namespace DoctorSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctors()
         {
-           return await _context._doctors.ToListAsync();
-     
+            return await _context._doctors.Include(d => d.Place.City.County).ToListAsync();
+        }
+
+        [Route("places")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Place>>> GetPlaces()
+        {
+            return await _context._place.Include(p => p.City.County).ToListAsync();
         }
     }
 }

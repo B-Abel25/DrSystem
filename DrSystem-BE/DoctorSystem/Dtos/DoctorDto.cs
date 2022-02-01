@@ -1,4 +1,6 @@
-﻿namespace DoctorSystem.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DoctorSystem.Dtos
 {
     public class DoctorDto
     {

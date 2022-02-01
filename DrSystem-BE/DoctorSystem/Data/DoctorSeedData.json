@@ -1,0 +1,57 @@
+﻿[
+	{
+		"Name": "Balla Viktor",
+		"DateOfBirth": "1972.11.9",
+		"SealNumber": "74037",
+		"Email": "docsystest@outlook.hu",
+		"PhoneNumber": "+36208697684",
+		"PostCode": "1024 Budapest",
+		"Street": "Tábor utca",
+		"HouseNumber": "51",
+		"Password": "Yxcvb1234"
+	},
+	{
+		"Name": "Borbély Márió",
+		"DateOfBirth": "1973.2.21",
+		"SealNumber": "45905",
+		"Email": "docsystest@outlook.hu",
+		"PhoneNumber": "+36707576913",
+		"PostCode": "7228 Döbrököz",
+		"Street": "Czuczor utca",
+		"HouseNumber": "68",
+		"Password": "Asdf1234"
+	},
+	{
+		"Name": "Kerekes Roland",
+		"DateOfBirth": "1963.8.9",
+		"SealNumber": "84750",
+		"Email": "docsystest@outlook.hu",
+		"PhoneNumber": "+36307340629",
+		"PostCode": "1096 Budapest",
+		"Street": "Thaly Kálmán utca",
+		"HouseNumber": "35",
+		"Password": "Asdf1234"
+	},
+	{
+		"Name": "Vincze Laura",
+		"DateOfBirth": "1968.11.4",
+		"SealNumber": "67938",
+		"Email": "docsystest@outlook.hu",
+		"PhoneNumber": "+36307633365",
+		"PostCode": "7282 Fiad",
+		"Street": "Lőrinc utca",
+		"HouseNumber": "92",
+		"Password": "Qwert1234"
+	},
+	{
+		"Name": "Fodor Krisztián",
+		"DateOfBirth": "1958.9.8",
+		"SealNumber": "85123",
+		"Email": "docsystest@outlook.hu",
+		"PhoneNumber": "+36308318948",
+		"PostCode": "3716 Sóstófalva",
+		"Street": "Báthory utca",
+		"HouseNumber": "3",
+		"Password": "Qwert1234"
+	}
+]
