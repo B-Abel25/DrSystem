@@ -19,23 +19,12 @@ export class AppComponent implements OnInit {
       this.loggedInEvent.emit(this.loggedIn);
    
      }
-     adminhandleLogin(state: boolean) {
-      this.adminloggedIn = state
-      this.adminloggedInEvent.emit(this.adminloggedIn);
-   
-     }
+    
   
   ngOnInit() {
-    this.getUsers();
+   
   }
-  getUsers()
-{
-  this.http.get('https://localhost:5001/WeatherForecast').subscribe(response=>{
-    this.users=response;
-    console.log(response);
-  },error=>{
-    console.log(error);
-  })
-}}
+ 
+ }
 
 

@@ -11,88 +11,89 @@
     <div class="form-group required">
       <label>Teljes név</label>
       <input 
+
       
       class="form-control" 
-      id="name" 
-      name="name" 
+      id="username" 
+      name="username" 
       type="text" 
-      formControlName="name"  
+      formControlName="username"  
+      required>
+      <span class="text-danger"
+                                *ngIf="(registerFormControl['username'].touched || submitted) && registerFormControl['username'].errors">
+                                Name is required
+        </span>
+    </div>
+
+    <div class="form-group col-5 required">
+      <label>Születési dátum</label>
+      <input 
+      class="form-control" 
+      id="DateOfBirth" 
+      name="DateOfBirth" 
+      type="date" 
       required>
     </div>
 
-  <div class="form-group col-5 required">
-    <label>Születési dátum</label>
-    <input class="form-control" id="name" name="name" type="date" [(ngModel)]="model.DateOfBirth" required>
-  </div>
-
-  <div class="form-group   col-5 required">
-   
+    <div class="form-group   col-5 required">
       <label>Irányítószám</label>
-      <input class="form-control" id="name" name="name" type="number" [(ngModel)]="model.PostCode" required>
-      
-   
-   
-  </div>
-  <div class="form-group   col-5 required">
-   
-    <label>Város</label>
-    <input class="form-control" id="name" name="name" type="text" [(ngModel)]="model.city" required>
+      <input class="form-control" 
+      id="postCode" 
+      name="postCode" 
+      type="number" 
+       
+      required>
     </div>
 
+  <div class="form-group   col-5 required">
+    <label>Város</label>
+    <input class="form-control" id="city" name="city" type="text"  required>
+  </div>
+
     <div class="form-group   col-5 required">
-   
       <label>Utca</label>
-      <input class="form-control" id="name" name="name" type="text" [(ngModel)]="model.Street" required>
-     </div>
+      <input class="form-control" id="Street" name="Street" type="text"  required>
+    </div>
+
+
      <div class="form-group   col-5 required">
-   
       <label>Házszám</label>
-      <input class="form-control" id="name" name="name" type="number" [(ngModel)]="model.HouseNumber" required>
-      
-      </div>
+      <input class="form-control" id="houseNumber" name="houseNumber" type="number"  required>
+     </div>
    
 
     <div class="form-group required">
       <label>TAJ-szám</label>
-      <input class="form-control" name="medNumber" id="medNumber" type="text" [(ngModel)]="model.medNumber" required>
+      <input class="form-control" name="medNumber" id="medNumber" type="text" required>
      
     </div>
     <div class="form-group required">
       <label>Email cím</label>
-      <input class="form-control" name="email" id="email" type="email" [(ngModel)]="model.email">
+      <input class="form-control" name="email" id="email" type="email" >
       
     </div>
     <div class="form-group required">
       <label>Telefonszám</label>
-      <input class="form-control" name="phoneNumber" type="tel" [(ngModel)]="model.phoneNumber">
+      <input class="form-control" name="phoneNumber" id="phoneNumber" type="tel">
      
     </div>
 
     <div class="form-group required">
         <label>Jelszó</label>
-        <input type="password" class="form-control" name="password" id="password" formControlName="password" [(ngModel)]="model.password" >
-        <div *ngIf="validate['password'].touched && validate['password'].invalid" class="alert alert-danger">
-          <div *ngIf="validate['password'].errors && validate['password'].errors['required']" >
-          A jelszó nem megfelelő
-          </div>
-        </div>
-      </div>
+        <input type="password" class="form-control" name="password" id="password" formControlName="password"  >
+  </div>
+  
+  
       <div class="form-group required">
         <label>Jelszó megerősítés</label>
         <input type="password" class="form-control" formControlName="confirmPassword" name=" confirmPassword" id=" confirmPassword" >
-        <div *ngIf="validate['confirmPassword'].touched && validate['confirmPassword'].invalid" class="alert alert-danger">
-          <div *ngIf="validate['confirmPassword'].errors && validate['confirmPassword'].errors['required']" >
-          A jelszó nem megfelelő
-          </div>
-          <div *ngIf="validate['confirmPassword'].errors && validate['confirmPassword'].errors['MustMatch']" >
-          A jelszó és a megerősítő jelszó nem egyezik
-            </div>
-        </div>
+       
       </div>
+
       <div class="form-group required">
         <label>Orvosok</label>
         <select class="form-control">
-          <option *ngFor="let doctor of doctors" [value]="doctor.name" [(ngModel)]=model.doctorId>
+          <option *ngFor="let doctor of doctors" [value]="doctor.name" >
             {{doctor.name}}
           </option>
         </select>
@@ -110,7 +111,7 @@
          <p>Form value: {{registerForm.value | json}}</p>
          <p>Form value: {{registerForm.status | json}}</p>
   
-  <br>
+        <br>
       </div>
     </div>
   </div>

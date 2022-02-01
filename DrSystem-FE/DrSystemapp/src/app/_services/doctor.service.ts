@@ -12,8 +12,8 @@ doctors!:Doctors[];
   constructor(private http: HttpClient) { }
 
   getDoctors(){
-    return this.http.get<Doctors[]>(this.baseUrl+'user/doctors');
+    return this.http.get<Doctors[]>(this.baseUrl+'user/doctors')
   }
-
-  
 }
+  
+
