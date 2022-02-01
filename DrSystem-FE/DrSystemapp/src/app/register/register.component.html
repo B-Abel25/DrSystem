@@ -10,7 +10,14 @@
 
     <div class="form-group required">
       <label>Teljes név</label>
-      <input class="form-control" id="name" name="name" type="text" formControlName="name" [(ngModel)]="model.name" required>
+      <input 
+      
+      class="form-control" 
+      id="name" 
+      name="name" 
+      type="text" 
+      formControlName="name"  
+      required>
     </div>
 
   <div class="form-group col-5 required">
@@ -64,12 +71,23 @@
     <div class="form-group required">
         <label>Jelszó</label>
         <input type="password" class="form-control" name="password" id="password" formControlName="password" [(ngModel)]="model.password" >
-        
+        <div *ngIf="validate['password'].touched && validate['password'].invalid" class="alert alert-danger">
+          <div *ngIf="validate['password'].errors && validate['password'].errors['required']" >
+          A jelszó nem megfelelő
+          </div>
+        </div>
       </div>
       <div class="form-group required">
         <label>Jelszó megerősítés</label>
-        <input type="password" class="form-control" formControlName="confirmPassword" name="passwordConfirm" id="passwordConfirm" >
-        
+        <input type="password" class="form-control" formControlName="confirmPassword" name=" confirmPassword" id=" confirmPassword" >
+        <div *ngIf="validate['confirmPassword'].touched && validate['confirmPassword'].invalid" class="alert alert-danger">
+          <div *ngIf="validate['confirmPassword'].errors && validate['confirmPassword'].errors['required']" >
+          A jelszó nem megfelelő
+          </div>
+          <div *ngIf="validate['confirmPassword'].errors && validate['confirmPassword'].errors['MustMatch']" >
+          A jelszó és a megerősítő jelszó nem egyezik
+            </div>
+        </div>
       </div>
       <div class="form-group required">
         <label>Orvosok</label>

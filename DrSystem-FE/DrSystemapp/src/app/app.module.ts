@@ -25,6 +25,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 
+
 @NgModule({
   declarations: [
    
@@ -37,6 +38,7 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     LostPasswordRequestComponent,
           NotFoundComponent,
           ServerErrorComponent,
+        
     
   
   

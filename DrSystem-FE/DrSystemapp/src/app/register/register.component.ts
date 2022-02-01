@@ -17,13 +17,14 @@ export class RegisterComponent implements OnInit {
   
   @Output() cancelRegister= new EventEmitter();
 model: any={}
-  registerForm!: FormGroup;
+  registerForm: FormGroup= new FormGroup({});
   doctors!:Doctors[];
+  submitted:boolean=false;
   constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService, private fb:FormBuilder) { 
-    this.registerForm= this.fb.group ({
-      name: new FormControl('',Validators.required),
-      password: new FormControl('',[Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
-      confirmPassword: new FormControl('', Validators.required)
+    this.registerForm= fb.group ({
+      name:['',[Validators.required]],
+      password:['',[Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
+      confirmPassword:['', [Validators.required]]
      
     },
     {
@@ -47,11 +48,18 @@ return (formGroup:FormGroup)=>{
 }
   }
 
+  onSubmit(){
+    this.submitted=true;
+    if (this.registerForm.invalid) {
+      return;
+    }
+  }
   get validate (){return this.registerForm.controls}
 
   ngOnInit(): void {
     
     this.loadDoctors();
+    this.onSubmit();
   }
 
   
