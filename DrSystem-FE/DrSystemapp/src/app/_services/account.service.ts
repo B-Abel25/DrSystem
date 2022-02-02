@@ -37,7 +37,7 @@ return this.http.post<User>(this.baseUrl + 'public/register',model).pipe(
   map((user: User)=>{
     if(user){
      this.setCurrentUser(user);
-     this.getDoctorId();
+     
       this.currentUserSource.next(user);
       console.log(model);
     }
@@ -69,14 +69,6 @@ this.currentUserSource.next(user);
     this.currentUserSource.next(null as any);
   }
 
-  getDoctorId(){
-    const doctorId=[];
-    for (const id of this.id.doctorId ) {
-     doctorId.push({
-       doctor:id.id
-     })
-   }
-    return doctorId;
-  }
+  
   
 }

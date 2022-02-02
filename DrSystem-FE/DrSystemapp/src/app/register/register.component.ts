@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
   submitted:boolean=false;
   registerForm!:FormGroup;
   validationErrors!: string[];
+  
   constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService, private fb:FormBuilder,private customValidator: CustomvalidationService) { 
     
      
@@ -85,6 +86,7 @@ export class RegisterComponent implements OnInit {
     );
 
     this.loadDoctors();
+    
   }
   get registerFormControl() {
     return this.registerForm.controls;
@@ -132,6 +134,9 @@ register(){
   loadDoctors(){
     this.doctorService.getDoctors().subscribe(doctors=>{
       this.doctors=doctors;
+      console.log(this.doctors[0].id);
     })
   }
+
+ 
 }

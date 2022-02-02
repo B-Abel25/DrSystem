@@ -5,7 +5,7 @@ export interface User{
     medNumber:string;
     email:string;
     phoneNumber:string;
-    birthDate:Date;
+    birthDate:string;
     city:string;
     placeId:string;
     street:string;
