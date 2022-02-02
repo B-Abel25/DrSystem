@@ -23,7 +23,7 @@ namespace DoctorSystem.Dtos
         [Required]
         public string DoctorId { get; set; }
         [Required]
-        public Place Place { get; set; }
+        public string PlaceId { get; set; }
         [Required]
         public string Street { get; set; }
         [Required]
