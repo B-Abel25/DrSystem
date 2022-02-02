@@ -5,12 +5,12 @@ export interface User{
     medNumber:string;
     email:string;
     phoneNumber:string;
-    DateOfBirth:string;
+    birthDate:string;
     city:string;
-    PostCode:string;
-    Street:string;
-    HouseNumber:string;
-    Password:string;
+    placeId:string;
+    street:string;
+    houseNumber:string;
+    password:string;
     photoUrl:string;   
     doctorId: Doctors[]; 
     
