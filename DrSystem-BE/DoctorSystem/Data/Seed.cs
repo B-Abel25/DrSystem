@@ -1,4 +1,5 @@
-﻿using DoctorSystem.Dtos;
+﻿using DoctorSystem.Data.SeedModels;
+using DoctorSystem.Dtos;
 using DoctorSystem.Entities;
 using DoctorSystem.Entities.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -12,26 +13,6 @@ using System.Threading.Tasks;
 
 namespace DoctorSystem.Data
 {
-    public class AddressSeedModel
-    {
-        public string IrSzam { get; set; }
-        public string City { get; set; }
-        public string County { get; set; }
-    }
-
-
-    public class DoctorSeedModel
-    {
-        public string Name { get; set; }
-        public string DateOfBirth { get; set; }
-        public string SealNumber { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string PostCode { get; set; }
-        public string Street { get; set; }
-        public string HouseNumber { get; set; }
-        public string Password { get; set; }
-    }
 
     public class Seed
     {
@@ -90,6 +71,43 @@ namespace DoctorSystem.Data
                 Doctor doc = new Doctor();
 
                 
+
+                doc.Name = doctorModel.Name;
+                doc.DateOfBirth = DateTime.Parse(doctorModel.DateOfBirth);
+                do
+                {
+                    doc.SealNumber = random.Next(10000, 100000).ToString();
+                } while (await _context._doctors.SingleOrDefaultAsync(x => x.SealNumber == doc.SealNumber) != null);
+                doc.Email = doctorModel.Email;
+                doc.PhoneNumber = doctorModel.PhoneNumber;
+                string PC = doctorModel.PostCode.Split(' ')[0];
+                string CT = doctorModel.PostCode.Split(' ')[1];
+                doc.Place = await _context._place.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
+                doc.Street = doctorModel.Street;
+                doc.HouseNumber = doctorModel.HouseNumber;
+                doc.Token = GenerateToken(10);
+                var hmac = new HMACSHA512();
+                doc.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(doctorModel.Password));
+                doc.PasswordSalt = hmac.Key;
+
+                _context._doctors.Add(doc);
+                await _context.SaveChangesAsync();
+            }
+
+        }
+
+        private static async Task SeedUsers(BaseDbContext _context)
+        {
+            if (await _context._users.AnyAsync()) return;
+
+            var docData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json", Encoding.UTF8);
+            var docModels = JsonSerializer.Deserialize<List<DoctorSeedModel>>(docData);
+
+            foreach (var doctorModel in docModels)
+            {
+                Doctor doc = new Doctor();
+
+
 
                 doc.Name = doctorModel.Name;
                 doc.DateOfBirth = DateTime.Parse(doctorModel.DateOfBirth);
