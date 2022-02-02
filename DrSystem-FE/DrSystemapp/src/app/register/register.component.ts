@@ -17,11 +17,12 @@ import { DoctorService } from '../_services/doctor.service';
 export class RegisterComponent implements OnInit {
   
   @Output() cancelRegister= new EventEmitter();
-model: any={}
+
   
   doctors!:Doctors[];
   submitted:boolean=false;
   registerForm!:FormGroup;
+  validationErrors!: string[];
   constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService, private fb:FormBuilder,private customValidator: CustomvalidationService) { 
     
      
@@ -65,7 +66,14 @@ model: any={}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      name: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      medNumber: ['', Validators.required],
+      houseNumber: ['', Validators.required],
+      DateOfBirth: ['', Validators.required],
+      Street: ['', Validators.required],
+      city: ['', Validators.required],
+      PostCode: ['', Validators.required],
+      doctor: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required], this.customValidator.userNameValidator.bind(this.customValidator)],
       password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator()])],
@@ -75,6 +83,8 @@ model: any={}
         validator: this.customValidator.MustMatch('password', 'confirmPassword'),
       }
     );
+
+    this.loadDoctors();
   }
   get registerFormControl() {
     return this.registerForm.controls;
@@ -108,12 +118,12 @@ model: any={}
 
 register(){
 
-  this.accountService.register(this.model).subscribe(response=>{
+  this.accountService.register(this.registerForm.value).subscribe(response=>{
     console.log(response);
    
   }, error=>{
-    console.log(error);
-    this.toatsr.error(error.error);
+    this.validationErrors=error;
+    
 
   })
 }
