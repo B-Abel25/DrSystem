@@ -4,7 +4,7 @@
     
     <div class="row" >
       <div class="col-md-10 offset-md-1 " >
-<form  [formGroup]="registerForm" autocomplete="off" (ngSubmit)="registerForm.valid && register()" >
+<form  [formGroup]="registerForm" autocomplete="off" (ngSubmit)=" register()" >
   <br>
   
 
@@ -14,13 +14,13 @@
 
       
       class="form-control" 
-      id="username" 
-      name="username" 
+      id="name" 
+      name="name" 
       type="text" 
-      formControlName="username"  
+      formControlName="name"  
       required>
       <span class="text-danger"
-                                *ngIf="(registerFormControl['username'].touched || submitted) && registerFormControl['username'].errors">
+                                *ngIf="(registerFormControl['name'].touched || submitted) && registerFormControl['name'].errors">
                                 Name is required
         </span>
     </div>
@@ -28,10 +28,10 @@
     <div class="form-group col-5 required">
       <label>Születési dátum</label>
       <input 
-      formControlName="DateOfBirth"
+      formControlName="birthDate"
       class="form-control" 
-      id="DateOfBirth" 
-      name="DateOfBirth" 
+      id="birthDate" 
+      name="birthDate" 
       type="date" 
       required>
       <!-- <span class="text-danger"
@@ -43,10 +43,10 @@
     <div class="form-group   col-5 required">
       <label>Irányítószám</label>
       <input class="form-control" 
-      id="postCode" 
-      name="postCode" 
+      id="placeId" 
+      name="placeId" 
       type="number" 
-      formControlName="PostCode"
+      formControlName="placeId"
       required>
     </div>
 
@@ -64,10 +64,10 @@
       <label>Utca</label>
       <input
        class="form-control" 
-       id="Street" 
-       name="Street" 
+       id="street" 
+       name="street" 
        type="text" 
-       formControlName="Street" 
+       formControlName="street" 
        required>
     </div>
 
@@ -133,8 +133,8 @@
                                 *ngIf="registerFormControl['password'].touched && registerFormControl['password'].errors?.invalidPassword">
                                 Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
                                 letter and 1 number
-                            </span>
-  </div> -->
+                            </span>-->
+  </div> 
   
   
       <div class="form-group required">
@@ -157,7 +157,7 @@
 
       <div class="form-group required">
         <label>Orvosok</label>
-        <select class="form-control"   formControlName="doctor">
+        <select class="form-control"   formControlName="doctorId">
           <option *ngFor="let doctor of doctors" [value]="doctor.name" >
             {{doctor.name}}
           </option>
@@ -168,7 +168,7 @@
       <div class="form-row">
         <div class="form-group col-md-8 offset-md-2">
           
-          <button [disabled]='!registerForm.valid' class="w-100 btn btn-lg btn-primary" type="submit">Regisztráció</button>
+          <button  class="w-100 btn btn-lg btn-primary" type="submit">Regisztráció</button>
         </div>
       </div>
       

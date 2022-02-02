@@ -37,7 +37,7 @@ return this.http.post<User>(this.baseUrl + 'public/register',model).pipe(
   map((user: User)=>{
     if(user){
      this.setCurrentUser(user);
-     this.getDoctorId();
+     
       this.currentUserSource.next(user);
       console.log(model);
     }
