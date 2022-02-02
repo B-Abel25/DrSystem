@@ -82,7 +82,7 @@ namespace DoctorSystem.Controllers
             var user = await _context._users.SingleOrDefaultAsync(x => x.MedNumber == loginDto.MedNumber);
 
             if (user == null) return Unauthorized("Invalid MedNumber");
-            else if (user.Token.Length == 10 || user.Token == "true") return Unauthorized("Your email is not verifyed");
+            else if (!(user.Token.Length == 10 || user.Token == "true")) return Unauthorized("Your email is not verifyed");
             else if (!user.Member) return Unauthorized("The requested Doctor still did not accepted");
             var hmac = new HMACSHA512(user.PasswordSalt);
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
