@@ -158,7 +158,7 @@
       <div class="form-group required">
         <label>Orvosok</label>
         <select class="form-control"   formControlName="doctorId">
-          <option *ngFor="let doctor of doctors" [value]="doctor.name" >
+          <option *ngFor="let doctor of doctors" [value]="doctor.id" >
             {{doctor.name}}
           </option>
         </select>

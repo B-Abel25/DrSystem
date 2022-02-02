@@ -69,14 +69,6 @@ this.currentUserSource.next(user);
     this.currentUserSource.next(null as any);
   }
 
-  getDoctorId(){
-    const doctorId=[];
-    for (const id of this.id.doctorId ) {
-     doctorId.push({
-       doctor:id.id
-     })
-   }
-    return doctorId;
-  }
+  
   
 }
