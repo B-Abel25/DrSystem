@@ -53,7 +53,7 @@ namespace DoctorSystem.Controllers
             user.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
             user.PasswordSalt = hmac.Key;
             user.Token = GenerateToken(8);
-            user.Place = registerDto.Place;
+            user.Place = await _context._place.SingleOrDefaultAsync(x => x.Id == registerDto.PlaceId);
             user.Street = registerDto.Street;
             user.HouseNumber = registerDto.HouseNumber;
             user.BirthDate = registerDto.BirthDate;

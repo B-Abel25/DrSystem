@@ -1,6 +1,6 @@
 ﻿namespace DoctorSystem.Dtos
 {
-    public class PLaceDto
+    public class PlaceDto
     {
         public int PostCode { get; set; }
         public string City { get; set; }
