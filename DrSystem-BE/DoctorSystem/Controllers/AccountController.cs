@@ -149,6 +149,15 @@ namespace DoctorSystem.Controllers
             }
         }
 
+        [Route("validate-email/{token}")]
+        [HttpPut]
+        public async Task<ActionResult> ValidateEmail(string token)
+        {
+            var user = await _context._users.SingleOrDefaultAsync(x => x.Token == token);
+            if (user == null) return Unauthorized("Invalid token");
+            user.Token = "true";
+            return Accepted();
+        }
 
         private async Task<bool> UserExists(string medNumber)
         {
