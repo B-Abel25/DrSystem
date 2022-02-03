@@ -4,6 +4,7 @@ import { map, Observable, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Doctors } from '../_models/doctor';
 import { LostPassword } from '../_models/lostpasswordrequest';
+import { Places } from '../_models/places';
 import { User } from '../_models/user';
 import { DoctorService } from './doctor.service';
 
@@ -69,6 +70,8 @@ this.currentUserSource.next(user);
     this.currentUserSource.next(null as any);
   }
 
-  
+  getPlaces(){
+    return this.http.get<Places[]>(this.baseUrl+'user/places')
+  }
   
 }

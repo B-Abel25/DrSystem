@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn,Validators} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn,Validators} from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmedValidator } from '../confirmed.validator';
 import { Doctors } from '../_models/doctor';
+import { Places } from '../_models/places';
 import { AccountService } from '../_services/account.service';
 import { CustomvalidationService } from '../_services/customvalidation.service';
 import { DoctorService } from '../_services/doctor.service';
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit {
   submitted:boolean=false;
   registerForm!:FormGroup;
   validationErrors!: string[];
-  
+  postCodes!:Places[];
   constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService, private fb:FormBuilder,private customValidator: CustomvalidationService) { 
     
      
@@ -41,56 +42,36 @@ export class RegisterComponent implements OnInit {
   //   })
   // }
 
-//   MustMatch(controlName: string, matchingControlName: string){
-// return (formGroup:FormGroup)=>{
-//   const control= formGroup.controls[controlName];
-//   const matchingControl= formGroup.controls[matchingControlName];
-//   if (matchingControl.errors && !matchingControl.errors['MustMatch']) {
-//     return
-//   }
-//   if (control.value !== matchingControl.value) {
-//     matchingControl.setErrors({MustMatch:true});
-//   }
-//   else {
-//     matchingControl.setErrors(null);
-//   }
-// }
-//   }
 
-  // onSubmit(){
-  //   this.submitted=true;
-  //   if (this.registerForm.invalid) {
-  //     return;
-  //   }
-  // }
-  // get validate (){return this.registerForm.controls}
+
+  
 
   ngOnInit() {
-    this.registerForm = this.fb.group({
-      phoneNumber: ['', Validators.required],
-      medNumber: ['', Validators.required],
-      houseNumber: ['', Validators.required],
-      birthDate: ['', Validators.required],
-      street: ['', Validators.required],
-      city: ['', Validators.required],
-      placeId: ['', Validators.required],
-      doctorId: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required], this.customValidator.userNameValidator.bind(this.customValidator)],
-      password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator()])],
-      confirmPassword: ['', [Validators.required]],
-    },
-      {
-        validator: this.customValidator.MustMatch('password', 'confirmPassword'),
-      }
-    );
+    // this.registerForm = this.fb.group({
+    //   phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.maxLength(9), Validators.minLength(9)]],
+    //   medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{3}')], ],
+    //   houseNumber: ['', [Validators.required, Validators.pattern('[0-9a-z]')]],
+    //   birthDate: ['', Validators.required],
+    //   street: ['', [Validators.required,Validators.pattern('[a-zA-Z]')]],
+    //   city: ['', Validators.required],
+    //   placeId: ['', Validators.required],
+    //   doctorId: ['', Validators.required],
+    //   email: ['', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+    //   name: ['', [Validators.required, Validators.pattern('[a-z A-Z]*')]],
+    //   password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator(), Validators.minLength(6), Validators.maxLength(12)])],
+    //   confirmPassword: ['', [Validators.required]],
+    // },
+    //   {
+    //     validator: this.customValidator.MustMatch('password', 'confirmPassword'),
+    //   }
+    //);
 
     this.loadDoctors();
+    this.loadPostCodes();
+    this.initializeForm();
     
   }
-  get registerFormControl() {
-    return this.registerForm.controls;
-  }
+  
 
   onSubmit() {
     this.submitted = true;
@@ -101,17 +82,24 @@ export class RegisterComponent implements OnInit {
   }
     
     
-    // this.initializeForm();
-   
+    
+   initializeForm(){
+     this.registerForm=new FormGroup({
+       name:new FormControl('',Validators.required),
+       password:new FormControl('',Validators.required),
+       confirmPassword:new FormControl('',[Validators.required, this.matchValues('password')]),
+
+     })
+   }
    
   
   
 
-  // matchValues(matchTo:string) : ValidatorFn{
-  //   return (control:AbstractControl | any)=>{
-  //     return control?.value == control?.parent?.controls[matchTo].value ? null : {isMatching: true}
-  //   }
-  // }
+  matchValues(matchTo:string) : ValidatorFn{
+    return (control:AbstractControl | any )=>{
+      return control?.value == control?.parent?.controls[matchTo].value ? null : {isMatching: true}
+    }
+  }
   
   
 
@@ -119,22 +107,28 @@ export class RegisterComponent implements OnInit {
  
 
 register(){
-
-  this.accountService.register(this.registerForm.value).subscribe(response=>{
-    console.log(response);
+console.log(this.registerForm.value);
+  // this.accountService.register(this.registerForm.value).subscribe(response=>{
+  //   console.log(response);
    
-  }, error=>{
-    this.validationErrors=error;
-    
+  // }, error=>{
+  //   this.validationErrors=error;
+  //   console.log(error)
 
-  })
+  // })
 }
 
 
   loadDoctors(){
     this.doctorService.getDoctors().subscribe(doctors=>{
       this.doctors=doctors;
-      console.log(this.doctors[0].id);
+    
+    })
+  }
+  loadPostCodes(){
+    this.accountService.getPlaces().subscribe( postCodes=>{
+      this.postCodes= postCodes;
+     
     })
   }
 

@@ -1,4 +1,5 @@
 import { Doctors } from "./doctor";
+import {Places} from "./places"
 export interface User{
 
     name:string;
@@ -6,8 +7,8 @@ export interface User{
     email:string;
     phoneNumber:string;
     birthDate:string;
-    city:string;
-    placeId:string;
+    city:Places[];
+    placeId:Places[];
     street:string;
     houseNumber:string;
     password:string;
