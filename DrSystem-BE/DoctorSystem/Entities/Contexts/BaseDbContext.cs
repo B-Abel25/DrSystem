@@ -74,8 +74,8 @@ namespace DoctorSystem.Entities.Contexts
             //TODO: Ez ide miért kell? 
             base.OnModelCreating(modelBuilder);
         }
-        
 
+        //dotnet tool install --global dotnet-ef
         //ctrl+shift+b --> build
         //cd doc [TAB]
         //dotnet ef migrations add Teszt2 --context BaseDbContext

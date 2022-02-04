@@ -1,5 +1,5 @@
 export interface Doctors{
-    id: number;
+    id: string;
     name:string;
     postCode: number;
     

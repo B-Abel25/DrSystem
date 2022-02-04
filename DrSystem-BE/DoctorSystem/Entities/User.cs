@@ -36,7 +36,7 @@ namespace DoctorSystem.Entities
         [Required]
         [MySqlCollation("utf8_hungarian_ci")]
         public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
         [StringLength(9, MinimumLength = 9)]
         [Required]
         public string MedNumber { get; set; }

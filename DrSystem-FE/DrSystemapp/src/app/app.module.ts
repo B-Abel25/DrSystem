@@ -53,6 +53,7 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     AppRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+  
     
   ],
   providers: [
