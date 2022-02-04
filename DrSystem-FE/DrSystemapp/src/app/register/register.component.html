@@ -20,7 +20,7 @@
       formControlName="name"  
      
       required>
-     <span *ngIf="registerForm.controls['name'].errors?.['touched']">Hello</span>
+     <span *ngIf="registerForm.get('name').valid">Hello</span>
     </div>
 
     <div class="form-group col-5 required">
@@ -32,10 +32,7 @@
       name="birthDate" 
       type="date" 
       required>
-      <!-- <span class="text-danger"
-                                *ngIf="(registerFormControl['username'].touched || submitted) && registerFormControl['username'].errors">
-                                Date is required
-        </span> -->
+    
     </div>
 
     <div class="form-group   col-5 required">
@@ -91,10 +88,7 @@
      
       placeholder=" ***-***-***"
       required>
-      <!-- <span class="text-danger"
-      *ngIf="(registerFormControl['medNumber'].touched || submitted || registerFormControl['medNumber'].dirty) && registerFormControl['medNumber'].errors">
-      Name is required
-</span> -->
+      
      
     </div>
     <div class="form-group required">
@@ -114,7 +108,7 @@
       name="phoneNumber" 
       id="phoneNumber" 
       type="tel"
-      
+     
      >
      
     </div>
@@ -122,21 +116,17 @@
     <div class="form-group required">
         <label>Jelszó</label>
         <input 
+        [class.is-invalid]='registerForm.get("password").errors && registerForm.get("password").touched'
         type="password" 
         class="form-control" 
         name="password" 
         id="password" 
         formControlName="password" 
          >
-         <!-- <span class="text-danger"
-                                *ngIf="(registerFormControl['password'].touched || submitted) && registerFormControl['password'].errors?.required">
-                                Password is required
-                            </span>
-                            <span class="text-danger"
-                                *ngIf="registerFormControl['password'].touched && registerFormControl['password'].errors?.invalidPassword">
-                                Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
-                                letter and 1 number
-                            </span>-->
+         <!-- <div *ngIf="registerForm.get('password')!.hasError('required')!" class="invalid-feedback">Please enter your password</div> -->
+          <div *ngIf="registerForm.get('password').hasError('minLenght')!" class="invalid-feedback">Legalább 8 karakter hosszú jelszó le</div>
+         <!-- <div *ngIf="registerForm.get('password').maxlenght" class="invalid-feedback">Maximum 16 karakter hosszú jelszó lehet</div>  -->
+        
 
   </div> 
 
@@ -151,14 +141,7 @@
         name=" confirmPassword" 
         id=" confirmPassword" >
         
-        <!-- <span class="text-danger"
-        *ngIf="(registerFormControl['confirmPassword'].touched || submitted) && registerFormControl['confirmPassword'].errors">
-        Confirm Password is required
-    </span>
-    <span class="text-danger"
-        *ngIf="registerFormControl['confirmPassword'].touched && registerFormControl['confirmPassword'].MustMatch">
-        Passwords doesnot match
-    </span> -->
+       
       </div>
 
       <div class="form-group required">

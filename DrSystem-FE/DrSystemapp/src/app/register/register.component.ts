@@ -8,6 +8,8 @@ import { Places } from '../_models/places';
 import { AccountService } from '../_services/account.service';
 import { CustomvalidationService } from '../_services/customvalidation.service';
 import { DoctorService } from '../_services/doctor.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 @Component({
@@ -48,8 +50,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     // this.registerForm = this.fb.group({
-    //   phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.maxLength(9), Validators.minLength(9)]],
-    //   medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{3}')], ],
+    //    phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.maxLength(9), Validators.minLength(9)]],
+    //    medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{3}')], ],
     //   houseNumber: ['', [Validators.required, Validators.pattern('[0-9a-z]')]],
     //   birthDate: ['', Validators.required],
     //   street: ['', [Validators.required,Validators.pattern('[a-zA-Z]')]],
@@ -58,12 +60,10 @@ export class RegisterComponent implements OnInit {
     //   doctorId: ['', Validators.required],
     //   email: ['', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
     //   name: ['', [Validators.required, Validators.pattern('[a-z A-Z]*')]],
-    //   password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator(), Validators.minLength(6), Validators.maxLength(12)])],
-    //   confirmPassword: ['', [Validators.required]],
-    // },
-    //   {
-    //     validator: this.customValidator.MustMatch('password', 'confirmPassword'),
-    //   }
+    //   password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])],
+    //   confirmPassword: ['', [Validators.required, this.matchValues('password')]],
+   // },
+      
     //);
 
     this.loadDoctors();
@@ -86,17 +86,25 @@ export class RegisterComponent implements OnInit {
    initializeForm(){
      this.registerForm=new FormGroup({
        name:new FormControl('',Validators.required),
-       password:new FormControl('',Validators.required),
+       password:new FormControl('',[Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
+      
        confirmPassword:new FormControl('',[Validators.required, this.matchValues('password')]),
 
      })
+     this.registerForm.controls['password'].valueChanges.subscribe(()=>{
+       this.registerForm.controls['confirmPassword'].updateValueAndValidity();
+     })
+   }
+   registerFormControl()
+   {
+     return this.registerForm.controls;
    }
    
   
   
 
   matchValues(matchTo:string) : ValidatorFn{
-    return (control:AbstractControl | any )=>{
+    return (control:AbstractControl)=>{
       return control?.value == control?.parent?.controls[matchTo].value ? null : {isMatching: true}
     }
   }
