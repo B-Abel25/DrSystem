@@ -68,7 +68,7 @@ namespace DoctorSystem.Controllers
             string content = $"<h1>Kérjük hitelesítse email címét!</h1>" +
                 "<p>Kérjük nyomjon az alábbi gombra és hitelesítse email címét</p>" +
                  "<button style = \"background: #1A1A1A; Color: #FFF;  padding: 14px 25px;\"" +
-                    "onclick = \"window.open(\"" + link + "\") > Emailcím hitelesítése </button>";
+                    "onclick = \"window.open(\'" + link + "\')\" > Emailcím hitelesítése </button>";
 
             this._emailService.sendEmail(registerDto.Email, content, "Regisztráció visszajelzés");
 
@@ -149,16 +149,26 @@ namespace DoctorSystem.Controllers
             }
         }
 
+
+        //TODO csak gettel működik DE MIÉRT?????
+        [HttpGet]
         [Route("validate-email/{token}")]
-        [HttpPut]
         public async Task<ActionResult> ValidateEmail(string token)
         {
-            var user = await _context._users.SingleOrDefaultAsync(x => x.Token == token);
+            var user = await _context._users.SingleOrDefaultAsync(x => x.Token == token.ToString());
             if (user == null) return Unauthorized("Invalid token");
             user.Token = "true";
-            return Accepted();
+            await _context.SaveChangesAsync();
+            return Redirect($"https://google.com/");
         }
 
+        [HttpGet]
+        [Route("sendMail/{subject}")]
+        public async Task<ActionResult> SendMail(string subject)
+        {
+            _emailService.sendEmail("0525.b.abel@gmail.com", "",subject);
+            return Accepted();
+        }
         private async Task<bool> UserExists(string medNumber)
         {
             return await _context._users.AnyAsync(x => x.MedNumber == medNumber);
