@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark ">
   
     <div class="container-fluid">
       <img id='imagelogo' src="assets/logo2.png"  >
@@ -10,10 +10,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 " *ngIf="!(accountService.currentUser$ | async)">
+        <ul class="navbar-nav ml-auto  " *ngIf="!(accountService.currentUser$ | async)">
           
           <li class="nav-item">
-            <a class="nav-link" routerLink="/login" routerLinkActive="active">Bejelentkezés</a>
+            <a class="nav-link " routerLink="/login" routerLinkActive="active">Bejelentkezés</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/register" routerLinkActive="active">Regisztráció</a>

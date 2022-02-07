@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { User } from './_models/user';
+import { AccountService } from './_services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +12,10 @@ export class AppComponent implements OnInit {
   title = 'DrSystemapp';
   users:any;
   @Output() loggedInEvent = new EventEmitter();
-  @Output() adminloggedInEvent= new EventEmitter();
+ 
   loggedIn: boolean = false;
-  adminloggedIn: boolean=false;
-  constructor(private http:HttpClient) {}
+  
+  constructor(private http:HttpClient, private accountService:AccountService) {}
     handleLogin(state: boolean) {
       this.loggedIn = state
       this.loggedInEvent.emit(this.loggedIn);
@@ -22,7 +24,11 @@ export class AppComponent implements OnInit {
     
   
   ngOnInit() {
-   
+   this.setCurrentUser();
+  }
+  setCurrentUser(){
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    this.accountService.setCurrentUser(user);
   }
  
  }

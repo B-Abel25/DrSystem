@@ -1,7 +1,8 @@
 export interface Doctors{
     id: string;
     name:string;
-    postCode: number;
+    postCode: string;
+    place: any;
     
 
 }
