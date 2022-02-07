@@ -1,0 +1,18 @@
+<div class="form-group required">
+    
+    <input 
+    [class.is-invalid]='ngControl.touched && ngControl.invalid'
+    type={{type}}
+    class="form-control" 
+     [formControl]="ngControl.control" 
+     placeholder={{label}}
+     required
+     >
+     <div *ngIf="ngControl.control.errors?.['required']" class="invalid-feedback">Adja meg a/az {{label}}</div> 
+     <div *ngIf="ngControl.control.errors?.['minlength']" class="invalid-feedback">A/Az {{label}} minimum {{ngControl.control.errors.minlength['requiredLenght']}} karakter</div>
+     <div *ngIf="ngControl.control.errors?.['maxlength']" class="invalid-feedback">A/Az {{label}} maximum {{ngControl.control.errors.maxlength['requiredLenght']}} karakter</div>
+     <div *ngIf="ngControl.control.errors?.['isMatching']" class="invalid-feedback">A jelszavak nem egyeznek</div>
+      
+    
+
+</div> 

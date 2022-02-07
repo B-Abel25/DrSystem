@@ -24,6 +24,8 @@ import { SharedModule } from './_modules/shared.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
+
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     LostPasswordRequestComponent,
           NotFoundComponent,
           ServerErrorComponent,
+          TextInputComponent,
         
     
   
@@ -53,7 +56,8 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     AppRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-  
+   
+
     
   ],
   providers: [
