@@ -4,6 +4,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,6 +18,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ToastrModule.forRoot({
       positionClass:'toast-bottom-right'
     }),
+    ReactiveFormsModule,
    
     
   ],
@@ -25,6 +27,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ToastrModule,
     ModalModule,
     BsDatepickerModule,
+    ReactiveFormsModule,
   ]
 })
 export class SharedModule { }

@@ -1,9 +1,8 @@
-import { Doctors } from "./doctor";
 import {Places} from "./places"
-export interface User{
 
+export interface Client{
+    id:string;
     medNumber:string;
-    token:string;
     name:string;
     email:string;
     phoneNumber:string;
@@ -11,7 +10,7 @@ export interface User{
     placeId:Places[];
     street:string;
     houseNumber:string;
-    doctorId: Doctors[]; 
+    
     
     
  }
