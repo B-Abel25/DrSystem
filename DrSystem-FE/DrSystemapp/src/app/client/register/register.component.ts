@@ -3,11 +3,11 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup,  ValidatorFn,Vali
 
 import { ToastrService } from 'ngx-toastr';
 
-import { Doctors } from '../_models/doctor';
-import { Places } from '../_models/places';
-import { AccountService } from '../_services/account.service';
+import { Doctors } from '../../_models/doctor';
+import { Places } from '../../_models/places';
+import { AccountService } from '../../_services/account.service';
 
-import { DoctorService } from '../_services/doctor.service';
+import { DoctorService } from '../../_services/doctor.service';
 
 import { Router } from '@angular/router';
 
