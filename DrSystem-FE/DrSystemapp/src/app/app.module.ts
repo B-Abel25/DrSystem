@@ -11,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
-
+import { DoctorLoginComponent } from './doctor-login/doctor-login.component';
 
 
 
@@ -25,6 +25,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { ClientHomepageComponent } from './client-homepage/client-homepage.component';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+
 
 
 
@@ -41,6 +44,8 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
           NotFoundComponent,
           ServerErrorComponent,
           TextInputComponent,
+         DoctorLoginComponent,
+         ClientHomepageComponent,
         
     
   
@@ -63,6 +68,7 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

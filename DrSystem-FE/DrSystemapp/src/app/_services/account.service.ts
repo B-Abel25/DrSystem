@@ -85,5 +85,7 @@ this.currentUserSource.next(user);
   getPlaces(){
     return this.http.get<Places[]>(this.baseUrl+'user/places')
   }
-  
+  getDoctors(){
+    return this.http.get<Doctors[]>(this.baseUrl+'user/doctors')
+  }
 }

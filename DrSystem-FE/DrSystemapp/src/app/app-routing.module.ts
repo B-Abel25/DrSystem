@@ -1,6 +1,7 @@
 import { registerLocaleData } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DoctorLoginComponent } from './doctor-login/doctor-login.component';
 
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
@@ -18,10 +19,17 @@ import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   
-  {path: 'register', component: RegisterComponent},
- {path: 'new-password/:id', component: NewPasswordComponent},
-  {path: '', component: LoginComponent},
-  {path: 'login', component: LoginComponent},
+  {path: '', component: HomepageComponent},
+  {
+    path:'drsystem',
+    component:HomepageComponent,
+      children:[
+      {path: 'register', component: RegisterComponent},
+      {path: 'new-password/:id', component: NewPasswordComponent},
+      
+       {path: 'login', component: LoginComponent},
+    ]
+  },
   {
     path:'',
     runGuardsAndResolvers:'always',
@@ -32,11 +40,11 @@ const routes: Routes = [
       
     ]
   },
-
+  {path: 'admin', component: DoctorLoginComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
   {path: '**', component: NotFoundComponent, pathMatch:'full'},
- 
+  
  
  
   

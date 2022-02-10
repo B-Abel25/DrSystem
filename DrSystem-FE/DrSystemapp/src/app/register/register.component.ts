@@ -1,15 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn,Validators} from '@angular/forms';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AbstractControl, FormBuilder, FormControl, FormGroup,  ValidatorFn,Validators} from '@angular/forms';
+
 import { ToastrService } from 'ngx-toastr';
-import { ConfirmedValidator } from '../confirmed.validator';
+
 import { Doctors } from '../_models/doctor';
 import { Places } from '../_models/places';
 import { AccountService } from '../_services/account.service';
-import { CustomvalidationService } from '../_services/customvalidation.service';
+
 import { DoctorService } from '../_services/doctor.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+
 import { Router } from '@angular/router';
 
 
@@ -76,7 +75,11 @@ export class RegisterComponent implements OnInit {
    initializeForm(){
     this.registerForm = this.fb.group({
       phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.maxLength(11), Validators.minLength(11)]],
-      medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
+
+      medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}F[0-9]{3}')], ],
+
+  
+
      houseNumber: ['', [Validators.required, Validators.pattern('[0-9 a-z]*')]],
      birthDate: ['', Validators.required],
      street: ['', [Validators.required,Validators.pattern('[a-z A-Z]*')]],
@@ -112,7 +115,11 @@ export class RegisterComponent implements OnInit {
 register(){
 console.log(this.registerForm.value);
   this.accountService.register(this.registerForm.value).subscribe(response=>{
-    this.router.navigateByUrl('/login');
+
+    this.router.navigateByUrl('/drsystem/login');
+
+   
+
    
   }, error=>{
     this.validationErrors=error;
@@ -124,7 +131,7 @@ console.log(this.registerForm.value);
 
 
   loadDoctors(){
-    this.doctorService.getDoctors().subscribe(doctors=>{
+    this.accountService.getDoctors().subscribe(doctors=>{
       this.doctors=doctors;
     
     })
