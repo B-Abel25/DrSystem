@@ -16,7 +16,6 @@ export class AdminGuard implements CanActivate {
       
         this.toastr.error('You shall not pass');
         return false;
-        //ez próba (Ábel)
       })
     )
   }
