@@ -56,7 +56,7 @@ namespace DoctorSystem.Controllers
             user.Place = await _context._place.SingleOrDefaultAsync(x => x.Id == registerDto.PlaceId);
             user.Street = registerDto.Street;
             user.HouseNumber = registerDto.HouseNumber;
-            user.BirthDate = registerDto.BirthDate;
+            user.BirthDate = DateTime.Parse(registerDto.BirthDate);
             user.Doctor = await _context._doctors.SingleOrDefaultAsync(x => x.Id == registerDto.DoctorId);
             user.Member = user.Doctor.Place == user.Place ? true : false;
 

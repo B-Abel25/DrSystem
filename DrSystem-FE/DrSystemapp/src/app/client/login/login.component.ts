@@ -18,10 +18,12 @@ export class LoginComponent  {
   ngOnInit(): void {
    
     this.getCurrentUser();
+    console.log();
   }
 login(){
  this.accountService.login(this.model).subscribe(response=>{
   this.router.navigateByUrl('/booking');
+ 
    this.loggedIn=true;
    }, error=>{
    console.log(error);
@@ -37,6 +39,7 @@ logout()
 getCurrentUser(){
   this.accountService.currentUser$.subscribe(user=>{
     this.loggedIn=!!user;
+    console.log(user)
   }, error=>{
 console.log(error);
   });

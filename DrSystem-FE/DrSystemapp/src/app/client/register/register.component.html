@@ -29,11 +29,12 @@
   
   <div class="col-md-3 form-group required">
     <label class="form-label required">Irányítószám</label>
-    <select class="form-control" [class.is-invalid]='registerForm.get("placeId").errors && registerForm.get("placeId").touched' class="form-control " formControlName="placeId"   required  >
+    <!-- <select class="form-control" [class.is-invalid]='registerForm.get("placeId").errors && registerForm.get("placeId").touched' class="form-control " formControlName="placeId"   required  >
       <option *ngFor="let postCode of postCodes" [value]="postCode.id" >
         {{postCode.postCode}}
       </option>
-    </select>
+    </select> -->
+    <input type="text"  [class.is-invalid]='registerForm.get("placeId").errors && registerForm.get("placeId").touched' class="form-control " formControlName="placeId"   required>
     <div *ngIf="registerForm.get('placeId').hasError('required')" class="invalid-feedback">
       Kérem az irányítószámát!
     </div>
