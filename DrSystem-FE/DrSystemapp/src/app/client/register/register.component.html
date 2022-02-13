@@ -1,12 +1,21 @@
 
-  <app-navbar></app-navbar>
+ 
+  <main class="site-wrapper">
+   
+    <div class="pt-tablecell page-home relative " style="background-image: url(/assets/logofekete.png);
+    background-position: center;
+    background-size: cover;">
+   <div class="overlay"></div>
+   <app-navbar></app-navbar>
+    
+    
 <div class="container">
   
   <div class="wrapped-div">
     
     <div class="row" >
       <div class="col-md-10 offset-md-1 " >
-
+      
         
   <form  class="row g-3 " [formGroup]="registerForm" autocomplete="off" (ngSubmit)="registerForm.valid && register()" novalidate>
   
@@ -163,14 +172,16 @@
   </div>
       
          </form>
-         <p>Form value: {{registerForm.value | json}}</p>
-         <p>Form value: {{registerForm.status | json}}</p>
+         
   
         <br>
       </div>
     </div>
   </div>
 </div>
+    </div>
+
+  </main>
 
 
   

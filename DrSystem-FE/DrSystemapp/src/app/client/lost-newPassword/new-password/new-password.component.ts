@@ -14,10 +14,8 @@ export class NewPasswordComponent implements OnInit {
   constructor(private fb:FormBuilder,private accountService:AccountService, private toatsr:ToastrService) { }
 
   ngOnInit() {
-   this.newPasswordForm= new FormGroup({
-     password: new FormControl('', Validators.required),
-     confirmPassword: new FormControl('')
-   })
+   
+   
   }
  
 
