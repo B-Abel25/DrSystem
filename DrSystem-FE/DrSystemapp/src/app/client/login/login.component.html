@@ -1,22 +1,40 @@
-<app-navbar></app-navbar>
-  <div class="container">
+
+
+<main class="site-wrapper">
+  <div class="pt-tablecell page-home relative " style="background-image: url(/assets/logofekete.png);
+      background-position: center;
+      background-size: cover;">
+      <div class="overlay"></div>
+      <app-navbar></app-navbar>
+<div class="container">
     <div class="wrapped-div">
       
       <div class="row" >
         <div class="col-md-10 offset-md-1 " >
   <div class="modal-body" >
-    <form #loginFrom (ngSubmit)="login()" autocomplete="off">
+    <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && login()" autocomplete="off" novalidate>
     
 
-        <div class="form-group">
+        <div class="form-group   required">
             <label for="medNumber">TAJ-szám</label>
             <input name="medNumber" type="text" class="form-control" id="medNumber" 
-            [(ngModel)]="model.medNumber">
+            formControlName="medNumber"
+            [class.is-invalid]='loginForm.get("medNumber").errors && loginForm.get("medNumber").touched'
+            >
+            <div *ngIf="loginForm.get('medNumber').hasError('required')" class="invalid-feedback">
+              A TAJ-szám nem megfelelő!
+            </div>
+           
         </div>
-        <div class="form-group">
+        <div class="form-group required">
             <label for="password">Jelszó</label>
             <input name="password" type="password" class="form-control" id="password" 
-            [(ngModel)]="model.password">
+            formControlName="password"
+            [class.is-invalid]='loginForm.get("password").errors && loginForm.get("password").touched'>
+            <div *ngIf="loginForm.get('password').hasError('required')" class="invalid-feedback">
+              A jelszó nem megfelelő!
+            </div>
+            
         </div>
     
         <div class="checkbox mb-3">
@@ -24,16 +42,22 @@
             <input type="checkbox" value="remember-me"> Emlékezz rám
             </label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" >Belépés</button>
-    </form>  
+        <button [disabled]="!loginForm.valid" class="w-100 btn btn-lg btn-primary" type="submit" >Belépés</button>
+    </form> 
+    
     <br>
     <p id="link"><a class="btn btn-link p-0" routerLink="/register">Nincs fiókja?</a></p>
-    <p id="link" ><app-lost-password-request (lostPasswordOpenedEvent) = "closeModal()" ></app-lost-password-request></p>
+    <p id="link" ><app-lost-password-request (lostPasswordOpenedEvent) = "closeModal()"  ></app-lost-password-request></p>
 
 </div>
         </div>
       </div>
+      
     </div>
   </div>
+  
+  </div>
+  
+</main>
 
 

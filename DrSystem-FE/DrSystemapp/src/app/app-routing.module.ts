@@ -17,6 +17,9 @@ import { ComplaintComponent } from './client/clients-functions/complaint/complai
 
 import { AuthGuard } from './_guards/auth.guard';
 import { DrsystemHomeComponent } from './client/drsystem-home/drsystem-home.component';
+import { AdminGuard } from './_guards/admin.guard';
+import { ClientListComponent } from './doctor-admin/doctor-function/client-list/client-list.component';
+import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-message/doctor-message.component';
 
 const routes: Routes = [
   
@@ -26,9 +29,10 @@ const routes: Routes = [
     component:HomepageComponent,
       children:[
       {path: 'register', component: RegisterComponent},
-      {path: 'new-password/:id', component: NewPasswordComponent},
+      {path: 'new-password/:token', component: NewPasswordComponent},
       {path: 'home', component:DrsystemHomeComponent},
        {path: 'login', component: LoginComponent},
+       {path: 'admin', component: DoctorLoginComponent},
     ]
   },
   {
@@ -41,7 +45,17 @@ const routes: Routes = [
       
     ]
   },
-  {path: 'admin', component: DoctorLoginComponent},
+  {
+    path:'',
+    runGuardsAndResolvers:'always',
+    canActivate:[AdminGuard],
+    children:[
+      {path: 'client-list', component: ClientListComponent},
+      {path: 'doctor-message', component: DoctorMessageComponent},
+      
+    ]
+  },
+  
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
   {path: '**', component: NotFoundComponent, pathMatch:'full'},

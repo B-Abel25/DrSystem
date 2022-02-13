@@ -1,5 +1,5 @@
 import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -16,6 +16,7 @@ import { AccountService } from 'src/app/_services/account.service';
 export class LostPasswordRequestComponent implements OnInit {
   @ViewChild('requestForm')
   requestForm!: NgForm ;
+  lostPasswordForm:FormGroup;
   @Output() lostPasswordOpenedEvent = new EventEmitter(); 
   paswwordLost: boolean = false
   public model: any={}
@@ -27,12 +28,12 @@ export class LostPasswordRequestComponent implements OnInit {
   }
   modalRef!: BsModalRef;
   constructor(private modalService: BsModalService, private accountService: AccountService
-    , private toastr:ToastrService, private router:Router) {
+    , private toastr:ToastrService, private router:Router, private fb:FormBuilder) {
 
   }
 
   sendResetMail() {
-    this.accountService.lostPassword(this.model).subscribe(response => {
+    this.accountService.lostPassword(this.lostPasswordForm.value).subscribe(response => {
       this.router.navigateByUrl('/lostpasswordpage');
       console.log(response);
      
@@ -41,7 +42,8 @@ export class LostPasswordRequestComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.initializationForm();
   }
 
   openModal(template: TemplateRef<any>) {
@@ -50,6 +52,11 @@ export class LostPasswordRequestComponent implements OnInit {
     
     this.modalRef = this.modalService.show(template);
   }
-
+  initializationForm(){
+    this.lostPasswordForm=this.fb.group({
+      medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
+     
+    })
+  }
 
 }

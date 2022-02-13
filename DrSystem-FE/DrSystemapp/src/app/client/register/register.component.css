@@ -1,5 +1,8 @@
 
-
+.site-wrapper{
+    background-color: #082042;
+    height: 957px;
+}
 input.form-control,input.form-control:focus{
     background-color:#fbfbfb;
     color: rgb(10, 17, 56);
@@ -105,5 +108,23 @@ div.form-group.required>label:first-child:after{
       color:#05051d
   }
   .col-md-8{
-      align-items: center;
+     
+    align-items: center;
+  }
+  .overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+ }
+  .page-home {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    vertical-align: middle; 
+    height: 1089px
+;}
+    .page-home .overlay {
+        background-color: rgba(46, 76, 144, 0.97);
   }

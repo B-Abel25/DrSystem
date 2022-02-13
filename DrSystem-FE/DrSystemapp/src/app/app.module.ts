@@ -25,10 +25,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
-import { ClientHomepageComponent } from './client/client-homepage/client-homepage.component';
+
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { AdminNavbarComponent } from './doctor-admin/admin-navbar/admin-navbar.component';
 import { DrsystemHomeComponent } from './client/drsystem-home/drsystem-home.component';
+import { DoctorHomepageComponent } from './doctor-admin/doctor-homepage/doctor-homepage.component';
+import { ClientListComponent } from './doctor-admin/doctor-function/client-list/client-list.component';
+import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-message/doctor-message.component';
 
 
 
@@ -47,9 +50,12 @@ import { DrsystemHomeComponent } from './client/drsystem-home/drsystem-home.comp
           ServerErrorComponent,
           TextInputComponent,
          DoctorLoginComponent,
-         ClientHomepageComponent,
+      
          AdminNavbarComponent,
          DrsystemHomeComponent,
+         DoctorHomepageComponent,
+         ClientListComponent,
+         DoctorMessageComponent,
         
     
   

@@ -33,7 +33,7 @@ login(){
 logout()
 {
   this.accountService.logout();
-  this.router.navigateByUrl('/');
+  this.router.navigateByUrl('/drsystem/login');
  
 }
 getCurrentUser(){

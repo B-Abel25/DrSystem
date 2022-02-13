@@ -1,0 +1,134 @@
+
+.site-wrapper{
+    background-color: #082042;
+    height: 1089px;
+}
+input.form-control,input.form-control:focus{
+    background-color:#fbfbfb;
+    color: rgb(10, 17, 56);
+    border: 1px solid #1950bd;
+
+}
+
+input.form-control:focus{
+    box-shadow: none;
+}
+
+button[type=submit].btn{
+    border-radius: 20px;
+    background-color: #77b6e9;
+    color: rgb(10, 16, 68);
+}
+
+div.form-group label:not(.text-danger){
+    color: #082042;
+    font-weight: 700;
+}
+
+div.form-group.required>label:first-child:after{
+    content:'*';
+    color: #fff;
+    padding-left: 5px;
+}
+
+#toast-container > div {
+    opacity:1;
+}
+
+
+  form{
+      margin: 0px 16px;
+  }
+
+ div.form-group input.invalid{
+    border: 1px solid #dc3545; 
+ }
+ div.form-group label:first-child{
+    text-transform: uppercase;
+    font-size: 0.9rem;
+ }
+ #link{
+     
+     text-align: center;
+     color:#fff;
+    
+ }
+
+ .btn {
+color:#fff
+
+ }
+ p{
+     color:#fff;
+ }
+
+
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+   
+    padding: 100px;
+  
+}
+
+
+  .wrapped-div {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #5384e7;
+    padding: 30px;
+    width: 90%;
+    width: 450px;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    
+  }
+
+  .overlay {
+    position:fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+ }
+
+     
+  .page-home {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    vertical-align: middle; 
+    height: 1089px
+;}
+    .page-home .overlay {
+      background-color: rgba(46, 76, 144, 0.97);
+  }
+  input:valid {
+    
+    border: 3px solid #2ee4f5;
+    
+  }
+ 
+  input:invalid {
+    
+    border: 2px solid #11195d;
+    
+  }
+  .invalid-feedback{
+      color: #f9f9fb;
+  }
+  
+  .form-check-label{
+      color:#05051d
+  }
+  .col-md-8{
+     
+    align-items: center;
+  }
+
+
+ 

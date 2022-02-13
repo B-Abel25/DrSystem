@@ -23,11 +23,11 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister= new EventEmitter();
 
   
-  doctors!:Doctors[];
+  doctors:Doctors[];
   submitted:boolean=false;
-  registerForm!:FormGroup;
-  validationErrors!: string[];
-  postCodes!:Places[];
+  registerForm:FormGroup;
+  validationErrors: string[];
+  postCodes:Places[];
   public showPasswordOnPress: boolean;
   
   constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService, private fb:FormBuilder, private router:Router) { 
@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
    initializeForm(){
     this.registerForm = this.fb.group({
       phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.maxLength(11), Validators.minLength(11)]],
-      medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}F[0-9]{3}')], ],
+      medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
      houseNumber: ['', [Validators.required, Validators.pattern('[0-9 a-z]*')]],
      birthDate: ['', Validators.required],
      street: ['', [Validators.required,Validators.pattern('[a-z A-Z]*')]],

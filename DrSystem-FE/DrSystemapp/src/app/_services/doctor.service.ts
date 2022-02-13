@@ -1,16 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Client } from '../_models/client';
-import { Doctors } from '../_models/doctor';
+
+import { DoctorAdmin } from '../_models/doctorsadmin';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DoctorService {
 baseUrl= environment.apiUrl;
-doctors!:Doctors[];
+doctors!:DoctorAdmin[];
+private currentDoctorSource= new ReplaySubject<DoctorAdmin>(1);
+  currentDoctor$=this.currentDoctorSource.asObservable();
   constructor(private http: HttpClient) { }
+
+  login(model:any)
+  {
+    return this.http.post<DoctorAdmin>(this.baseUrl + 'public/doctor', model).pipe(
+      map((response: DoctorAdmin)=>{
+        const doctor=response;
+        if (doctor){
+          this.setCurrentUser(doctor);
+          localStorage.setItem('doctor', JSON.stringify(doctor));
+        }
+      })
+    )
+  }
+  setCurrentUser(doctor: DoctorAdmin)
+  {
+    localStorage.setItem('doctor', JSON.stringify(doctor));
+this.currentDoctorSource.next(doctor);
+  }
+
+  logout()
+  {
+    localStorage.removeItem('doctor');
+    this.currentDoctorSource.next(null as any);
+  }
 
   getClients(){
     return this.http.get<Client[]>(this.baseUrl+'clients');
