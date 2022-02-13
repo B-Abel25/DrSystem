@@ -75,7 +75,15 @@ export class RegisterComponent implements OnInit {
    initializeForm(){
     this.registerForm = this.fb.group({
       phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.maxLength(11), Validators.minLength(11)]],
+
       medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
+
+
+    
+
+  
+
+
      houseNumber: ['', [Validators.required, Validators.pattern('[0-9 a-z]*')]],
      birthDate: ['', Validators.required],
      street: ['', [Validators.required,Validators.pattern('[a-z A-Z]*')]],
@@ -111,7 +119,11 @@ export class RegisterComponent implements OnInit {
 register(){
 console.log(this.registerForm.value);
   this.accountService.register(this.registerForm.value).subscribe(response=>{
+
     this.router.navigateByUrl('/drsystem/login');
+
+   
+
    
   }, error=>{
     this.validationErrors=error;
