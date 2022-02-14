@@ -17,10 +17,12 @@ import { DoctorService } from './doctor.service';
 export class AccountService {
 
   baseUrl=environment.apiUrl;
-  private currentClientSource= new ReplaySubject<Registration>(1);
-  currentClient$=this.currentClientSource.asObservable();
- id!:Registration;
-  constructor(private http:HttpClient) { }
+
+  private currentUserSource= new ReplaySubject<User>(1);
+  currentUser$=this.currentUserSource.asObservable();
+ id!:User;
+  constructor(private http:HttpClient ) { }
+
 
   login(model:any)
   {
