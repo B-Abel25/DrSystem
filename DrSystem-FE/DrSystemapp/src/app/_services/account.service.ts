@@ -18,9 +18,9 @@ export class AccountService {
 
   baseUrl=environment.apiUrl;
 
-  private currentUserSource= new ReplaySubject<User>(1);
-  currentUser$=this.currentUserSource.asObservable();
- id!:User;
+  private currentClientSource= new ReplaySubject<Registration>(1);
+  currentClient$=this.currentClientSource.asObservable();
+ id!:Registration;
   constructor(private http:HttpClient ) { }
 
 

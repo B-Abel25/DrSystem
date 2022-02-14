@@ -19,7 +19,7 @@ export class LoginComponent  {
 
   ngOnInit(): void {
    this.initializationForm();
-    this.getCurrentUser();
+    this.getCurrentClient();
     console.log();
   }
 login(){
@@ -39,7 +39,7 @@ logout()
   this.router.navigateByUrl('/');
  
 }
-getCurrentUser(){
+getCurrentClient(){
   this.accountService.currentClient$.subscribe(client=>{
     this.loggedIn=!!client;
     console.log(client)

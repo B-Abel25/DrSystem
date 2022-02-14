@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
    
-    this.getCurrentUser();
+    this.getCurrentClient();
   }
 login(){
  this.accountService.login(this.model).subscribe(response=>{
@@ -36,7 +36,7 @@ logout()
   this.router.navigateByUrl('/drsystem/login');
  
 }
-getCurrentUser(){
+getCurrentClient(){
   this.accountService.currentClient$.subscribe(client=>{
     this.loggedIn=!!client;
   }, error=>{
