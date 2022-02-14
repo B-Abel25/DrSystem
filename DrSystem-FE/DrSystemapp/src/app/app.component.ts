@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Doctors } from './_models/doctor';
 import { DoctorAdmin } from './_models/doctorsadmin';
-import { User } from './_models/user';
+import { Registration } from './_models/registration';
 import { AccountService } from './_services/account.service';
 import { DoctorService } from './_services/doctor.service';
 
@@ -27,15 +27,15 @@ export class AppComponent implements OnInit {
     
   
   ngOnInit() {
-   this.setCurrentUser();
+   this.setCurrentClient();
   }
-  setCurrentUser(){
-    const user: User = JSON.parse(localStorage.getItem('user'));
-    this.accountService.setCurrentUser(user);
+  setCurrentClient(){
+    const client: Registration = JSON.parse(localStorage.getItem('client'));
+    this.accountService.setCurrentClient(client);
   }
   setCurrentDoctor(){
     const doctor: DoctorAdmin = JSON.parse(localStorage.getItem('doctor'));
-    this.doctorService.setCurrentUser(doctor);
+    this.doctorService.setCurrentDoctor(doctor);
   }
  
  }
