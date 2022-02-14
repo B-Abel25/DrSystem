@@ -10,7 +10,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto  " *ngIf="!(accountService.currentUser$ | async)">
+        <ul class="navbar-nav ml-auto  " *ngIf="!(accountService.currentClient$ | async)">
           
           <li class="nav-item">
             <a class="nav-link " [routerLink]="['/drsystem/login']" routerLinkActive="active">Bejelentkezés</a>
@@ -20,7 +20,7 @@
           </li>
           
         </ul>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 " *ngIf="(accountService.currentUser$ | async)">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 " *ngIf="(accountService.currentClient$ | async)">
           
           <li class="nav-item">
             <a class="nav-link" routerLink="/booking" routerLinkActive="active">Időpont foglalás </a>
@@ -30,7 +30,7 @@
           </li>
           
         </ul>
-        <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+        <div class="dropdown" *ngIf="(accountService.currentClient$ | async) as user" dropdown>
           <img id='imageprofile' src="{{user.photoUrl}}" alt="{{user.name}}">
           <a class="dropdown-toogle text-light ml-2" dropdownToggle>Welcome {{user.medNumber | titlecase}}</a>
           <div class="dropdown-menu mt" *dropdownMenu>

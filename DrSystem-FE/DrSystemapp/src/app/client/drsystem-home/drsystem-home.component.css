@@ -394,7 +394,7 @@ body {
     transform: rotate(30deg) translate(87px, -80px); }
   
   .hex-item {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 50px;
     width: 100px;
@@ -415,7 +415,7 @@ body {
       z-index: 1; }
     .hex-item div {
       box-sizing: border-box;
-      position: absolute;
+      position: fixed;
       top: 0;
       width: 100px;
       height: 173.20508px;
@@ -523,7 +523,7 @@ body {
   @media (min-width: 1200px)
   {
   .col-lg-offset-2 {
-      margin-left: 19.99999%;
+      margin-left: 14.99999%;
   }
   }
   

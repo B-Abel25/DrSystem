@@ -1,6 +1,6 @@
 import { Doctors } from "./doctor";
 import {Places} from "./places"
-export interface User{
+export interface Registration{
 
     medNumber:string;
     token:string;

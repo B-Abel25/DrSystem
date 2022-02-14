@@ -40,9 +40,9 @@ logout()
  
 }
 getCurrentUser(){
-  this.accountService.currentUser$.subscribe(user=>{
-    this.loggedIn=!!user;
-    console.log(user)
+  this.accountService.currentClient$.subscribe(client=>{
+    this.loggedIn=!!client;
+    console.log(client)
   }, error=>{
 console.log(error);
   });

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../_models/user';
+import { Registration } from '../../_models/registration';
 import { AccountService } from '../../_services/account.service';
 
 @Component({
@@ -13,11 +13,11 @@ export class HomepageComponent implements OnInit {
   constructor(private accountService:AccountService) { }
 
   ngOnInit() {
-    this.setCurrentUser();
+    this.setCurrentClient();
   }
-  setCurrentUser(){
-    const user: User = JSON.parse(localStorage.getItem('user'));
-    this.accountService.setCurrentUser(user);
+  setCurrentClient(){
+    const client: Registration = JSON.parse(localStorage.getItem('client'));
+    this.accountService.setCurrentClient(client);
   }
   
 
