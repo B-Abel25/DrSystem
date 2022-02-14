@@ -18,7 +18,7 @@ export class DoctorHomepageComponent implements OnInit {
    }
    setCurrentDoctor(){
      const doctor: DoctorAdmin = JSON.parse(localStorage.getItem('doctor'));
-     this.doctorService.setCurrentUser(doctor);
+     this.doctorService.setCurrentDoctor(doctor);
    }
 
 }

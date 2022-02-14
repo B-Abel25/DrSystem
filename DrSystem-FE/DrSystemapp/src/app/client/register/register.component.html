@@ -145,7 +145,7 @@
  
   ng-model="selected" [class.is-invalid]='registerForm.get("doctorId").errors && registerForm.get("doctorId").touched' type="password" class="form-control" formControlName="doctorId"  >
     <option *ngFor="let doctor of doctors" [value]="doctor.id" >
-      {{doctor.name}} - {{doctor.place.city.name}}
+      {{doctor.name}} - {{doctor.postCode}}
     </option>
   </select>
   <div *ngIf="registerForm.get('doctorId').hasError('required')" class="invalid-feedback">

@@ -22,13 +22,13 @@ private currentDoctorSource= new ReplaySubject<DoctorAdmin>(1);
       map((response: DoctorAdmin)=>{
         const doctor=response;
         if (doctor){
-          this.setCurrentUser(doctor);
+          this.setCurrentDoctor(doctor);
           localStorage.setItem('doctor', JSON.stringify(doctor));
         }
       })
     )
   }
-  setCurrentUser(doctor: DoctorAdmin)
+  setCurrentDoctor(doctor: DoctorAdmin)
   {
     localStorage.setItem('doctor', JSON.stringify(doctor));
 this.currentDoctorSource.next(doctor);

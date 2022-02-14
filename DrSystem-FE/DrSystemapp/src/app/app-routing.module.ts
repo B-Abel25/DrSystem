@@ -29,7 +29,7 @@ const routes: Routes = [
     component:HomepageComponent,
       children:[
       {path: 'register', component: RegisterComponent},
-      {path: 'new-password/:token', component: NewPasswordComponent},
+      {path: 'new-password/:emailToken', component: NewPasswordComponent},
       {path: 'home', component:DrsystemHomeComponent},
        {path: 'login', component: LoginComponent},
        {path: 'admin', component: DoctorLoginComponent},

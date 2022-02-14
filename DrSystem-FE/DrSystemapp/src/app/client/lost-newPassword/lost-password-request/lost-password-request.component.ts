@@ -5,7 +5,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 
 import { LostPassword } from 'src/app/_models/lostpasswordrequest';
-import { User } from 'src/app/_models/user';
+import { Registration } from 'src/app/_models/registration';
 import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
