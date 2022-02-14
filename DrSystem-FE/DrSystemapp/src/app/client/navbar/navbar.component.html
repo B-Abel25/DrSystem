@@ -30,9 +30,9 @@
           </li>
           
         </ul>
-        <div class="dropdown" *ngIf="(accountService.currentClient$ | async) as user" dropdown>
-          <img id='imageprofile' src="{{user.photoUrl}}" alt="{{user.name}}">
-          <a class="dropdown-toogle text-light ml-2" dropdownToggle>Welcome {{user.medNumber | titlecase}}</a>
+        <div class="dropdown" *ngIf="(accountService.currentClient$ | async) as client" dropdown>
+          <img id='imageprofile' src="{{client.photoUrl}}" alt="{{client.name}}">
+          <a class="dropdown-toogle text-light ml-2" dropdownToggle>Welcome {{client.name | titlecase}}</a>
           <div class="dropdown-menu mt" *dropdownMenu>
             <a class="dropdown-item">Edit profile</a>
             <a class="dropdown-item"(click)="logout()">Logout</a>
