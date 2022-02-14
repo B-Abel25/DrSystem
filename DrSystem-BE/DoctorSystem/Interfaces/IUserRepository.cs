@@ -6,11 +6,11 @@ namespace DoctorSystem.Interfaces
 {
     public interface IUserRepository
     {
-        void Update(User user);
+        void Update(Client user);
 
         Task<bool> SaveAllAsync();
-        Task<IEnumerable<User>> GetUsersAsync();
-        Task<User> GetUserByMedNumberAsync(string medNumber);
+        Task<IEnumerable<Client>> GetUsersAsync();
+        Task<Client> GetUserByMedNumberAsync(string medNumber);
 
     }
 }
