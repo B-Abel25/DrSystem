@@ -1,17 +1,16 @@
 import { Doctors } from "./doctor";
+import {Places} from "./places"
 export interface User{
 
-    name:string;
     medNumber:string;
+    token:string;
+    name:string;
     email:string;
     phoneNumber:string;
-    birthDate:Date;
-    city:string;
-    placeId:string;
+    birthDate:string;
+    placeId:Places[];
     street:string;
     houseNumber:string;
-    password:string;
-    photoUrl:string;   
     doctorId: Doctors[]; 
     
     

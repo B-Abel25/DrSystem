@@ -92,7 +92,7 @@ namespace DoctorSystem.Data
                 
 
                 doc.Name = doctorModel.Name;
-                doc.DateOfBirth = DateTime.Parse(doctorModel.DateOfBirth);
+                doc.BirthDate = DateTime.Parse(doctorModel.DateOfBirth);
                 do
                 {
                     doc.SealNumber = random.Next(10000, 100000).ToString();

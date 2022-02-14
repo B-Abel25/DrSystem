@@ -1,9 +1,11 @@
-import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Doctors } from '../_models/doctor';
 import { LostPassword } from '../_models/lostpasswordrequest';
+import { NewPassword } from '../_models/newpassword';
+import { Places } from '../_models/places';
 import { User } from '../_models/user';
 import { DoctorService } from './doctor.service';
 
@@ -27,7 +29,7 @@ export class AccountService {
         const user=response;
         if (user){
           this.setCurrentUser(user);
-          
+          localStorage.setItem('user', JSON.stringify(user));
         }
       })
     )
@@ -37,7 +39,7 @@ return this.http.post<User>(this.baseUrl + 'public/register',model).pipe(
   map((user: User)=>{
     if(user){
      this.setCurrentUser(user);
-     this.getDoctorId();
+     
       this.currentUserSource.next(user);
       console.log(model);
     }
@@ -57,6 +59,17 @@ return this.http.post<User>(this.baseUrl + 'public/register',model).pipe(
       })
     )
   }
+
+  newPassword(model:any){
+    return this.http.post<NewPassword>(this.baseUrl+'public/new-password', model).pipe(
+      map((password:NewPassword)=>{
+        if(password){
+        localStorage.setItem('password', JSON.stringify(password));
+        console.log(model)
+        }
+      })
+    )
+  }
   setCurrentUser(user: User)
   {
     localStorage.setItem('user', JSON.stringify(user));
@@ -69,14 +82,10 @@ this.currentUserSource.next(user);
     this.currentUserSource.next(null as any);
   }
 
-  getDoctorId(){
-    const doctorId=[];
-    for (const id of this.id.doctorId ) {
-     doctorId.push({
-       doctor:id.id
-     })
-   }
-    return doctorId;
+  getPlaces(){
+    return this.http.get<Places[]>(this.baseUrl+'user/places')
   }
-  
+  getDoctors(){
+    return this.http.get<Doctors[]>(this.baseUrl+'user/doctors')
+  }
 }

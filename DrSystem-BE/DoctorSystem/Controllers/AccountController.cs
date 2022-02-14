@@ -63,6 +63,7 @@ namespace DoctorSystem.Controllers
             _context._clients.Add(client);
 
             this._emailService.SuccesfulRegistration(client);
+
             await _context.SaveChangesAsync();
 
             return Accepted();
@@ -74,6 +75,7 @@ namespace DoctorSystem.Controllers
         {
             _logger.Log("login");
             var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == loginDto.MedNumber);
+
 
             if (client == null) return Unauthorized("Invalid MedNumber");
             else if (!(client.Token.Length == 10 || client.Token == "true")) return Unauthorized("Your email is not verifyed");
