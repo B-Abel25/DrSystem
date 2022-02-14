@@ -4,6 +4,6 @@ namespace DoctorSystem.Interfaces
 {
     public interface ITokenService
     {
-        string CreateToken(Client client);
+        string CreateToken(User client);
     }
 }

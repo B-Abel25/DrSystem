@@ -29,7 +29,7 @@ namespace DoctorSystem.Entities
         [Required]
         public byte[] PasswordSalt { get; set; }
         [Required]
-        public string Token { get; set; }
+        public string EmailToken { get; set; }
         [Required]
         public Place Place { get; set; }
         [Required]
