@@ -19,11 +19,12 @@ namespace DoctorSystem.Services
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
 
-        public string CreateToken(Client client)
+        public string CreateToken(User user)
         {
             var claim = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, client.Name)
+                new Claim(JwtRegisteredClaimNames.NameId, user.Name),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
