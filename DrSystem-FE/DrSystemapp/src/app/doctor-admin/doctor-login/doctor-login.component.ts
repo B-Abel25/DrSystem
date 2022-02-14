@@ -19,7 +19,7 @@ export class DoctorLoginComponent implements OnInit {
 
   ngOnInit() {
     this.initializationForm();
-    this.getCurrentUser();
+    this.getCurrentDoctor();
   }
 
   login(){
@@ -38,9 +38,9 @@ export class DoctorLoginComponent implements OnInit {
      this.router.navigateByUrl('/');
     
    }
-   getCurrentUser(){
-     this.doctorService.currentDoctor$.subscribe(user=>{
-       this.loggedIn=!!user;
+   getCurrentDoctor(){
+     this.doctorService.currentDoctor$.subscribe(doctor=>{
+       this.loggedIn=!!doctor;
      }, error=>{
    console.log(error);
      });

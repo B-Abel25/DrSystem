@@ -19,7 +19,7 @@ export class AdminNavbarComponent implements OnInit {
     this.router.navigateByUrl('/drsystem/admin');
    
   }
-  getCurrentUser(){
+  getCurrentDoctor(){
     this.doctorService.currentDoctor$.subscribe(doctor=>{
       this.loggedIn=!!doctor;
     }, error=>{
