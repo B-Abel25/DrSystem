@@ -26,7 +26,7 @@ export class AccountService {
 
   login(model:any)
   {
-    return this.http.post<Registration>(this.baseUrl + 'public/login', model).pipe(
+    return this.http.post<Registration>(this.baseUrl + 'public/client/login', model).pipe(
       map((response: Registration)=>{
         const client=response;
         if (client){
@@ -37,7 +37,7 @@ export class AccountService {
     )
   }
   register(model: any){
-return this.http.post<Registration>(this.baseUrl + 'public/register',model).pipe(
+return this.http.post<Registration>(this.baseUrl + 'public/client/register',model).pipe(
   map((client: Registration)=>{
     if(client){
      this.setCurrentClient(client);

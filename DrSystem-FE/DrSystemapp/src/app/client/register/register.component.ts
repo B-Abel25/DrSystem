@@ -120,7 +120,7 @@ register(){
 console.log(this.registerForm.value);
   this.accountService.register(this.registerForm.value).subscribe(response=>{
 
-    this.router.navigateByUrl('/drsystem/login');
+    this.router.navigateByUrl('/login');
 
    
 

@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
   }
 login(){
  this.accountService.login(this.model).subscribe(response=>{
-  this.router.navigateByUrl('/members');
+  this.router.navigateByUrl('/booking');
    this.loggedIn=true;
    }, error=>{
    console.log(error);
@@ -33,7 +33,7 @@ login(){
 logout()
 {
   this.accountService.logout();
-  this.router.navigateByUrl('/drsystem/login');
+  this.router.navigateByUrl('/login');
  
 }
 getCurrentClient(){

@@ -24,17 +24,12 @@ import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-me
 const routes: Routes = [
   
   {path: '', component: DrsystemHomeComponent},
-  {
-    path:'drsystem',
-    component:HomepageComponent,
-      children:[
+ 
       {path: 'register', component: RegisterComponent},
       {path: 'new-password/:emailToken', component: NewPasswordComponent},
       {path: 'home', component:DrsystemHomeComponent},
-       {path: 'login', component: LoginComponent},
-       {path: 'admin', component: DoctorLoginComponent},
-    ]
-  },
+      {path: 'admin', component: DoctorLoginComponent},
+      {path: 'login', component: LoginComponent},
   {
     path:'',
     runGuardsAndResolvers:'always',
