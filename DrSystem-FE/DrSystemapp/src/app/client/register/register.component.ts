@@ -53,7 +53,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
    
-   
+  //  this.registerForm.get('postCodes').valueChanges.subscribe(x=>{
+  //    console.log("valami");
+  //    console.log(x);
+  //  })
 
     this.loadDoctors();
     this.loadPostCodes();
@@ -96,9 +99,14 @@ export class RegisterComponent implements OnInit {
      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
      confirmPassword: ['', [Validators.required, this.matchValues('password')]],
      })
-     this.registerForm.controls['password'].valueChanges.subscribe(()=>{
-       this.registerForm.controls['confirmPassword'].updateValueAndValidity();
-     })
+     this.registerForm.controls['placeId'].valueChanges.subscribe(x=>{
+      x = x+"";
+       if (x.length == 4)
+       {
+         console.log(x);
+        this.registerForm.controls['city'].setValue(this.postCodes.find(y => y.postCode == x).city);
+       }
+      })
    }
   
    

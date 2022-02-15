@@ -31,6 +31,7 @@ const routes: Routes = [
       {path: 'admin', component: DoctorLoginComponent},
       {path: 'login', component: LoginComponent},
   {
+    
     path:'',
     runGuardsAndResolvers:'always',
     canActivate: [AuthGuard],

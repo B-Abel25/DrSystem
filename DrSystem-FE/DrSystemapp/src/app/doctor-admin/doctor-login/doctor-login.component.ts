@@ -48,7 +48,7 @@ export class DoctorLoginComponent implements OnInit {
    }
    initializationForm(){
     this.doctorLoginForm=this.fb.group({
-      doctorNumber: ['', [Validators.required, Validators.pattern('O[0-9]{5}')], ],
+      doctorNumber: ['', [Validators.required, Validators.pattern('[0-9]{5}')], ],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
     })
   }

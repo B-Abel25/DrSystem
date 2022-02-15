@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
  
   loggedIn: boolean = false;
   
-  constructor(private http:HttpClient, private accountService:AccountService, private doctorService:DoctorService) {}
+  constructor(private http:HttpClient, public accountService:AccountService, private doctorService:DoctorService) {}
     handleLogin(state: boolean) {
       this.loggedIn = state
       this.loggedInEvent.emit(this.loggedIn);
@@ -27,7 +27,9 @@ export class AppComponent implements OnInit {
     
   
   ngOnInit() {
+    this.handleLogin(this.loggedIn);
    this.setCurrentClient();
+   this.getCurrentClient();
   }
   setCurrentClient(){
     const client: Registration = JSON.parse(localStorage.getItem('client'));
@@ -36,6 +38,14 @@ export class AppComponent implements OnInit {
   setCurrentDoctor(){
     const doctor: DoctorAdmin = JSON.parse(localStorage.getItem('doctor'));
     this.doctorService.setCurrentDoctor(doctor);
+  }
+  getCurrentClient(){
+    this.accountService.currentClient$.subscribe(client=>{
+      this.loggedIn=!!client;
+    }, error=>{
+  console.log(error);
+    });
+    
   }
  
  }

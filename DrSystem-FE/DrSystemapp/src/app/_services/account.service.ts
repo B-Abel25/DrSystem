@@ -17,12 +17,10 @@ import { DoctorService } from './doctor.service';
 export class AccountService {
 
   baseUrl=environment.apiUrl;
-
   private currentClientSource= new ReplaySubject<Registration>(1);
   currentClient$=this.currentClientSource.asObservable();
  id!:Registration;
-  constructor(private http:HttpClient ) { }
-
+  constructor(private http:HttpClient) { }
 
   login(model:any)
   {
@@ -52,7 +50,7 @@ return this.http.post<Registration>(this.baseUrl + 'public/client/register',mode
 )
   }
   lostPassword(model:any){
-    return this.http.post<LostPassword>(this.baseUrl+'public/lost-password', model).pipe(
+    return this.http.put<LostPassword>(this.baseUrl+'public/lost-password', model).pipe(
       map((password:LostPassword)=>{
         if(password){
         localStorage.setItem('password', JSON.stringify(password));
@@ -66,7 +64,7 @@ return this.http.post<Registration>(this.baseUrl + 'public/client/register',mode
     return this.http.post<NewPassword>(this.baseUrl+'public/new-password', model).pipe(
       map((password:NewPassword)=>{
         if(password){
-        localStorage.setItem('password', JSON.stringify(password));
+      
         console.log(model)
         }
       })
