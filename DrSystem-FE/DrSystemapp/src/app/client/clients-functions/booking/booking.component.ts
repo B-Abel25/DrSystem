@@ -1,3 +1,4 @@
+import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private location: LocationStrategy) { 
+    history.pushState(null, null, window.location.href);  
+this.location.onPopState(() => {
+  history.pushState(null, null, window.location.href);
+});  
+  }
 
   ngOnInit(): void {
   }

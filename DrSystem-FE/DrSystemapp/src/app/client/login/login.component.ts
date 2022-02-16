@@ -1,3 +1,4 @@
+import { LocationStrategy } from '@angular/common';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,7 +16,12 @@ export class LoginComponent  {
   loggedIn: boolean = false;
   modalRef!: BsModalRef;
   loginForm:FormGroup;
-  constructor(public accountService:AccountService, private router:Router, private toastr: ToastrService,private modalService: BsModalService, private fb:FormBuilder ) { }
+  constructor(public accountService:AccountService, private router:Router, private toastr: ToastrService,private modalService: BsModalService, private fb:FormBuilder,private location: LocationStrategy ) { 
+    history.pushState(null, null, window.location.href);  
+this.location.onPopState(() => {
+  history.pushState(null, null, window.location.href);
+});  
+  }
 
   ngOnInit(): void {
    this.initializationForm();
@@ -30,7 +36,7 @@ login(){
    this.loggedIn=true;
    }, error=>{
    console.log(error);
-  
+  this.toastr.error(error.error);
  })
 }
 logout()

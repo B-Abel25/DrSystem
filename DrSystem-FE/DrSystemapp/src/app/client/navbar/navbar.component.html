@@ -13,10 +13,10 @@
         <ul class="navbar-nav ml-auto  " *ngIf="!(accountService.currentClient$ | async)">
           
           <li class="nav-item">
-            <a class="nav-link " [routerLink]="['/drsystem/login']" routerLinkActive="active">Bejelentkezés</a>
+            <a class="nav-link " [routerLink]="['/login']" routerLinkActive="active">Bejelentkezés</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/drsystem/register']" routerLinkActive="active">Regisztráció</a>
+            <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active">Regisztráció</a>
           </li>
           
         </ul>

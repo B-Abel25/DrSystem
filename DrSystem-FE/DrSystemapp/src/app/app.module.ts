@@ -32,7 +32,7 @@ import { DrsystemHomeComponent } from './client/drsystem-home/drsystem-home.comp
 import { DoctorHomepageComponent } from './doctor-admin/doctor-homepage/doctor-homepage.component';
 import { ClientListComponent } from './doctor-admin/doctor-function/client-list/client-list.component';
 import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-message/doctor-message.component';
-
+import { NewPasswordComponent } from './client/lost-newPassword/new-password/new-password.component';
 
 
 
@@ -50,13 +50,13 @@ import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-me
           ServerErrorComponent,
           TextInputComponent,
          DoctorLoginComponent,
-      
+      NewPasswordComponent,
          AdminNavbarComponent,
          DrsystemHomeComponent,
          DoctorHomepageComponent,
          ClientListComponent,
          DoctorMessageComponent,
-        
+              
     
   
   
