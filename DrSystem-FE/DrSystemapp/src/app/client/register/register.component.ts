@@ -96,7 +96,7 @@ export class RegisterComponent implements OnInit {
      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
      confirmPassword: ['', [Validators.required, this.matchValues('password')]],
      })
-
+/*Itt nézz körül*/
      this.registerForm.controls['postCode'].valueChanges.subscribe(x=>{
       x = x+"";
        if (x.length == 4)

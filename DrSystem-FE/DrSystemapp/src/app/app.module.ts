@@ -33,7 +33,7 @@ import { DoctorHomepageComponent } from './doctor-admin/doctor-homepage/doctor-h
 import { ClientListComponent } from './doctor-admin/doctor-function/client-list/client-list.component';
 import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-message/doctor-message.component';
 import { NewPasswordComponent } from './client/lost-newPassword/new-password/new-password.component';
-import { ActivatedRoute } from '@angular/router';
+
 
 
 @NgModule({
@@ -71,7 +71,7 @@ import { ActivatedRoute } from '@angular/router';
     AppRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-   ActivatedRoute,
+
 
     
   ],

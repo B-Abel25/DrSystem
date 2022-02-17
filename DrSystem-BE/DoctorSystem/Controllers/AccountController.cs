@@ -127,6 +127,7 @@ namespace DoctorSystem.Controllers
                     _emailService.NewPassword(doctor);
                     return Accepted();
                 }
+                return Unauthorized("Érvénytelen azonosító szám");
             }
             catch (Exception e)
             {
@@ -146,6 +147,7 @@ namespace DoctorSystem.Controllers
                 var hmac = new HMACSHA512();
                 client.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(newDto.Password));
                 client.PasswordSalt = hmac.Key;
+                await _context.SaveChangesAsync();
                 return Accepted();
             }
             catch ( Exception e)

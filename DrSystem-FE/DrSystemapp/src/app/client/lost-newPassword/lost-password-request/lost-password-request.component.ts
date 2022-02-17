@@ -53,7 +53,7 @@ export class LostPasswordRequestComponent implements OnInit {
   }
   initializationForm(){
     this.lostPasswordForm=this.fb.group({
-      medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
+      userNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
      
     })
   }
