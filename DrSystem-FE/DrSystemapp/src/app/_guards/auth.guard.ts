@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
       map(client=>{
         if(client) return true;
       
-        this.toastr.error('You shall not pass');
+        this.toastr.error('Sikertelen belépés!');
         return false;
       })
     )

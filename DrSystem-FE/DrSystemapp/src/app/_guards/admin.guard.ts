@@ -14,7 +14,7 @@ export class AdminGuard implements CanActivate {
       map(doctor=>{
         if(doctor) return true;
       
-        this.toastr.error('You shall not pass');
+        this.toastr.error('Sikertelen belépés!');
         return false;
       })
     )

@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './client/login/login.component';
 import { RegisterComponent } from './client/register/register.component';
 import { NavbarComponent } from './client/navbar/navbar.component';
-import { HomepageComponent } from './client/homepage/homepage.component';
+
 import { DoctorLoginComponent } from './doctor-admin/doctor-login/doctor-login.component';
 
 
@@ -29,10 +29,13 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { AdminNavbarComponent } from './doctor-admin/admin-navbar/admin-navbar.component';
 import { DrsystemHomeComponent } from './client/drsystem-home/drsystem-home.component';
-import { DoctorHomepageComponent } from './doctor-admin/doctor-homepage/doctor-homepage.component';
 import { ClientListComponent } from './doctor-admin/doctor-function/client-list/client-list.component';
 import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-message/doctor-message.component';
 import { NewPasswordComponent } from './client/lost-newPassword/new-password/new-password.component';
+import { BookingComponent } from './client/clients-functions/booking/booking.component';
+import { ComplaintComponent } from './client/clients-functions/complaint/complaint.component';
+import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/new-password-doctor/new-password-doctor.component';
+import { LostPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/lost-password-doctor/lost-password-doctor.component';
 
 
 
@@ -43,7 +46,7 @@ import { NewPasswordComponent } from './client/lost-newPassword/new-password/new
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    HomepageComponent,
+    
     
     LostPasswordRequestComponent,
           NotFoundComponent,
@@ -53,10 +56,13 @@ import { NewPasswordComponent } from './client/lost-newPassword/new-password/new
       NewPasswordComponent,
          AdminNavbarComponent,
          DrsystemHomeComponent,
-         DoctorHomepageComponent,
-         ClientListComponent,
+                ClientListComponent,
          DoctorMessageComponent,
-              
+      BookingComponent,
+              ComplaintComponent,
+           NewPasswordDoctorComponent,
+           LostPasswordDoctorComponent,
+          
     
   
   

@@ -1,11 +1,11 @@
-import { registerLocaleData } from '@angular/common';
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DoctorLoginComponent } from './doctor-admin/doctor-login/doctor-login.component';
 
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { HomepageComponent } from './client/homepage/homepage.component';
+
 
 import { LoginComponent } from './client/login/login.component';
 import { NewPasswordComponent } from './client/lost-newPassword/new-password/new-password.component';
@@ -21,6 +21,7 @@ import { AdminGuard } from './_guards/admin.guard';
 import { ClientListComponent } from './doctor-admin/doctor-function/client-list/client-list.component';
 import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-message/doctor-message.component';
 
+
 const routes: Routes = [
   
   {path: '', component: DrsystemHomeComponent},
@@ -28,8 +29,16 @@ const routes: Routes = [
       {path: 'register', component: RegisterComponent},
       {path: 'new-password/:emailToken', component: NewPasswordComponent},
       {path: 'home', component:DrsystemHomeComponent},
-      {path: 'admin', component: DoctorLoginComponent},
       {path: 'login', component: LoginComponent},
+      {
+        path:'admin',
+        
+        children:[
+          {path:'', component:DrsystemHomeComponent},
+          {path: 'login', component: DoctorLoginComponent},
+          {path: 'new-password/:emailToken', component: NewPasswordComponent},
+        ]
+      },
   {
     
     path:'',

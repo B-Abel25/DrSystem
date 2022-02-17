@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
-  selector: 'app-new-password',
-  templateUrl: './new-password.component.html',
-  styleUrls: ['./new-password.component.css']
+  selector: 'app-new-password-doctor',
+  templateUrl: './new-password-doctor.component.html',
+  styleUrls: ['./new-password-doctor.component.css']
 })
-export class NewPasswordComponent implements OnInit {
-  newPasswordForm:FormGroup;
+export class NewPasswordDoctorComponent implements OnInit {
+
+  newPasswordFormDoctor:FormGroup;
  
   constructor(private fb:FormBuilder,private accountService:AccountService, private toatsr:ToastrService, private router:Router) {
     
@@ -25,7 +25,7 @@ export class NewPasswordComponent implements OnInit {
    
   }
   initializationForm(){
-    this.newPasswordForm=this.fb.group({
+    this.newPasswordFormDoctor=this.fb.group({
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
       newconfirmPassword: ['', [Validators.required, this.matchValues('password')]],
       emailToken:[this.router.url.split('/')[2]],
@@ -38,9 +38,9 @@ export class NewPasswordComponent implements OnInit {
     }
   }
   newPassword(){
-    console.log(this.newPasswordForm.value);
-      this.accountService.newPassword(this.newPasswordForm.value).subscribe(response=>{
-        this.router.navigateByUrl('/login');
+    console.log(this.newPasswordFormDoctor.value);
+      this.accountService.newPassword(this.newPasswordFormDoctor.value).subscribe(response=>{
+        this.router.navigateByUrl('/admin/login');
        
       }, error=>{
         
@@ -48,4 +48,5 @@ export class NewPasswordComponent implements OnInit {
     
       })
   }
+
 }

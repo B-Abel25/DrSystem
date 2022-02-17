@@ -109,20 +109,20 @@ color:#fff
     background-repeat: no-repeat;
     background-size: cover;
     vertical-align: middle; 
-    height: 1089px
+    min-height: 1090px
 ;}
     .page-home .overlay {
       background-color: rgba(46, 76, 144, 0.97);
   }
   input:valid {
     
-    border: 3px solid #2ee4f5;
+    border: 2px solid #2ee4f5;
     
   }
  
   input:invalid {
     
-    border: 2px solid #11195d;
+    border: 1px solid #11195d;
     
   }
   .invalid-feedback{

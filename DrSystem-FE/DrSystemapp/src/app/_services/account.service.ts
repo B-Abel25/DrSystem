@@ -1,13 +1,13 @@
-import { HttpClient, HttpHandler, HttpHeaders, JsonpClientBackend } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, ReplaySubject } from 'rxjs';
+import { map, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Doctors } from '../_models/doctor';
 import { LostPassword } from '../_models/lostpasswordrequest';
 import { NewPassword } from '../_models/newpassword';
 import { Places } from '../_models/places';
 import { Registration } from '../_models/registration';
-import { DoctorService } from './doctor.service';
+
 
 
 

@@ -44,7 +44,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 break;
 
             default:
-              this.toastr.error('Something unexpected went wrong');
+              this.toastr.error('Váratlan hiba történt!');
               console.log(error);
               break;
           }

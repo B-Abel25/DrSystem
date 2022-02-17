@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -48,8 +48,22 @@ export class DoctorLoginComponent implements OnInit {
    }
    initializationForm(){
     this.doctorLoginForm=this.fb.group({
-      doctorNumber: ['', [Validators.required, Validators.pattern('[0-9]{5}')], ],
+      sealNumber: ['', [Validators.required, Validators.pattern('[0-9]{5}')], ],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
     })
+  }
+  closeModal() {
+    console.log('force close')
+    if (this.modalRef != null) {
+      this.modalRef.hide();
+  
+    }
+  }
+  openModal(template: TemplateRef<any>) {
+    if (this.modalRef != null) {
+      this.modalRef.hide();
+  
+    }
+    this.modalRef = this.modalService.show(template);
   }
 }

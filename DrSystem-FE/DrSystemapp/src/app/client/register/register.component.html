@@ -37,12 +37,7 @@
                             <div class="col-md-3 form-group required">
                                 <label class="form-label required">Irányítószám</label>
                                 <input type="number" class="form-control" [class.is-invalid]='registerForm.get("postCode").errors && registerForm.get("postCode").touched' class="form-control " formControlName="postCode" required>
-                                <!-- <select class="form-control" [class.is-invalid]='registerForm.get("placeId").errors && registerForm.get("placeId").touched' class="form-control " formControlName="placeId"   required  >
-      <option *ngFor="let postCode of postCodes" [value]="postCode.id" >
-        {{postCode.postCode}}
-      </option>
-    </select>
-    -->
+                               
                                 <div *ngIf="registerForm.get('postCode').hasError('required')" class="invalid-feedback">
                                     Kérem az irányítószámát!
                                 </div>
@@ -51,11 +46,7 @@
                             <div class="col-md-3 form-group required">
                                 <label class="form-label required">Város</label>
                                 <input type="text" class="form-control" [class.is-invalid]='registerForm.get("city").errors && registerForm.get("city").touched' class="form-control " formControlName="city" required>
-                                <!-- <select class="form-control" [class.is-invalid]='registerForm.get("city").errors && registerForm.get("city").touched' class="form-control " formControlName="city"   required  >
-      <option *ngFor="let postCode of postCodes" [value]="postCode.city.id" >
-        {{postCode.city.name}}
-      </option>
-    </select> -->
+                               
                                 <div *ngIf="registerForm.get('city').hasError('required')" class="invalid-feedback">
                                     Kérem a városát!
                                 </div>
@@ -139,7 +130,7 @@
                             </div>
                             <div class="col-md-8 form-group required">
                                 <label>Orvosok</label>
-                                <input class="form-control" list="datalistOptions" formControlName="doctor" id="exampleDataList" placeholder="Type to search...">
+                                <input [class.is-invalid]='registerForm.get("doctor").errors && registerForm.get("doctor").touched' class="form-control" list="datalistOptions" formControlName="doctor" id="exampleDataList" placeholder="Type to search..." required>
                                 <datalist id="datalistOptions">
                                 <option *ngFor="let doctor of doctors" >{{doctor.name}} - {{doctor.postCode}}</option>
                                 </datalist>
@@ -147,16 +138,13 @@
                                 <div *ngIf="registerForm.get('doctor').hasError('required')" class="invalid-feedback">
                                     Kérem a választott orvosát!
                                 </div>
-                                <!--<div *ngIf="registerForm.get('doctor').hasError('isCorrect')" class="invalid-feedback">
-                                    Kérem a választott orvosát!
-                                </div>
-                            -->
+                               
                             </div>
 
                             <div class="col-12 was-validated">
                                 <div class="form-check">
                                     <input class="form-check-input is-invalid" type="checkbox" [class.is-invalid]='registerForm.get("acceptTerms").errors && registerForm.get("acceptTerms").touched' formControlName="acceptTerms" required>
-                                    <label class="form-check-label" for="invalidCheck3">Agree to terms and conditions</label>
+                                    <label class="form-check-label" for="invalidCheck3">Adatvédelmi szabályzat és feltételek</label>
                                     <div *ngIf="registerForm.get('acceptTerms').hasError('required')" class="invalid-feedback">
                                         A regisztráció előtt el kell fogadnia!
                                     </div>
@@ -170,7 +158,7 @@
                             </div>
 
                         </form>
-                        <p>érték: {{registerForm.value | json}}</p>
+                        
 
                         <br>
                     </div>

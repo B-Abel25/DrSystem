@@ -84,11 +84,11 @@ div.form-group label:first-child {
 }
 
 input:valid {
-    border: 3px solid #2ee4f5;
+    border: 2px solid #2ee4f5;
 }
 
 input:invalid {
-    border: 2px solid #11195d;
+    border: 1px solid #11195d;
 }
 
 .invalid-feedback {

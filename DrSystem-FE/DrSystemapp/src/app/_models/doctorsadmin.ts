@@ -1,6 +1,6 @@
 export interface DoctorAdmin{
 
-   doctorPassword:string;
+   sealNumber:string;
    token:string;
    
     

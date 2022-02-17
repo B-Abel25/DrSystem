@@ -3,19 +3,15 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-
-import { LostPassword } from 'src/app/_models/lostpasswordrequest';
-import { Registration } from 'src/app/_models/registration';
-import { AccountService } from 'src/app/_services/account.service';
 import { DoctorService } from 'src/app/_services/doctor.service';
 
 @Component({
-  selector: 'app-lost-password-request',
-  templateUrl: './lost-password-request.component.html',
-  styleUrls: ['./lost-password-request.component.css']
+  selector: 'app-lost-password-doctor',
+  templateUrl: './lost-password-doctor.component.html',
+  styleUrls: ['./lost-password-doctor.component.css']
 })
-export class LostPasswordRequestComponent implements OnInit {
-   
+export class LostPasswordDoctorComponent implements OnInit {
+
   @ViewChild('requestForm')
   requestForm!: NgForm ;
   lostPasswordForm:FormGroup;
@@ -30,13 +26,13 @@ export class LostPasswordRequestComponent implements OnInit {
     }
   }
   modalRef!: BsModalRef;
-  constructor(private modalService: BsModalService, private accountService: AccountService
+  constructor(private modalService: BsModalService, private doctorService: DoctorService
     , private toastr:ToastrService, private router:Router, private fb:FormBuilder) {
 
   }
 
   sendResetMail() {
-    this.accountService.lostPassword(this.lostPasswordForm.value).subscribe(response => {
+    this.doctorService.lostPassword(this.lostPasswordForm.value).subscribe(response => {
       console.log(response);
      
     }, error => {
@@ -57,7 +53,7 @@ export class LostPasswordRequestComponent implements OnInit {
   
   initializationForm(){
     this.lostPasswordForm=this.fb.group({
-      userNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
+      userNumber: ['', [Validators.required, Validators.pattern('[0-9]{5}')], ],
      
     })
   }

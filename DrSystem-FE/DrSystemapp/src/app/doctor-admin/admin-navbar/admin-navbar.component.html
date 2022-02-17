@@ -1,5 +1,5 @@
 
-  <div class="area" ></div><nav class="main-menu" >
+  <div class="area" ></div><nav class="main-menu" *ngIf="(doctorService.currentDoctor$ | async)">
             <ul>
                 <li>
                     <a >
@@ -13,9 +13,9 @@
                 </li>
                 
                 <li class="has-subnav">
-                    <a href="#">
-                       <!-- <i class="fa fa-list fa-2x"></i> -->
-                       <i class="fa fa-message fa-2x"></i>
+                    <a >
+                       
+                        <i class="fa fa-folder-open fa-2x"></i> 
                         <span class="nav-text">
                           Üzenetek
                         </span>
@@ -23,8 +23,8 @@
                     
                 </li>
                 <li class="has-subnav">
-                    <a href="#">
-                       <!-- <i class="fa fa-folder-open fa-2x"></i> -->
+                    <a >
+                       
                        <i class="fa fa-table fa-2x"></i>
                         <span class="nav-text">
                           Foglalások
@@ -32,37 +32,10 @@
                     </a>
                    
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-bar-chart-o fa-2x"></i>
-                        <span class="nav-text">
-                            Graphs and Statistics
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                   <a href="#">
-                       <i class="fa fa-table fa-2x"></i>
-                        <span class="nav-text">
-                            Tables
-                        </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="#">
-                       <i class="fa fa-info fa-2x"></i>
-                        <span class="nav-text">
-                            Documentation
-                        </span>
-                    </a>
-                </li>
             </ul>
-
             <ul class="logout" (click)="logout()">
                 <li>
-                   <a href="#">
+                   <a >
                          <i class="fa fa-power-off fa-2x"></i>
                         <span class="nav-text">
                             Logout

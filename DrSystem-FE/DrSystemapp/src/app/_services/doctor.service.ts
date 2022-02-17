@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { Client } from '../_models/client';
 
 import { DoctorAdmin } from '../_models/doctorsadmin';
+import { LostPassword } from '../_models/lostpasswordrequest';
+import { NewPassword } from '../_models/newpassword';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ private currentDoctorSource= new ReplaySubject<DoctorAdmin>(1);
 
   login(model:any)
   {
-    return this.http.post<DoctorAdmin>(this.baseUrl + 'public/doctor', model).pipe(
+    return this.http.post<DoctorAdmin>(this.baseUrl + 'doctor/login', model).pipe(
       map((response: DoctorAdmin)=>{
         const doctor=response;
         if (doctor){
@@ -38,6 +40,27 @@ this.currentDoctorSource.next(doctor);
   {
     localStorage.removeItem('doctor');
     this.currentDoctorSource.next(null as any);
+  }
+  lostPassword(model:any){
+    return this.http.put<LostPassword>(this.baseUrl+'public/lost-password', model).pipe(
+      map((password:LostPassword)=>{
+        if(password){
+        localStorage.setItem('password', JSON.stringify(password));
+        console.log(model)
+        }
+      })
+    )
+  }
+
+  newPassword(model:any){
+    return this.http.post<NewPassword>(this.baseUrl+'public/new-password', model).pipe(
+      map((password:NewPassword)=>{
+        if(password){
+      
+        console.log(model)
+        }
+      })
+    )
   }
 
   getClients(){

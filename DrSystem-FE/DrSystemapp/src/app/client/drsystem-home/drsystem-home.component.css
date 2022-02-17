@@ -347,7 +347,7 @@ body {
     float: left;
     margin-left: -29px;
     z-index: 0;
-    position: relative;
+    position:static;
     -webkit-transform: rotate(30deg);
     -moz-transform: rotate(30deg);
     -ms-transform: rotate(30deg);
@@ -511,7 +511,7 @@ body {
       Welcome Page
   -------------------------------------------------*/
   .author-image-large {
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0; }
     .author-image-large img {
@@ -594,7 +594,7 @@ body {
   @media only screen and (max-width: 767px)
   {
   .hexagon-item {
-      float: none;
+      float: center;
       margin: 0 auto 50px;
   }
     .hexagon-item:first-child {

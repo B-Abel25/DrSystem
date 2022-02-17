@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup,  ValidatorFn,Validators} from '@angular/forms';
+import { AbstractControl, FormBuilder,  FormGroup,  ValidatorFn,Validators} from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -35,16 +35,7 @@ export class RegisterComponent implements OnInit {
   
   }
 
-  // initializeForm(){
-  //   this.registerForm= new FormGroup({
-  //     username: new FormControl('', Validators.required),
-  //     password: new FormControl('',[Validators.required, Validators.maxLength(12), Validators.minLength(6)]),
-  //     confirmPassword: new FormControl('', [Validators.required, this.matchValues('password')]),
-  //   })
-  //   this.registerForm.controls['password'].valueChanges.subscribe(()=>{
-  //     this.registerForm.controls['confirmPassword'].updateValueAndValidity();
-  //   })
-  // }
+ 
 
 
 
@@ -52,10 +43,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
    
-  //  this.registerForm.get('postCodes').valueChanges.subscribe(x=>{
-  //    console.log("valami");
-  //    console.log(x);
-  //  })
+  
 
     this.loadDoctors();
     this.loadPostCodes();
