@@ -16,14 +16,14 @@ namespace DoctorSystem.Services
             _context = context;
         }
 
-        public async Task<User> GetUserByMedNumberAsync(string medNumber)
+        public async Task<Client> GetUserByMedNumberAsync(string medNumber)
         {
-            return await _context._users.SingleOrDefaultAsync(x => x.MedNumber == medNumber);
+            return await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == medNumber);
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync()
+        public async Task<IEnumerable<Client>> GetUsersAsync()
         {
-            return await _context._users.ToListAsync();
+            return await _context._clients.ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()
@@ -31,7 +31,7 @@ namespace DoctorSystem.Services
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public void Update(User user)
+        public void Update(Client user)
         {
             _context.Entry(user).State = EntityState.Modified;
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DoctorSystem.Dtos
 {
-    public class UserDto
+    public class ClientDto
     {
         [Required]
         public string MedNumber { get; set; }

@@ -3,7 +3,7 @@ PARANCSOK:
 npm install --save-dev @angular-devkit/build-angular
 npm i font-awesome
 ng add ngx-spinner
-npm install bootstrap-select
+
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.

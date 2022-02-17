@@ -19,7 +19,7 @@ namespace DoctorSystem.Entities.Contexts
             _configuration = configuration;
         }
 
-        public virtual DbSet<User> _users { get; set; }
+        public virtual DbSet<Client> _clients { get; set; }
         public virtual DbSet<Doctor> _doctors { get; set; }
         public virtual DbSet<Place> _place { get; set; }
         public virtual DbSet<City> _city { get; set; }

@@ -2,7 +2,7 @@
 
 namespace DoctorSystem.Dtos
 {
-    public class LoginDto
+    public class ClientLoginDto
     {
         [Required]
         public string MedNumber { get; set; }

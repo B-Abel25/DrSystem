@@ -6,7 +6,7 @@
     background-position: center;
     background-size: cover;">
    <div class="overlay"></div>
-   <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
     
     
 <div class="container">
@@ -38,12 +38,13 @@
   
   <div class="col-md-3 form-group required">
     <label class="form-label required">Irányítószám</label>
-    <!-- <select class="form-control" [class.is-invalid]='registerForm.get("placeId").errors && registerForm.get("placeId").touched' class="form-control " formControlName="placeId"   required  >
+    <input type="number" class="form-control" [class.is-invalid]='registerForm.get("placeId").errors && registerForm.get("placeId").touched' class="form-control " formControlName="placeId"   required>
+   <!-- <select class="form-control" [class.is-invalid]='registerForm.get("placeId").errors && registerForm.get("placeId").touched' class="form-control " formControlName="placeId"   required  >
       <option *ngFor="let postCode of postCodes" [value]="postCode.id" >
         {{postCode.postCode}}
       </option>
-    </select> -->
-    <input type="text"  [class.is-invalid]='registerForm.get("placeId").errors && registerForm.get("placeId").touched' class="form-control " formControlName="placeId"   required>
+    </select>
+    -->
     <div *ngIf="registerForm.get('placeId').hasError('required')" class="invalid-feedback">
       Kérem az irányítószámát!
     </div>
@@ -51,11 +52,12 @@
 
   <div class="col-md-3 form-group required">
     <label  class="form-label required">Város</label>
-    <select class="form-control" [class.is-invalid]='registerForm.get("city").errors && registerForm.get("city").touched' class="form-control " formControlName="city"   required  >
+    <input type="text" class="form-control" [class.is-invalid]='registerForm.get("city").errors && registerForm.get("city").touched' class="form-control " formControlName="city"   required >
+   <!-- <select class="form-control" [class.is-invalid]='registerForm.get("city").errors && registerForm.get("city").touched' class="form-control " formControlName="city"   required  >
       <option *ngFor="let postCode of postCodes" [value]="postCode.city.id" >
         {{postCode.city.name}}
       </option>
-    </select>
+    </select> -->
     <div *ngIf="registerForm.get('city').hasError('required')" class="invalid-feedback">
       Kérem a városát!
     </div>
@@ -145,7 +147,7 @@
  
   ng-model="selected" [class.is-invalid]='registerForm.get("doctorId").errors && registerForm.get("doctorId").touched' type="password" class="form-control" formControlName="doctorId"  >
     <option *ngFor="let doctor of doctors" [value]="doctor.id" >
-      {{doctor.name}} - {{doctor.place.city.name}}
+      {{doctor.name}} - {{doctor.postCode}}
     </option>
   </select>
   <div *ngIf="registerForm.get('doctorId').hasError('required')" class="invalid-feedback">

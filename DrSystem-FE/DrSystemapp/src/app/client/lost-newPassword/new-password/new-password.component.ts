@@ -15,9 +15,14 @@ export class NewPasswordComponent implements OnInit {
 
   ngOnInit() {
    
-   
+   this.initializationForm();
   }
- 
+  initializationForm(){
+    this.newPasswordForm=this.fb.group({
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
+      newconfirmPassword: ['', [Validators.required, this.matchValues('password')]],
+    })
+  }
 
    matchValues(matchTo:string) : ValidatorFn{
     return (control:AbstractControl | any )=>{
@@ -25,14 +30,14 @@ export class NewPasswordComponent implements OnInit {
     }
   }
   newPassword(){
-    console.log(this.newPasswordForm.value);
-      // this.accountService.newPassword(this.newPasswordForm.value).subscribe(response=>{
-      //   console.log(response);
-       
-      // }, error=>{
-      //   this.validationErrors=error;
-      //   console.log(error)
     
-      // })
+      this.accountService.newPassword(this.newPasswordForm.value).subscribe(response=>{
+        console.log(response);
+       
+      }, error=>{
+        
+        console.log(error)
+    
+      })
   }
 }

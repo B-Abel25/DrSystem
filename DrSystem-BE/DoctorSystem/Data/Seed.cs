@@ -92,7 +92,7 @@ namespace DoctorSystem.Data
                 
 
                 doc.Name = doctorModel.Name;
-                doc.DateOfBirth = DateTime.Parse(doctorModel.DateOfBirth);
+                doc.BirthDate = DateTime.Parse(doctorModel.DateOfBirth);
                 do
                 {
                     doc.SealNumber = random.Next(10000, 100000).ToString();
@@ -104,7 +104,7 @@ namespace DoctorSystem.Data
                 doc.Place = await _context._place.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
                 doc.Street = doctorModel.Street;
                 doc.HouseNumber = doctorModel.HouseNumber;
-                doc.Token = GenerateToken(10);
+                doc.EmailToken = GenerateToken(10);
                 var hmac = new HMACSHA512();
                 doc.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(doctorModel.Password));
                 doc.PasswordSalt = hmac.Key;

@@ -6,7 +6,7 @@ import { Doctors } from '../_models/doctor';
 import { LostPassword } from '../_models/lostpasswordrequest';
 import { NewPassword } from '../_models/newpassword';
 import { Places } from '../_models/places';
-import { User } from '../_models/user';
+import { Registration } from '../_models/registration';
 import { DoctorService } from './doctor.service';
 
 
@@ -17,30 +17,33 @@ import { DoctorService } from './doctor.service';
 export class AccountService {
 
   baseUrl=environment.apiUrl;
-  private currentUserSource= new ReplaySubject<User>(1);
-  currentUser$=this.currentUserSource.asObservable();
- id!:User;
-  constructor(private http:HttpClient ) { }
+
+
+  private currentClientSource= new ReplaySubject<Registration>(1);
+  currentClient$=this.currentClientSource.asObservable();
+ id!:Registration;
+  constructor(private http:HttpClient) { }
+
 
   login(model:any)
   {
-    return this.http.post<User>(this.baseUrl + 'public/login', model).pipe(
-      map((response: User)=>{
-        const user=response;
-        if (user){
-          this.setCurrentUser(user);
-          localStorage.setItem('user', JSON.stringify(user));
+    return this.http.post<Registration>(this.baseUrl + 'public/client/login', model).pipe(
+      map((response: Registration)=>{
+        const client=response;
+        if (client){
+          this.setCurrentClient(client);
+          localStorage.setItem('client', JSON.stringify(client));
         }
       })
     )
   }
   register(model: any){
-return this.http.post<User>(this.baseUrl + 'public/register',model).pipe(
-  map((user: User)=>{
-    if(user){
-     this.setCurrentUser(user);
+return this.http.post<Registration>(this.baseUrl + 'public/client/register',model).pipe(
+  map((client: Registration)=>{
+    if(client){
+     this.setCurrentClient(client);
      
-      this.currentUserSource.next(user);
+      this.currentClientSource.next(client);
       console.log(model);
     }
     
@@ -50,7 +53,7 @@ return this.http.post<User>(this.baseUrl + 'public/register',model).pipe(
 )
   }
   lostPassword(model:any){
-    return this.http.post<LostPassword>(this.baseUrl+'public/lost-password', model).pipe(
+    return this.http.put<LostPassword>(this.baseUrl+'public/lost-password', model).pipe(
       map((password:LostPassword)=>{
         if(password){
         localStorage.setItem('password', JSON.stringify(password));
@@ -64,22 +67,22 @@ return this.http.post<User>(this.baseUrl + 'public/register',model).pipe(
     return this.http.post<NewPassword>(this.baseUrl+'public/new-password', model).pipe(
       map((password:NewPassword)=>{
         if(password){
-        localStorage.setItem('password', JSON.stringify(password));
+      
         console.log(model)
         }
       })
     )
   }
-  setCurrentUser(user: User)
+  setCurrentClient(client: Registration)
   {
-    localStorage.setItem('user', JSON.stringify(user));
-this.currentUserSource.next(user);
+    localStorage.setItem('client', JSON.stringify(client));
+this.currentClientSource.next(client);
   }
 
   logout()
   {
-    localStorage.removeItem('user');
-    this.currentUserSource.next(null as any);
+    localStorage.removeItem('client');
+    this.currentClientSource.next(null as any);
   }
 
   getPlaces(){

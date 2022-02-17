@@ -39,7 +39,7 @@ namespace DoctorSystem
 
             services.AddControllers();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<AccountService>();
+            //services.AddScoped<AccountService>();
             services.AddScoped<EmailService>();
             services.AddScoped<WeatherForecast>();
 

@@ -1,4 +1,4 @@
 export interface NewPassword{
-    token:string;
+    emailToken:string;
     password:string;
     }

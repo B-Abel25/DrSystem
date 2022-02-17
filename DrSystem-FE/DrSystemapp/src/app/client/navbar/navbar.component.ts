@@ -19,11 +19,11 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
    
-    this.getCurrentUser();
+    this.getCurrentClient();
   }
 login(){
  this.accountService.login(this.model).subscribe(response=>{
-  this.router.navigateByUrl('/members');
+  this.router.navigateByUrl('/booking');
    this.loggedIn=true;
    }, error=>{
    console.log(error);
@@ -33,12 +33,12 @@ login(){
 logout()
 {
   this.accountService.logout();
-  this.router.navigateByUrl('/drsystem/login');
+  this.router.navigateByUrl('/login');
  
 }
-getCurrentUser(){
-  this.accountService.currentUser$.subscribe(user=>{
-    this.loggedIn=!!user;
+getCurrentClient(){
+  this.accountService.currentClient$.subscribe(client=>{
+    this.loggedIn=!!client;
   }, error=>{
 console.log(error);
   });

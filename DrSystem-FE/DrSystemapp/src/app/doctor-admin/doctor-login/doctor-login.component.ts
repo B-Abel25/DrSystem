@@ -19,7 +19,7 @@ export class DoctorLoginComponent implements OnInit {
 
   ngOnInit() {
     this.initializationForm();
-    this.getCurrentUser();
+    this.getCurrentDoctor();
   }
 
   login(){
@@ -38,9 +38,9 @@ export class DoctorLoginComponent implements OnInit {
      this.router.navigateByUrl('/');
     
    }
-   getCurrentUser(){
-     this.doctorService.currentDoctor$.subscribe(user=>{
-       this.loggedIn=!!user;
+   getCurrentDoctor(){
+     this.doctorService.currentDoctor$.subscribe(doctor=>{
+       this.loggedIn=!!doctor;
      }, error=>{
    console.log(error);
      });
@@ -48,7 +48,7 @@ export class DoctorLoginComponent implements OnInit {
    }
    initializationForm(){
     this.doctorLoginForm=this.fb.group({
-      doctorNumber: ['', [Validators.required, Validators.pattern('O[0-9]{5}')], ],
+      doctorNumber: ['', [Validators.required, Validators.pattern('[0-9]{5}')], ],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
     })
   }
