@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 
@@ -11,16 +12,18 @@ import { AccountService } from 'src/app/_services/account.service';
 export class NewPasswordComponent implements OnInit {
   newPasswordForm:FormGroup;
  
-  constructor(private fb:FormBuilder,private accountService:AccountService, private toatsr:ToastrService) { }
+  constructor(private fb:FormBuilder,private accountService:AccountService, private toatsr:ToastrService, private route: ActivatedRoute) {  }
 
   ngOnInit() {
    
    this.initializationForm();
+   //console.log( url.split('?')[0].split('/').pop());
   }
   initializationForm(){
     this.newPasswordForm=this.fb.group({
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
       newconfirmPassword: ['', [Validators.required, this.matchValues('password')]],
+      emailToken:[''],
     })
   }
 
@@ -30,7 +33,7 @@ export class NewPasswordComponent implements OnInit {
     }
   }
   newPassword(){
-    
+    console.log(this.newPasswordForm.value);
       this.accountService.newPassword(this.newPasswordForm.value).subscribe(response=>{
         console.log(response);
        

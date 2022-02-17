@@ -34,7 +34,6 @@ export class LostPasswordRequestComponent implements OnInit {
 
   sendResetMail() {
     this.accountService.lostPassword(this.lostPasswordForm.value).subscribe(response => {
-      this.router.navigateByUrl('/lostpasswordpage');
       console.log(response);
      
     }, error => {

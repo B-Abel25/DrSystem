@@ -3,6 +3,7 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using System.Text;
 using DoctorSystem.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace DoctorSystem.Services
 {
@@ -10,10 +11,12 @@ namespace DoctorSystem.Services
     {
 
         private readonly ILogger<EmailService> _logger;
+        private readonly IConfiguration _config;
 
-        public EmailService(ILogger<EmailService> logger)
+        public EmailService(ILogger<EmailService> logger, IConfiguration config)
         {
             _logger = logger;
+            _config = config;
         }
         public void SuccesfulRegistration(Client c)
         {
@@ -23,6 +26,7 @@ namespace DoctorSystem.Services
             email.To.Add(MailboxAddress.Parse(c.Email));
             email.Subject = "Sikeres regisztráció!";
 
+            //TODO kép csatolás https://stackoverflow.com/questions/19910871/adding-image-to-system-net-mail-message
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html) {
                 Text = string.Format(
                 @System.IO.File.ReadAllText("Services/EmailTemplates/SuccessfulRegistration.html", Encoding.UTF8), c.Name, c.MedNumber, c.BirthDate.ToShortDateString(), c.EmailToken, c.EmailToken)
@@ -42,7 +46,7 @@ namespace DoctorSystem.Services
             smtp.Disconnect(true);
         }
 
-        public void NewPassword(Client c)
+        public void NewPassword(User c)
         {
             //https://www.c-sharpcorner.com/article/send-email-using-templates-in-asp-net-core-applications/
             var email = new MimeMessage();
@@ -50,8 +54,7 @@ namespace DoctorSystem.Services
             email.To.Add(MailboxAddress.Parse(c.Email));
             email.Subject = "Új jelszó kérelem";
 
-            email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = "<a href=\"https://localhost:4200/drsystem/new-password/"+c.EmailToken+"\"></a>" };
-            
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = "<a href=\""+_config["Root"]+"/new-password/"+c.EmailToken+"\">Új jelszó</a>" };
 
             Send(email);
         }

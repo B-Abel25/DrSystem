@@ -2,18 +2,15 @@
 using DoctorSystem.Entities;
 using DoctorSystem.Entities.Contexts;
 using DoctorSystem.Interfaces;
-using DoctorSystem.Model.Exceptions;
 using DoctorSystem.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
-using System.Collections.Generic;
 
 namespace DoctorSystem.Controllers
 {
@@ -26,15 +23,17 @@ namespace DoctorSystem.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly BaseDbContext _context;
         private readonly ITokenService _tokenService;
-        private readonly EmailService _emailService;  
+        private readonly EmailService _emailService;
+        private readonly IConfiguration _config;
 
-        public AccountController(ILogger<AccountController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService)
+        public AccountController(ILogger<AccountController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService, IConfiguration config)
         {
             _logger = logger;
             //_accountService = registerService;
             _tokenService = tokenService;
             _context = context;
             _emailService = emailService;
+            _config = config;
         }
 
         [Route("client/register")]
@@ -103,15 +102,31 @@ namespace DoctorSystem.Controllers
         {
             try
             {
-                //TODO csak akkor kérhet új jelszót ha hitelesítve van az emailje illetve a doki elfogadta?
-                var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == lostDto.MedNumber);
-                if (client == null) return Unauthorized("MedNumber does not exist");
+                if (lostDto.UserNumber.Length == 9)
+                {
 
-                client.EmailToken = Guid.NewGuid().ToString();
-                await _context.SaveChangesAsync();
-                
-                _emailService.NewPassword(client);
-                return Accepted();
+
+                    //TODO csak akkor kérhet új jelszót ha hitelesítve van az emailje illetve a doki elfogadta?
+                    var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == lostDto.UserNumber);
+                    if (client == null) return Unauthorized("MedNumber does not exist");
+
+                    client.EmailToken = Guid.NewGuid().ToString();
+                    await _context.SaveChangesAsync();
+
+                    _emailService.NewPassword(client);
+                    return Accepted();
+                }
+                if (lostDto.UserNumber.Length == 5)
+                {
+                    var doctor = await _context._doctors.SingleOrDefaultAsync(x => x.SealNumber == lostDto.UserNumber);
+                    if (doctor == null) return Unauthorized("MedNumber does not exist");
+
+                    doctor.EmailToken = Guid.NewGuid().ToString();
+                    await _context.SaveChangesAsync();
+
+                    _emailService.NewPassword(doctor);
+                    return Accepted();
+                }
             }
             catch (Exception e)
             {
@@ -125,7 +140,7 @@ namespace DoctorSystem.Controllers
         {
             try
             {
-                var client = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == newDto.Token);
+                var client = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == newDto.EmailToken);
                 if (client == null) return Unauthorized("Invalid token");
                 client.EmailToken = "true";
                 var hmac = new HMACSHA512();
@@ -149,7 +164,7 @@ namespace DoctorSystem.Controllers
             if (client == null) return Unauthorized("Invalid token");
             client.EmailToken = "true";
             await _context.SaveChangesAsync();
-            return Redirect($"https://localhost:4200/login");
+            return Redirect(_config["Root"] +"/login");
         }
 
 
@@ -178,6 +193,18 @@ namespace DoctorSystem.Controllers
                 MedNumber = doc.SealNumber,
                 Token = _tokenService.CreateToken(doc)
             };
+        }
+
+
+        //[Route("client/delete/{token}")]
+        [HttpGet("client/delete/{token}")]
+        public async Task<ActionResult> DeleteClient(string token)
+        {
+            var client = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == token.ToString());
+            if (client == null || token == "true") return Unauthorized("Invalid token");
+            _context._clients.Remove(client);
+            await _context.SaveChangesAsync();
+            return Redirect(_config["Root"]+"/login");
         }
 
         private async Task<bool> ClientExists(string medNumber)
