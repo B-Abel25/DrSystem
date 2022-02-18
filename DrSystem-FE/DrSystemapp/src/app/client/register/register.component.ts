@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
     
    initializeForm(){
     this.registerForm = this.fb.group({
-      phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.maxLength(11), Validators.minLength(11)]],
+      phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.maxLength(11), Validators.minLength(9)]],
 
       medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
 
@@ -74,12 +74,12 @@ export class RegisterComponent implements OnInit {
      
      houseNumber: ['', [Validators.required, Validators.pattern('[0-9 a-z]*')]],
      birthDate: ['', Validators.required],
-     street: ['', [Validators.required,Validators.pattern('[a-z A-Z]*')]],
+     street: ['', [Validators.required,Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ]*')]],
      city: ['', Validators.required],
      postCode: ['', Validators.required],
      doctorId: ['', [Validators.required]],
      email: ['', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-     name: ['', [Validators.required, Validators.pattern('[a-z éáÁA-Z]*')]],
+     name: ['', [Validators.required, Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ]*')]],
      acceptTerms: [false, Validators.requiredTrue],
      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
      confirmPassword: ['', [Validators.required, this.matchValues('password')]],

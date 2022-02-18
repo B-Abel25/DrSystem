@@ -57,5 +57,9 @@ export class LostPasswordDoctorComponent implements OnInit {
      
     })
   }
+  public Close() {
+    console.log('Becsuk');
+    this.modalRef.hide();
+  }
 
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalContainerComponent } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 
 import { LostPassword } from 'src/app/_models/lostpasswordrequest';
@@ -15,8 +15,9 @@ import { DoctorService } from 'src/app/_services/doctor.service';
   styleUrls: ['./lost-password-request.component.css']
 })
 export class LostPasswordRequestComponent implements OnInit {
-   
-  @ViewChild('requestForm')
+ 
+  ​
+
   requestForm!: NgForm ;
   lostPasswordForm:FormGroup;
   @Output() lostPasswordOpenedEvent = new EventEmitter(); 
@@ -24,11 +25,7 @@ export class LostPasswordRequestComponent implements OnInit {
   public model: any={}
   editForm: any;
   
-  @HostListener('window:beforeunload', ['$event']) unloadNotification($event:any){
-    if (this.requestForm.dirty) {
-      $event.returnValue=true;
-    }
-  }
+
   modalRef!: BsModalRef;
   constructor(private modalService: BsModalService, private accountService: AccountService
     , private toastr:ToastrService, private router:Router, private fb:FormBuilder) {
@@ -60,6 +57,10 @@ export class LostPasswordRequestComponent implements OnInit {
       userNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
      
     })
+  }
+  public Close() {
+    console.log('Becsuk');
+    this.modalRef.hide();
   }
 
 }
