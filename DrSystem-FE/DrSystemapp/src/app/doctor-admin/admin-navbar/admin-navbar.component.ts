@@ -16,7 +16,7 @@ export class AdminNavbarComponent implements OnInit {
   logout()
   {
     this.doctorService.logout();
-    this.router.navigateByUrl('/drsystem/admin');
+    this.router.navigateByUrl('/admin/login');
    
   }
   getCurrentDoctor(){

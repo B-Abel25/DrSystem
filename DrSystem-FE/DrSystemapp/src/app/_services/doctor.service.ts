@@ -20,7 +20,7 @@ private currentDoctorSource= new ReplaySubject<DoctorAdmin>(1);
 
   login(model:any)
   {
-    return this.http.post<DoctorAdmin>(this.baseUrl + 'doctor/login', model).pipe(
+    return this.http.post<DoctorAdmin>(this.baseUrl + 'public/doctor/login', model).pipe(
       map((response: DoctorAdmin)=>{
         const doctor=response;
         if (doctor){
