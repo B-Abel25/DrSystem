@@ -104,7 +104,7 @@ namespace DoctorSystem.Data
                 doc.Place = await _context._place.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
                 doc.Street = doctorModel.Street;
                 doc.HouseNumber = doctorModel.HouseNumber;
-                doc.EmailToken = GenerateToken(10);
+                doc.EmailToken = Guid.NewGuid().ToString();
                 var hmac = new HMACSHA512();
                 doc.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(doctorModel.Password));
                 doc.PasswordSalt = hmac.Key;
@@ -115,11 +115,6 @@ namespace DoctorSystem.Data
 
         }
 
-        private static string GenerateToken(int length)
-        {
-            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#&@";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
+        
     }
 }
