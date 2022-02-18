@@ -186,7 +186,7 @@ namespace DoctorSystem.Controllers
             var doc = await _context._doctors.SingleOrDefaultAsync(x => loginDto.SealNumber == x.SealNumber);
 
             if (doc == null) return Unauthorized("Helytelen TAJ szám");
-            else if (!(doc.EmailToken.Length == 10 || doc.EmailToken == "true")) return Unauthorized("Hitelesítetlen E-mail cím");
+            else if (!(doc.EmailToken.Length == 37 || doc.EmailToken == "true")) return Unauthorized("Hitelesítetlen E-mail cím");
           
             var hmac = new HMACSHA512(doc.PasswordSalt);
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
