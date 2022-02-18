@@ -25,7 +25,7 @@ export class LostPasswordDoctorComponent implements OnInit {
       $event.returnValue=true;
     }
   }
-  modalRef!: BsModalRef;
+  modalRefDoctor: BsModalRef;
   constructor(private modalService: BsModalService, private doctorService: DoctorService
     , private toastr:ToastrService, private router:Router, private fb:FormBuilder) {
 
@@ -48,7 +48,7 @@ export class LostPasswordDoctorComponent implements OnInit {
   
     this.lostPasswordOpenedEvent.emit();
     
-    this.modalRef = this.modalService.show(template);
+    this.modalRefDoctor = this.modalService.show(template);
   }
   
   initializationForm(){
@@ -59,7 +59,7 @@ export class LostPasswordDoctorComponent implements OnInit {
   }
   public Close() {
     console.log('Becsuk');
-    this.modalRef.hide();
+    this.modalRefDoctor.hide();
   }
 
 }

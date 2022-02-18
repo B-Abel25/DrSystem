@@ -32,10 +32,10 @@
         </ul>
         <div class="dropdown" *ngIf="(accountService.currentClient$ | async) as client" dropdown>
           <img id='imageprofile' src="{{client.photoUrl}}" alt="{{client.name}}">
-          <a class="dropdown-toogle text-light ml-2" dropdownToggle>Welcome {{client.name | titlecase}}</a>
+          <a class="dropdown-toogle text-light ml-2" dropdownToggle>Profil</a>
           <div class="dropdown-menu mt" *dropdownMenu>
-            <a class="dropdown-item">Edit profile</a>
-            <a class="dropdown-item"(click)="logout()">Logout</a>
+            <a class="dropdown-item">Profil módosítása</a>
+            <a class="dropdown-item"(click)="logout()">Kilépés</a>
             
           </div>
           

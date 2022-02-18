@@ -314,7 +314,7 @@ body {
   .page-nav {
     bottom: 40px;
     left: 0;
-    position: absolute;
+    position: relative;
     right: 0; }
     .page-nav span {
       font-family: "Open Sans", sans-serif;
@@ -347,7 +347,7 @@ body {
     float: left;
     margin-left: -29px;
     z-index: 0;
-    position:static;
+    position:relative;
     -webkit-transform: rotate(30deg);
     -moz-transform: rotate(30deg);
     -ms-transform: rotate(30deg);
