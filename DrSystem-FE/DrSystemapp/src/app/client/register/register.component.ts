@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
   validationErrors: string[];
   places:Places[];
   public showPasswordOnPress: boolean;
- 
+  showMsg: boolean = false;
   
   
   constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService, private fb:FormBuilder, private router:Router) { 
@@ -146,7 +146,7 @@ console.log(this.registerForm.value);
   this.accountService.register(this.registerForm.value).subscribe(response=>{
 
     this.router.navigateByUrl('/login');
-
+    this.showMsg= true;
    
 
    

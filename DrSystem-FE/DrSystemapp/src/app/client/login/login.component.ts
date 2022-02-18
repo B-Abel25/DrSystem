@@ -16,11 +16,9 @@ export class LoginComponent  {
   loggedIn: boolean = false;
   modalRef!: BsModalRef;
   loginForm:FormGroup;
-  constructor(public accountService:AccountService, private router:Router, private toastr: ToastrService,private modalService: BsModalService, private fb:FormBuilder,private location: LocationStrategy ) { 
-    history.pushState(null, null, window.location.href);  
-this.location.onPopState(() => {
-  history.pushState(null, null, window.location.href);
-});  
+  constructor(public accountService:AccountService, private router:Router, private toastr: ToastrService,private modalService: BsModalService, private fb:FormBuilder, ) { 
+   
+ 
   }
 
   ngOnInit(): void {
