@@ -28,7 +28,7 @@ export class NewPasswordDoctorComponent implements OnInit {
     this.newPasswordFormDoctor=this.fb.group({
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
       newconfirmPassword: ['', [Validators.required, this.matchValues('password')]],
-      emailToken:[this.router.url.split('/')[2]],
+      emailToken:[this.router.url.split('/')[3]],
     })
   }
 
