@@ -55,8 +55,8 @@ const routes: Routes = [
     runGuardsAndResolvers:'always',
     canActivate:[AdminGuard],
     children:[
-      {path: 'client-list', component: ClientListComponent},
-      {path: 'doctor-message', component: DoctorMessageComponent},
+      {path: 'admin/client-list', component: ClientListComponent},
+      {path: 'admin/doctor-message', component: DoctorMessageComponent},
       
     ]
   },

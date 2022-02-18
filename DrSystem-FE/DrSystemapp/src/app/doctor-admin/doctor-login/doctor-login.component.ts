@@ -25,10 +25,11 @@ export class DoctorLoginComponent implements OnInit {
   login(){
  
     this.doctorService.login(this.doctorLoginForm.value).subscribe(response=>{
-     this.router.navigateByUrl('/client-list');
+     this.router.navigateByUrl('/admin/client-list');
       this.loggedIn=true;
       }, error=>{
       console.log(error);
+      this.toastr.error(error.error);
      
     })
    }

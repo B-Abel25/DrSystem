@@ -29,7 +29,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.handleLogin(this.loggedIn);
    this.setCurrentClient();
+   this.setCurrentDoctor();
    this.getCurrentClient();
+   this.getCurrentDoctor();
   }
   setCurrentClient(){
     const client: Registration = JSON.parse(localStorage.getItem('client'));
@@ -42,6 +44,14 @@ export class AppComponent implements OnInit {
   getCurrentClient(){
     this.accountService.currentClient$.subscribe(client=>{
       this.loggedIn=!!client;
+    }, error=>{
+  console.log(error);
+    });
+    
+  }
+  getCurrentDoctor(){
+    this.accountService.currentClient$.subscribe(doctor=>{
+      this.loggedIn=!!doctor;
     }, error=>{
   console.log(error);
     });
