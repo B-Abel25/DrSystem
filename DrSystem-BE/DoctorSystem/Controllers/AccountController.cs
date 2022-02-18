@@ -42,7 +42,7 @@ namespace DoctorSystem.Controllers
         public async Task<ActionResult> Register(RegisterDto registerDto)
         {
             var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == registerDto.MedNumber);
-            if (client == null) return BadRequest("A TAJ szám már regisztrálva van");
+            if (client != null) return BadRequest("Helytelen TAJ szám");
 
             client = new Client();
 
@@ -63,7 +63,7 @@ namespace DoctorSystem.Controllers
 
             _context._clients.Add(client);
 
-            this._emailService.SuccesfulRegistration(client);
+            this._emailService.SuccessfulRegistration(client);
 
             await _context.SaveChangesAsync();
 
