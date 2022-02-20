@@ -47,7 +47,15 @@ const routes: Routes = [
       { path: 'complaint', component: ComplaintComponent },
     ],
   },
-  { path: 'admin/client-list', component: ClientListComponent },
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AdminGuard],
+    children: [
+      { path: 'admin/client-list', component: ClientListComponent },
+    ],
+  },
+  
 
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },

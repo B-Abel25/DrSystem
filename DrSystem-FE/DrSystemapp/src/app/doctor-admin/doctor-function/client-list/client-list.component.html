@@ -1,4 +1,4 @@
-<app-admin-navbar></app-admin-navbar>
+
 <body>
   
 <div class="container">
@@ -9,14 +9,16 @@
         <th >TAJ-szám</th>
         <th >Születési dátum</th>
         <th >Lakcím</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr>
        
-        <td></td>
-        <td></td>
-        <td></td>
+        <td *ngFor="let client of clients">{{client.name}}</td>
+        <td *ngFor="let client of clients">{{client.medNumber}}</td>
+        <td *ngFor="let client of clients">{{client.birthDate}}</td>
+        <td *ngFor="let client of clients">{{client.place.name}}</td>
         <td>
          
           <li class="list-inline-item"><button class="btn btn-light"><i class="fa fa-user"></i></button></li>

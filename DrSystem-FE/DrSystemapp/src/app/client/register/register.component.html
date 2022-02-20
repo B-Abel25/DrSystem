@@ -132,7 +132,7 @@
                                 <label>Orvosok</label>
                                 <input [class.is-invalid]='registerForm.get("doctor").errors && registerForm.get("doctor").touched' class="form-control" list="datalistOptions" formControlName="doctor" id="exampleDataList" placeholder="Type to search..." required>
                                 <datalist id="datalistOptions">
-                                <option *ngFor="let doctor of doctors" >{{doctor.name}} - {{doctor.postCode}}</option>
+                                <option *ngFor="let doctor of doctors" >{{doctor.name}} - {{doctor.place.postCode}}</option>
                                 </datalist>
 
                                 <div *ngIf="registerForm.get('doctor').hasError('required')" class="invalid-feedback">

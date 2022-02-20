@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Client } from 'src/app/_models/client';
+import { DoctorService } from 'src/app/_services/doctor.service';
 
 @Component({
   selector: 'app-client-list',
@@ -6,7 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-list.component.css'],
 })
 export class ClientListComponent implements OnInit {
-  constructor() {}
+  clients:Client[];
+  constructor(private doctorService:DoctorService) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.loadClients();
+  }
+
+  loadClients(){
+    this.doctorService.getClients().subscribe(clients=>{
+      this.clients=clients.sort((one, two) => (one.name < two.name ? -1 : 1));
+    
+    })
+  }
 }

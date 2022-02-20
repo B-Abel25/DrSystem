@@ -1,5 +1,5 @@
 <div class="area"></div>
-<nav class="main-menu" >
+<nav class="main-menu" *ngIf="(doctorService.currentDoctor$ | async)" >
   <ul>
     <li routerLink="/admin/client-list">
       <a>

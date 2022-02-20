@@ -115,7 +115,8 @@ export class RegisterComponent implements OnInit {
 
 
 this.registerForm.controls['doctor'].valueChanges.subscribe(x=>{
-  let  exist = this.doctors.find(y => y.name +" " + "-" +" "+ y.place.postCode == x)
+
+  let  exist = this.doctors.find(y => y.name +" " + "-" +" "+ y.place.postCode == x);
          console.log(exist); 
          if(exist!= null) this.registerForm.controls['doctorId'].setValue(exist.id);
          else  this.registerForm.controls['doctorId'].setValue("");
