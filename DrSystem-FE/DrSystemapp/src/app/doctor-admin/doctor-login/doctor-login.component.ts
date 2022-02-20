@@ -1,8 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { Client } from 'src/app/_models/client';
 import { DoctorService } from 'src/app/_services/doctor.service';
 
 @Component({
@@ -15,17 +16,20 @@ export class DoctorLoginComponent implements OnInit {
   loggedIn: boolean = false;
   modalRef!: BsModalRef;
   doctorLoginForm:FormGroup;
-  constructor(public doctorService:DoctorService, private router:Router, private toastr: ToastrService,private modalService: BsModalService, private fb:FormBuilder ) { }
+  clients: Client[];
+  constructor(public doctorService:DoctorService, private router:Router, private toastr: ToastrService,private modalService: BsModalService, private fb:FormBuilder,private route:ActivatedRoute ) { }
 
   ngOnInit() {
     this.initializationForm();
     this.getCurrentDoctor();
+    this.loadClients();
   }
 
   login(){
  
     this.doctorService.login(this.doctorLoginForm.value).subscribe(response=>{
-     this.router.navigateByUrl('/admin/client-list');
+      console.log(response)
+     this.router.navigateByUrl('/admin/client-list/{{doctor.id}}');
       this.loggedIn=true;
       }, error=>{
       console.log(error);
@@ -66,5 +70,12 @@ export class DoctorLoginComponent implements OnInit {
   
     }
     this.modalRef = this.modalService.show(template);
+  }
+  
+  loadClients(){
+    this.doctorService.getClients(this.route.snapshot.paramMap.get('id')).subscribe(clients=>{
+      this.clients=clients.sort((one, two) => (one.name < two.name ? -1 : 1));
+    
+    })
   }
 }

@@ -52,7 +52,7 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AdminGuard],
     children: [
-      { path: 'admin/client-list', component: ClientListComponent },
+      { path: 'admin/client-list/:id', component: ClientListComponent },
     ],
   },
   

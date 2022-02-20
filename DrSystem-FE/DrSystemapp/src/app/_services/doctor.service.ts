@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { identifierModuleUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { map, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -63,8 +64,8 @@ this.currentDoctorSource.next(doctor);
     )
   }
 
-  getClients(){
-    return this.http.get<Client[]>(this.baseUrl+'private/doctor/clients');
+  getClients(id:string){
+    return this.http.get<Client[]>(this.baseUrl+'private/doctor/clients/'+ id );
   }
   getClient(){
     return this.http.get<Client>(this.baseUrl+'client')

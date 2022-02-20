@@ -31,6 +31,7 @@ import { BookingComponent } from './client/clients-functions/booking/booking.com
 import { ComplaintComponent } from './client/clients-functions/complaint/complaint.component';
 import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/new-password-doctor/new-password-doctor.component';
 import { LostPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/lost-password-doctor/lost-password-doctor.component';
+import { DoctorJWTInterceptor } from './_interceptors/doctor-jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { LostPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoct
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: DoctorJWTInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
