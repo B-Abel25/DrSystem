@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Doctors } from '../_models/doctor';
+import { Doctor } from '../_models/doctor';
 import { LostPassword } from '../_models/lostpasswordrequest';
 import { NewPassword } from '../_models/newpassword';
 import { Places } from '../_models/places';
@@ -83,9 +83,9 @@ this.currentClientSource.next(client);
   }
 
   getPlaces(){
-    return this.http.get<Places[]>(this.baseUrl+'user/places')
+    return this.http.get<Places[]>(this.baseUrl+'register/places')
   }
   getDoctors(){
-    return this.http.get<Doctors[]>(this.baseUrl+'user/doctors')
+    return this.http.get<Doctor[]>(this.baseUrl+'register/doctors')
   }
 }

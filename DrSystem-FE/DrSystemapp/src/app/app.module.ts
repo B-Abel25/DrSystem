@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './client/login/login.component';
@@ -12,10 +11,6 @@ import { RegisterComponent } from './client/register/register.component';
 import { NavbarComponent } from './client/navbar/navbar.component';
 
 import { DoctorLoginComponent } from './doctor-admin/doctor-login/doctor-login.component';
-
-
-
-
 
 import { LostPasswordRequestComponent } from './client/lost-newPassword/lost-password-request/lost-password-request.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
@@ -37,55 +32,43 @@ import { ComplaintComponent } from './client/clients-functions/complaint/complai
 import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/new-password-doctor/new-password-doctor.component';
 import { LostPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/lost-password-doctor/lost-password-doctor.component';
 
-
-
 @NgModule({
   declarations: [
-   
     AppComponent,
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    
-    
+
     LostPasswordRequestComponent,
-          NotFoundComponent,
-          ServerErrorComponent,
-          TextInputComponent,
-         DoctorLoginComponent,
-      NewPasswordComponent,
-         AdminNavbarComponent,
-         DrsystemHomeComponent,
-                ClientListComponent,
-         DoctorMessageComponent,
-      BookingComponent,
-              ComplaintComponent,
-           NewPasswordDoctorComponent,
-           LostPasswordDoctorComponent,
-          
-    
-  
-  
-    
+    NotFoundComponent,
+    ServerErrorComponent,
+    TextInputComponent,
+    DoctorLoginComponent,
+    NewPasswordComponent,
+    AdminNavbarComponent,
+    DrsystemHomeComponent,
+    ClientListComponent,
+    DoctorMessageComponent,
+    BookingComponent,
+    ComplaintComponent,
+    NewPasswordDoctorComponent,
+    LostPasswordDoctorComponent,
   ],
   imports: [
     FormsModule,
-    BrowserModule, 
+    BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-   NgxSpinnerModule,
+    NgxSpinnerModule,
     AppRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-
-
-    
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

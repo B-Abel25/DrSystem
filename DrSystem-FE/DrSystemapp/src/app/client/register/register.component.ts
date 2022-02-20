@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder,  FormGroup,  ValidatorFn,Validators} from
 
 import { ToastrService } from 'ngx-toastr';
 
-import { Doctors } from '../../_models/doctor';
+import { Doctor } from '../../_models/doctor';
 import { Places } from '../../_models/places';
 import { AccountService } from '../../_services/account.service';
 
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   
   @Output() cancelRegister= new EventEmitter();
 
-  doctors:Doctors[];
+  doctors:Doctor[];
   submitted:boolean=false;
   registerForm:FormGroup;
   validationErrors: string[];
@@ -115,7 +115,7 @@ export class RegisterComponent implements OnInit {
 
 
 this.registerForm.controls['doctor'].valueChanges.subscribe(x=>{
-  let  exist = this.doctors.find(y => y.name +" " + "-" +" "+ y.postCode == x)
+  let  exist = this.doctors.find(y => y.name +" " + "-" +" "+ y.place.postCode == x)
          console.log(exist); 
          if(exist!= null) this.registerForm.controls['doctorId'].setValue(exist.id);
          else  this.registerForm.controls['doctorId'].setValue("");
