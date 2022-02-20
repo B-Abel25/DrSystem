@@ -117,10 +117,10 @@
                             </div>
 
                             <div class="col-md-4 form-group required">
-                                <label class="form-label fa fa-lock"> Jelszó megerősítés</label>
+                                <label class="form-label "> Jelszó megerősítés</label>
                                 <input [class.is-invalid]='registerForm.get("confirmPassword").errors && registerForm.get("confirmPassword").touched' type="password" class="form-control" formControlName="confirmPassword" required>
                                 <div *ngIf="registerForm.get('confirmPassword').hasError('required')" class="invalid-feedback">
-                                    Kérem a jelszavát!
+                                    Kérem a jelszó megerősítését!
                                 </div>
                                 <div *ngIf="registerForm.get('confirmPassword').hasError('isMatching')" class="invalid-feedback">
                                     A két jelszónak egyeznie kell!
