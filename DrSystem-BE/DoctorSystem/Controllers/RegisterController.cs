@@ -38,7 +38,7 @@ namespace DoctorSystem.Controllers
             List<object> result = new List<object>();
             foreach (var doctor in doctors)
             {
-                result.Add(new {Id = doctor.Id, Name = doctor.Name, PostCode = doctor.Place.PostCode });
+                result.Add(new {Id = doctor.Id, Name = doctor.Name, Place = new { PostCode = doctor.Place.PostCode } });
             }
             return result;
         }
