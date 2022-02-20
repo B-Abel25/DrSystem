@@ -33,7 +33,7 @@ namespace DoctorSystem.Controller
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorId(string doctorId)
         {
-            var clients = await _context._clients.Include(c => c.Doctor).Include(c => c.Place.City.County).ToListAsync();
+            var clients = await _context._clients.Include(c => c.Doctor.Place.City.County).Include(c => c.Place.City.County).ToListAsync();
 
             List<ClientDto> clientDtos = new List<ClientDto>();
             foreach (var client in clients)
