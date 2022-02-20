@@ -21,7 +21,7 @@ export class NewPasswordComponent implements OnInit {
    
    this.initializationForm();
    /*TODO megnézni esetleg van e szebb megoldás*/
-   console.log(this.router.url.split('/')[2])
+  
    
   }
   initializationForm(){

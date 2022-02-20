@@ -1,6 +1,6 @@
 .site-wrapper {
     background-color: #082042;
-    height: 957px;
+    min-height:100vh;
 }
 
 input.form-control,
@@ -46,7 +46,7 @@ div.form-group.required>label:first-child:after {
 }
 
 form {
-    margin: 0px 16px;
+    margin: 0px 16px ;
 }
 
 div.form-group input.invalid {
@@ -116,7 +116,7 @@ input:invalid {
     background-repeat: no-repeat;
     background-size: cover;
     vertical-align: middle;
-    height: 1089px;
+    min-height: 100vh;
 }
 
 .page-home .overlay {

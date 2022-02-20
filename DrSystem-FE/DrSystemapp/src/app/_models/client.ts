@@ -1,4 +1,4 @@
-import {Places} from "./places"
+
 
 export interface Client{
     id:string;
@@ -7,7 +7,7 @@ export interface Client{
     email:string;
     phoneNumber:string;
     birthDate:string;
-    placeId:Places[];
+    place:any;
     street:string;
     houseNumber:string;
     
