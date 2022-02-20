@@ -1,12 +1,38 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DoctorSystem.Entities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DoctorSystem.Dtos
 {
     public class DoctorDto
     {
-        [Required]
-        public string MedNumber { get; set; }
-        [Required]
-        public string Token { get; set; }
+        public DoctorDto(Doctor doc)
+        {
+            this.Id = doc.Id;
+            this.Name = doc.Name;
+            this.BirthDate = doc.BirthDate;
+            this.Email = doc.Email;
+            this.PhoneNumber = doc.PhoneNumber;
+            this.Place = new PlaceDto(doc.Place);
+            this.Street = doc.Street;
+            this.HouseNumber = doc.HouseNumber;
+            this.SealNumber = doc.SealNumber;
+        }
+        public DoctorDto()
+        {
+        }
+
+
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public PlaceDto Place { get; set; }
+        public string Street { get; set; }
+        public string HouseNumber { get; set; }
+        public ICollection<ClientDto> Clients { get; set; }
+        public string SealNumber { get; set; }
     }
 }

@@ -1,34 +1,25 @@
 ﻿using DoctorSystem.Dtos;
-using DoctorSystem.Entities;
 using DoctorSystem.Entities.Contexts;
 using DoctorSystem.Interfaces;
-using DoctorSystem.Model.Exceptions;
 using DoctorSystem.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace DoctorSystem.Controllers
+namespace DoctorSystem.Controller
 {
     [ApiController]
-    [Route("user")]
-    public class UserController : ControllerBase
+    [Route("private/")]
+    public class UserController
     {
-
-
-        private readonly ILogger<AccountController> _logger;
+        private readonly ILogger<UserController> _logger;
         private readonly BaseDbContext _context;
         private readonly ITokenService _tokenService;
         private readonly EmailService _emailService;
 
-        public UserController(ILogger<AccountController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService)
+        public UserController(ILogger<UserController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService)
         {
             _logger = logger;
             //_accountService = registerService;
@@ -37,25 +28,23 @@ namespace DoctorSystem.Controllers
             _emailService = emailService;
         }
 
-        [Route("doctors")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<object>>> GetDoctors()
-        {
-            var doctors =  await _context._doctors.Include(d => d.Place.City.County).ToListAsync();
 
-            List<object> result = new List<object>();
-            foreach (var doctor in doctors)
+        [Route("doctor/clients/{doctorId}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorId(string doctorId)
+        {
+            var clients = await _context._clients.Include(c => c.Doctor).Include(c => c.Place.City.County).ToListAsync();
+
+            List<ClientDto> clientDtos = new List<ClientDto>();
+            foreach (var client in clients)
             {
-                result.Add(new {Id = doctor.Id, Name = doctor.Name, PostCode = doctor.Place.PostCode });
+                if (client.Doctor.Id == doctorId)
+                {
+                    clientDtos.Add(new ClientDto(client));
+                }
             }
-            return result;
-        }
+            return clientDtos;
 
-        [Route("places")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Place>>> GetPlaces()
-        {
-            return await _context._place.Include(p => p.City.County).ToListAsync();
         }
     }
 }

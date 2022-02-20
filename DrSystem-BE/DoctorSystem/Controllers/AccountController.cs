@@ -72,7 +72,7 @@ namespace DoctorSystem.Controllers
 
         [Route("client/login")]
         [HttpPost]
-        public async Task<ActionResult<ClientDto>> ClientLogin(ClientLoginDto loginDto)
+        public async Task<ActionResult<string>> ClientLogin(ClientLoginDto loginDto)
         {
             var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == loginDto.MedNumber);
 
@@ -91,11 +91,7 @@ namespace DoctorSystem.Controllers
                 }
             }
 
-            return new ClientDto()
-            {
-                MedNumber = client.MedNumber,
-                Token = _tokenService.CreateToken(client)
-            };
+            return _tokenService.CreateToken(client);
         }
 
         [Route("lost-password")]
@@ -177,7 +173,7 @@ namespace DoctorSystem.Controllers
 
         [HttpPut]
         [Route("doctor/login")]
-        public async Task<ActionResult<DoctorDto>> DoctorLogin(DoctorLoginDto loginDto)
+        public async Task<ActionResult<string>> DoctorLogin(DoctorLoginDto loginDto)
         {
             var doc = await _context._doctors.SingleOrDefaultAsync(x => loginDto.SealNumber == x.SealNumber);
 
@@ -195,11 +191,7 @@ namespace DoctorSystem.Controllers
                 }
             }
 
-            return new DoctorDto()
-            {
-                MedNumber = doc.SealNumber,
-                Token = _tokenService.CreateToken(doc)
-            };
+            return _tokenService.CreateToken(doc);
         }
 
 
