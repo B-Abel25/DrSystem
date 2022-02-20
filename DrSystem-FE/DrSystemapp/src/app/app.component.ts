@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Doctors } from './_models/doctor';
+
 import { DoctorAdmin } from './_models/doctorsadmin';
 import { Registration } from './_models/registration';
 import { AccountService } from './_services/account.service';

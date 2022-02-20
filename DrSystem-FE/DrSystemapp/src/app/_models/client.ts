@@ -1,5 +1,5 @@
 
-
+import { Doctor } from "./doctor";
 export interface Client{
     id:string;
     medNumber:string;
@@ -10,6 +10,8 @@ export interface Client{
     place:any;
     street:string;
     houseNumber:string;
+    member:boolean;
+    doctor:Doctor;
     
     
     

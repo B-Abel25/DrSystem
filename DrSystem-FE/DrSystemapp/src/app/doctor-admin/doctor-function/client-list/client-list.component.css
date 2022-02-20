@@ -1,0 +1,26 @@
+.client-icons{
+    position: absolute;
+    bottom: -30%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    float:inline-end;
+    
+}
+.client-icons:hover{
+    transition: all .2s ease-in-out;   
+}
+table{
+    text-align: center;
+    max-width: 5000px;
+    
+}
+.list-inline-item{
+   float: right;
+   margin: 6px;
+}
+body{
+    background-color: aqua;
+}

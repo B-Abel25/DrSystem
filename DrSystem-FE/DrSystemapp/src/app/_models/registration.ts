@@ -1,4 +1,4 @@
-import { Doctors } from "./doctor";
+import { Doctor } from "./doctor";
 import {Places} from "./places"
 export interface Registration{
 
@@ -11,7 +11,7 @@ export interface Registration{
     placeId:Places[];
     street:string;
     houseNumber:string;
-    doctorId: Doctors[]; 
+    doctorId: Doctor[]; 
     
     
  }
