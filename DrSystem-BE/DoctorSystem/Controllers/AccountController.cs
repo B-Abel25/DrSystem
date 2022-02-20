@@ -25,7 +25,7 @@ namespace DoctorSystem.Controllers
         private readonly ITokenService _tokenService;
         private readonly EmailService _emailService;
         private readonly IConfiguration _config;
-        private readonly Random random;
+        private readonly Random random = new Random();
 
         public AccountController(ILogger<AccountController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService, IConfiguration config)
         {
@@ -104,31 +104,27 @@ namespace DoctorSystem.Controllers
         {
             try
             {
+                User user;
                 if (lostDto.UserNumber.Length == 9)
                 {
-
-
-                    //TODO csak akkor kérhet új jelszót ha hitelesítve van az emailje illetve a doki elfogadta?
-                    var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == lostDto.UserNumber);
-                    if (client == null) return Unauthorized("MedNumber does not exist");
-
-                    client.EmailToken = Guid.NewGuid().ToString() + (char) random.Next(97,123) ;
+                    user = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == lostDto.UserNumber);
+                    if (user == null) return Unauthorized("Nem létező TAJ szám");
+                    user.EmailToken = Guid.NewGuid().ToString() + (char)random.Next(97, 123);
+                    _emailService.NewPassword(user);
                     await _context.SaveChangesAsync();
-
-                    _emailService.NewPassword(client);
                     return Accepted();
                 }
-                if (lostDto.UserNumber.Length == 5)
+                else if (lostDto.UserNumber.Length == 5)
                 {
-                    var doctor = await _context._doctors.SingleOrDefaultAsync(x => x.SealNumber == lostDto.UserNumber);
-                    if (doctor == null) return Unauthorized("MedNumber does not exist");
+                    user = await _context._doctors.SingleOrDefaultAsync(x => x.SealNumber == lostDto.UserNumber);
+                    if (user == null) return Unauthorized("Nem létező pecsét szám");
 
-                    doctor.EmailToken = Guid.NewGuid().ToString();
+                    user.EmailToken = Guid.NewGuid().ToString() + (char)random.Next(97, 123);
+                    _emailService.NewPassword(user);
                     await _context.SaveChangesAsync();
-
-                    _emailService.NewPassword(doctor);
                     return Accepted();
                 }
+                   
                 return Unauthorized("Érvénytelen azonosító szám");
             }
             catch (Exception e)
@@ -143,10 +139,10 @@ namespace DoctorSystem.Controllers
         {
             try
             {
-                var user = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == newDto.EmailToken);
+                User user = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == newDto.EmailToken);
                 if (user == null)
                 {
-                    user = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == newDto.EmailToken);
+                    user = await _context._doctors.SingleOrDefaultAsync(x => x.EmailToken == newDto.EmailToken);
                     if (user == null)
                     {
                         return Unauthorized("Helytelen azonosító");

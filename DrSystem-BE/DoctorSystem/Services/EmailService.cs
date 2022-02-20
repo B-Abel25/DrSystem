@@ -56,8 +56,14 @@ namespace DoctorSystem.Services
             email.From.Add(MailboxAddress.Parse("DoctorSystemapp@gmail.com"));
             email.To.Add(MailboxAddress.Parse(c.Email));
             email.Subject = "Új jelszó kérelem";
-
-            email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = "<a href=\""+_config["Root"]+"/new-password/"+c.EmailToken+"\">Új jelszó</a>" };
+            if (c.GetType() == typeof(Doctor))
+            {
+                email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = "<a href=\"" + _config["Root"] + "/admin/new-password/" + c.EmailToken + "\">Új jelszó</a>" };
+            }
+            else
+            {
+                email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = "<a href=\"" + _config["Root"] + "/new-password/" + c.EmailToken + "\">Új jelszó</a>" };
+            }
 
             Send(email);
         }
