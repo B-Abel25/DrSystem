@@ -191,7 +191,7 @@ namespace DoctorSystem.Controllers
                 }
             }
 
-            return new { SealNumber = doc.SealNumber, Token = _tokenService.CreateToken(doc) };
+            return new {Id = doc.Id,     SealNumber = doc.SealNumber, Token = _tokenService.CreateToken(doc) };
         }
 
 

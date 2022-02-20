@@ -17,6 +17,7 @@ export class ClientListComponent implements OnInit {
   }
 
   loadClients(){
+    
     this.doctorService.getClients(this.route.snapshot.paramMap.get('id')).subscribe(clients=>{
       this.clients=clients.sort((one, two) => (one.name < two.name ? -1 : 1));
     

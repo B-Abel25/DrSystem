@@ -1,35 +1,33 @@
 <app-admin-navbar></app-admin-navbar>
-<body>
-  
-<div class="container">
-<table class="table table-striped table-dark">
-    <thead class="thead-dark">
-      <tr>
-        <th >Név</th>
-        <th >TAJ-szám</th>
-        <th >Születési dátum</th>
-        <th >Lakcím</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-       
-        <td *ngFor="let client of clients">{{client.name}}</td>
-        <td *ngFor="let client of clients">{{client.medNumber}}</td>
-        <td *ngFor="let client of clients">{{client.birthDate}}</td>
-        <td *ngFor="let client of clients">{{client.place.name}}</td>
-        <td>
-         
-          <li class="list-inline-item"><button class="btn btn-light"><i class="fa fa-user"></i></button></li>
-          <li class="list-inline-item"><button class="btn btn-light"><i class="fa fa-envelope"></i></button></li>
-        
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</body>
 
-  
-  
+<body>
+
+    <div class="container">
+        <table class="table table-striped table-dark">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Név</th>
+                    <th>TAJ-szám</th>
+                    <th>Születési dátum</th>
+                    <th>Lakcím</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let client of clients">
+
+                    <td>{{client.name}}</td>
+                    <td>{{client.medNumber}}</td>
+                    <td>{{client.birthDate}}</td>
+                    <td>{{client.place.postCode}} {{client.place.city}}</td>
+                    <td>
+
+                        <li class="list-inline-item"><button class="btn btn-light"><i class="fa fa-user"></i></button></li>
+                        <li class="list-inline-item"><button class="btn btn-light"><i class="fa fa-envelope"></i></button></li>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>

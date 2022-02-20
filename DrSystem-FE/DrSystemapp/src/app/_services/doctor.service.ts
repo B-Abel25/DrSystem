@@ -21,6 +21,7 @@ private currentDoctorSource= new ReplaySubject<DoctorAdmin>(1);
 
   login(model:any)
   {
+    //Itt lehet valami nagy kaki
     return this.http.put<DoctorAdmin>(this.baseUrl + 'public/doctor/login', model).pipe(
       map((response: DoctorAdmin)=>{
         const doctor=response;

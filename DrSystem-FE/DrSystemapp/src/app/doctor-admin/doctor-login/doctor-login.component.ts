@@ -28,8 +28,13 @@ export class DoctorLoginComponent implements OnInit {
   login(){
  
     this.doctorService.login(this.doctorLoginForm.value).subscribe(response=>{
-      console.log(response)
-     this.router.navigateByUrl('/admin/client-list/{{doctor.id}}');
+      /*
+      Itt van a hiba, a response undefined értéket kap,
+      pedig ebbe kéne benne lennie a docId-nek a SealNumber-nek és a JWT-nek*
+      */
+      console.log(response);
+      console.log("ott");
+     this.router.navigateByUrl('/admin/client-list/788f1eec-c856-46b5-bb9d-3b0ec6f01af1');
       this.loggedIn=true;
       }, error=>{
       console.log(error);
