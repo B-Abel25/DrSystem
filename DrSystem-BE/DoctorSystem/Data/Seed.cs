@@ -163,6 +163,7 @@ namespace DoctorSystem.Data
                 cli.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(clientModel.Password));
                 cli.PasswordSalt = hmac.Key;
                 cli.Doctor = await _context._doctors.SingleOrDefaultAsync(x => x.Id == Barbi.Id);
+                cli.Member = clientModel.Member == "0" ? false : true;
                 _context._clients.Add(cli);
                 await _context.SaveChangesAsync();
             }
