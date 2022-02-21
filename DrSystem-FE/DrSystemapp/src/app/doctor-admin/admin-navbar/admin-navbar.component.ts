@@ -11,7 +11,7 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 export class AdminNavbarComponent implements OnInit {
   constructor(public doctorService: DoctorService, private router: Router, private route: ActivatedRoute) {}
   loggedIn: boolean = false;
-  doctor:Doctor;
+  doctor:Doctor[];
   ngOnInit() {
     this.loadClients();
   }

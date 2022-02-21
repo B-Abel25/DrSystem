@@ -11,7 +11,7 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 })
 export class ClientListComponent implements OnInit {
   clients:Client[];
-  doctor:Doctor;
+  doctor:Doctor[];
   constructor(private doctorService:DoctorService, private route: ActivatedRoute) {}
 
   ngOnInit() {

@@ -18,13 +18,14 @@ export class DoctorLoginComponent implements OnInit {
   modalRef!: BsModalRef;
   doctorLoginForm:FormGroup;
   clients: Client[];
-  doctor:Doctor;
+ 
   constructor(public doctorService:DoctorService, private router:Router, private toastr: ToastrService,private modalService: BsModalService, private fb:FormBuilder,private route:ActivatedRoute ) { }
 
   ngOnInit() {
     this.initializationForm();
     this.getCurrentDoctor();
-    this.loadClients();
+    
+   
   }
 
   login(){
@@ -79,11 +80,5 @@ export class DoctorLoginComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
   
-  loadClients(){
-    this.doctorService.getClients(this.route.snapshot.paramMap.get('id')).subscribe(doctor=>{
-      this.doctor=doctor;
-      // sort((one, two) => (one.name < two.name ? -1 : 1));
-    
-    })
-  }
+ 
 }
