@@ -1,0 +1,34 @@
+<app-admin-navbar></app-admin-navbar>
+<app-admin-navbar></app-admin-navbar>
+
+<body>
+
+    <div class="container">
+        <table class="table table-striped table-dark">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Név</th>
+                    <th>Lakcím</th>
+                    <th>Születési dátum</th>
+                    <th>Telefonszám</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let client of clients">
+
+                    <td>{{client.name}}</td>
+                    <td>{{client.place.postCode}} {{client.place.city}}</td>
+                    <td>{{client.birthDate}}</td>
+                    <td>{{client.phoneNumber}}</td>
+                    <td>
+                        <li class="list-inline-item"  ><button class="btn btn-light" (click)="deleteClient(client.id)"><i class="fa fa-trash"></i></button></li>
+                        <li class="list-inline-item"><button class="btn btn-light" (click)="acceptClient(client.id)"> <i class="fa fa-check text-dark"></i></button></li>
+                        
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>

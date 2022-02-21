@@ -33,6 +33,7 @@ import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDocto
 import { LostPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/lost-password-doctor/lost-password-doctor.component';
 import { DoctorJWTInterceptor } from './_interceptors/doctor-jwt.interceptor';
 import { DoctorMainPageComponent } from './doctor-admin/doctor-main-page/doctor-main-page.component';
+import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-request/clients-request.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { DoctorMainPageComponent } from './doctor-admin/doctor-main-page/doctor-
     NewPasswordDoctorComponent,
     LostPasswordDoctorComponent,
     DoctorMainPageComponent,
+    ClientsRequestComponent,
   ],
   imports: [
     FormsModule,

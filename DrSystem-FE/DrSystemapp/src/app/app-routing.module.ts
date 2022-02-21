@@ -19,6 +19,7 @@ import { ClientListComponent } from './doctor-admin/doctor-function/client-list/
 import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-message/doctor-message.component';
 import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/new-password-doctor/new-password-doctor.component';
 import { DoctorMainPageComponent } from './doctor-admin/doctor-main-page/doctor-main-page.component';
+import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-request/clients-request.component';
 
 const routes: Routes = [
   { path: '', component: DrsystemHomeComponent },
@@ -55,6 +56,7 @@ const routes: Routes = [
     children: [
       { path: 'admin/doctor-page', component: DoctorMainPageComponent},
       { path: 'admin/client-list/:id', component: ClientListComponent },
+      {path: 'admin/clients-request/:id', component: ClientsRequestComponent}
     ],
   },
   

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+
 import { map, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Client } from '../_models/client';
@@ -14,10 +15,13 @@ import { NewPassword } from '../_models/newpassword';
   providedIn: 'root'
 })
 export class DoctorService {
+ 
+  
 baseUrl= environment.apiUrl;
 doctors!:DoctorAdmin[];
 private currentDoctorSource= new ReplaySubject<DoctorAdmin>(1);
   currentDoctor$=this.currentDoctorSource.asObservable();
+  singleuserdata: Client[];
   constructor(private http: HttpClient) { }
 
   login(model:any)
@@ -45,7 +49,7 @@ this.currentDoctorSource.next(doctor);
     this.currentDoctorSource.next(null as any);
   }
   lostPassword(model:any){
-    return this.http.put<LostPassword>(this.baseUrl+'public/lost-password', model).pipe(
+    return this.http.put<LostPassword>(this.baseUrl+'public/lost-password',model).pipe(
       map((password:LostPassword)=>{
         if(password){
         localStorage.setItem('password', JSON.stringify(password));
@@ -56,7 +60,7 @@ this.currentDoctorSource.next(doctor);
   }
 
   newPassword(model:any){
-    return this.http.post<NewPassword>(this.baseUrl+'public/new-password', model).pipe(
+    return this.http.post<NewPassword>(this.baseUrl+'public/new-password',model).pipe(
       map((password:NewPassword)=>{
         if(password){
       
@@ -65,10 +69,43 @@ this.currentDoctorSource.next(doctor);
       })
     )
   }
-
+  getDoctorClientsRequest(id:string){
+    return this.http.get<Client[]>(this.baseUrl+'private/doctor/clients-request/'+ id );
+  }
   getDoctorClients(id:string){
     return this.http.get<Client[]>(this.baseUrl+'private/doctor/clients/'+ id );
   }
   
+  deleteClient(clientId:string)
+  {
+   
+    return this.http.delete(this.baseUrl+'private/doctor/client-request/decline/'+ clientId).subscribe({
+      next: data => {
+          console.log(data)
+      },
+      error: error => {
+          
+          console.error('There was an error!', error);
+      }
+  });
+    
+  }
+  acceptClient(clientId:string)
+  {
+   
+  
+    return this.http.put(this.baseUrl+'private/doctor/client-request/accept/'+clientId,{}).subscribe({
+      next: data => {
+          console.log(data)
+      },
+      error: error => {
+          
+          console.error('There was an error!', error);
+      }
+  });
+    
+  }
 }
+
+  
 
