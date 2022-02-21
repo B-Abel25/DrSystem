@@ -11,17 +11,17 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 })
 export class ClientListComponent implements OnInit {
   clients:Client[];
-  doctor:Doctor[];
+  client:Doctor;
   constructor(private doctorService:DoctorService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.loadClients();
+    this.loadDoctorClients();
   }
 
-  loadClients(){
+  loadDoctorClients(){
     
-    this.doctorService.getClients(this.route.snapshot.paramMap.get('id')).subscribe(doctor=>{
-      this.doctor=doctor;
+    this.doctorService.getDoctorClients(this.route.snapshot.paramMap.get('id')).subscribe(client=>{
+      this.client=client;
       // sort((one, two) => (one.name < two.name ? -1 : 1));
     
     })

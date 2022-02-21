@@ -66,12 +66,10 @@ this.currentDoctorSource.next(doctor);
     )
   }
 
-  getClients(id:string){
-    return this.http.get<Doctor[]>(this.baseUrl+'private/doctor/clients/'+ id );
+  getDoctorClients(id:string){
+    return this.http.get<Doctor>(this.baseUrl+'private/doctor/clients/'+ id );
   }
-  getClient(){
-    return this.http.get<Client>(this.baseUrl+'client')
-  }
+  
 }
   
 

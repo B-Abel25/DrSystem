@@ -11,9 +11,9 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 export class AdminNavbarComponent implements OnInit {
   constructor(public doctorService: DoctorService, private router: Router, private route: ActivatedRoute) {}
   loggedIn: boolean = false;
-  doctor:Doctor[];
+  doctor:Doctor;
   ngOnInit() {
-    this.loadClients();
+    
   }
   logout() {
     this.doctorService.logout();
@@ -30,14 +30,7 @@ export class AdminNavbarComponent implements OnInit {
     );
   }
 
-  loadClients(){
-    
-    this.doctorService.getClients(this.route.snapshot.paramMap.get('id')).subscribe(doctor=>{
-      this.doctor=doctor;
-      // sort((one, two) => (one.name < two.name ? -1 : 1));
-    
-    })
-  }
+ 
 
   
 }
