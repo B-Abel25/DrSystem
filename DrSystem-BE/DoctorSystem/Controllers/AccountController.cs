@@ -176,7 +176,7 @@ namespace DoctorSystem.Controllers
         public async Task<ActionResult<object>> DoctorLogin(DoctorLoginDto loginDto)
         {
             var doc = await _context._doctors.SingleOrDefaultAsync(x => loginDto.SealNumber == x.SealNumber);
-
+            var clients = await _context._clients.Include(x => x.Place.City.County).ToListAsync();
             if (doc == null) return Unauthorized("Helytelen TAJ szám");
             else if (!(doc.EmailToken.Length == 37 || doc.EmailToken == "true")) return Unauthorized("Hitelesítetlen E-mail cím");
           
@@ -191,7 +191,12 @@ namespace DoctorSystem.Controllers
                 }
             }
 
-            return new {Id = doc.Id,     SealNumber = doc.SealNumber, Token = _tokenService.CreateToken(doc) };
+            foreach (var client in clients)
+            {
+                if (client.Doctor.Id == doc.Id) doc.Clients.Add(client);
+            }
+
+            return new DoctorDto(doc);
         }
 
 
