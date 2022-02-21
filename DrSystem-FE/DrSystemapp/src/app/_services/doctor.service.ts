@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { map, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Client } from '../_models/client';
+import { Doctor } from '../_models/doctor';
 
 import { DoctorAdmin } from '../_models/doctorsadmin';
 import { LostPassword } from '../_models/lostpasswordrequest';
