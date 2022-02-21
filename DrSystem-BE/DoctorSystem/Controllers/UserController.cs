@@ -49,7 +49,7 @@ namespace DoctorSystem.Controller
         }
 
         
-        [Route("doctor/client-requests/{doctorId}")]
+        [Route("doctor/clients-request/{doctorId}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorIdAndNotMember(string doctorId)
         {
