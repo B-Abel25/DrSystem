@@ -12,7 +12,7 @@ namespace DoctorSystem.Dtos
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; } 
         public PlaceDto Place { get; set; }
@@ -31,7 +31,7 @@ namespace DoctorSystem.Dtos
         {
             this.Id = c.Id;
             this.Name = c.Name;
-            this.BirthDate = c.BirthDate;
+            this.BirthDate = c.BirthDate.ToShortDateString();
             this.Email = c.Email;
             this.PhoneNumber = c.PhoneNumber;
             this.Place = new PlaceDto(c.Place);
