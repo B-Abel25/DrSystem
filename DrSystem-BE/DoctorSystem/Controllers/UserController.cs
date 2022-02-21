@@ -38,7 +38,25 @@ namespace DoctorSystem.Controller
             List<ClientDto> clientDtos = new List<ClientDto>();
             foreach (var client in clients)
             {
-                if (client.Doctor.Id == doctorId)
+                if (client.Doctor.Id == doctorId && client.Member)
+                {
+                    clientDtos.Add(new ClientDto(client));
+                }
+            }
+            return clientDtos;
+
+        }
+
+        [Route("doctor/client-requests/{doctorId}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorIdAndNotMember(string doctorId)
+        {
+            var clients = await _context._clients.Include(c => c.Doctor.Place.City.County).Include(c => c.Place.City.County).ToListAsync();
+
+            List<ClientDto> clientDtos = new List<ClientDto>();
+            foreach (var client in clients)
+            {
+                if (client.Doctor.Id == doctorId && !client.Member)
                 {
                     clientDtos.Add(new ClientDto(client));
                 }
