@@ -18,6 +18,7 @@ export class DoctorLoginComponent implements OnInit {
   modalRef!: BsModalRef;
   doctorLoginForm:FormGroup;
   clients: Client[];
+  doctor:any;
  
   constructor(public doctorService:DoctorService, private router:Router, private toastr: ToastrService,private modalService: BsModalService, private fb:FormBuilder,private route:ActivatedRoute ) { }
 
@@ -25,7 +26,7 @@ export class DoctorLoginComponent implements OnInit {
     this.initializationForm();
     this.getCurrentDoctor();
     
-   
+  
   }
 
   login(){
@@ -33,10 +34,10 @@ export class DoctorLoginComponent implements OnInit {
     this.doctorService.login(this.doctorLoginForm.value).subscribe(response=>{
       /*
       Itt van a hiba, a response undefined értéket kap,
-      pedig ebbe kéne benne lennie a docId-nek a SealNumber-nek és a JWT-nek*
+      pedig ebbe kéne benne lennie a docId-nek a SealNumber-nek és a JWT-nek
       */
       console.log(response);
-      console.log("ott");
+      console.log("useless login?");
      this.router.navigateByUrl('/admin/doctor-page');
       this.loggedIn=true;
       }, error=>{
@@ -45,6 +46,7 @@ export class DoctorLoginComponent implements OnInit {
      
     })
    }
+   
    logout()
    {
      this.doctorService.logout();
@@ -53,6 +55,8 @@ export class DoctorLoginComponent implements OnInit {
    }
    getCurrentDoctor(){
      this.doctorService.currentDoctor$.subscribe(doctor=>{
+       this.doctor = doctor;
+       console.log(this.doctor);
        this.loggedIn=!!doctor;
      }, error=>{
    console.log(error);

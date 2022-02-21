@@ -1,58 +1,52 @@
-
-
-  <div class="pt-tablecell page-home " style="background-image: url(/assets/logofekete.png);
+<div class="pt-tablecell page-home " style="background-image: url(/assets/logofekete.png);
   background-position: center;
   background-size: cover; ;">
-  <div class="overlay"></div>
- 
-<div class="container">
-  
-    <div class="wrapped-div">
-      
-      <div class="row" >
-        <div class="col-md-10 offset-md-1 " >
-  <div class="modal-body" >
-  
-    <form [formGroup]="doctorLoginForm" (ngSubmit)="doctorLoginForm.valid && login()" autocomplete="off">
-    
+    <div class="overlay"></div>
 
-        <div class="form-group  required ">
-            <label for="medNumber">Pecsét szám</label>
-            <input name="medNumber" type="text" class="form-control" id="medNumber" 
-            formControlName="sealNumber"
-            [class.is-invalid]='doctorLoginForm.get("sealNumber").errors && doctorLoginForm.get("sealNumber").touched'
-            required>
-            <div *ngIf="doctorLoginForm.get('sealNumber').hasError('required')" class="invalid-feedback">
-              A pecsét szám nem megfelelő!
-            </div>
-           
-        </div>
-        <div class="form-group  required">
-            <label for="password">Jelszó</label>
-            <input name="password" type="password" class="form-control invalid" id="password" 
-            formControlName="password" required
-            [class.is-invalid]='doctorLoginForm.get("password").errors && doctorLoginForm.get("password").touched'>
-            <div *ngIf="doctorLoginForm.get('password').hasError('required')" class="invalid-feedback">
-              A jelszó nem megfelelő!
-            </div>
-            
-        </div>
-    
-        <div class="checkbox mb-3">
-            <label>
+    <div class="container">
+        <app-admin-navbar></app-admin-navbar>
+        <div class="wrapped-div">
+
+            <div class="row">
+                <div class="col-md-10 offset-md-1 ">
+                    <div class="modal-body">
+
+                        <form [formGroup]="doctorLoginForm" (ngSubmit)="doctorLoginForm.valid && login()" autocomplete="off">
+
+
+                            <div class="form-group  required ">
+                                <label for="medNumber">Pecsét szám</label>
+                                <input name="medNumber" type="text" class="form-control" id="medNumber" formControlName="sealNumber" [class.is-invalid]='doctorLoginForm.get("sealNumber").errors && doctorLoginForm.get("sealNumber").touched' required>
+                                <div *ngIf="doctorLoginForm.get('sealNumber').hasError('required')" class="invalid-feedback">
+                                    A pecsét szám nem megfelelő!
+                                </div>
+
+                            </div>
+                            <div class="form-group  required">
+                                <label for="password">Jelszó</label>
+                                <input name="password" type="password" class="form-control invalid" id="password" formControlName="password" required [class.is-invalid]='doctorLoginForm.get("password").errors && doctorLoginForm.get("password").touched'>
+                                <div *ngIf="doctorLoginForm.get('password').hasError('required')" class="invalid-feedback">
+                                    A jelszó nem megfelelő!
+                                </div>
+
+                            </div>
+
+                            <div class="checkbox mb-3">
+                                <label>
             <input type="checkbox" value="remember-me"> Emlékezz rám
             </label>
-        </div>
-        <button [disabled]="!doctorLoginForm.valid" class="w-100 btn btn-lg btn-primary" type="submit" >Belépés</button>
-    </form> 
-    
-    <br>
-    <p id="link" ><app-lost-password-doctor (lostPasswordOpenedEvent) = "closeModal()"   ></app-lost-password-doctor></p>
+                            </div>
+                            <button [disabled]="!doctorLoginForm.valid" class="w-100 btn btn-lg btn-primary" type="submit">Belépés</button>
+                        </form>
 
-</div>
+                        <br>
+                        <p id="link">
+                            <app-lost-password-doctor (lostPasswordOpenedEvent)="closeModal()"></app-lost-password-doctor>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
- 

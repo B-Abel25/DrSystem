@@ -11,9 +11,12 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 export class AdminNavbarComponent implements OnInit {
   constructor(public doctorService: DoctorService, private router: Router, private route: ActivatedRoute) {}
   loggedIn: boolean = false;
-  doctor:Doctor;
+  doctor:any;
+  clients: Doctor[];
   ngOnInit() {
-    
+    this.getCurrentDoctor();
+    console.log(this.doctor);
+    console.log("adminnavbar")
   }
   logout() {
     this.doctorService.logout();
@@ -23,14 +26,12 @@ export class AdminNavbarComponent implements OnInit {
     this.doctorService.currentDoctor$.subscribe(
       (doctor) => {
         this.loggedIn = !!doctor;
+        this.doctor = doctor;
       },
       (error) => {
         console.log(error);
       }
     );
   }
-
- 
-
   
 }

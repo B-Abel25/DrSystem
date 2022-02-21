@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -175,9 +176,9 @@ namespace DoctorSystem.Controllers
         [Route("doctor/login")]
         public async Task<ActionResult<object>> DoctorLogin(DoctorLoginDto loginDto)
         {
-            var doc = await _context._doctors.SingleOrDefaultAsync(x => loginDto.SealNumber == x.SealNumber);
-            var clients = await _context._clients.Include(x => x.Place.City.County).ToListAsync();
-            if (doc == null) return Unauthorized("Helytelen TAJ szám");
+            var doc = await _context._doctors.Include(x => x.Place.City.County).SingleOrDefaultAsync(x => loginDto.SealNumber == x.SealNumber);
+            var clients = await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor).ToListAsync();
+            if (doc == null) return Unauthorized("Helytelen pecsétszám szám");
             else if (!(doc.EmailToken.Length == 37 || doc.EmailToken == "true")) return Unauthorized("Hitelesítetlen E-mail cím");
           
             var hmac = new HMACSHA512(doc.PasswordSalt);
@@ -191,12 +192,14 @@ namespace DoctorSystem.Controllers
                 }
             }
 
+            var docDto = new DoctorDto(doc);
+            docDto.Clients = new List<ClientDto>();
             foreach (var client in clients)
             {
-                if (client.Doctor.Id == doc.Id) doc.Clients.Add(client);
+                if (client.Doctor.Id == doc.Id) docDto.Clients.Add(new ClientDto(client));
             }
 
-            return new DoctorDto(doc);
+            return docDto;
         }
 
 

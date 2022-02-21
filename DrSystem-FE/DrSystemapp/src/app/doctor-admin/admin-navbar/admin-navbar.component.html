@@ -1,38 +1,38 @@
 <div class="area"></div>
-<nav class="main-menu" *ngIf="(doctorService.currentDoctor$ | async)" >
-  <ul>
-    <li routerLink="/admin/client-list">
-      <a>
-        <i class="fa fa-list fa-2x text-light"></i>
-        <span class="nav-text text-light"> Kérelmek </span>
-      </a>
-    </li>
-    <li routerLink="/admin/client-list/{{client.id}}">
-      <a>
-        <i class="fa fa-check text-light"></i>
-        <span class="nav-text text-light"> Páciensek </span>
-      </a>
-    </li>
+<nav class="main-menu" *ngIf="(doctorService.currentDoctor$ | async)">
+    <ul>
+        <li routerLink="/admin/client-list">
+            <a>
+                <i class="fa fa-list fa-2x text-light"></i>
+                <span class="nav-text text-light"> Kérelmek </span>
+            </a>
+        </li>
+        <li routerLink="/admin/client-list/{{doctor.id}}">
+            <a>
+                <i class="fa fa-check text-light"></i>
+                <span class="nav-text text-light"> Páciensek </span>
+            </a>
+        </li>
 
-    <li class="has-subnav" routerLink="/admin/doctor-message">
-      <a>
-        <i class="fa fa-envelope text-light"></i>
-        <span class="nav-text text-light"> Üzenetek </span>
-      </a>
-    </li>
-    <li class="has-subnav ">
-      <a>
-        <i class="fa fa-table fa-2x text-light"></i>
-        <span class="nav-text text-light"> Foglalások </span>
-      </a>
-    </li>
-  </ul>
-  <ul class="logout" (click)="logout()">
-    <li>
-      <a>
-        <i class="fa fa-power-off fa-2x text-light"></i>
-        <span class="nav-text text-light"> Kilépés </span>
-      </a>
-    </li>
-  </ul>
+        <li class="has-subnav" routerLink="/admin/doctor-message">
+            <a>
+                <i class="fa fa-envelope text-light"></i>
+                <span class="nav-text text-light"> Üzenetek </span>
+            </a>
+        </li>
+        <li class="has-subnav ">
+            <a>
+                <i class="fa fa-table fa-2x text-light"></i>
+                <span class="nav-text text-light"> Foglalások </span>
+            </a>
+        </li>
+    </ul>
+    <ul class="logout" (click)="logout()">
+        <li>
+            <a>
+                <i class="fa fa-power-off fa-2x text-light"></i>
+                <span class="nav-text text-light"> Kilépés </span>
+            </a>
+        </li>
+    </ul>
 </nav>

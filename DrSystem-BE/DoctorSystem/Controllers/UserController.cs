@@ -28,7 +28,7 @@ namespace DoctorSystem.Controller
             _emailService = emailService;
         }
 
-
+        [Authorize]
         [Route("doctor/clients/{doctorId}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorId(string doctorId)
