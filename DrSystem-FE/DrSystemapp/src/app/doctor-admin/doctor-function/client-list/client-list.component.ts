@@ -15,23 +15,23 @@ export class ClientListComponent implements OnInit {
   constructor(private doctorService:DoctorService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.loadDoctorClient();
+    this.loadDoctorClients();
   }
 
-  // loadDoctorClients(){
+  loadDoctorClients(){
     
-  //   this.doctorService.getDoctorClients(this.route.snapshot.paramMap.get('id')).subscribe(client=>{
-  //     this.client=client;
-  //     // sort((one, two) => (one.name < two.name ? -1 : 1));
-    
-  //   })
-  // }
-  loadDoctorClient(){
-    
-    this.doctorService.getDoctorClient().subscribe(clients=>{
+    this.doctorService.getDoctorClients(this.route.snapshot.paramMap.get('id')).subscribe(clients=>{
       this.clients=clients;
       // sort((one, two) => (one.name < two.name ? -1 : 1));
     
     })
   }
+  // loadDoctorClient(){
+    
+  //   this.doctorService.getDoctorClient().subscribe(clients=>{
+  //     this.clients=clients;
+  //     // sort((one, two) => (one.name < two.name ? -1 : 1));
+    
+  //   })
+  // }
 }

@@ -67,7 +67,7 @@ this.currentDoctorSource.next(doctor);
   }
 
   getDoctorClients(id:string){
-    return this.http.get<Doctor>(this.baseUrl+'private/doctor/clients/'+ id );
+    return this.http.get<Doctor[]>(this.baseUrl+'private/doctor/clients/'+ id );
   }
   getDoctorClient(){
     return this.http.get<Doctor[]>(this.baseUrl+'private/doctor/clients' );

@@ -37,7 +37,7 @@ export class DoctorLoginComponent implements OnInit {
       */
       console.log(response);
       console.log("ott");
-     this.router.navigateByUrl('/admin/admin-page');
+     this.router.navigateByUrl('/admin/client-list/');
       this.loggedIn=true;
       }, error=>{
       console.log(error);
