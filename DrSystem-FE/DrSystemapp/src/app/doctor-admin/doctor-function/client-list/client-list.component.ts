@@ -10,18 +10,26 @@ import { DoctorService } from 'src/app/_services/doctor.service';
   styleUrls: ['./client-list.component.css'],
 })
 export class ClientListComponent implements OnInit {
-  clients:Client[];
-  client:Doctor;
+  clients:Doctor[];
+  
   constructor(private doctorService:DoctorService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.loadDoctorClients();
+    this.loadDoctorClient();
   }
 
-  loadDoctorClients(){
+  // loadDoctorClients(){
     
-    this.doctorService.getDoctorClients(this.route.snapshot.paramMap.get('id')).subscribe(client=>{
-      this.client=client;
+  //   this.doctorService.getDoctorClients(this.route.snapshot.paramMap.get('id')).subscribe(client=>{
+  //     this.client=client;
+  //     // sort((one, two) => (one.name < two.name ? -1 : 1));
+    
+  //   })
+  // }
+  loadDoctorClient(){
+    
+    this.doctorService.getDoctorClient().subscribe(clients=>{
+      this.clients=clients;
       // sort((one, two) => (one.name < two.name ? -1 : 1));
     
     })

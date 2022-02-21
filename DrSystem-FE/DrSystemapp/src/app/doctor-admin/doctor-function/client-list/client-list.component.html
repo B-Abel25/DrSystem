@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngIf="client">
+                <tr *ngFor="let client of clients">
 
                     <td>{{client.name}}</td>
                     <td>{{client.medNumber}}</td>
