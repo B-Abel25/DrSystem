@@ -29,7 +29,7 @@ namespace DoctorSystem.Controller
             _emailService = emailService;
         }
 
-        
+        [Authorize]
         [Route("doctor/clients/{doctorId}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorId(string doctorId)
@@ -49,6 +49,7 @@ namespace DoctorSystem.Controller
         }
 
         
+        [Authorize]
         [Route("doctor/clients-request/{doctorId}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorIdAndNotMember(string doctorId)
@@ -67,6 +68,7 @@ namespace DoctorSystem.Controller
 
         }
 
+        [Authorize]
         [Route("doctor/client-request/accept/{clientId}")]
         [HttpPut]
         public async Task<ActionResult> AcceptClientRequest(string clientId)
@@ -79,6 +81,7 @@ namespace DoctorSystem.Controller
         }
 
 
+        [Authorize]
         [Route("doctor/client-request/decline/{clientId}")]
         [HttpDelete]
         public async Task<ActionResult> DeclineClientRequest(string clientId)
