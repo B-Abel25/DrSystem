@@ -12,7 +12,7 @@ export class AdminNavbarComponent implements OnInit {
   constructor(public doctorService: DoctorService, private router: Router, private route: ActivatedRoute) {}
   loggedIn: boolean = false;
   doctor:any;
-  clients: Doctor[];
+ 
   ngOnInit() {
     this.getCurrentDoctor();
     console.log(this.doctor);

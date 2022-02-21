@@ -10,7 +10,7 @@ import { DoctorService } from 'src/app/_services/doctor.service';
   styleUrls: ['./client-list.component.css'],
 })
 export class ClientListComponent implements OnInit {
-  clients:Doctor[];
+  clients:Client[];
   
   constructor(private doctorService:DoctorService, private route: ActivatedRoute) {}
 
