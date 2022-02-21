@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Client } from 'src/app/_models/client';
+import { Doctor } from 'src/app/_models/doctor';
 import { DoctorService } from 'src/app/_services/doctor.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 })
 export class ClientListComponent implements OnInit {
   clients:Client[];
+  doctor:Doctor;
   constructor(private doctorService:DoctorService, private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -18,8 +20,9 @@ export class ClientListComponent implements OnInit {
 
   loadClients(){
     
-    this.doctorService.getClients(this.route.snapshot.paramMap.get('id')).subscribe(clients=>{
-      this.clients=clients.sort((one, two) => (one.name < two.name ? -1 : 1));
+    this.doctorService.getClients(this.route.snapshot.paramMap.get('id')).subscribe(doctor=>{
+      this.doctor=doctor;
+      // sort((one, two) => (one.name < two.name ? -1 : 1));
     
     })
   }
