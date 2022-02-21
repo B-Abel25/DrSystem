@@ -2,6 +2,7 @@
 using DoctorSystem.Entities.Contexts;
 using DoctorSystem.Interfaces;
 using DoctorSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -28,7 +29,7 @@ namespace DoctorSystem.Controller
             _emailService = emailService;
         }
 
-        [Authorize]
+        
         [Route("doctor/clients/{doctorId}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorId(string doctorId)
@@ -47,6 +48,7 @@ namespace DoctorSystem.Controller
 
         }
 
+        
         [Route("doctor/client-requests/{doctorId}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorIdAndNotMember(string doctorId)

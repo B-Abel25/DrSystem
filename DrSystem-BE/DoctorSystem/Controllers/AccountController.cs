@@ -177,7 +177,7 @@ namespace DoctorSystem.Controllers
         public async Task<ActionResult<object>> DoctorLogin(DoctorLoginDto loginDto)
         {
             var doc = await _context._doctors.Include(x => x.Place.City.County).SingleOrDefaultAsync(x => loginDto.SealNumber == x.SealNumber);
-            var clients = await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor).ToListAsync();
+            //var clients = await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor).ToListAsync();
             if (doc == null) return Unauthorized("Helytelen pecsétszám szám");
             else if (!(doc.EmailToken.Length == 37 || doc.EmailToken == "true")) return Unauthorized("Hitelesítetlen E-mail cím");
           
@@ -191,15 +191,15 @@ namespace DoctorSystem.Controllers
                     return Unauthorized("Helytelen jelszó");
                 }
             }
-
+            /*
             var docDto = new DoctorDto(doc);
             docDto.Clients = new List<ClientDto>();
             foreach (var client in clients)
             {
                 if (client.Doctor.Id == doc.Id) docDto.Clients.Add(new ClientDto(client));
             }
-
-            return docDto;
+            */
+            return new { Id = doc.Id, Token = _tokenService.CreateToken(doc) };
         }
 
 
