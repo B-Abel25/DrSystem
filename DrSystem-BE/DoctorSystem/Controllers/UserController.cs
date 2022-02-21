@@ -13,7 +13,7 @@ namespace DoctorSystem.Controller
 {
     [ApiController]
     [Route("private/")]
-    public class UserController
+    public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
         private readonly BaseDbContext _context;
@@ -65,6 +65,29 @@ namespace DoctorSystem.Controller
             }
             return clientDtos;
 
+        }
+
+        [Route("doctor/client-request/accept/{clientId}")]
+        [HttpPut]
+        public async Task<ActionResult> AcceptClientRequest(string clientId)
+        {
+            //TODO email éretsítés az elfogadásról
+            var client = await _context._clients.SingleOrDefaultAsync(x=> x.Id == clientId);
+            client.Member = true;
+            await _context.SaveChangesAsync();
+            return Accepted();
+        }
+
+
+        [Route("doctor/client-request/decline/{clientId}")]
+        [HttpDelete]
+        public async Task<ActionResult> DeclineClientRequest(string clientId)
+        {
+            //TODO email éretsítés az elutasításról
+            var client = await _context._clients.SingleOrDefaultAsync(x => x.Id == clientId);
+            _context._clients.Remove(client);
+            await _context.SaveChangesAsync();
+            return Accepted();
         }
     }
 }
