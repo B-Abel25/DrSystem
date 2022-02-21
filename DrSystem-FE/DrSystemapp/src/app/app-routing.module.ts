@@ -18,6 +18,7 @@ import { AdminGuard } from './_guards/admin.guard';
 import { ClientListComponent } from './doctor-admin/doctor-function/client-list/client-list.component';
 import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-message/doctor-message.component';
 import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/new-password-doctor/new-password-doctor.component';
+import { DoctorMainPageComponent } from './doctor-admin/doctor-main-page/doctor-main-page.component';
 
 const routes: Routes = [
   { path: '', component: DrsystemHomeComponent },
@@ -52,6 +53,7 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AdminGuard],
     children: [
+      { path: 'admin/admin-page', component: DoctorMainPageComponent },
       { path: 'admin/client-list/:id', component: ClientListComponent },
     ],
   },
