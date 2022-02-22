@@ -11,66 +11,65 @@ import { AccountService } from '../../_services/account.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent  {
-  public model: any={}
+export class LoginComponent {
+  public model: any = {}
   loggedIn: boolean = false;
   modalRef!: BsModalRef;
-  loginForm:FormGroup;
-  constructor(public accountService:AccountService, private router:Router, private toastr: ToastrService,private modalService: BsModalService, private fb:FormBuilder, ) { 
-   
- 
+  loginForm: FormGroup;
+  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService, private modalService: BsModalService, private fb: FormBuilder,) {
+
+
   }
 
   ngOnInit(): void {
-   this.initializationForm();
+    this.initializationForm();
     this.getCurrentClient();
     console.log();
   }
-login(){
- 
- this.accountService.login(this.loginForm.value).subscribe(response=>{
-  this.router.navigateByUrl('/booking');
- 
-   this.loggedIn=true;
-   }, error=>{
-   console.log(error);
-  this.toastr.error(error.error);
- })
-}
-logout()
-{
-  this.accountService.logout();
-  this.router.navigateByUrl('/');
- 
-}
-getCurrentClient(){
-  this.accountService.currentClient$.subscribe(client=>{
-    this.loggedIn=!!client;
-    console.log(client)
-  }, error=>{
-console.log(error);
-  });
-  
-}
+  login() {
 
-openModal(template: TemplateRef<any>) {
-  if (this.modalRef != null) {
-    this.modalRef.hide();
+    this.accountService.login(this.loginForm.value).subscribe(response => {
+      this.router.navigateByUrl('/booking');
+
+      this.loggedIn = true;
+    }, error => {
+      console.log(error);
+      this.toastr.error(error.error);
+    })
+  }
+  logout() {
+    this.accountService.logout();
+    this.router.navigateByUrl('/');
 
   }
-  this.modalRef = this.modalService.show(template);
-}
-closeModal() {
-  console.log('force close')
-  if (this.modalRef != null) {
-    this.modalRef.hide();
+  getCurrentClient() {
+    this.accountService.currentClient$.subscribe(client => {
+      this.loggedIn = !!client;
+      console.log(client)
+    }, error => {
+      console.log(error);
+    });
 
   }
-}
-initializationForm(){
-  this.loginForm=this.fb.group({
-    medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
-    password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
-  })
-}
+
+  openModal(template: TemplateRef<any>) {
+    if (this.modalRef != null) {
+      this.modalRef.hide();
+
+    }
+    this.modalRef = this.modalService.show(template);
+  }
+  closeModal() {
+    console.log('force close')
+    if (this.modalRef != null) {
+      this.modalRef.hide();
+
+    }
+  }
+  initializationForm() {
+    this.loginForm = this.fb.group({
+      medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')],],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
+    })
+  }
 }

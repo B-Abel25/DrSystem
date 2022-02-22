@@ -15,27 +15,27 @@ import { DoctorService } from 'src/app/_services/doctor.service';
   styleUrls: ['./lost-password-request.component.css']
 })
 export class LostPasswordRequestComponent implements OnInit {
- 
-  ​
 
-  requestForm!: NgForm ;
-  lostPasswordForm:FormGroup;
-  @Output() lostPasswordOpenedEvent = new EventEmitter(); 
+
+
+  requestForm!: NgForm;
+  lostPasswordForm: FormGroup;
+  @Output() lostPasswordOpenedEvent = new EventEmitter();
   paswwordLost: boolean = false
-  public model: any={}
+  public model: any = {}
   editForm: any;
-  
+
 
   modalRef!: BsModalRef;
   constructor(private modalService: BsModalService, private accountService: AccountService
-    , private toastr:ToastrService, private router:Router, private fb:FormBuilder) {
+    , private toastr: ToastrService, private router: Router, private fb: FormBuilder) {
 
   }
 
   sendResetMail() {
     this.accountService.lostPassword(this.lostPasswordForm.value).subscribe(response => {
       console.log(response);
-     
+
     }, error => {
       console.log(error);
     });
@@ -46,16 +46,16 @@ export class LostPasswordRequestComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-  
+
     this.lostPasswordOpenedEvent.emit();
-    
+
     this.modalRef = this.modalService.show(template);
   }
-  
-  initializationForm(){
-    this.lostPasswordForm=this.fb.group({
-      userNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
-     
+
+  initializationForm() {
+    this.lostPasswordForm = this.fb.group({
+      userNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')],],
+
     })
   }
   public Close() {

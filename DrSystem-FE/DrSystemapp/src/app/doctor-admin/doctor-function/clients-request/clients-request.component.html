@@ -6,11 +6,11 @@
       <thead class="thead-dark">
         <tr>
           <th (click)="sort('name')">Név&nbsp;<i class="fa fa-sort"></i></th>
-          <th>TAJ-szám</th>
+          <th>Lakcím</th>
           <th (click)="sort('birthDate')">
             Születési dátum&nbsp;<i class="fa fa-sort"></i>
           </th>
-          <th style="width: 80px">Lakcím</th>
+          <th style="width: 80px">Telefonszám</th>
           <th style="width: 250px">
             <form>
               <div class="mb-8 row">
@@ -43,18 +43,20 @@
           "
         >
           <td style="text-align: left">{{ client.name }}</td>
-          <td style="text-align: center">{{ client.medNumber }}</td>
-          <td style="text-align: center">{{ client.birthDate }}</td>
-          <td style="text-align: right">
+          <td style="text-align: center">
             {{ client.place.postCode }} {{ client.place.city }}
           </td>
+          <td style="text-align: center">{{ client.birthDate }}</td>
+          <td style="text-align: right">{{ client.phoneNumber }}</td>
           <td>
             <li class="list-inline-item">
-              <button class="btn btn-light"><i class="fa fa-user"></i></button>
+              <button class="btn btn-light" (click)="deleteClient(client.id)">
+                <i class="fa fa-trash"></i>
+              </button>
             </li>
             <li class="list-inline-item">
-              <button class="btn btn-light">
-                <i class="fa fa-envelope"></i>
+              <button class="btn btn-light" (click)="acceptClient(client.id)">
+                <i class="fa fa-check text-dark"></i>
               </button>
             </li>
           </td>

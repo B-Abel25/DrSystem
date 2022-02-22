@@ -2,11 +2,11 @@ import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-booking',
-  templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.css']
+  selector: 'app-doctor-main-page',
+  templateUrl: './doctor-main-page.component.html',
+  styleUrls: ['./doctor-main-page.component.css']
 })
-export class BookingComponent implements OnInit {
+export class DoctorMainPageComponent implements OnInit {
 
   constructor(private location: LocationStrategy) {
     history.pushState(null, null, window.location.href);
@@ -15,7 +15,7 @@ export class BookingComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }

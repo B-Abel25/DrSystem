@@ -25,7 +25,7 @@ export class NewPasswordDoctorComponent implements OnInit {
     private toatsr: ToastrService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.initializationForm();

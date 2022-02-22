@@ -11,38 +11,37 @@ import { ToastrService } from 'ngx-toastr';
 
 export class NavbarComponent implements OnInit {
 
- 
-  public model: any={}
+
+  public model: any = {}
   loggedIn: boolean = false;
- 
-  constructor(public accountService:AccountService, private router:Router, private toastr: ToastrService ) { }
+
+  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-   
+
     this.getCurrentClient();
   }
-login(){
- this.accountService.login(this.model).subscribe(response=>{
-  this.router.navigateByUrl('/booking');
-   this.loggedIn=true;
-   }, error=>{
-   console.log(error);
-   this.toastr.error(error.error);
- })
-}
-logout()
-{
-  this.accountService.logout();
-  this.router.navigateByUrl('/login');
- 
-}
-getCurrentClient(){
-  this.accountService.currentClient$.subscribe(client=>{
-    this.loggedIn=!!client;
-  }, error=>{
-console.log(error);
-  });
-  
-}
+  login() {
+    this.accountService.login(this.model).subscribe(response => {
+      this.router.navigateByUrl('/booking');
+      this.loggedIn = true;
+    }, error => {
+      console.log(error);
+      this.toastr.error(error.error);
+    })
+  }
+  logout() {
+    this.accountService.logout();
+    this.router.navigateByUrl('/login');
+
+  }
+  getCurrentClient() {
+    this.accountService.currentClient$.subscribe(client => {
+      this.loggedIn = !!client;
+    }, error => {
+      console.log(error);
+    });
+
+  }
 
 }

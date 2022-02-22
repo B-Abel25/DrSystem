@@ -31,7 +31,11 @@ import { BookingComponent } from './client/clients-functions/booking/booking.com
 import { ComplaintComponent } from './client/clients-functions/complaint/complaint.component';
 import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/new-password-doctor/new-password-doctor.component';
 import { LostPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/lost-password-doctor/lost-password-doctor.component';
-
+import { DoctorJWTInterceptor } from './_interceptors/doctor-jwt.interceptor';
+import { DoctorMainPageComponent } from './doctor-admin/doctor-main-page/doctor-main-page.component';
+import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-request/clients-request.component';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +57,9 @@ import { LostPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoct
     ComplaintComponent,
     NewPasswordDoctorComponent,
     LostPasswordDoctorComponent,
+    DoctorMainPageComponent,
+    ClientsRequestComponent,
+    
   ],
   imports: [
     FormsModule,
@@ -63,12 +70,17 @@ import { LostPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoct
     AppRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    Ng2OrderModule,
+    Ng2SearchPipeModule,
+  
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: DoctorJWTInterceptor, multi: true },
+  
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

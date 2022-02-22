@@ -7,6 +7,7 @@
     margin-right: auto;
     opacity: 0;
     float:inline-end;
+    color:black;
     
 }
 .client-icons:hover{
@@ -24,7 +25,7 @@ table{
 .my-pagination /deep/ .ngx-pagination .current {
     background: rgb(3, 20, 53);
   }
-.mb-8{
+  .mb-8{
     float:center;
     padding-left:10px;
 }

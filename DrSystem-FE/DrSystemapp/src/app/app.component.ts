@@ -13,51 +13,51 @@ import { DoctorService } from './_services/doctor.service';
 })
 export class AppComponent implements OnInit {
   title = 'DrSystemapp';
-  users:any;
+  users: any;
   @Output() loggedInEvent = new EventEmitter();
- 
+
   loggedIn: boolean = false;
-  
-  constructor(private http:HttpClient, public accountService:AccountService, private doctorService:DoctorService) {}
-    handleLogin(state: boolean) {
-      this.loggedIn = state
-      this.loggedInEvent.emit(this.loggedIn);
-   
-     }
-    
-  
+
+  constructor(private http: HttpClient, public accountService: AccountService, private doctorService: DoctorService) { }
+  handleLogin(state: boolean) {
+    this.loggedIn = state
+    this.loggedInEvent.emit(this.loggedIn);
+
+  }
+
+
   ngOnInit() {
     this.handleLogin(this.loggedIn);
-   this.setCurrentClient();
-   this.setCurrentDoctor();
-   this.getCurrentClient();
-   this.getCurrentDoctor();
+    this.setCurrentClient();
+    this.setCurrentDoctor();
+    this.getCurrentClient();
+    this.getCurrentDoctor();
   }
-  setCurrentClient(){
+  setCurrentClient() {
     const client: Registration = JSON.parse(localStorage.getItem('client'));
     this.accountService.setCurrentClient(client);
   }
-  setCurrentDoctor(){
+  setCurrentDoctor() {
     const doctor: DoctorAdmin = JSON.parse(localStorage.getItem('doctor'));
     this.doctorService.setCurrentDoctor(doctor);
   }
-  getCurrentClient(){
-    this.accountService.currentClient$.subscribe(client=>{
-      this.loggedIn=!!client;
-    }, error=>{
-  console.log(error);
+  getCurrentClient() {
+    this.accountService.currentClient$.subscribe(client => {
+      this.loggedIn = !!client;
+    }, error => {
+      console.log(error);
     });
-    
+
   }
-  getCurrentDoctor(){
-    this.accountService.currentClient$.subscribe(doctor=>{
-      this.loggedIn=!!doctor;
-    }, error=>{
-  console.log(error);
+  getCurrentDoctor() {
+    this.accountService.currentClient$.subscribe(doctor => {
+      this.loggedIn = !!doctor;
+    }, error => {
+      console.log(error);
     });
-    
+
   }
- 
- }
+
+}
 
 

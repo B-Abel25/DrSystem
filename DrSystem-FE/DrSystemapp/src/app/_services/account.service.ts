@@ -16,76 +16,73 @@ import { Registration } from '../_models/registration';
 })
 export class AccountService {
 
-  baseUrl=environment.apiUrl;
-  private currentClientSource= new ReplaySubject<Registration>(1);
-  currentClient$=this.currentClientSource.asObservable();
- id!:Registration;
-  constructor(private http:HttpClient) { }
+  baseUrl = environment.apiUrl;
+  private currentClientSource = new ReplaySubject<Registration>(1);
+  currentClient$ = this.currentClientSource.asObservable();
+  id!: Registration;
+  constructor(private http: HttpClient) { }
 
-  login(model:any)
-  {
+  login(model: any) {
     return this.http.post<Registration>(this.baseUrl + 'public/client/login', model).pipe(
-      map((response: Registration)=>{
-        const client=response;
-        if (client){
+      map((response: Registration) => {
+        const client = response;
+        if (client) {
           this.setCurrentClient(client);
           localStorage.setItem('client', JSON.stringify(client));
         }
       })
     )
   }
-  register(model: any){
-return this.http.post<Registration>(this.baseUrl + 'public/client/register',model).pipe(
-  map((client: Registration)=>{
-    if(client){
-     this.setCurrentClient(client);
-     
-      this.currentClientSource.next(client);
-      console.log(model);
-    }
-    
-   
-  })
-  
-)
+  register(model: any) {
+    return this.http.post<Registration>(this.baseUrl + 'public/client/register', model).pipe(
+      map((client: Registration) => {
+        if (client) {
+          this.setCurrentClient(client);
+
+          this.currentClientSource.next(client);
+          console.log(model);
+        }
+
+
+      })
+
+    )
   }
-  lostPassword(model:any){
-    return this.http.put<LostPassword>(this.baseUrl+'public/lost-password', model).pipe(
-      map((password:LostPassword)=>{
-        if(password){
-        localStorage.setItem('password', JSON.stringify(password));
-        console.log(model)
+  lostPassword(model: any) {
+    return this.http.put<LostPassword>(this.baseUrl + 'public/lost-password', model).pipe(
+      map((password: LostPassword) => {
+        if (password) {
+          localStorage.setItem('password', JSON.stringify(password));
+          console.log(model)
         }
       })
     )
   }
 
-  newPassword(model:any){
-    return this.http.post<NewPassword>(this.baseUrl+'public/new-password', model).pipe(
-      map((password:NewPassword)=>{
-        if(password){
-      
-        console.log(model)
+  newPassword(model: any) {
+    return this.http.post<NewPassword>(this.baseUrl + 'public/new-password', model).pipe(
+      map((password: NewPassword) => {
+        if (password) {
+
+          console.log(model)
         }
       })
     )
   }
-  setCurrentClient(client: Registration)
-  {
+  setCurrentClient(client: Registration) {
     localStorage.setItem('client', JSON.stringify(client));
-this.currentClientSource.next(client);
+    this.currentClientSource.next(client);
   }
 
-  logout()
-  {
+  logout() {
     localStorage.removeItem('client');
     this.currentClientSource.next(null as any);
   }
 
-  getPlaces(){
-    return this.http.get<Places[]>(this.baseUrl+'register/places')
+  getPlaces() {
+    return this.http.get<Places[]>(this.baseUrl + 'register/places')
   }
-  getDoctors(){
-    return this.http.get<Doctor[]>(this.baseUrl+'register/doctors')
+  getDoctors() {
+    return this.http.get<Doctor[]>(this.baseUrl + 'register/doctors')
   }
 }

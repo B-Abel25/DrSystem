@@ -1,3 +1,3 @@
-export interface LostPassword{
-UserNumber:string;
+export interface LostPassword {
+    UserNumber: string;
 }
