@@ -42,9 +42,7 @@
 
                             <div class="col-md-3 form-group required">
                                 <label class="form-label required">Irányítószám</label>
-                                <input type="number" class="form-control"
-                                    [class.is-invalid]='registerForm.get("postCode").errors && registerForm.get("postCode").touched'
-                                    class="form-control " formControlName="postCode" required>
+                                <input type="number" class="form-control" [class.is-invalid]='registerForm.get("postCode").errors && registerForm.get("postCode").touched' class="form-control " formControlName="postCode" required>
 
                                 <div *ngIf="registerForm.get('postCode').hasError('required')" class="invalid-feedback">
                                     Kérem az irányítószámát!
@@ -53,9 +51,7 @@
 
                             <div class="col-md-3 form-group required">
                                 <label class="form-label required">Város</label>
-                                <input type="text" class="form-control"
-                                    [class.is-invalid]='registerForm.get("city").errors && registerForm.get("city").touched'
-                                    class="form-control " formControlName="city" required>
+                                <input type="text" class="form-control" [class.is-invalid]='registerForm.get("city").errors && registerForm.get("city").touched' class="form-control " formControlName="city" required>
 
                                 <div *ngIf="registerForm.get('city').hasError('required')" class="invalid-feedback">
                                     Kérem a városát!
@@ -200,6 +196,7 @@
                             </div>
 
                         </form>
+                        <p>érték: {{registerForm.value | json }}</p>
                         <br>
 
                         <!-- <div class="form-group col-md-8 offset-md-2"  *ngIf="!showMsg">

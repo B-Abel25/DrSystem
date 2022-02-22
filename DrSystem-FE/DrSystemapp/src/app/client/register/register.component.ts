@@ -69,46 +69,54 @@ export class RegisterComponent implements OnInit {
       medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')],],
 
 
-      placeId: ['', Validators.required],
-      doctor: ['', Validators.required],
+     placeId: ['', Validators.required],
+     doctor: ['', Validators.required],
+     
+     houseNumber: ['', [Validators.required, Validators.pattern('[0-9 a-z]*')]],
+     birthDate: ['', Validators.required],
+     street: ['', [Validators.required,Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ]*')]],
+     city: ['', Validators.required],
+     postCode: ['', Validators.required],
+     doctorId: ['', [Validators.required]],
+     email: ['', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+     name: ['', [Validators.required, Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ]*')]],
+     acceptTerms: [false, Validators.requiredTrue],
+     password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
+     confirmPassword: ['', [Validators.required, this.matchValues('password')]],
+     })
 
-      houseNumber: ['', [Validators.required, Validators.pattern('[0-9 a-z]*')]],
-      birthDate: ['', Validators.required],
-      street: ['', [Validators.required, Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ]*')]],
-      city: ['', Validators.required],
-      postCode: ['', Validators.required],
-      doctorId: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      name: ['', [Validators.required, Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ]*')]],
-      acceptTerms: [false, Validators.requiredTrue],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
-      confirmPassword: ['', [Validators.required, this.matchValues('password')]],
-    })
-    /*Itt nézz körül*/
-    this.registerForm.controls['postCode'].valueChanges.subscribe(x => {
-      x = x + "";
-      if (x.length == 4) {
-        console.log(x);
-        this.registerForm.controls['city'].setValue(this.places.find(y => y.postCode == x).city.name);
-      }
-      else {
+     this.registerForm.controls['postCode'].valueChanges.subscribe(x=>{
+      x = x+"";
+       if (x.length == 4)
+       {
+         console.log(x);
+        this.registerForm.controls['city'].setValue(this.places.find(y => y.postCode == x).city);
+       }
+       else
+       {
         this.registerForm.controls['city'].setValue("");
       }
     })
 
-    this.registerForm.controls['city'].valueChanges.subscribe(x => {
+      this.registerForm.controls['city'].valueChanges.subscribe(x=>{
+        
+         let  exist = this.places.find(y => y.city == x && y.postCode == this.registerForm.controls['postCode'].value)
+         console.log(exist);
+         console.log("itt"); 
+         if(exist != null)
+          {
+            this.registerForm.controls['placeId'].setValue(exist.id);
+          }
+          else{
+            this.registerForm.controls['placeId'].setValue("");
+          }
+         
+         
+        })
+      
 
-      let exist = this.places.find(y => y.city.name == x && y.postCode == this.registerForm.controls['postCode'].value)
-      console.log(exist);
-      if (exist != null) {
-        this.registerForm.controls['placeId'].setValue(exist.id);
-      }
-      else {
-        this.registerForm.controls['placeId'].setValue("");
-      }
-
-
-    })
+    
+  
 
 
     this.registerForm.controls['doctor'].valueChanges.subscribe(x => {
