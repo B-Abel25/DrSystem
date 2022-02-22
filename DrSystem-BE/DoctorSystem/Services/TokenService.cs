@@ -23,8 +23,7 @@ namespace DoctorSystem.Services
         {
             var claim = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.Name),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("id",user.Id)
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

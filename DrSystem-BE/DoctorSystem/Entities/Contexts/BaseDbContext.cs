@@ -70,8 +70,6 @@ namespace DoctorSystem.Entities.Contexts
                 .WithMany(ci => ci.Places)
                 .HasForeignKey(p => p.CityId);
             
-
-            //TODO: Ez ide miért kell? 
             base.OnModelCreating(modelBuilder);
         }
 

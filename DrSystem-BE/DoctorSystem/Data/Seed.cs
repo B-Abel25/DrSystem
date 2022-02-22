@@ -33,6 +33,21 @@ namespace DoctorSystem.Data
         public string Password { get; set; }
     }
 
+    public class ClientSeedModel
+    {
+        public string Name { get; set; }
+        public string DateOfBirth { get; set; }
+        public string SealNumber { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public string PostCode { get; set; }
+        public string Street { get; set; }
+        public string HouseNumber { get; set; }
+        public string Password { get; set; }
+        public string Member { get; set; }
+        public string DoctorId { get; set; }
+    }
+
     public class Seed
     {
         private static readonly Random random = new Random();
@@ -41,6 +56,7 @@ namespace DoctorSystem.Data
         {
             await SeedAddress(_context);
             await SeedDoctors(_context);
+            await SeedClients(_context);
         }
 
         private static async Task SeedAddress(BaseDbContext _context)
@@ -104,7 +120,7 @@ namespace DoctorSystem.Data
                 doc.Place = await _context._place.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
                 doc.Street = doctorModel.Street;
                 doc.HouseNumber = doctorModel.HouseNumber;
-                doc.EmailToken = GenerateToken(10);
+                doc.EmailToken = Guid.NewGuid().ToString() + (char)random.Next(97, 123);
                 var hmac = new HMACSHA512();
                 doc.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(doctorModel.Password));
                 doc.PasswordSalt = hmac.Key;
@@ -115,11 +131,45 @@ namespace DoctorSystem.Data
 
         }
 
-        private static string GenerateToken(int length)
+        private static async Task SeedClients(BaseDbContext _context)
         {
-            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#&@";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
+            if (await _context._clients.AnyAsync()) return;
+
+            var cliData = await System.IO.File.ReadAllTextAsync("Data/ClientSeedData.json", Encoding.UTF8);
+            var cliModels = JsonSerializer.Deserialize<List<ClientSeedModel>>(cliData);
+
+            var Barbi = await _context._doctors.SingleOrDefaultAsync(x => x.Name == "Antal Barbara");
+            foreach (var clientModel in cliModels)
+            {
+                Client cli = new Client();
+
+
+
+                cli.Name = clientModel.Name;
+                cli.BirthDate = DateTime.Parse(clientModel.DateOfBirth);
+                do
+                {
+                    cli.MedNumber = random.Next(100000000, 1000000000).ToString();
+                } while (await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == cli.MedNumber) != null);
+                cli.Email = clientModel.Email;
+                cli.PhoneNumber = clientModel.PhoneNumber;
+                string PC = clientModel.PostCode.Split(' ')[0];
+                string CT = clientModel.PostCode.Split(' ')[1];
+                cli.Place = await _context._place.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
+                cli.Street = clientModel.Street;
+                cli.HouseNumber = clientModel.HouseNumber;
+                cli.EmailToken = Guid.NewGuid().ToString() + (char)random.Next(97, 123);
+                var hmac = new HMACSHA512();
+                cli.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(clientModel.Password));
+                cli.PasswordSalt = hmac.Key;
+                cli.Doctor = await _context._doctors.SingleOrDefaultAsync(x => x.Id == Barbi.Id);
+                cli.Member = clientModel.Member == "false" ? false : true;
+                _context._clients.Add(cli);
+                await _context.SaveChangesAsync();
+            }
+
         }
+
+
     }
 }

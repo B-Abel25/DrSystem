@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup,  ValidatorFn,Validators} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { Doctors } from '../../_models/doctor';
+import { Doctor } from '../../_models/doctor';
 import { Places } from '../../_models/places';
 import { AccountService } from '../../_services/account.service';
 
@@ -19,51 +19,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  
-  @Output() cancelRegister= new EventEmitter();
 
-  
-  doctors:Doctors[];
-  submitted:boolean=false;
-  registerForm:FormGroup;
+  @Output() cancelRegister = new EventEmitter();
+
+  doctors: Doctor[];
+  submitted: boolean = false;
+  registerForm: FormGroup;
   validationErrors: string[];
-  postCodes:Places[];
+  places: Places[];
   public showPasswordOnPress: boolean;
-  
-  constructor(private accountService:AccountService, private toatsr:ToastrService, private doctorService:DoctorService, private fb:FormBuilder, private router:Router) { 
-    
-     
-   
+  showMsg: boolean = false;
+
+
+  constructor(private accountService: AccountService, private toatsr: ToastrService, private doctorService: DoctorService, private fb: FormBuilder, private router: Router) {
+
   }
 
-  // initializeForm(){
-  //   this.registerForm= new FormGroup({
-  //     username: new FormControl('', Validators.required),
-  //     password: new FormControl('',[Validators.required, Validators.maxLength(12), Validators.minLength(6)]),
-  //     confirmPassword: new FormControl('', [Validators.required, this.matchValues('password')]),
-  //   })
-  //   this.registerForm.controls['password'].valueChanges.subscribe(()=>{
-  //     this.registerForm.controls['confirmPassword'].updateValueAndValidity();
-  //   })
-  // }
 
 
 
-  
+
+
 
   ngOnInit() {
-   
-  //  this.registerForm.get('postCodes').valueChanges.subscribe(x=>{
-  //    console.log("valami");
-  //    console.log(x);
-  //  })
+
+
 
     this.loadDoctors();
     this.loadPostCodes();
     this.initializeForm();
-    
+
   }
-  
+
 
   onSubmit() {
     this.submitted = true;
@@ -72,88 +59,122 @@ export class RegisterComponent implements OnInit {
       console.table(this.registerForm.value);
     }
   }
-    
-    
-    
-   initializeForm(){
+
+
+
+  initializeForm() {
     this.registerForm = this.fb.group({
-      phoneNumber: ['', [Validators.required,Validators.pattern('[0-9]*'), Validators.maxLength(11), Validators.minLength(11)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(11), Validators.minLength(9)]],
 
-      medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')], ],
-
-
-    
-
-  
+      medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')],],
 
 
+     placeId: ['', Validators.required],
+     doctor: ['', Validators.required],
+     
      houseNumber: ['', [Validators.required, Validators.pattern('[0-9 a-z]*')]],
      birthDate: ['', Validators.required],
-     street: ['', [Validators.required,Validators.pattern('[a-z A-Z]*')]],
+     street: ['', [Validators.required,Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ]*')]],
      city: ['', Validators.required],
-     placeId: ['', Validators.required],
-     doctorId: ['', Validators.required],
+     postCode: ['', Validators.required],
+     doctorId: ['', [Validators.required]],
      email: ['', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-     name: ['', [Validators.required, Validators.pattern('[a-z A-Z]*')]],
+     name: ['', [Validators.required, Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ]*')]],
      acceptTerms: [false, Validators.requiredTrue],
      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
      confirmPassword: ['', [Validators.required, this.matchValues('password')]],
      })
-     this.registerForm.controls['placeId'].valueChanges.subscribe(x=>{
+
+     this.registerForm.controls['postCode'].valueChanges.subscribe(x=>{
       x = x+"";
        if (x.length == 4)
        {
          console.log(x);
-        this.registerForm.controls['city'].setValue(this.postCodes.find(y => y.postCode == x).city);
+        this.registerForm.controls['city'].setValue(this.places.find(y => y.postCode == x).city);
        }
-      })
-   }
-  
-   
-  
+       else
+       {
+        this.registerForm.controls['city'].setValue("");
+      }
+    })
+
+      this.registerForm.controls['city'].valueChanges.subscribe(x=>{
+        
+         let  exist = this.places.find(y => y.city == x && y.postCode == this.registerForm.controls['postCode'].value)
+         console.log(exist);
+         console.log("itt"); 
+         if(exist != null)
+          {
+            this.registerForm.controls['placeId'].setValue(exist.id);
+          }
+          else{
+            this.registerForm.controls['placeId'].setValue("");
+          }
+         
+         
+        })
+      
+
+    
   
 
-  matchValues(matchTo:string) : ValidatorFn{
-    return (control:AbstractControl | any )=>{
-      return control?.value == control?.parent?.controls[matchTo].value ? null : {isMatching: true}
+
+    this.registerForm.controls['doctor'].valueChanges.subscribe(x => {
+
+      let exist = this.doctors.find(y => y.name + " " + "-" + " " + y.place.postCode == x);
+      console.log(exist);
+      if (exist != null) this.registerForm.controls['doctorId'].setValue(exist.id);
+      else this.registerForm.controls['doctorId'].setValue("");
+    })
+
+
+  }
+
+
+
+
+
+
+
+  matchValues(matchTo: string): ValidatorFn {
+    return (control: AbstractControl | any) => {
+      return control?.value == control?.parent?.controls[matchTo].value ? null : { isMatching: true }
     }
   }
-  
-  
-
-  
- 
-
-register(){
-console.log(this.registerForm.value);
-  this.accountService.register(this.registerForm.value).subscribe(response=>{
-
-    this.router.navigateByUrl('/login');
-
-   
-
-   
-  }, error=>{
-    this.validationErrors=error;
-    console.log(error)
-
-  })
-  
-}
 
 
-  loadDoctors(){
-    this.accountService.getDoctors().subscribe(doctors=>{
-      this.doctors=doctors;
-    
+
+
+
+
+  register() {
+    console.log(this.registerForm.value);
+    this.accountService.register(this.registerForm.value).subscribe(response => {
+
+      this.router.navigateByUrl('/login');
+      this.showMsg = true;
+
+
+
+    }, error => {
+      this.validationErrors = error;
+      console.log(error)
+
+    })
+
+  }
+
+
+  loadDoctors() {
+    this.accountService.getDoctors().subscribe(doctors => {
+      this.doctors = doctors.sort((one, two) => (one.name < two.name ? -1 : 1));
+
     })
   }
-  loadPostCodes(){
-    this.accountService.getPlaces().subscribe( postCodes=>{
-      this.postCodes= postCodes;
-     
+  loadPostCodes() {
+    this.accountService.getPlaces().subscribe(postCodes => {
+      this.places = postCodes;
+
     })
   }
-  
- 
 }

@@ -2,20 +2,15 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './client/login/login.component';
 import { RegisterComponent } from './client/register/register.component';
 import { NavbarComponent } from './client/navbar/navbar.component';
-import { HomepageComponent } from './client/homepage/homepage.component';
+
 import { DoctorLoginComponent } from './doctor-admin/doctor-login/doctor-login.component';
-
-
-
-
 
 import { LostPasswordRequestComponent } from './client/lost-newPassword/lost-password-request/lost-password-request.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
@@ -29,57 +24,63 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { AdminNavbarComponent } from './doctor-admin/admin-navbar/admin-navbar.component';
 import { DrsystemHomeComponent } from './client/drsystem-home/drsystem-home.component';
-import { DoctorHomepageComponent } from './doctor-admin/doctor-homepage/doctor-homepage.component';
 import { ClientListComponent } from './doctor-admin/doctor-function/client-list/client-list.component';
 import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-message/doctor-message.component';
 import { NewPasswordComponent } from './client/lost-newPassword/new-password/new-password.component';
-
-
-
+import { BookingComponent } from './client/clients-functions/booking/booking.component';
+import { ComplaintComponent } from './client/clients-functions/complaint/complaint.component';
+import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/new-password-doctor/new-password-doctor.component';
+import { LostPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/lost-password-doctor/lost-password-doctor.component';
+import { DoctorJWTInterceptor } from './_interceptors/doctor-jwt.interceptor';
+import { DoctorMainPageComponent } from './doctor-admin/doctor-main-page/doctor-main-page.component';
+import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-request/clients-request.component';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
-   
     AppComponent,
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    HomepageComponent,
-    
+
     LostPasswordRequestComponent,
-          NotFoundComponent,
-          ServerErrorComponent,
-          TextInputComponent,
-         DoctorLoginComponent,
-      NewPasswordComponent,
-         AdminNavbarComponent,
-         DrsystemHomeComponent,
-         DoctorHomepageComponent,
-         ClientListComponent,
-         DoctorMessageComponent,
-              
-    
-  
-  
+    NotFoundComponent,
+    ServerErrorComponent,
+    TextInputComponent,
+    DoctorLoginComponent,
+    NewPasswordComponent,
+    AdminNavbarComponent,
+    DrsystemHomeComponent,
+    ClientListComponent,
+    DoctorMessageComponent,
+    BookingComponent,
+    ComplaintComponent,
+    NewPasswordDoctorComponent,
+    LostPasswordDoctorComponent,
+    DoctorMainPageComponent,
+    ClientsRequestComponent,
     
   ],
   imports: [
     FormsModule,
-    BrowserModule, 
+    BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-   NgxSpinnerModule,
+    NgxSpinnerModule,
     AppRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-   
-
-    
+    Ng2OrderModule,
+    Ng2SearchPipeModule,
+  
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: DoctorJWTInterceptor, multi: true },
+  
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

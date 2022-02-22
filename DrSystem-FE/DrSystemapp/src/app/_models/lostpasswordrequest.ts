@@ -1,3 +1,3 @@
-export interface LostPassword{
-medNumber:string;
+export interface LostPassword {
+    UserNumber: string;
 }

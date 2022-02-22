@@ -5,7 +5,7 @@ namespace DoctorSystem.Dtos
     public class NewPassworDto
     {
         [Required]
-        public string Token { get; set; }
+        public string EmailToken { get; set; }
         [Required]
         public string Password { get; set; }
     }

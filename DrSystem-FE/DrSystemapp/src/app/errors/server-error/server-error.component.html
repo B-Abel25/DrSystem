@@ -1,13 +1,14 @@
-<app-navbar></app-navbar>
-<h4>Server error</h4>
-<ng-container *ngIf="error">
-<h5 class="text-danger"> Error: {{error.message}}</h5>
-<p class="font-weight-bold">If you seeing this...</p>
-<p>What do next?</p>
-<ol>
-    <li>Open the chrome</li>
-
-</ol>
-<p>Following..</p>
-<code class="mt-5" style="background-color: antiquewhite;">{{error.details}}</code>
-</ng-container>
+<div class="page-404">
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <!--BEGIN CONTENT-->
+                <div class="inner-circle"><i class="fa fa-cogs"></i><span>500</span></div>
+                <span class="inner-status">Hoppá! Belső Szerverhiba!</span>
+                <span class="inner-detail">Sajnos problémáink vannak a keresett oldal betöltésével. Kérem, jöjjön vissza
+                    egy kis idő múlva.</span>
+                <!--END CONTENT-->
+            </div>
+        </div>
+    </div>
+</div>

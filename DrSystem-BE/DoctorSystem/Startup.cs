@@ -33,15 +33,17 @@ namespace DoctorSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddCors();
-            services.AddDbContext<BaseDbContext>();
-
             services.AddControllers();
+            
+            services.AddDbContext<BaseDbContext>();
+            
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<RouterService>();
             services.AddScoped<IUserRepository, UserRepository>();
-            //services.AddScoped<AccountService>();
             services.AddScoped<EmailService>();
             services.AddScoped<WeatherForecast>();
+
+            services.AddCors();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -54,6 +56,7 @@ namespace DoctorSystem
                         ValidateAudience = false,
                     };
                 });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DoctorSystem", Version = "v1" });

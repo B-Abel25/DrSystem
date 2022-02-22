@@ -2,18 +2,16 @@
 using DoctorSystem.Entities;
 using DoctorSystem.Entities.Contexts;
 using DoctorSystem.Interfaces;
-using DoctorSystem.Model.Exceptions;
 using DoctorSystem.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
-using System.Collections.Generic;
 
 namespace DoctorSystem.Controllers
 {
@@ -26,25 +24,30 @@ namespace DoctorSystem.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly BaseDbContext _context;
         private readonly ITokenService _tokenService;
-        private readonly EmailService _emailService;  
+        private readonly EmailService _emailService;
+        private readonly RouterService _router;
+        private readonly Random random = new Random();
 
-        public AccountController(ILogger<AccountController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService)
+        public AccountController(ILogger<AccountController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService, RouterService routerService)
         {
             _logger = logger;
-            //_accountService = registerService;
             _tokenService = tokenService;
             _context = context;
             _emailService = emailService;
+            _router = routerService;
         }
 
         [Route("client/register")]
         [HttpPost]
         public async Task<ActionResult> Register(RegisterDto registerDto)
         {
-            if (await ClientExists(registerDto.MedNumber)) return BadRequest("MedNumber already exists");
+            var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == registerDto.MedNumber);
+            if (await UserExistsAsync(client))
+            {
+                return BadRequest("Ez a TAJ szám már létezik");
+            }
 
-            Client client = new Client();
-
+            client = new Client();
             client.Name = registerDto.Name;
             client.MedNumber = registerDto.MedNumber;
             client.Email = registerDto.Email;
@@ -62,7 +65,7 @@ namespace DoctorSystem.Controllers
 
             _context._clients.Add(client);
 
-            this._emailService.SuccesfulRegistration(client);
+            this._emailService.SuccessfulRegistration(client);
 
             await _context.SaveChangesAsync();
 
@@ -71,14 +74,24 @@ namespace DoctorSystem.Controllers
 
         [Route("client/login")]
         [HttpPost]
-        public async Task<ActionResult<ClientDto>> ClientLogin(ClientLoginDto loginDto)
+        public async Task<ActionResult<object>> ClientLogin(ClientLoginDto loginDto)
         {
             var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == loginDto.MedNumber);
 
 
-            if (client == null) return Unauthorized("Invalid MedNumber");
-            else if (!(client.EmailToken.Length == 10 || client.EmailToken == "true")) return Unauthorized("Your email is not verifyed");
-            else if (!client.Member) return Unauthorized("The requested Doctor still did not accepted");
+            if (!await UserExistsAsync(client))
+            {
+                return Unauthorized("Regisztrálatlan TAJ szám");
+            }
+
+            else if (!(client.EmailToken.Length == 37 || client.EmailToken == "true"))
+            {
+                return Unauthorized("Hitelesítetlen E-mail cím");
+            }
+            else if (!client.Member)
+            {
+                return Unauthorized("A benyújtott kérelmet még nem fogadta el az orvos");
+            }
             var hmac = new HMACSHA512(client.PasswordSalt);
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
@@ -86,15 +99,11 @@ namespace DoctorSystem.Controllers
             {
                 if (computedHash[i] != client.Password[i])
                 {
-                    return Unauthorized("Invalid Password");
+                    return Unauthorized("Helytelen jelszó");
                 }
             }
 
-            return new ClientDto()
-            {
-                MedNumber = client.MedNumber,
-                Token = _tokenService.CreateToken(client)
-            };
+            return new { Id = client.Id, Token = _tokenService.CreateToken(client) };
         }
 
         [Route("lost-password")]
@@ -103,15 +112,33 @@ namespace DoctorSystem.Controllers
         {
             try
             {
-                //TODO csak akkor kérhet új jelszót ha hitelesítve van az emailje illetve a doki elfogadta?
-                var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == lostDto.MedNumber);
-                if (client == null) return Unauthorized("MedNumber does not exist");
-
-                client.EmailToken = Guid.NewGuid().ToString();
-                await _context.SaveChangesAsync();
-                
-                _emailService.NewPassword(client);
-                return Accepted();
+                User user;
+                if (lostDto.UserNumber.Length == 9)
+                {
+                    user = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == lostDto.UserNumber);
+                    if (!await UserExistsAsync(user))
+                    {
+                        return Unauthorized("Nem létező TAJ szám");
+                    }
+                    user.EmailToken = Guid.NewGuid().ToString() + (char)random.Next(97, 123);
+                    _emailService.NewPassword(user);
+                    await _context.SaveChangesAsync();
+                    return Accepted();
+                }
+                else if (lostDto.UserNumber.Length == 5)
+                {
+                    user = await _context._doctors.SingleOrDefaultAsync(x => x.SealNumber == lostDto.UserNumber);
+                    if (!await UserExistsAsync(user))
+                    {
+                        return Unauthorized("Nem létező pecsétszám");
+                    }
+                    user.EmailToken = Guid.NewGuid().ToString() + (char)random.Next(97, 123);
+                    _emailService.NewPassword(user);
+                    await _context.SaveChangesAsync();
+                    return Accepted();
+                }
+                   
+                return Unauthorized("Érvénytelen azonosító szám");
             }
             catch (Exception e)
             {
@@ -125,12 +152,20 @@ namespace DoctorSystem.Controllers
         {
             try
             {
-                var client = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == newDto.Token);
-                if (client == null) return Unauthorized("Invalid token");
-                client.EmailToken = "true";
+                User user = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == newDto.EmailToken);
+                if (!await UserExistsAsync(user))
+                {
+                    user = await _context._doctors.SingleOrDefaultAsync(x => x.EmailToken == newDto.EmailToken);
+                    if (!await UserExistsAsync(user))
+                    {
+                        return Unauthorized("Helytelen azonosító");
+                    }
+                }
+                user.EmailToken = "true";
                 var hmac = new HMACSHA512();
-                client.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(newDto.Password));
-                client.PasswordSalt = hmac.Key;
+                user.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(newDto.Password));
+                user.PasswordSalt = hmac.Key;
+                await _context.SaveChangesAsync();
                 return Accepted();
             }
             catch ( Exception e)
@@ -140,51 +175,70 @@ namespace DoctorSystem.Controllers
         }
 
 
-        //TODO csak gettel működik DE MIÉRT?????
         [HttpGet]
         [Route("validate-email/{token}")]
         public async Task<ActionResult> ValidateEmail(string token)
         {
             var client = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == token.ToString());
-            if (client == null) return Unauthorized("Invalid token");
+            if (!await UserExistsAsync(client))
+            {
+                return Unauthorized("Helytelen azonosító");
+            }
             client.EmailToken = "true";
             await _context.SaveChangesAsync();
-            return Redirect($"https://localhost:4200/login");
+            return Redirect(_router.Route("/login"));
         }
 
 
         [HttpPut]
         [Route("doctor/login")]
-        public async Task<ActionResult<DoctorDto>> DoctorLogin(DoctorLoginDto dld)
+        public async Task<ActionResult<object>> DoctorLogin(DoctorLoginDto loginDto)
         {
-            var doc = await _context._doctors.SingleOrDefaultAsync(x => dld.SealNumber == x.SealNumber);
-
-            if (doc == null) return Unauthorized("Invalid MedNumber");
-            else if (!(doc.EmailToken.Length == 10 || doc.EmailToken == "true")) return Unauthorized("Your email is not verifyed");
-          
+            var doc = await _context._doctors.Include(x => x.Place.City.County).SingleOrDefaultAsync(x => loginDto.SealNumber == x.SealNumber);
+            if (doc == null)
+            {
+                return Unauthorized("Helytelen pecsétszám szám");
+            }
+            else if (!(doc.EmailToken.Length == 37 || doc.EmailToken == "true"))
+            {
+                return Unauthorized("Hitelesítetlen E-mail cím");
+            }
             var hmac = new HMACSHA512(doc.PasswordSalt);
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(dld.Password));
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
             for (int i = 0; i < computedHash.Length; i++)
             {
                 if (computedHash[i] != doc.Password[i])
                 {
-                    return Unauthorized("Invalid Password");
+                    return Unauthorized("Helytelen jelszó");
                 }
             }
-
-            return new DoctorDto()
-            {
-                MedNumber = doc.SealNumber,
-                Token = _tokenService.CreateToken(doc)
-            };
+            
+            return new { Id = doc.Id, Token = _tokenService.CreateToken(doc) };
         }
 
-        private async Task<bool> ClientExists(string medNumber)
+
+        [Route("client/delete")]
+        [HttpGet] //Ez itt igazábol DELETE csak csaltam
+        public async Task<ActionResult> DeleteClient(string token)
         {
-            return await _context._clients.AnyAsync(x => x.MedNumber == medNumber);
+            var client = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == token.ToString());
+            if (client == null || token == "true")
+            {
+                return Unauthorized("Helytelen azonosító");
+            }
+            _context._clients.Remove(client);
+            await _context.SaveChangesAsync();
+            return Redirect(_router.Route("/login"));
         }
 
-       
+       private async Task<bool> UserExistsAsync(User u)
+       {
+            if (u == null)
+            {
+                return false;
+            }
+            return true;
+       }
     }
 }
