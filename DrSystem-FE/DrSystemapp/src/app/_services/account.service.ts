@@ -16,13 +16,19 @@ import { Registration } from '../_models/registration';
 })
 export class AccountService {
 
-  baseUrl = environment.apiUrl;
-  private currentClientSource = new ReplaySubject<Registration>(1);
-  currentClient$ = this.currentClientSource.asObservable();
-  id!: Registration;
-  constructor(private http: HttpClient) { }
 
-  login(model: any) {
+  baseUrl=environment.apiUrl;
+
+
+  private currentClientSource= new ReplaySubject<Registration>(1);
+  currentClient$=this.currentClientSource.asObservable();
+ id!:Registration;
+  constructor(private http:HttpClient) { }
+
+
+  login(model:any)
+  {
+
     return this.http.post<Registration>(this.baseUrl + 'public/client/login', model).pipe(
       map((response: Registration) => {
         const client = response;
