@@ -23,7 +23,7 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 })
 export class ClientListComponent implements OnInit {
   clients: Client[];
-filteredClients:Client[];
+  filteredClients: Client[];
   constructor(
     private doctorService: DoctorService,
     private route: ActivatedRoute
@@ -44,7 +44,6 @@ filteredClients:Client[];
         this.clients = clients;
         // sort((one, two) => (one.name < two.name ? -1 : 1));
         this.totalLength = clients.length;
-        
       });
   }
 
@@ -57,7 +56,6 @@ filteredClients:Client[];
         return res.name
           .toLocaleLowerCase()
           .match(this.name.toLocaleLowerCase());
-
       });
       this.totalLength = this.filteredClients.length;
     }

@@ -10,7 +10,7 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 })
 export class ClientsRequestComponent implements OnInit {
   clients: Client[];
-filteredClients:Client[];
+  filteredClients: Client[];
   totalLength: any;
   page: number = 1;
   name: any;
@@ -57,20 +57,16 @@ filteredClients:Client[];
   }
   Search() {
     console.log('Blablabla');
-  
-      this.filteredClients = this.clients.filter((res) => {
-        return res.name
-          .toLocaleLowerCase()
-          .match(this.name.toLocaleLowerCase());
-      });
-      this.totalLength = this.filteredClients.length;
-    
 
+    this.filteredClients = this.clients.filter((res) => {
+      return res.name.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
+    });
+    this.totalLength = this.filteredClients.length;
   }
   key: string = 'id';
   reverse: boolean = false;
   sort(key) {
-    console.log("SSZIJJAAA")
+    console.log('SSZIJJAAA');
     this.key = key;
     this.reverse = !this.reverse;
   }

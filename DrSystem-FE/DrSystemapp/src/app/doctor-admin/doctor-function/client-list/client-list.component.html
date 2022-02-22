@@ -2,18 +2,19 @@
 
 <body>
   <div class="container">
-   
     <table class="table table-striped table-dark">
       <thead class="thead-dark">
         <tr>
           <th (click)="sort('name')">Név&nbsp;<i class="fa fa-sort"></i></th>
           <th>TAJ-szám</th>
-          <th (click)="sort('birthDate')">Születési dátum&nbsp;<i class="fa fa-sort"></i></th>
-          <th style="width:80px">Lakcím</th>
-          <th style="width:250px">
+          <th (click)="sort('birthDate')">
+            Születési dátum&nbsp;<i class="fa fa-sort"></i>
+          </th>
+          <th style="width: 80px">Lakcím</th>
+          <th style="width: 250px">
             <form>
               <div class="mb-8 row">
-          <div class="col-xs-3 col-sm-auto">
+                <div class="col-xs-3 col-sm-auto">
                   <input
                     class="form-control"
                     type="text"
@@ -25,7 +26,7 @@
                 </div>
               </div>
             </form>
-         </th>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -41,13 +42,15 @@
                   }
           "
         >
-          <td style="text-align:left">{{ client.name }}</td>
-          <td style="text-align:center">{{ client.medNumber }}</td>
-          <td style="text-align:center">{{ client.birthDate }}</td>
-          <td style="text-align:right">{{ client.place.postCode }} {{ client.place.city }}</td>
-          <td >
-            <li class="list-inline-item" >
-              <button class="btn btn-light" ><i class="fa fa-user"></i></button>
+          <td style="text-align: left">{{ client.name }}</td>
+          <td style="text-align: center">{{ client.medNumber }}</td>
+          <td style="text-align: center">{{ client.birthDate }}</td>
+          <td style="text-align: right">
+            {{ client.place.postCode }} {{ client.place.city }}
+          </td>
+          <td>
+            <li class="list-inline-item">
+              <button class="btn btn-light"><i class="fa fa-user"></i></button>
             </li>
             <li class="list-inline-item">
               <button class="btn btn-light">
