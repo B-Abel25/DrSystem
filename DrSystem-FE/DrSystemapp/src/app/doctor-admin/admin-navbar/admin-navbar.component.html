@@ -1,6 +1,12 @@
 <div class="area"></div>
 <nav class="main-menu" *ngIf="(doctorService.currentDoctor$ | async)">
     <ul>
+        <li routerLink="/admin/doctor-page">
+            <a>
+                <i class="fa fa-home fa-2x text-light"></i>
+                <span class="nav-text text-light"> Kezdőlap</span>
+            </a>
+        </li>
         <li routerLink="/admin/clients-request/{{doctor.id}}">
             <a>
                 <i class="fa fa-list fa-2x text-light"></i>

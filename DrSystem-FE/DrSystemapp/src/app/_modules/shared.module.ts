@@ -5,7 +5,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       
     }),
     ReactiveFormsModule,
+    NgxPaginationModule,
 
 
   ],
@@ -29,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ModalModule,
     BsDatepickerModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
   ]
 })
 export class SharedModule { }

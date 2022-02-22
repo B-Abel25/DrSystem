@@ -34,7 +34,8 @@ import { LostPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoct
 import { DoctorJWTInterceptor } from './_interceptors/doctor-jwt.interceptor';
 import { DoctorMainPageComponent } from './doctor-admin/doctor-main-page/doctor-main-page.component';
 import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-request/clients-request.component';
-
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-
     LostPasswordDoctorComponent,
     DoctorMainPageComponent,
     ClientsRequestComponent,
+    
   ],
   imports: [
     FormsModule,
@@ -68,6 +70,8 @@ import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-
     AppRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    Ng2OrderModule,
+    Ng2SearchPipeModule,
   
   ],
   providers: [

@@ -18,7 +18,13 @@ table{
     
 }
 .list-inline-item{
-   float: right;
+   float: center;
    margin: 6px;
 }
-
+.my-pagination /deep/ .ngx-pagination .current {
+    background: rgb(3, 20, 53);
+  }
+.mb-8{
+    float:center;
+    padding-left:10px;
+}
