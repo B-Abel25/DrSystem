@@ -16,13 +16,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
-      positionClass:'toast-bottom-right'
+      positionClass: 'toast-bottom-right'
+      
     }),
     ReactiveFormsModule,
-   
-    
+
+
   ],
-  exports:[
+  exports: [
     BsDropdownModule,
     ToastrModule,
     ModalModule,

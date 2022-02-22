@@ -9,10 +9,10 @@ import { DoctorService } from 'src/app/_services/doctor.service';
   styleUrls: ['./admin-navbar.component.css'],
 })
 export class AdminNavbarComponent implements OnInit {
-  constructor(public doctorService: DoctorService, private router: Router, private route: ActivatedRoute) {}
+  constructor(public doctorService: DoctorService, private router: Router, private route: ActivatedRoute) { }
   loggedIn: boolean = false;
-  doctor:any;
- 
+  doctor: any;
+
   ngOnInit() {
     this.getCurrentDoctor();
     console.log(this.doctor);
@@ -33,5 +33,5 @@ export class AdminNavbarComponent implements OnInit {
       }
     );
   }
-  
+
 }

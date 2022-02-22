@@ -68,13 +68,15 @@ import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-
     AppRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+  
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: DoctorJWTInterceptor, multi: true },
+  
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

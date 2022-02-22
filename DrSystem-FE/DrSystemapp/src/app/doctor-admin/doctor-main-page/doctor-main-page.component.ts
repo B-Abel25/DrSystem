@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DoctorMainPageComponent implements OnInit {
 
-  constructor(private location: LocationStrategy) { 
-    history.pushState(null, null, window.location.href);  
+  constructor(private location: LocationStrategy) {
+    history.pushState(null, null, window.location.href);
     this.location.onPopState(() => {
       history.pushState(null, null, window.location.href);
-    });  
+    });
   }
 
   ngOnInit() {

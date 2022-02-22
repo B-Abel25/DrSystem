@@ -1,5 +1,5 @@
 <app-admin-navbar></app-admin-navbar>
-<app-admin-navbar></app-admin-navbar>
+
 
 <body>
 
@@ -22,9 +22,11 @@
                     <td>{{client.birthDate}}</td>
                     <td>{{client.phoneNumber}}</td>
                     <td>
-                        <li class="list-inline-item"  ><button class="btn btn-light" (click)="deleteClient(client.id)"><i class="fa fa-trash"></i></button></li>
-                        <li class="list-inline-item"><button class="btn btn-light" (click)="acceptClient(client.id)"> <i class="fa fa-check text-dark"></i></button></li>
-                        
+                        <li class="list-inline-item"><button class="btn btn-light" (click)="deleteClient(client.id)"><i
+                                    class="fa fa-trash"></i></button></li>
+                        <li class="list-inline-item"><button class="btn btn-light" (click)="acceptClient(client.id)"> <i
+                                    class="fa fa-check text-dark"></i></button></li>
+
 
                     </td>
                 </tr>

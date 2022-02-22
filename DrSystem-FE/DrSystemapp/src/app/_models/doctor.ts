@@ -1,13 +1,13 @@
 import { Client } from "./client";
 
-export interface Doctor{
+export interface Doctor {
     id: string;
-    name:string;
+    name: string;
     place: any;
-    sealNumber:string;
-    phoneNumber:number;
-    email:string;
-    clients:Client[];
-    
+    sealNumber: string;
+    phoneNumber: number;
+    email: string;
+    clients: Client[];
+
 
 }

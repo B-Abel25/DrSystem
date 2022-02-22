@@ -12,15 +12,15 @@ import { Registration } from '../_models/registration';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor(private accountService:AccountService) {}
+  constructor(private accountService: AccountService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let currentClient: Registration;
-    this.accountService.currentClient$.pipe(take(1)).subscribe(client=>currentClient=client);
+    this.accountService.currentClient$.pipe(take(1)).subscribe(client => currentClient = client);
     if (currentClient) {
-      request=request.clone({
-        setHeaders:{
-          Authorization:`Bearer ${currentClient.token}`
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${currentClient.token}`
         }
       })
     }

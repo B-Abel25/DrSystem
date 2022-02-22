@@ -7,16 +7,16 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private accountService:AccountService, private toastr: ToastrService){}
-  canActivate(): Observable<boolean>{
+  constructor(private accountService: AccountService, private toastr: ToastrService) { }
+  canActivate(): Observable<boolean> {
     return this.accountService.currentClient$.pipe(
-      map(client=>{
-        if(client) return true;
-      
+      map(client => {
+        if (client) return true;
+
         this.toastr.error('Sikertelen belépés!');
         return false;
       })
     )
   }
-  
+
 }

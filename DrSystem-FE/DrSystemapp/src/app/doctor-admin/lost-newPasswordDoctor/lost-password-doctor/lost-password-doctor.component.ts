@@ -41,7 +41,7 @@ export class LostPasswordDoctorComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   sendResetMail() {
     this.doctorService.lostPassword(this.lostPasswordForm.value).subscribe(

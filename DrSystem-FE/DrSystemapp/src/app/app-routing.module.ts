@@ -54,12 +54,12 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AdminGuard],
     children: [
-      { path: 'admin/doctor-page', component: DoctorMainPageComponent},
+      { path: 'admin/doctor-page', component: DoctorMainPageComponent },
       { path: 'admin/client-list/:id', component: ClientListComponent },
-      {path: 'admin/clients-request/:id', component: ClientsRequestComponent}
+      { path: 'admin/clients-request/:id', component: ClientsRequestComponent }
     ],
   },
-  
+
 
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
@@ -71,4 +71,4 @@ const routes: Routes = [
 
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
