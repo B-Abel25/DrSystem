@@ -84,13 +84,13 @@ export class RegisterComponent implements OnInit {
      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
      confirmPassword: ['', [Validators.required, this.matchValues('password')]],
      })
-/*Itt nézz körül*/
+
      this.registerForm.controls['postCode'].valueChanges.subscribe(x=>{
       x = x+"";
        if (x.length == 4)
        {
          console.log(x);
-        this.registerForm.controls['city'].setValue(this.places.find(y => y.postCode == x).city.name);
+        this.registerForm.controls['city'].setValue(this.places.find(y => y.postCode == x).city);
        }
        else
        {
@@ -100,8 +100,9 @@ export class RegisterComponent implements OnInit {
 
       this.registerForm.controls['city'].valueChanges.subscribe(x=>{
         
-         let  exist = this.places.find(y => y.city.name == x && y.postCode == this.registerForm.controls['postCode'].value)
-         console.log(exist); 
+         let  exist = this.places.find(y => y.city == x && y.postCode == this.registerForm.controls['postCode'].value)
+         console.log(exist);
+         console.log("itt"); 
          if(exist != null)
           {
             this.registerForm.controls['placeId'].setValue(exist.id);

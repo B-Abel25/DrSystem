@@ -68,7 +68,7 @@ namespace DoctorSystem.Controller
 
         }
 
-        [Authorize]
+        [Authorize()]
         [Route("doctor/client-request/accept/{clientId}")]
         [HttpPut]
         public async Task<ActionResult> AcceptClientRequest(string clientId)
