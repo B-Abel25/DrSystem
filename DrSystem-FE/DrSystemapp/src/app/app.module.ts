@@ -36,6 +36,8 @@ import { DoctorMainPageComponent } from './doctor-admin/doctor-main-page/doctor-
 import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-request/clients-request.component';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { DoctorClientMessagingComponent } from './doctor-admin/doctor-function/doctor-client-messaging/doctor-client-messaging.component';
+import { ClientMessagesComponent } from './client/clients-functions/client-messages/client-messages.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     LostPasswordDoctorComponent,
     DoctorMainPageComponent,
     ClientsRequestComponent,
+    DoctorClientMessagingComponent,
+    ClientMessagesComponent,
+    
   ],
   imports: [
     FormsModule,

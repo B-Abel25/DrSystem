@@ -1,1 +1,57 @@
 <app-admin-navbar></app-admin-navbar>
+<div class="container">
+<div class="row mb-4">
+    <div class="btn-group" name="container">
+      <button
+        class="btn btn-dark"
+        btnRadio="Unread"
+      
+        (click)="loadMessages()"
+      >
+        <i class="fa fa-envelope">Olvasatlan üzenetek</i>
+      </button>
+      <button
+        class="btn btn-dark"
+        btnRadio="Inbox"
+        
+        (click)="loadMessages()"
+      >
+        <i class="fa fa-envelope-open">Beérkezett üzenetek</i>
+      </button>
+      <button
+        class="btn btn-dark"
+        btnRadio="Outbox"
+        
+        (click)="loadMessages()"
+      >
+        <i class="fa fa-paper-plane">Olvasott üzenetek</i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="messages?.length === 0">
+      <h3>Nincs új üzenet</h3>
+  </div>
+  <div class="row" *ngIf="messages?.length >0">
+   <table class="table table-hover" style="cursor: pointer">
+    <tr>
+        <th style="width: 50%;">Üzenet</th>
+        <th style="width: 30%;">Feladó</th>
+        <th style="width: 30%;">Küldte</th>
+        <th style="width: 30%;"></th>
+    </tr>
+    <tr *ngFor="let message of messages" routerLink="">
+        <td>{{message.content}}</td>
+        <td>
+            <div *ngIf="container==='Outbox'">
+                <strong>{{message.senderUsername}}</strong>
+            </div>
+        </td>
+        <td>{{message.messageSent | timeago}}</td>
+        <td>
+            <button class="btn btn-light">Törlés</button>
+        </td>
+    </tr>
+</table>
+</div>
+</div>

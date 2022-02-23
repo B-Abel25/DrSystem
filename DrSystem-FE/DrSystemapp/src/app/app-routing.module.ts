@@ -56,7 +56,8 @@ const routes: Routes = [
     children: [
       { path: 'admin/doctor-page', component: DoctorMainPageComponent },
       { path: 'admin/client-list/:id', component: ClientListComponent },
-      { path: 'admin/clients-request/:id', component: ClientsRequestComponent }
+      { path: 'admin/clients-request/:id', component: ClientsRequestComponent },
+      { path: 'admin/doctor-messages/:id', component: DoctorMessageComponent },
     ],
   },
 
