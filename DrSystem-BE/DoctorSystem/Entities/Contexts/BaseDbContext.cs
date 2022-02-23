@@ -24,6 +24,8 @@ namespace DoctorSystem.Entities.Contexts
         public virtual DbSet<Place> _place { get; set; }
         public virtual DbSet<City> _city { get; set; }
         public virtual DbSet<County> _county { get; set; }
+        public virtual DbSet<Message> _messages { get; set; }
+
 
 
 
@@ -69,7 +71,17 @@ namespace DoctorSystem.Entities.Contexts
                 .HasOne(p => p.City)
                 .WithMany(ci => ci.Places)
                 .HasForeignKey(p => p.CityId);
-            
+
+
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.Reciever)
+                .WithMany(u => u.MessagesRecieved);
+
+
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.Sender)
+                .WithMany(u => u.MessagesSent);
+
             base.OnModelCreating(modelBuilder);
         }
 

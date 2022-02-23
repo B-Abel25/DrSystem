@@ -68,25 +68,24 @@ namespace DoctorSystem.Data
             
             foreach (var addressModel in addressModels)
             {
+                var place = new Place();
+                place.PostCode = int.Parse(addressModel.IrSzam);
 
-                var county = await _context._county.SingleOrDefaultAsync(x => x.Name == addressModel.County);
-                if (county == null)
-                {
-                    county = new County();
-                    county.Name = addressModel.County;
-                }
 
-                var city = await _context._city.SingleOrDefaultAsync(x => x.Name == addressModel.City);
+                var city = await _context._city.Include(x => x.County).SingleOrDefaultAsync(x => x.Name == addressModel.City);
                 if (city == null)
                 {
                     city = new City();
                     city.Name = addressModel.City;
+                    var county = await _context._county.SingleOrDefaultAsync(x => x.Name == addressModel.County);
+                    if (county == null)
+                    {
+                        county = new County();
+                        county.Name = addressModel.County;
+                    }
+                    city.County= county;
                 }
-
-                var place = new Place();
-                place.PostCode = int.Parse(addressModel.IrSzam);
                 place.City = city;
-                place.City.County = county;
 
                 _context._place.Add(place);
                 await _context.SaveChangesAsync();

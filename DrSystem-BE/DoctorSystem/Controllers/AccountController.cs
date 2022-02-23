@@ -42,7 +42,7 @@ namespace DoctorSystem.Controllers
         public async Task<ActionResult> Register(RegisterDto registerDto)
         {
             var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == registerDto.MedNumber);
-            if (await UserExistsAsync(client))
+            if (UserExistsAsync(client))
             {
                 return BadRequest("Ez a TAJ szám már létezik");
             }
@@ -79,7 +79,7 @@ namespace DoctorSystem.Controllers
             var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == loginDto.MedNumber);
 
 
-            if (!await UserExistsAsync(client))
+            if (!UserExistsAsync(client))
             {
                 return Unauthorized("Regisztrálatlan TAJ szám");
             }
@@ -116,7 +116,7 @@ namespace DoctorSystem.Controllers
                 if (lostDto.UserNumber.Length == 9)
                 {
                     user = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == lostDto.UserNumber);
-                    if (!await UserExistsAsync(user))
+                    if (!UserExistsAsync(user))
                     {
                         return Unauthorized("Nem létező TAJ szám");
                     }
@@ -128,7 +128,7 @@ namespace DoctorSystem.Controllers
                 else if (lostDto.UserNumber.Length == 5)
                 {
                     user = await _context._doctors.SingleOrDefaultAsync(x => x.SealNumber == lostDto.UserNumber);
-                    if (!await UserExistsAsync(user))
+                    if (!UserExistsAsync(user))
                     {
                         return Unauthorized("Nem létező pecsétszám");
                     }
@@ -153,10 +153,10 @@ namespace DoctorSystem.Controllers
             try
             {
                 User user = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == newDto.EmailToken);
-                if (!await UserExistsAsync(user))
+                if (!UserExistsAsync(user))
                 {
                     user = await _context._doctors.SingleOrDefaultAsync(x => x.EmailToken == newDto.EmailToken);
-                    if (!await UserExistsAsync(user))
+                    if (!UserExistsAsync(user))
                     {
                         return Unauthorized("Helytelen azonosító");
                     }
@@ -180,7 +180,7 @@ namespace DoctorSystem.Controllers
         public async Task<ActionResult> ValidateEmail(string token)
         {
             var client = await _context._clients.SingleOrDefaultAsync(x => x.EmailToken == token.ToString());
-            if (!await UserExistsAsync(client))
+            if (!UserExistsAsync(client))
             {
                 return Unauthorized("Helytelen azonosító");
             }
@@ -232,7 +232,7 @@ namespace DoctorSystem.Controllers
             return Redirect(_router.Route("/login"));
         }
 
-       private async Task<bool> UserExistsAsync(User u)
+       private bool UserExistsAsync(User u)
        {
             if (u == null)
             {

@@ -3,10 +3,15 @@ using DoctorSystem.Entities.Contexts;
 using DoctorSystem.Interfaces;
 using DoctorSystem.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace DoctorSystem.Controller
@@ -34,6 +39,10 @@ namespace DoctorSystem.Controller
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorId(string doctorId)
         {
+            _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+
+
+
             var clients = await _context._clients.Include(c => c.Doctor.Place.City.County).Include(c => c.Place.City.County).ToListAsync();
 
             List<ClientDto> clientDtos = new List<ClientDto>();
@@ -68,7 +77,7 @@ namespace DoctorSystem.Controller
 
         }
 
-        [Authorize()]
+        [Authorize]
         [Route("doctor/client-request/accept/{clientId}")]
         [HttpPut]
         public async Task<ActionResult> AcceptClientRequest(string clientId)
@@ -91,6 +100,42 @@ namespace DoctorSystem.Controller
             _context._clients.Remove(client);
             await _context.SaveChangesAsync();
             return Accepted();
+        }
+
+        #region FileUploadController
+        /*
+        [HttpPost]
+        public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
+        {
+            long size = files.Sum(f => f.Length);
+
+            foreach (var formFile in files)
+            {
+                if (formFile.Length > 0)
+                {
+                    var filePath = Path.GetTempFileName();
+
+                    using (var stream = System.IO.File.Create(filePath))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+                }
+            }
+
+            // Process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+
+            return Ok(new { count = files.Count, size });
+        }
+        */
+        #endregion
+
+        [Authorize]
+        [Route("user/messages/{userId}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesById()
+        {
+            return null;
         }
     }
 }

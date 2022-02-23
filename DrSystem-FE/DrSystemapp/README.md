@@ -1,4 +1,5 @@
 # DrSystemapp
+
 PARANCSOK:
 npm install --save-dev @angular-devkit/build-angular
 npm i font-awesome

@@ -35,6 +35,8 @@ namespace DoctorSystem.Entities
         [Required]
         public string Street { get; set; }
         [Required]
-        public string  HouseNumber { get; set; }        
+        public string  HouseNumber { get; set; }
+        public ICollection<Message> MessagesRecieved { get; set; }
+        public ICollection<Message> MessagesSent { get; set; }
     }
 }

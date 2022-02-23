@@ -41,5 +41,13 @@ namespace DoctorSystem.Services
 
             return tokenHandler.WriteToken(token);
         }
+
+        public string ReadToken(string token)
+        {
+            
+            var tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityToken tokenBody =  tokenHandler.ReadJwtToken(token.Replace("Bearer ",""));
+            return tokenBody.Payload["id"].ToString();
+        }
     }
 }

@@ -49,16 +49,14 @@ export class ClientListComponent implements OnInit {
 
   Search() {
     console.log('Blablabla');
-    if (this.name === '') {
-      this.ngOnInit();
-    } else {
+    
       this.filteredClients = this.clients.filter((res) => {
         return res.name
           .toLocaleLowerCase()
           .match(this.name.toLocaleLowerCase());
       });
       this.totalLength = this.filteredClients.length;
-    }
+    
   }
   key: string = 'id';
   reverse: boolean = false;

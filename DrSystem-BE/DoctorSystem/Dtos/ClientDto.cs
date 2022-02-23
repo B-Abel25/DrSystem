@@ -8,16 +8,8 @@ using System.Threading.Tasks;
 
 namespace DoctorSystem.Dtos
 {
-    public class ClientDto
+    public class ClientDto : UserDto
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string BirthDate { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; } 
-        public PlaceDto Place { get; set; }
-        public string Street { get; set; }
-        public string HouseNumber { get; set; }
         public string MedNumber { get; set; }
         public bool Member { get; set; }
         public DoctorDto Doctor { get; set; }
