@@ -38,7 +38,7 @@ export class ClientListComponent implements OnInit {
 
   loadDoctorClients() {
     this.doctorService
-      .getDoctorClients(this.route.snapshot.paramMap.get('id'))
+      .getDoctorClients()
       .subscribe((clients) => {
         this.filteredClients = clients;
         this.clients = clients;

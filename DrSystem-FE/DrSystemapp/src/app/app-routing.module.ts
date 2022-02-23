@@ -55,9 +55,9 @@ const routes: Routes = [
     canActivate: [AdminGuard],
     children: [
       { path: 'admin/doctor-page', component: DoctorMainPageComponent },
-      { path: 'admin/client-list/:id', component: ClientListComponent },
-      { path: 'admin/clients-request/:id', component: ClientsRequestComponent },
-      { path: 'admin/doctor-messages/:id', component: DoctorMessageComponent },
+      { path: 'admin/client-list', component: ClientListComponent },
+      { path: 'admin/clients-request', component: ClientsRequestComponent },
+      { path: 'admin/doctor-messages', component: DoctorMessageComponent },
     ],
   },
 

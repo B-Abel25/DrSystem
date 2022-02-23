@@ -66,11 +66,11 @@ export class DoctorService {
       })
     )
   }
-  getDoctorClientsRequest(id: string) {
-    return this.http.get<Client[]>(this.baseUrl + 'private/doctor/clients-request/' + id);
+  getDoctorClientsRequest() {
+    return this.http.get<Client[]>(this.baseUrl + 'private/doctor/clients-request');
   }
-  getDoctorClients(id: string) {
-    return this.http.get<Client[]>(this.baseUrl + 'private/doctor/clients/' + id);
+  getDoctorClients() {
+    return this.http.get<Client[]>(this.baseUrl + 'private/doctor/clients');
   }
 
   deleteClient(clientId: string) {

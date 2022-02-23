@@ -25,7 +25,7 @@ export class ClientsRequestComponent implements OnInit {
 
   loadDoctorClientsRequest() {
     this.doctorService
-      .getDoctorClientsRequest(this.route.snapshot.paramMap.get('id'))
+      .getDoctorClientsRequest()
       .subscribe((clients) => {
         this.clients = clients;
         this.filteredClients = clients;

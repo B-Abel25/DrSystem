@@ -35,13 +35,11 @@ namespace DoctorSystem.Controller
         }
 
         [Authorize]
-        [Route("doctor/clients/{doctorId}")]
+        [Route("doctor/clients")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorId(string doctorId)
+        public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorId()
         {
-            _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
-
-
+            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
 
             var clients = await _context._clients.Include(c => c.Doctor.Place.City.County).Include(c => c.Place.City.County).ToListAsync();
 
@@ -59,10 +57,12 @@ namespace DoctorSystem.Controller
 
         
         [Authorize]
-        [Route("doctor/clients-request/{doctorId}")]
+        [Route("doctor/clients-request")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorIdAndNotMember(string doctorId)
+        public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorIdAndNotMember()
         {
+            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+
             var clients = await _context._clients.Include(c => c.Doctor.Place.City.County).Include(c => c.Place.City.County).ToListAsync();
 
             List<ClientDto> clientDtos = new List<ClientDto>();
@@ -82,11 +82,22 @@ namespace DoctorSystem.Controller
         [HttpPut]
         public async Task<ActionResult> AcceptClientRequest(string clientId)
         {
+            //Peti review: clientId küldést esetleg lehetne tokenbe?
             //TODO email éretsítés az elfogadásról
-            var client = await _context._clients.SingleOrDefaultAsync(x=> x.Id == clientId);
-            client.Member = true;
-            await _context.SaveChangesAsync();
-            return Accepted();
+            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            var doctor = await _context._doctors.Include(x => x.Clients).SingleOrDefaultAsync(x => x.Id == doctorId);
+            var client = await _context._clients.SingleOrDefaultAsync(x => x.Id == clientId);
+
+            foreach (var doctorClient in doctor.Clients)
+            {
+                if (doctorClient.Id == client.Id)
+                {
+                    client.Member = true;
+                    await _context.SaveChangesAsync();
+                    return Accepted();
+                }
+            }
+            return Unauthorized("asztapaszta");
         }
 
 
