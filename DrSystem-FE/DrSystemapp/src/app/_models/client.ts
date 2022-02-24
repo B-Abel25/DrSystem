@@ -1,5 +1,6 @@
 
 import { Doctor } from "./doctor";
+import { Place } from "./place";
 export interface Client {
     id: string;
     medNumber: string;
@@ -7,7 +8,7 @@ export interface Client {
     email: string;
     phoneNumber: string;
     birthDate: string;
-    place: any;
+    place: Place;
     street: string;
     houseNumber: string;
     member: boolean;

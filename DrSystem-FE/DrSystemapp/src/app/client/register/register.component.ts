@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 import { ToastrService } from 'ngx-toastr';
 
 import { Doctor } from '../../_models/doctor';
-import { Places } from '../../_models/places';
+import { Place } from '../../_models/place';
 import { AccountService } from '../../_services/account.service';
 
 import { DoctorService } from '../../_services/doctor.service';
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   submitted: boolean = false;
   registerForm: FormGroup;
   validationErrors: string[];
-  places: Places[];
+  places: Place[];
   public showPasswordOnPress: boolean;
   showMsg: boolean = false;
 

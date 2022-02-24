@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Doctor } from '../_models/doctor';
 import { LostPassword } from '../_models/lostpasswordrequest';
 import { NewPassword } from '../_models/newpassword';
-import { Places } from '../_models/places';
+import { Place } from '../_models/place';
 import { Registration } from '../_models/registration';
 
 
@@ -86,7 +86,7 @@ export class AccountService {
   }
 
   getPlaces() {
-    return this.http.get<Places[]>(this.baseUrl + 'register/places')
+    return this.http.get<Place[]>(this.baseUrl + 'register/places')
   }
   getDoctors() {
     return this.http.get<Doctor[]>(this.baseUrl + 'register/doctors')

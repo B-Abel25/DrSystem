@@ -1,5 +1,5 @@
 import { Doctor } from "./doctor";
-import { Places } from "./places"
+import { Place } from "./place"
 export interface Registration {
 
     medNumber: string;
@@ -8,7 +8,7 @@ export interface Registration {
     email: string;
     phoneNumber: string;
     birthDate: string;
-    placeId: Places[];
+    placeId: Place[];
     street: string;
     houseNumber: string;
     doctorId: Doctor[];
