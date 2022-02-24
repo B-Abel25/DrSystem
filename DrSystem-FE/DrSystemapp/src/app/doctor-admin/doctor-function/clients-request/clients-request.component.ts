@@ -21,8 +21,11 @@ export class ClientsRequestComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    
     this.doctor = JSON.parse(localStorage.getItem("doctor"));
+    console.log(this.doctor);
     this.loadDoctorClientsRequest();
+
   }
 
   loadDoctorClientsRequest() {
