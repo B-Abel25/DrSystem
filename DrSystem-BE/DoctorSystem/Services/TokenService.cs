@@ -21,33 +21,41 @@ namespace DoctorSystem.Services
 
         public string CreateToken(User user)
         {
-            var claim = new List<Claim>
+            List<Claim> claim = new List<Claim>
             {
                 new Claim("id",user.Id)
             };
 
-            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+            SigningCredentials creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
-            var tokenDescriptor = new SecurityTokenDescriptor()
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claim),
                 Expires = DateTime.Now.AddHours(1),
                 SigningCredentials = creds
             };
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
         }
 
         public string ReadToken(string token)
         {
-            
-            var tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             JwtSecurityToken tokenBody =  tokenHandler.ReadJwtToken(token.Replace("Bearer ",""));
             return tokenBody.Payload["id"].ToString();
         }
+        /*
+        public string SetExpireDateToken(string token, int minutes = 60)
+        {
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            tokenHandler.TokenLifetimeInMinutes = minutes;
+
+            tokenHandler.WriteToken(tokenHandler.CreateToken());
+        }
+        */
     }
 }

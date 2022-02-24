@@ -61,7 +61,7 @@ namespace DoctorSystem.Controllers
             client.HouseNumber = registerDto.HouseNumber;
             client.BirthDate = DateTime.Parse(registerDto.BirthDate);
             client.Doctor = await _context._doctors.SingleOrDefaultAsync(x => x.Id == registerDto.DoctorId);
-            client.Member = client.Doctor.Place == client.Place ? true : false;
+            client.Member = false;
 
             _context._clients.Add(client);
 
@@ -74,7 +74,7 @@ namespace DoctorSystem.Controllers
 
         [Route("client/login")]
         [HttpPost]
-        public async Task<ActionResult<object>> ClientLogin(ClientLoginDto loginDto)
+        public async Task<ActionResult<ClientDto>> ClientLogin(ClientLoginDto loginDto)
         {
             var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == loginDto.MedNumber);
 
@@ -103,7 +103,7 @@ namespace DoctorSystem.Controllers
                 }
             }
 
-            return new { Id = client.Id, Token = _tokenService.CreateToken(client) };
+            return new ClientDto(client, _tokenService.CreateToken(client));
         }
 
         [Route("lost-password")]
@@ -192,9 +192,9 @@ namespace DoctorSystem.Controllers
 
         [HttpPut]
         [Route("doctor/login")]
-        public async Task<ActionResult<object>> DoctorLogin(DoctorLoginDto loginDto)
+        public async Task<ActionResult<DoctorDto>> DoctorLogin(DoctorLoginDto loginDto)
         {
-            var doc = await _context._doctors.Include(x => x.Place.City.County).SingleOrDefaultAsync(x => loginDto.SealNumber == x.SealNumber);
+            Doctor doc = await _context._doctors.Include(x => x.Place.City.County).SingleOrDefaultAsync(x => loginDto.SealNumber == x.SealNumber);
             if (doc == null)
             {
                 return Unauthorized("Helytelen pecsétszám szám");
@@ -213,8 +213,8 @@ namespace DoctorSystem.Controllers
                     return Unauthorized("Helytelen jelszó");
                 }
             }
-            
-            return new { Id = doc.Id, Token = _tokenService.CreateToken(doc) };
+            return new DoctorDto(doc, _tokenService.CreateToken(doc));
+            //return new { Id = doc.Id, Token = _tokenService.CreateToken(doc) };
         }
 
 

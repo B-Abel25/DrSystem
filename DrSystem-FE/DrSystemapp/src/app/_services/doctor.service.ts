@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
 import { Client } from '../_models/client';
 import { Doctor } from '../_models/doctor';
 
-import { DoctorAdmin } from '../_models/doctorsadmin';
 import { LostPassword } from '../_models/lostpasswordrequest';
 import { NewPassword } from '../_models/newpassword';
 
@@ -18,16 +17,16 @@ export class DoctorService {
 
 
   baseUrl = environment.apiUrl;
-  doctors!: DoctorAdmin[];
-  private currentDoctorSource = new ReplaySubject<DoctorAdmin>(1);
+  //doctors!: DoctorAdmin[];
+  private currentDoctorSource = new ReplaySubject<Doctor>(1);
   currentDoctor$ = this.currentDoctorSource.asObservable();
   singleuserdata: Client[];
   constructor(private http: HttpClient) { }
 
   login(model: any) {
 
-    return this.http.put<DoctorAdmin>(this.baseUrl + 'public/doctor/login', model).pipe(
-      map((response: DoctorAdmin) => {
+    return this.http.put<Doctor>(this.baseUrl + 'public/doctor/login', model).pipe(
+      map((response: Doctor) => {
         const doctor = response;
         if (doctor) {
           this.setCurrentDoctor(doctor);
@@ -36,7 +35,7 @@ export class DoctorService {
       })
     );
   }
-  setCurrentDoctor(doctor: DoctorAdmin) {
+  setCurrentDoctor(doctor: Doctor) {
     localStorage.setItem('doctor', JSON.stringify(doctor));
     this.currentDoctorSource.next(doctor);
   }

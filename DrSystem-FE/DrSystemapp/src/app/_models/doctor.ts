@@ -8,6 +8,6 @@ export interface Doctor {
     phoneNumber: number;
     email: string;
     clients: Client[];
-
+    token: string;
 
 }

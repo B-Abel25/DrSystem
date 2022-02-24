@@ -14,6 +14,7 @@ namespace DoctorSystem.Dtos
         public PlaceDto Place { get; set; }
         public string Street { get; set; }
         public string HouseNumber { get; set; }
+        public string Token { get; set; }
         public ICollection<MessageDto> MessagesRecieved { get; set; }
         public ICollection<MessageDto> MessagesSent { get; set; }
     }

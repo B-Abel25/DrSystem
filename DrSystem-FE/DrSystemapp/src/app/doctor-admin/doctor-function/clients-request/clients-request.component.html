@@ -41,14 +41,14 @@
                     <td style="text-align: right">{{ client.phoneNumber }}</td>
                     <td>
                         <li class="list-inline-item">
-                            <button class="btn btn-light" (click)="deleteClient(client.id)">
-                <i class="fa fa-trash"></i>
-              </button>
-                        </li>
-                        <li class="list-inline-item">
                             <button class="btn btn-light" (click)="acceptClient(client.id)">
-                <i class="fa fa-check text-dark"></i>
-              </button>
+                              <i class="fa fa-check text-dark"></i>
+                            </button>
+                        </li>
+                        <li *ngIf="!(client.place.postCode === doctor.place.postCode)" class="list-inline-item">
+                            <button class="btn btn-light" (click)="deleteClient(client.id)">
+                             <i class="fa fa-trash"></i>
+                            </button>
                         </li>
                     </td>
                 </tr>

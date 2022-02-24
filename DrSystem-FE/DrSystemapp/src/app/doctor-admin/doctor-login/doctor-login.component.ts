@@ -18,7 +18,7 @@ export class DoctorLoginComponent implements OnInit {
   modalRef!: BsModalRef;
   doctorLoginForm: FormGroup;
   clients: Client[];
-  doctor: any;
+  doctor: Doctor;
 
   constructor(public doctorService: DoctorService, private router: Router, private toastr: ToastrService, private modalService: BsModalService, private fb: FormBuilder, private route: ActivatedRoute) { }
 
@@ -32,12 +32,7 @@ export class DoctorLoginComponent implements OnInit {
   login() {
 
     this.doctorService.login(this.doctorLoginForm.value).subscribe(response => {
-      /*
-      Itt van a hiba, a response undefined értéket kap,
-      pedig ebbe kéne benne lennie a docId-nek a SealNumber-nek és a JWT-nek
-      */
       console.log(response);
-      console.log("useless login?");
       this.router.navigateByUrl('/admin/doctor-page');
       this.loggedIn = true;
     }, error => {
