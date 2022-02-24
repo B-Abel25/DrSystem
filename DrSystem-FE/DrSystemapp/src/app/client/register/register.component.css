@@ -46,7 +46,7 @@ div.form-group.required>label:first-child:after {
 }
 
 form {
-    margin: 0px 16px ;
+    margin: 0px 0px ;
 }
 
 div.form-group input.invalid {
@@ -66,7 +66,7 @@ div.form-group label:first-child {
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 100%;
+    width: 90%;
     padding: 50px;
 }
 
@@ -75,8 +75,8 @@ div.form-group label:first-child {
     border-radius: 10px 10px 10px 10px;
     background: #5384e7;
     padding: 30px;
-    width: 100%;
-    max-width: 680px;
+    
+    width: 50%;
     position: absolute;
     padding: 0px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);

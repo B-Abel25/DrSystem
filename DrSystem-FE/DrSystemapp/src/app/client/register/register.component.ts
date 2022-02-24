@@ -10,6 +10,7 @@ import { AccountService } from '../../_services/account.service';
 import { DoctorService } from '../../_services/doctor.service';
 
 import { Router } from '@angular/router';
+import { DATE_PIPE_DEFAULT_TIMEZONE } from '@angular/common';
 
 
 
@@ -72,14 +73,14 @@ export class RegisterComponent implements OnInit {
      placeId: ['', Validators.required],
      doctor: ['', Validators.required],
      
-     houseNumber: ['', [Validators.required, Validators.pattern('[0-9 a-z]*')]],
-     birthDate: ['', Validators.required],
-     street: ['', [Validators.required,Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ]*')]],
+     houseNumber: ['', [Validators.required, Validators.pattern('[0-9 a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ -/.]*')]],
+     birthDate: ['', [Validators.required,  ]],
+     street: ['', [Validators.required,Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ -/]*')]],
      city: ['', Validators.required],
      postCode: ['', Validators.required],
      doctorId: ['', [Validators.required]],
      email: ['', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-     name: ['', [Validators.required, Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ]*')]],
+     name: ['', [Validators.required, Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ -]*')]],
      acceptTerms: [false, Validators.requiredTrue],
      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
      confirmPassword: ['', [Validators.required, this.matchValues('password')]],
@@ -141,6 +142,8 @@ export class RegisterComponent implements OnInit {
       return control?.value == control?.parent?.controls[matchTo].value ? null : { isMatching: true }
     }
   }
+
+  
 
 
 

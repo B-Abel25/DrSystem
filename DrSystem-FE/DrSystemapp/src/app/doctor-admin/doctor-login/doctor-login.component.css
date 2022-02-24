@@ -73,8 +73,8 @@ color:#fff
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
     background: #5384e7;
-    width: 90%;
-    width: 450px;
+    min-width: 90%;
+    min-width: 42vh;
     position: relative;
     padding: 0px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
@@ -93,7 +93,7 @@ color:#fff
      
   .page-home {
     background-position: center;
-    background-repeat: no-repeat;
+   
     background-size: cover;
     vertical-align: middle; 
     min-height: 100vh;

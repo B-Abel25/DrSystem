@@ -36,3 +36,42 @@
     border-bottom: 1px solid #fff;
    
 }
+li {
+	
+  
+  cursor: pointer;
+  color: #ebebeb;
+	min-width: 80px;
+	margin: auto;
+}
+
+li:hover {
+ 
+  background-size: 100% 100%;
+  color: #ffffff;
+  animation: spring 300ms ease-out;
+  text-shadow: 0 -1px 0 #7cdaf6;
+	font-weight: bold;
+}
+li:active {
+  transform: translateY(4px);
+}
+
+@keyframes spring {
+  15% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: scale(1.2, 1.1);
+  }
+  40% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: scale(0.95, 0.95);
+  }
+  75% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: scale(1.05, 1);
+  }
+  100% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: scale(1, 1);
+  }
+}
