@@ -72,6 +72,8 @@ export class DoctorService {
     return this.http.get<Client[]>(this.baseUrl + 'private/doctor/clients');
   }
 
+  
+
   deleteClient(clientId: string) {
 
     return this.http.delete(this.baseUrl + 'private/doctor/client-request/decline/' + clientId).subscribe({

@@ -38,6 +38,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { DoctorClientMessagingComponent } from './doctor-admin/doctor-function/doctor-client-messaging/doctor-client-messaging.component';
 import { ClientMessagesComponent } from './client/clients-functions/client-messages/client-messages.component';
+import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/client-data.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { ClientMessagesComponent } from './client/clients-functions/client-messa
     ClientsRequestComponent,
     DoctorClientMessagingComponent,
     ClientMessagesComponent,
+    ClientDataComponent,
     
   ],
   imports: [
