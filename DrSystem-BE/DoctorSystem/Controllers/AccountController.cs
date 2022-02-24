@@ -76,7 +76,7 @@ namespace DoctorSystem.Controllers
         [HttpPost]
         public async Task<ActionResult<ClientDto>> ClientLogin(ClientLoginDto loginDto)
         {
-            var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == loginDto.MedNumber);
+            var client = await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).SingleOrDefaultAsync(x => x.MedNumber == loginDto.MedNumber);
 
 
             if (!UserExistsAsync(client))

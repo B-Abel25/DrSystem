@@ -22,6 +22,7 @@ client:Client;
   }
 loadMember(){  
   
-    this.client = JSON.parse(localStorage.getItem("clients")).find(item=>item.medNumber===this.route.snapshot.paramMap.get('medNumber'));
+    this.client = JSON.parse(localStorage.getItem("clients"))
+    .find(item=>item.medNumber===this.route.snapshot.paramMap.get('medNumber'));
 }
 }

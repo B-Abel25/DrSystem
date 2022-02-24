@@ -41,7 +41,7 @@ export class DoctorService {
   }
 
   logout() {
-    localStorage.removeItem('doctor');
+    localStorage.clear();
     this.currentDoctorSource.next(null as any);
   }
   lostPassword(model: any) {

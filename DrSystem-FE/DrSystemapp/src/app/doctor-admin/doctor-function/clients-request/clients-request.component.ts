@@ -25,7 +25,6 @@ export class ClientsRequestComponent implements OnInit {
     this.doctor = JSON.parse(localStorage.getItem("doctor"));
     console.log(this.doctor);
     this.loadDoctorClientsRequest();
-    console.log("anyád");
   }
 
   loadDoctorClientsRequest() {

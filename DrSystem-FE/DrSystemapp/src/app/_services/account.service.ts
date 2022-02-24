@@ -81,7 +81,7 @@ export class AccountService {
   }
 
   logout() {
-    localStorage.removeItem('client');
+    localStorage.clear();
     this.currentClientSource.next(null as any);
   }
 
