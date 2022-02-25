@@ -11,12 +11,21 @@ baseUrl=environment.apiUrl;
 container:any
   constructor(private http:HttpClient) { }
 
-  getMessages(id:string)
+  getMessages()
   {
  
-    return this.http.get<Message[]>(this.baseUrl + 'private/users/messages/' + id );
+    return this.http.get<Message[]>(this.baseUrl + 'private/doctor/messages');
   }
   getMessageThread(id:string){
 return this.http.get<Message[]>(this.baseUrl+'private/messages/thread/'+id);
+  }
+
+  sendMessage(medNumber:string, content:string){
+    console.log({recieverNumber: medNumber,content})
+return this.http.post<Message>(this.baseUrl+'private/doctor/message/send',{recieverNumber: medNumber,content});
+  }
+
+  deleteMessage(id:string){
+    return this.http.delete(this.baseUrl+'private/user/message/delete/'+id)
   }
 }

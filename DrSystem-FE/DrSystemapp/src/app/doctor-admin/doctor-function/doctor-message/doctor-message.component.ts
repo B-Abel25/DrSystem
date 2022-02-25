@@ -10,14 +10,21 @@ import { MessageService } from 'src/app/_services/message.service';
 })
 export class DoctorMessageComponent implements OnInit {
 messages:Message[];
-container:any;
+container='Unread';
   constructor(private messageService:MessageService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.loadMessages();
   }
 loadMessages(){
-  this.messageService.getMessages(this.route.snapshot.paramMap.get('id')).subscribe(message=>{
-    this.messages=message;
+  this.messageService.getMessages().subscribe(response=>{
+    this.messages=response;
+  })
+}
+deleteMessage(id:string)
+{
+  this.messageService.deleteMessage(id).subscribe(()=>{
+    this.messages.splice(this.messages.findIndex(x=>x.id===id),1);
   })
 }
 }

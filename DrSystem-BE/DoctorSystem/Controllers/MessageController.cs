@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace DoctorSystem.Controllers
 {
     [ApiController]
-    [Route("private/message")]
+    [Route("private/")]
     public class MessageController : ControllerBase
     {
         private readonly ILogger<MessageController> _logger;
@@ -61,7 +61,7 @@ namespace DoctorSystem.Controllers
         #endregion
 
         [Authorize]
-        [Route("doctor/message/send/{clientId}")]
+        [Route("doctor/message/send")]
         [HttpPost]
         public async Task<ActionResult> SendDoctorMessagesById(SendMessageDto sendDto)
         {

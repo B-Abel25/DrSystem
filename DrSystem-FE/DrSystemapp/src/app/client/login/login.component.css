@@ -83,8 +83,8 @@ color:#fff
     border-radius: 10px 10px 10px 10px;
     background: #517eda;
     padding: 30px;
-    width: 50%;
-    min-width:70vh;
+    min-width: 90%;
+    min-width:42vh;
     position: relative;
     padding: 0px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);

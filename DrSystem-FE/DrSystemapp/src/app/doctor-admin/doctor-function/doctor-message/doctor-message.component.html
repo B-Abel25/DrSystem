@@ -1,25 +1,26 @@
 <app-admin-navbar></app-admin-navbar>
-<div class="content">
+<!-- <div class="content">
   <tabset style="margin-left:200px" [justified]="true">
     <tab heading="Olvasatlan">Justified content</tab>
     <tab heading="Beérkező levelek">Short Labeled Justified content</tab>
     <tab heading="Kimenő levelek">Long Labeled Justified content</tab>
   </tabset>
-</div>
+</div> -->
 
-<!-- <div class="container">
+<div class="container">
 <div class="row mb-4">
     <div class="btn-group" name="container">
       <button
         class="btn btn-dark"
         btnRadio="Unread"
-      
+      [(ngModel)]="container"
         (click)="loadMessages()"
       >
         <i class="fa fa-envelope">Olvasatlan üzenetek</i>
       </button>
       <button
         class="btn btn-dark"
+        [(ngModel)]="container"
         btnRadio="Inbox"
         
         (click)="loadMessages()"
@@ -29,7 +30,7 @@
       <button
         class="btn btn-dark"
         btnRadio="Outbox"
-        
+        [(ngModel)]="container"
         (click)="loadMessages()"
       >
         <i class="fa fa-paper-plane">Olvasott üzenetek</i>
@@ -57,9 +58,9 @@
         </td>
         <td>{{message.messageSent | timeago}}</td>
         <td>
-            <button class="btn btn-light">Törlés</button>
+            <button (click)="$event.stopPropagation()" (click)="deleteMessage(message.id)" class="btn btn-light">Törlés</button>
         </td>
     </tr>
 </table>
 </div>
-</div> -->
+</div>

@@ -61,7 +61,7 @@ const routes: Routes = [
       { path: 'admin/clients-request', component: ClientsRequestComponent },
       { path: 'admin/doctor-messages', component: DoctorMessageComponent },
       {path: 'admin/client-details/:medNumber', component:ClientDataComponent},
-      {path:'admin/messaging', component:DoctorClientMessagingComponent},
+      {path:'admin/messaging/:medNumber', component:DoctorClientMessagingComponent},
     ],
   },
 

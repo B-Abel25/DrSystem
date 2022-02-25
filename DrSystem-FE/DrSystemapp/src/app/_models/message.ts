@@ -1,9 +1,7 @@
 export interface Message {
   id: string;
   sender: any;
-  
-  recipentId: any;
-  
+  reciever: any;
   content: string;
   dateRead?: Date;
   messageSent: Date;

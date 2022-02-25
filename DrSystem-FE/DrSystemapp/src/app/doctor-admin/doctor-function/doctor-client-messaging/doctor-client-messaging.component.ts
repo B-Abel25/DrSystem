@@ -1,5 +1,7 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Client } from 'src/app/_models/client';
 import { User } from 'src/app/_models/user';
 import { MessageService } from 'src/app/_services/message.service';
@@ -10,19 +12,37 @@ import { MessageService } from 'src/app/_services/message.service';
   styleUrls: ['./doctor-client-messaging.component.css']
 })
 export class DoctorClientMessagingComponent implements OnInit {
-@Input() user: User;
-messages:Message[];
-  constructor(private messageService:MessageService) { }
+@ViewChild('messageForm') messageForm:NgForm;
+@Input() client: Client;
+@Input() messages:Message[];
+messageContent:string;
+  constructor(private messageService:MessageService,private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.client = JSON.parse(localStorage.getItem("clients"))
+    .find(item=>item.medNumber===this.route.snapshot.paramMap.get('medNumber'));
+    console.log(this.client)
+    console.log( localStorage.setItem('client', JSON.stringify(this.client)))
   }
 
-  loadMessages()
+  // loadMessages()
+  // {
+  //   this.messageService.getMessageThread(this.user.id).subscribe(messages=>
+  //     {
+  //       this.messages=messages;
+  //     })
+  // }
+
+  sendMessage()
   {
-    this.messageService.getMessageThread(this.user.id).subscribe(messages=>
-      {
-        this.messages=messages;
-      })
+    console.log(this.client)
+    this.messageService.sendMessage(this.client.medNumber,this.messageContent).subscribe(message=>{
+      console.log(message);
+      this.messages.push(message);
+
+     
+      this.messageForm.reset();
+    })
   }
 
 }

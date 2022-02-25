@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <ul *ngIf="messages?.length > 0">
+        <ul *ngIf="messages?.length > 0" class="chat">
             <li *ngFor="let message of messages">
                 <div>
                     <span class="float-center">
@@ -12,11 +12,11 @@
                                 <span class="fa fa-clock-o">{{message.messageSent | timeago}}</span>
                                 <span class="text-danger"
                                     *ngIf="!message.dateRead && message.senderUser !== clients.id">
-                                    
+                                    (unread)
                                 </span>
                                 <span class="text-succes"
                                     *ngIf="message.dateRead && message.senderUser !== clients.id">
-                                    {{message.dateRead | timeago}}
+                                   (read {{message.dateRead | timeago}})
                                 </span>
                             </small>
                         </div>
@@ -27,10 +27,10 @@
         </ul>
     </div>
     <div class="card-footer">
-        <form >
-            <input type="text" class="form-control " placeholder="Üzenet küldés...">
+        <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
+            <input name="messageContent" required [(ngModel)]="messageContent" type="text" class="form-control input-sm" placeholder="Üzenet küldés...">
             <div class="input-group-append">
-                <button class="btn btn-dark" type="submit">Küldés</button>
+                <button [disabled]="!messageForm.valid" class="btn btn-dark" type="submit">Küldés</button>
             </div>
         </form>
     </div>
