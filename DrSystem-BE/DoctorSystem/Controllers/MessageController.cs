@@ -63,7 +63,7 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [Route("doctor/message/send")]
         [HttpPost]
-        public async Task<ActionResult> SendDoctorMessagesById(SendMessageDto sendDto)
+        public async Task<ActionResult<IEnumerable<MessageDto>>> SendDoctorMessagesById(SendMessageDto sendDto)
         {
             string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             //if(await _context._doctors.Include(x => x.Clients).SingleOrDefaultAsync(x => x.Id == doctorId).)
@@ -77,7 +77,17 @@ namespace DoctorSystem.Controllers
 
             await _context._messages.AddAsync(message);
             await _context.SaveChangesAsync();
-            return Accepted();
+
+            List<Message> messages = await _context._messages.Include(x => x.Sender).Include(x => x.Reciever).ToListAsync();
+            List<MessageDto> messageDtos = new List<MessageDto>();
+            foreach (var oneMessage in messages)
+            {
+                if (oneMessage.Sender.Id == doctorId || oneMessage.Reciever.Id == doctorId)
+                {
+                    messageDtos.Add(new MessageDto(oneMessage));
+                }
+            }
+            return messageDtos;
         }
 
         [Authorize]
