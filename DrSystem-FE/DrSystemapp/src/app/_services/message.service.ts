@@ -4,28 +4,28 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MessageService {
-baseUrl=environment.apiUrl;
-container:any
-  constructor(private http:HttpClient) { }
+  baseUrl = environment.apiUrl;
+  container: any;
+  constructor(private http: HttpClient) {}
 
-  getMessages()
-  {
- 
+  getMessages() {
     return this.http.get<Message[]>(this.baseUrl + 'private/doctor/messages');
   }
-  getMessageThread(id:string){
-return this.http.get<Message[]>(this.baseUrl+'private/messages/thread/'+id);
+  getMessageThread() {
+    return this.http.get<Message[]>(this.baseUrl + 'private/doctor/messages');
   }
 
-  sendMessage(medNumber:string, content:string){
-    console.log({recieverNumber: medNumber,content})
-return this.http.post<Message>(this.baseUrl+'private/doctor/message/send',{recieverNumber: medNumber,content});
+  sendMessage(medNumber: string, content: string) {
+    return this.http.post<Message>(
+      this.baseUrl + 'private/doctor/message/send',
+      { recieverNumber: medNumber, content }
+    );
   }
 
-  deleteMessage(id:string){
-    return this.http.delete(this.baseUrl+'private/user/message/delete/'+id)
+  deleteMessage(id: string) {
+    return this.http.delete(this.baseUrl + 'private/user/message/delete/' + id);
   }
 }

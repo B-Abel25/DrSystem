@@ -4,5 +4,5 @@ export interface Message {
   reciever: any;
   content: string;
   dateRead?: Date;
-  messageSent: Date;
+  messageSent: string;
 }

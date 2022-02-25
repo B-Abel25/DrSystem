@@ -63,14 +63,14 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [Route("doctor/message/send")]
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> SendDoctorMessagesById(SendMessageDto sendDto)
+        public async Task<ActionResult<MessageDto>> SendDoctorMessagesById(SendMessageDto sendDto)
         {
             string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             //if(await _context._doctors.Include(x => x.Clients).SingleOrDefaultAsync(x => x.Id == doctorId).)
 
             Message message = new Message();
-            message.Sender = await _context._doctors.SingleOrDefaultAsync(x => x.Id == doctorId);
-            message.Reciever = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == sendDto.RecieverNumber);
+            message.Sender = await _context._doctors.Include(x => x.Place.City.County).SingleOrDefaultAsync(x => x.Id == doctorId);
+            message.Reciever = await _context._clients.Include(x => x.Place.City.County).SingleOrDefaultAsync(x => x.MedNumber == sendDto.RecieverNumber);
             message.Content = sendDto.Content;
             message.SenderDeleted = false;
             message.RecieverDeleted = false;
@@ -78,7 +78,17 @@ namespace DoctorSystem.Controllers
             await _context._messages.AddAsync(message);
             await _context.SaveChangesAsync();
 
-            List<Message> messages = await _context._messages.Include(x => x.Sender).Include(x => x.Reciever).ToListAsync();
+            return new MessageDto(message);
+        }
+
+        [Authorize]
+        [Route("doctor/messages")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetDoctorMessages()
+        {
+            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+
+            List<Message> messages = await _context._messages.Include(x => x.Sender.Place.City.County).Include(x => x.Reciever.Place.City.County).ToListAsync();
             List<MessageDto> messageDtos = new List<MessageDto>();
             foreach (var oneMessage in messages)
             {
@@ -87,17 +97,7 @@ namespace DoctorSystem.Controllers
                     messageDtos.Add(new MessageDto(oneMessage));
                 }
             }
-            return messageDtos;
-        }
-
-        [Authorize]
-        [Route("doctor/messages")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetDoctorMessages()
-        {
-
-           List<Message> messages = await _context._messages.Include(x => x.Sender.Place.City.County).Include(x => x.Reciever.Place.City.County).ToListAsync();
-            return null;
+            return messageDtos.OrderBy(x => x.DateSent).ToList();
         }
 
         [Authorize]

@@ -9,40 +9,39 @@ import { MessageService } from 'src/app/_services/message.service';
 @Component({
   selector: 'app-doctor-client-messaging',
   templateUrl: './doctor-client-messaging.component.html',
-  styleUrls: ['./doctor-client-messaging.component.css']
+  styleUrls: ['./doctor-client-messaging.component.css'],
 })
 export class DoctorClientMessagingComponent implements OnInit {
-@ViewChild('messageForm') messageForm:NgForm;
-@Input() client: Client;
-@Input() messages:Message[];
-messageContent:string;
-  constructor(private messageService:MessageService,private route: ActivatedRoute) { }
+  @ViewChild('messageForm') messageForm: NgForm;
+  @Input() client: Client;
+  @Input() messages: Message[];
+  messageContent: string;
+  constructor(
+    private messageService: MessageService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.client = JSON.parse(localStorage.getItem("clients"))
-    .find(item=>item.medNumber===this.route.snapshot.paramMap.get('medNumber'));
-    console.log(this.client)
-    console.log( localStorage.setItem('client', JSON.stringify(this.client)))
+    this.client = JSON.parse(localStorage.getItem('clients')).find(
+      (item) => item.medNumber === this.route.snapshot.paramMap.get('medNumber')
+    );
+    this.loadMessages();
   }
 
-  // loadMessages()
-  // {
-  //   this.messageService.getMessageThread(this.user.id).subscribe(messages=>
-  //     {
-  //       this.messages=messages;
-  //     })
-  // }
-
-  sendMessage()
-  {
-    console.log(this.client)
-    this.messageService.sendMessage(this.client.medNumber,this.messageContent).subscribe(message=>{
-      console.log(message);
-      this.messages.push(message);
-
-     
-      this.messageForm.reset();
-    })
+  loadMessages() {
+    this.messageService.getMessageThread().subscribe((messages) => {
+      this.messages = messages;
+    });
   }
 
+  sendMessage() {
+    console.log(this.client);
+    this.messageService
+      .sendMessage(this.client.medNumber, this.messageContent)
+      .subscribe((messages) => {
+        this.messages.push(messages);
+
+        this.messageForm.reset();
+      });
+  }
 }
