@@ -12,17 +12,17 @@ using System.Threading.Tasks;
 namespace DoctorSystem.Controllers
 {
     [ApiController]
-    [Route("register")]
+    [Route("public/register")]
     public class RegisterController : ControllerBase
     {
 
 
-        private readonly ILogger<AccountController> _logger;
+        private readonly ILogger<RegisterController> _logger;
         private readonly BaseDbContext _context;
         private readonly ITokenService _tokenService;
         private readonly EmailService _emailService;
 
-        public RegisterController(ILogger<AccountController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService)
+        public RegisterController(ILogger<RegisterController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService)
         {
             _logger = logger;
             _tokenService = tokenService;

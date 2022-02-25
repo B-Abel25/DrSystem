@@ -28,7 +28,6 @@ namespace DoctorSystem.Controller
         public UserController(ILogger<UserController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService)
         {
             _logger = logger;
-            //_accountService = registerService;
             _tokenService = tokenService;
             _context = context;
             _emailService = emailService;
@@ -107,46 +106,13 @@ namespace DoctorSystem.Controller
         public async Task<ActionResult> DeclineClientRequest(string clientId)
         {
             //TODO email éretsítés az elutasításról
+            //TODO elutasítás validáció
             var client = await _context._clients.SingleOrDefaultAsync(x => x.Id == clientId);
             _context._clients.Remove(client);
             await _context.SaveChangesAsync();
             return Accepted();
         }
 
-        #region FileUploadController
-        /*
-        [HttpPost]
-        public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
-        {
-            long size = files.Sum(f => f.Length);
-
-            foreach (var formFile in files)
-            {
-                if (formFile.Length > 0)
-                {
-                    var filePath = Path.GetTempFileName();
-
-                    using (var stream = System.IO.File.Create(filePath))
-                    {
-                        await formFile.CopyToAsync(stream);
-                    }
-                }
-            }
-
-            // Process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-
-            return Ok(new { count = files.Count, size });
-        }
-        */
-        #endregion
-
-        [Authorize]
-        [Route("user/messages/{userId}")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesById()
-        {
-            return null;
-        }
+       
     }
 }
