@@ -6,7 +6,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import {TabsModule} from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [],
@@ -21,7 +21,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     }),
     ReactiveFormsModule,
     NgxPaginationModule,
-
+    TabsModule.forRoot(),
 
   ],
   exports: [
@@ -31,6 +31,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BsDatepickerModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    TabsModule,
   ]
 })
 export class SharedModule { }

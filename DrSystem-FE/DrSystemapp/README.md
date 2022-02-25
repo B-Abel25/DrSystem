@@ -7,6 +7,7 @@ ng add ngx-spinner
 npm i ng2-order-pipe
 npm i ng2-search-filter
 npm i ngx-pagination
+ng add ngx-bootstrap --component tabs
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
 

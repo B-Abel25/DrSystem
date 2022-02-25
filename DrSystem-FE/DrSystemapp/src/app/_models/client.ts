@@ -1,16 +1,12 @@
 
 import { Doctor } from "./doctor";
 import { Place } from "./place";
-export interface Client {
-    id: string;
+import { User } from "./user";
+export interface Client extends User{
+    
     medNumber: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    birthDate: string;
-    place: Place;
-    street: string;
-    houseNumber: string;
+   
+   
     member: boolean;
     doctor: Doctor;
 

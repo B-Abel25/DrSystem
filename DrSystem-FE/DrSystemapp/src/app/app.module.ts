@@ -39,6 +39,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { DoctorClientMessagingComponent } from './doctor-admin/doctor-function/doctor-client-messaging/doctor-client-messaging.component';
 import { ClientMessagesComponent } from './client/clients-functions/client-messages/client-messages.component';
 import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/client-data.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/
     ReactiveFormsModule,
     Ng2OrderModule,
     Ng2SearchPipeModule,
+    TabsModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

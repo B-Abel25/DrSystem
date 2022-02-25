@@ -88,8 +88,9 @@ input.form-control:focus{
     align-items: center;
     flex-direction: column; 
     justify-content: center;
-   
-    padding: 50px;
+   height: 100%;
+   padding:40px;
+   overflow: hidden;
   
 }
 
@@ -130,6 +131,9 @@ input.form-control:focus{
  .site-wrapper{
      min-height: 100vh;
  }
-
+.content{
+    height:100%;
+    overflow: hidden;
+}
 
  

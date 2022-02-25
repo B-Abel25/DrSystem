@@ -21,10 +21,9 @@ overflow:visible;
 .main-menu {
 background:#212121;
 border-right:1px solid #e5e5e5;
-position:absolute;
-top:0;
-bottom:0;
-min-height: 100vh;
+position:fixed;
+
+height: 100vh;
 left:0;
 width:50px;
 overflow:hidden;

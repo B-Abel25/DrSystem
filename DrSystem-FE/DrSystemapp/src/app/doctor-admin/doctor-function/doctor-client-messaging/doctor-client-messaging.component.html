@@ -1,1 +1,41 @@
-<p>doctor-client-messaging works!</p>
+<div class="card">
+    <div class="card-body">
+        <ul *ngIf="messages?.length > 0">
+            <li *ngFor="let message of messages">
+                <div>
+                    <span class="float-center">
+                        <p>{{message.senderUsername}}</p>
+                    </span>
+                    <div class="chat-body">
+                        <div class="header">
+                            <small class="text-muted">
+                                <span class="fa fa-clock-o">{{message.messageSent | timeago}}</span>
+                                <span class="text-danger"
+                                    *ngIf="!message.dateRead && message.senderUser !== clients.id">
+                                    
+                                </span>
+                                <span class="text-succes"
+                                    *ngIf="message.dateRead && message.senderUser !== clients.id">
+                                    {{message.dateRead | timeago}}
+                                </span>
+                            </small>
+                        </div>
+                        <p>{{message.content}}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="card-footer">
+        <form >
+            <input type="text" class="form-control " placeholder="Üzenet küldés...">
+            <div class="input-group-append">
+                <button class="btn btn-dark" type="submit">Küldés</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+

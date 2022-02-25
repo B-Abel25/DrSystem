@@ -21,6 +21,7 @@ import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDocto
 import { DoctorMainPageComponent } from './doctor-admin/doctor-main-page/doctor-main-page.component';
 import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-request/clients-request.component';
 import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/client-data.component';
+import { DoctorClientMessagingComponent } from './doctor-admin/doctor-function/doctor-client-messaging/doctor-client-messaging.component';
 
 const routes: Routes = [
   { path: '', component: DrsystemHomeComponent },
@@ -60,6 +61,7 @@ const routes: Routes = [
       { path: 'admin/clients-request', component: ClientsRequestComponent },
       { path: 'admin/doctor-messages', component: DoctorMessageComponent },
       {path: 'admin/client-details/:medNumber', component:ClientDataComponent},
+      {path:'admin/messaging', component:DoctorClientMessagingComponent},
     ],
   },
 
