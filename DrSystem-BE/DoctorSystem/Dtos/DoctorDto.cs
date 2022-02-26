@@ -10,7 +10,7 @@ namespace DoctorSystem.Dtos
         public DoctorDto(Doctor doc, string token)
         {
             this.Name = doc.Name;
-            this.BirthDate = doc.BirthDate.ToString("{yyyy.MM.dd}");
+            this.BirthDate = doc.BirthDate.ToString("yyyy.MM.dd");
             this.Email = doc.Email;
             this.PhoneNumber = doc.PhoneNumber;
             this.Place = new PlaceDto(doc.Place);
@@ -23,7 +23,7 @@ namespace DoctorSystem.Dtos
         public DoctorDto(Doctor doc)
         {
             this.Name = doc.Name;
-            this.BirthDate = doc.BirthDate.ToString("{yyyy.MM.dd}");
+            this.BirthDate = doc.BirthDate.ToString("yyyy.MM.dd");
             this.Email = doc.Email;
             this.PhoneNumber = doc.PhoneNumber;
             this.Place = new PlaceDto(doc.Place);
