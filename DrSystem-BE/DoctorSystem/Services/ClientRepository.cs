@@ -32,7 +32,7 @@ namespace DoctorSystem.Services
 
         public async Task<List<Client>> GetClientsAsync()
         {
-            return await _context._clients.ToListAsync();
+            return await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()
