@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -34,11 +34,13 @@ export class MessageService {
     );
   }
 
+  //TODO object helyett string kéne
   sendMessageClient( content: string) {
    
+    
     return this.http.post<Message>(
       this.baseUrl + 'private/client/message/send',
-      content
+      {content}
     );
   }
   deleteMessage(id: string) {
