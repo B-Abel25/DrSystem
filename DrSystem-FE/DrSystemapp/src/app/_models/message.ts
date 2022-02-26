@@ -3,6 +3,6 @@ export interface Message {
   sender: any;
   reciever: any;
   content: string;
-  dateRead?: Date;
-  messageSent: string;
+  dateRead?: string;
+  dateSent: string;
 }

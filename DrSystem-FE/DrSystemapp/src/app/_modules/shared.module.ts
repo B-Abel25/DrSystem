@@ -7,14 +7,11 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {TabsModule} from 'ngx-bootstrap/tabs';
-import { MbscModule, MbscProvider } from "ack-angular-mobiscroll"
 
 
 
-@Component({
-  selector: 'my-app',
-  template: '<input type="datetime" mbsc-calendar />'
-}) export class AppComponent {}
+
+
 
 @NgModule({
   declarations: [],

@@ -1,1 +1,39 @@
 <app-navbar></app-navbar>
+<div class="card">
+    <div class="card-body">
+        <ul *ngIf="messages?.length > 0" class="chat">
+            <li *ngFor="let message of messages">
+                <div>
+                    <span class="float-center">
+                        <p>{{message.sender.name}}</p>
+                    </span>
+                    <div class="chat-body">
+                        <div class="header">
+                            <small class="text-muted">
+                                <span class="fa fa-clock-o">{{message.dateSent}}</span>
+                                <span class="text-danger"
+                                    *ngIf="!message.dateRead && message.sender.name !== null">
+                                    (Kézbesítve)
+                                </span>
+                                <span class="text-success"
+                                    *ngIf="message.dateRead != null && message.sender.name !== null">
+                                   (Látta {{message.dateRead}})
+                                </span>
+                            
+                            </small>
+                        </div>
+                        <p>{{message.content}}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="card-footer">
+        <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
+            <input name="messageContent" required [(ngModel)]="messageContent" type="text" class="form-control input-sm" placeholder="Üzenet küldés...">
+            <div class="input-group-append">
+                <button [disabled]="!messageForm.valid" class="btn btn-dark" type="submit">Küldés</button>
+            </div>
+        </form>
+    </div>
+</div>
