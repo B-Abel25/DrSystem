@@ -98,7 +98,7 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [Route("doctor/messages/{medNumber}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetDoctorMessages(string medNumber)
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetDoctorMessagesWithClient(string medNumber)
         {
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(medNumber);
@@ -145,6 +145,22 @@ namespace DoctorSystem.Controllers
         {
 
             return null;
+        }
+
+        [Authorize]
+        [Route("doctor/messages")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetDoctorMessages()
+        {
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            List<Message> messages = (await _messageRepo.GetDoctorMessagesAsync(doctor));
+
+            await _messageRepo.SaveAllAsync();
+            List<MessageDto> messageDtos = new List<MessageDto>();
+            messages.ForEach(x => messageDtos.Add(new MessageDto(x)));
+
+            return messageDtos;
         }
     }
 }
