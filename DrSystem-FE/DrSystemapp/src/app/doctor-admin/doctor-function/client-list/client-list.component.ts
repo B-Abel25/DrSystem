@@ -28,7 +28,7 @@ export class ClientListComponent implements OnInit {
     private doctorService: DoctorService,
     private route: ActivatedRoute
   ) {}
-
+  filterTerm:string;
   totalLength: any;
   page: number = 1;
   name: any;

@@ -74,9 +74,9 @@ export class DoctorService {
 
   
 
-  deleteClient(clientId: string) {
+  deleteClient(medNumber: string) {
 
-    return this.http.delete(this.baseUrl + 'private/doctor/client-request/decline/' + clientId).subscribe({
+    return this.http.delete(this.baseUrl + 'private/doctor/client-request/decline/' + medNumber).subscribe({
       next: data => {
         console.log(data)
       },
@@ -87,10 +87,10 @@ export class DoctorService {
     });
 
   }
-  acceptClient(clientId: string) {
+  acceptClient(medNumber: string) {
 
 
-    return this.http.put(this.baseUrl + 'private/doctor/client-request/accept/' + clientId, {}).subscribe({
+    return this.http.put(this.baseUrl + 'private/doctor/client-request/accept/' + medNumber, {}).subscribe({
       next: data => {
         console.log(data)
       },

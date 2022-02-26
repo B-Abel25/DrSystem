@@ -14,6 +14,7 @@ export class ClientsRequestComponent implements OnInit {
   totalLength: any;
   page: number = 1;
   name: any;
+  filterTerm:string;
   doctor: Doctor;
   constructor(
     private doctorService: DoctorService,
@@ -37,23 +38,23 @@ export class ClientsRequestComponent implements OnInit {
         this.totalLength = clients.length;
       });
   }
-  deleteClient(id: string) {
+  deleteClient(medNumber: string) {
     console.log('Törlés');
-    console.log(id);
-    this.doctorService.deleteClient(id);
+    console.log(medNumber);
+    this.doctorService.deleteClient(medNumber);
     for (let i = 0; i < this.doctor.clients.length; i++) {
-      if (this.doctor.clients[i].id === id) {
+      if (this.doctor.clients[i].medNumber === medNumber) {
         this.doctor.clients.splice(i, 1);
       }
     }
   }
 
-  acceptClient(id: string) {
+  acceptClient(medNumber: string) {
     console.log('Elfogad');
-    console.log(id);
-    this.doctorService.acceptClient(id);
+    console.log(medNumber);
+    this.doctorService.acceptClient(medNumber);
     for (let i = 0; i < this.doctor.clients.length; i++) {
-      if (this.doctor.clients[i].id === id) {
+      if (this.doctor.clients[i].medNumber === medNumber) {
         this.doctor.clients.splice(i, 1);
       }
     }

@@ -86,9 +86,9 @@ export class AccountService {
   }
 
   getPlaces() {
-    return this.http.get<Place[]>(this.baseUrl + 'register/places')
+    return this.http.get<Place[]>(this.baseUrl + 'public/register/places')
   }
   getDoctors() {
-    return this.http.get<Doctor[]>(this.baseUrl + 'register/doctors')
+    return this.http.get<Doctor[]>(this.baseUrl + 'public/register/doctors')
   }
 }

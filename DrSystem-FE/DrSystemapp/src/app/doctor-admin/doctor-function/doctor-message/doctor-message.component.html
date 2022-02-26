@@ -1,13 +1,7 @@
 <app-admin-navbar></app-admin-navbar>
-<!-- <div class="content">
-  <tabset style="margin-left:200px" [justified]="true">
-    <tab heading="Olvasatlan">Justified content</tab>
-    <tab heading="Beérkező levelek">Short Labeled Justified content</tab>
-    <tab heading="Kimenő levelek">Long Labeled Justified content</tab>
-  </tabset>
-</div> -->
 
-<div class="container">
+
+<div class="content">
 <div class="row mb-4">
     <div class="btn-group" name="container">
       <button
@@ -16,7 +10,7 @@
       [(ngModel)]="container"
         (click)="loadMessages()"
       >
-        <i class="fa fa-envelope">Olvasatlan üzenetek</i>
+        <i class="fa fa-envelope"> Olvasatlan üzenetek</i>
       </button>
       <button
         class="btn btn-dark"
@@ -25,7 +19,7 @@
         
         (click)="loadMessages()"
       >
-        <i class="fa fa-envelope-open">Beérkezett üzenetek</i>
+        <i class="fa fa-envelope-open"> Beérkezett üzenetek</i>
       </button>
       <button
         class="btn btn-dark"
@@ -33,7 +27,7 @@
         [(ngModel)]="container"
         (click)="loadMessages()"
       >
-        <i class="fa fa-paper-plane">Olvasott üzenetek</i>
+        <i class="fa fa-paper-plane">Elküldött üzenetek</i>
       </button>
     </div>
   </div>

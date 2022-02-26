@@ -41,6 +41,8 @@ import { ClientMessagesComponent } from './client/clients-functions/client-messa
 import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/client-data.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +83,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     Ng2OrderModule,
     Ng2SearchPipeModule,
     TabsModule.forRoot(),
+   
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
