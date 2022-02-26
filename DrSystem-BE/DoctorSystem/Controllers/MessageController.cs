@@ -123,7 +123,7 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [Route("client/message/send")]
         [HttpPost]
-        public async Task<ActionResult<MessageDto>> SendClientMessage(string content)
+        public async Task<ActionResult<MessageDto>> SendClientMessage(SendMessageDto sendDto)
         {
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             //TODO validáció
@@ -131,7 +131,7 @@ namespace DoctorSystem.Controllers
             Message message = new Message();
             message.Sender = client;
             message.Reciever = client.Doctor;
-            message.Content = content;
+            message.Content = sendDto.Content;
             message.SenderDeleted = false;
             message.RecieverDeleted = false;
 

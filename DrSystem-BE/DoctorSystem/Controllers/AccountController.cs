@@ -244,7 +244,7 @@ namespace DoctorSystem.Controllers
         }
 
 
-        [Route("client/delete")]
+        [Route("client/delete/{token}")]
         [HttpGet] //Ez itt igazábol DELETE csak csaltam
         public async Task<ActionResult> DeleteClient(string token)
         {

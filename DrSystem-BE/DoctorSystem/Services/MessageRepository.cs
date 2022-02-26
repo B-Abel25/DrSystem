@@ -72,6 +72,7 @@ namespace DoctorSystem.Services
                 .Include(x => x.Reciever.Place.City.County)
                 .Include(x => x.Sender.Place.City.County)
                 .Where(x => x.Sender.Id == client.Id || x.Reciever.Id == client.Id)
+                .OrderBy(x => x.DateSent)
                 .ToListAsync();
                 
         }
