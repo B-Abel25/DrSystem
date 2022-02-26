@@ -19,11 +19,34 @@ namespace DoctorSystem.Services
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
 
-        public string CreateToken(User user)
+        public string CreateToken(Doctor doctor)
         {
             List<Claim> claim = new List<Claim>
             {
-                new Claim("id",user.Id)
+                new Claim("userNumber",doctor.SealNumber) //userNumber = sealNumber, csak a kiolvasás miatt kell azonos név
+            };
+
+            SigningCredentials creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Subject = new ClaimsIdentity(claim),
+                Expires = DateTime.Now.AddHours(1),
+                SigningCredentials = creds
+            };
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
+
+        public string CreateToken(Client client)
+        {
+            List<Claim> claim = new List<Claim>
+            {
+                new Claim("userNumber",client.MedNumber) //userNumber = medNumber, csak a kiolvasás miatt kell azonos név
             };
 
             SigningCredentials creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
@@ -46,7 +69,7 @@ namespace DoctorSystem.Services
         {
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             JwtSecurityToken tokenBody =  tokenHandler.ReadJwtToken(token.Replace("Bearer ",""));
-            return tokenBody.Payload["id"].ToString();
+            return tokenBody.Payload["userNumber"].ToString();
         }
         /*
         public string SetExpireDateToken(string token, int minutes = 60)

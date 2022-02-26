@@ -21,20 +21,34 @@ namespace DoctorSystem.Controllers
     public class MessageController : ControllerBase
     {
         private readonly ILogger<MessageController> _logger;
-        private readonly BaseDbContext _context;
+        //private readonly BaseDbContext _context;
         private readonly ITokenService _tokenService;
         private readonly EmailService _emailService;
+        private readonly IMessageRepository _messageRepo;
+        private readonly IClientRepository _clientRepo;
+        private readonly IDoctorRepository _doctorRepo;
 
-        public MessageController(ILogger<MessageController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService)
+        public MessageController(
+            ILogger<MessageController> logger,
+            BaseDbContext context,
+            ITokenService tokenService,
+            EmailService emailService,
+            IMessageRepository messageRepository,
+            IClientRepository clientRepository,
+            IDoctorRepository doctorRepository
+            )
         {
             _logger = logger;
             _tokenService = tokenService;
-            _context = context;
+            //_context = context;
             _emailService = emailService;
+            _messageRepo = messageRepository;
+            _clientRepo = clientRepository;
+            _doctorRepo = doctorRepository;
         }
 
         #region FileUploadController
-        
+        /*
         [HttpPost]
         public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
         {
@@ -58,7 +72,7 @@ namespace DoctorSystem.Controllers
 
             return Ok(new { count = files.Count, size });
         }
-        
+        */
         #endregion
 
         [Authorize]
@@ -66,18 +80,17 @@ namespace DoctorSystem.Controllers
         [HttpPost]
         public async Task<ActionResult<MessageDto>> SendDoctorMessagesById(SendMessageDto sendDto)
         {
-            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
-            //if(await _context._doctors.Include(x => x.Clients).SingleOrDefaultAsync(x => x.Id == doctorId).)
-
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            //TODO validáció
             Message message = new Message();
-            message.Sender = await _context._doctors.Include(x => x.Place.City.County).SingleOrDefaultAsync(x => x.Id == doctorId);
-            message.Reciever = await _context._clients.Include(x => x.Place.City.County).SingleOrDefaultAsync(x => x.MedNumber == sendDto.RecieverNumber);
+            message.Sender = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            message.Reciever = await _clientRepo.GetClientByMedNumberAsync(sendDto.RecieverNumber);
             message.Content = sendDto.Content;
             message.SenderDeleted = false;
             message.RecieverDeleted = false;
 
-            await _context._messages.AddAsync(message);
-            await _context.SaveChangesAsync();
+            _messageRepo.AddMessage(message);
+            await _messageRepo.SaveAllAsync();
 
             return new MessageDto(message);
         }
@@ -87,20 +100,12 @@ namespace DoctorSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetDoctorMessages(string medNumber)
         {
-            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(medNumber);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            List<Message> messages = (await _messageRepo.GetDoctorMessagesWithClientAsync(doctor, client));
 
-            List<Message> messages = await _context._messages
-                .Include(x => x.Sender.Place.City.County)
-                .Include(x => x.Reciever.Place.City.County)
-                .Where(m => m.Sender.Id == doctorId && m.Reciever.MedNumber == medNumber
-                                        
-                )
-                .OrderBy(m => m.DateSent)
-                .ToListAsync();
-
-            List<Message> unreadMessages =
-                messages.Where(m => m.DateRead == null && m.Reciever.MedNumber == medNumber)
-                .ToList();
+            List<Message> unreadMessages = await _messageRepo.GetUnreadRecievedMessages(doctor);
             if (unreadMessages.Any())
             {
                 foreach (var unreadMessage in unreadMessages)
@@ -108,7 +113,7 @@ namespace DoctorSystem.Controllers
                     unreadMessage.DateRead = DateTime.Now;
                 }
             }
-            await _context.SaveChangesAsync();
+            await _messageRepo.SaveAllAsync();
             List<MessageDto> messageDtos = new List<MessageDto>();
             messages.ForEach(x => messageDtos.Add(new MessageDto(x)));
 

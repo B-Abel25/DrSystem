@@ -1,4 +1,5 @@
 ﻿using DoctorSystem.Dtos;
+using DoctorSystem.Entities;
 using DoctorSystem.Entities.Contexts;
 using DoctorSystem.Interfaces;
 using DoctorSystem.Services;
@@ -77,15 +78,14 @@ namespace DoctorSystem.Controller
         }
 
         [Authorize]
-        [Route("doctor/client-request/accept/{clientId}")]
+        [Route("doctor/client-request/accept/{medNumber}")]
         [HttpPut]
-        public async Task<ActionResult> AcceptClientRequest(string clientId)
+        public async Task<ActionResult> AcceptClientRequest(string medNumber)
         {
-            //Peti review: clientId küldést esetleg lehetne tokenbe?
             //TODO email éretsítés az elfogadásról
             string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             var doctor = await _context._doctors.Include(x => x.Clients).SingleOrDefaultAsync(x => x.Id == doctorId);
-            var client = await _context._clients.SingleOrDefaultAsync(x => x.Id == clientId);
+            var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == medNumber);
 
             foreach (var doctorClient in doctor.Clients)
             {
@@ -101,13 +101,15 @@ namespace DoctorSystem.Controller
 
 
         [Authorize]
-        [Route("doctor/client-request/decline/{clientId}")]
+        [Route("doctor/client-request/decline/{medNumber}")]
         [HttpDelete]
-        public async Task<ActionResult> DeclineClientRequest(string clientId)
+        public async Task<ActionResult> DeclineClientRequest(string medNumber)
         {
             //TODO email éretsítés az elutasításról
             //TODO elutasítás validáció
-            var client = await _context._clients.SingleOrDefaultAsync(x => x.Id == clientId);
+            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _context._doctors.SingleOrDefaultAsync(x => x.Id == doctorId);
+            var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == medNumber);
             _context._clients.Remove(client);
             await _context.SaveChangesAsync();
             return Accepted();

@@ -9,7 +9,6 @@ namespace DoctorSystem.Dtos
     {
         public DoctorDto(Doctor doc, string token)
         {
-            this.Id = doc.Id;
             this.Name = doc.Name;
             this.BirthDate = doc.BirthDate.ToShortDateString();
             this.Email = doc.Email;
@@ -23,7 +22,6 @@ namespace DoctorSystem.Dtos
 
         public DoctorDto(Doctor doc)
         {
-            this.Id = doc.Id;
             this.Name = doc.Name;
             this.BirthDate = doc.BirthDate.ToShortDateString();
             this.Email = doc.Email;

@@ -18,32 +18,42 @@ namespace DoctorSystem.Controllers
 
 
         private readonly ILogger<RegisterController> _logger;
-        private readonly BaseDbContext _context;
+        //private readonly BaseDbContext _context;
         private readonly ITokenService _tokenService;
         private readonly EmailService _emailService;
+        IDoctorRepository _doctorRepo;
+        IPlaceRepository _placeRepo;
 
-        public RegisterController(ILogger<RegisterController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService)
+        public RegisterController(
+            ILogger<RegisterController> logger,
+            BaseDbContext context,
+            ITokenService tokenService,
+            EmailService emailService,
+            IDoctorRepository doctorRepository,
+            IPlaceRepository placeRepo
+            )
         {
             _logger = logger;
             _tokenService = tokenService;
-            _context = context;
+            //_context = context;
             _emailService = emailService;
+            _doctorRepo = doctorRepository;
+            _placeRepo = placeRepo;
         }
 
         [Route("doctors")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DoctorDto>>> GetDoctors()
         {
-            var doctors =  await _context._doctors.Include(d => d.Place).ToListAsync();
+            List<Doctor> doctors = await _doctorRepo.GetDoctorsAsync();
 
             List<DoctorDto> result = new List<DoctorDto>();
             foreach (var doctor in doctors)
             {
-
                 result.Add(new DoctorDto()
                 {
-                    Id = doctor.Id,
                     Name = doctor.Name,
+                    SealNumber = doctor.SealNumber,
                     Place = new PlaceDto() 
                     {
                         PostCode = doctor.Place.PostCode
@@ -57,12 +67,9 @@ namespace DoctorSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PlaceDto>>> GetPlaces()
         {
-            var places = await _context._place.Include(p => p.City.County).ToListAsync();
+            List<Place> places = await _placeRepo.GetPlacesAsync();
             List<PlaceDto> placeDtos = new List<PlaceDto>();
-            foreach (var place in places)
-            {
-                placeDtos.Add(new PlaceDto(place));
-            }
+            places.ForEach(x => placeDtos.Add(new PlaceDto(x)));
             return placeDtos;
         }
     }
