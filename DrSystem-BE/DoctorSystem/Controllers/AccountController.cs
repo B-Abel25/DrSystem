@@ -221,7 +221,7 @@ namespace DoctorSystem.Controllers
         public async Task<ActionResult<DoctorDto>> DoctorLogin(DoctorLoginDto loginDto)
         {
             Doctor doc = await _doctorRepo.GetDoctorBySealNumberAsync(loginDto.SealNumber);
-            if (EntityExistsAsync(doc))
+            if (!EntityExistsAsync(doc))
             {
                 return Unauthorized("Helytelen pecsétszám szám");
             }

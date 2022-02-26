@@ -22,16 +22,27 @@ namespace DoctorSystem.Controller
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
-        private readonly BaseDbContext _context;
+        //private readonly BaseDbContext _context;
         private readonly ITokenService _tokenService;
+        private readonly IClientRepository _clientRepo;
+        private readonly IDoctorRepository _doctorRepo;
         private readonly EmailService _emailService;
 
-        public UserController(ILogger<UserController> logger, BaseDbContext context, ITokenService tokenService, EmailService emailService)
+        public UserController(
+            ILogger<UserController> logger,
+            BaseDbContext context,
+            ITokenService tokenService,
+            IClientRepository clientRepository,
+            IDoctorRepository doctorRepository,
+            EmailService emailService
+            )
         {
             _logger = logger;
             _tokenService = tokenService;
-            _context = context;
+            //_context = context;
             _emailService = emailService;
+            _clientRepo = clientRepository;
+            _doctorRepo = doctorRepository;
         }
 
         [Authorize]
@@ -39,14 +50,15 @@ namespace DoctorSystem.Controller
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorId()
         {
-            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
 
-            var clients = await _context._clients.Include(c => c.Doctor.Place.City.County).Include(c => c.Place.City.County).ToListAsync();
+            List<Client> clients = await _clientRepo.GetClientsAsync();
 
             List<ClientDto> clientDtos = new List<ClientDto>();
             foreach (var client in clients)
             {
-                if (client.Doctor.Id == doctorId && client.Member)
+                if (client.Doctor.Id == doctor.Id && client.Member)
                 {
                     clientDtos.Add(new ClientDto(client));
                 }
@@ -61,14 +73,14 @@ namespace DoctorSystem.Controller
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorIdAndNotMember()
         {
-            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
-
-            var clients = await _context._clients.Include(c => c.Doctor.Place.City.County).Include(c => c.Place.City.County).ToListAsync();
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            List<Client> clients = await _clientRepo.GetClientsAsync();
 
             List<ClientDto> clientDtos = new List<ClientDto>();
             foreach (var client in clients)
             {
-                if (client.Doctor.Id == doctorId && !client.Member)
+                if (client.Doctor.Id == doctor.Id && !client.Member)
                 {
                     clientDtos.Add(new ClientDto(client));
                 }
@@ -83,18 +95,15 @@ namespace DoctorSystem.Controller
         public async Task<ActionResult> AcceptClientRequest(string medNumber)
         {
             //TODO email éretsítés az elfogadásról
-            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
-            var doctor = await _context._doctors.Include(x => x.Clients).SingleOrDefaultAsync(x => x.Id == doctorId);
-            var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == medNumber);
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(medNumber);
 
-            foreach (var doctorClient in doctor.Clients)
+            if (doctor.Clients.Contains(client))
             {
-                if (doctorClient.Id == client.Id)
-                {
-                    client.Member = true;
-                    await _context.SaveChangesAsync();
-                    return Accepted();
-                }
+                client.Member = true;
+                await _clientRepo.SaveAllAsync();
+                return Accepted();
             }
             return Unauthorized("asztapaszta");
         }
@@ -107,12 +116,16 @@ namespace DoctorSystem.Controller
         {
             //TODO email éretsítés az elutasításról
             //TODO elutasítás validáció
-            string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
-            Doctor doctor = await _context._doctors.SingleOrDefaultAsync(x => x.Id == doctorId);
-            var client = await _context._clients.SingleOrDefaultAsync(x => x.MedNumber == medNumber);
-            _context._clients.Remove(client);
-            await _context.SaveChangesAsync();
-            return Accepted();
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(medNumber);
+            if (doctor.Clients.Contains(client))
+            {
+                _clientRepo.DeleteClient(client);
+                await _clientRepo.SaveAllAsync();
+                return Accepted();
+            }
+            return Unauthorized("asztapaszta");
         }
 
        

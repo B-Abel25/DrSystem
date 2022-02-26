@@ -9,7 +9,7 @@ namespace DoctorSystem.Services
         Task<Client> GetClientByMedNumberAsync(string medNumber);
         Task<Client> GetClientByEmailTokenAsync(string emailToken);
         void DeleteClient(Client client);
-        Task<IEnumerable<Client>> GetClientsAsync();
+        Task<List<Client>> GetClientsAsync();
         Task<bool> SaveAllAsync();
         void Update(Client user);
     }
