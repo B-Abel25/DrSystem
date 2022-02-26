@@ -49,7 +49,5 @@ namespace DoctorSystem.Dtos
             this.Member = c.Member;
             this.Doctor = new DoctorDto(c.Doctor);
         }
-
-
     }
 }

@@ -14,8 +14,10 @@ export class MessageService {
   getMessages() {
     return this.http.get<Message[]>(this.baseUrl + 'private/doctor/messages');
   }
-  getMessageThread() {
-    return this.http.get<Message[]>(this.baseUrl + 'private/doctor/messages');
+  getMessageThread(medNumber: string) {
+    return this.http.get<Message[]>(
+      this.baseUrl + 'private/doctor/messages/' + medNumber
+    );
   }
 
   sendMessage(medNumber: string, content: string) {

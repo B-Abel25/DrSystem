@@ -29,9 +29,11 @@ export class DoctorClientMessagingComponent implements OnInit {
   }
 
   loadMessages() {
-    this.messageService.getMessageThread().subscribe((messages) => {
-      this.messages = messages;
-    });
+    this.messageService
+      .getMessageThread(this.client.medNumber)
+      .subscribe((messages) => {
+        this.messages = messages;
+      });
   }
 
   sendMessage() {

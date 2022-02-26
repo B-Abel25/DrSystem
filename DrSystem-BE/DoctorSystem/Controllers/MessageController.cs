@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -82,22 +83,36 @@ namespace DoctorSystem.Controllers
         }
 
         [Authorize]
-        [Route("doctor/messages")]
+        [Route("doctor/messages/{medNumber}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetDoctorMessages()
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetDoctorMessages(string medNumber)
         {
             string doctorId = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
 
-            List<Message> messages = await _context._messages.Include(x => x.Sender.Place.City.County).Include(x => x.Reciever.Place.City.County).ToListAsync();
-            List<MessageDto> messageDtos = new List<MessageDto>();
-            foreach (var oneMessage in messages)
+            List<Message> messages = await _context._messages
+                .Include(x => x.Sender.Place.City.County)
+                .Include(x => x.Reciever.Place.City.County)
+                .Where(m => m.Sender.Id == doctorId && m.Reciever.MedNumber == medNumber
+                                        
+                )
+                .OrderBy(m => m.DateSent)
+                .ToListAsync();
+
+            List<Message> unreadMessages =
+                messages.Where(m => m.DateRead == null && m.Reciever.MedNumber == medNumber)
+                .ToList();
+            if (unreadMessages.Any())
             {
-                if (oneMessage.Sender.Id == doctorId || oneMessage.Reciever.Id == doctorId)
+                foreach (var unreadMessage in unreadMessages)
                 {
-                    messageDtos.Add(new MessageDto(oneMessage));
+                    unreadMessage.DateRead = DateTime.Now;
                 }
             }
-            return messageDtos.OrderBy(x => x.DateSent).ToList();
+            await _context.SaveChangesAsync();
+            List<MessageDto> messageDtos = new List<MessageDto>();
+            messages.ForEach(x => messageDtos.Add(new MessageDto(x)));
+
+            return messageDtos;
         }
 
         [Authorize]

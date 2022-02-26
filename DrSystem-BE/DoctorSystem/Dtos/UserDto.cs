@@ -18,7 +18,7 @@ namespace DoctorSystem.Dtos
         public ICollection<MessageDto> MessagesRecieved { get; set; }
         public ICollection<MessageDto> MessagesSent { get; set; }
 
-        /*
+        
         public UserDto(User u)
         {
             this.Id = u.Id;
@@ -30,6 +30,10 @@ namespace DoctorSystem.Dtos
             this.Street = u.Street;
             this.HouseNumber = u.HouseNumber;
         }
-        */
+        
+        public UserDto()
+        {
+
+        }
     }
 }
