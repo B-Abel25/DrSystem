@@ -10,8 +10,9 @@ namespace DoctorSystem.Interfaces
         void DeleteMessage(Message message);
         Task<Message> GetMessageAsync(string id);
         Task<List<Message>> GetDoctorMessagesWithClientAsync(Doctor doctor, Client client);
-        Task<List<Message>> GetUnreadRecievedMessages(Doctor doctor);
+        Task<List<Message>> GetUnreadRecievedMessages(User user);
         Task<bool> SaveAllAsync();
         Task<List<Message>> GetDoctorMessagesAsync(Doctor doctor);
+        Task<List<Message>> GetClientMessagesAsync(Client client);
     }
 }

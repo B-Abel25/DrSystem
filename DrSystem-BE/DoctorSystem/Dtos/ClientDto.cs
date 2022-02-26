@@ -22,7 +22,7 @@ namespace DoctorSystem.Dtos
         public ClientDto(Client c, string token)
         {
             this.Name = c.Name;
-            this.BirthDate = c.BirthDate.ToShortDateString();
+            this.BirthDate = c.BirthDate.ToString("{yyyy.MM.dd}");
             this.Email = c.Email;
             this.PhoneNumber = c.PhoneNumber;
             this.Place = new PlaceDto(c.Place);
@@ -37,7 +37,7 @@ namespace DoctorSystem.Dtos
         public ClientDto(Client c)
         {
             this.Name = c.Name;
-            this.BirthDate = c.BirthDate.ToShortDateString();
+            this.BirthDate = c.BirthDate.ToString("{yyyy.MM.dd}");
             this.Email = c.Email;
             this.PhoneNumber = c.PhoneNumber;
             this.Place = new PlaceDto(c.Place);

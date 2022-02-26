@@ -123,10 +123,22 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [Route("client/message/send")]
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> SendClientMessage()
+        public async Task<ActionResult<MessageDto>> SendClientMessage(string content)
         {
+            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            //TODO validáció
+            Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
+            Message message = new Message();
+            message.Sender = client;
+            message.Reciever = client.Doctor;
+            message.Content = content;
+            message.SenderDeleted = false;
+            message.RecieverDeleted = false;
 
-            return null;
+            _messageRepo.AddMessage(message);
+            await _messageRepo.SaveAllAsync();
+
+            return new MessageDto(message);
         }
 
         [Authorize]
@@ -134,8 +146,24 @@ namespace DoctorSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetClientMessages()
         {
+            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
+            List<Message> messages = (await _messageRepo.GetClientMessagesAsync(client));
 
-            return null;
+            List<Message> unreadMessages = await _messageRepo.GetUnreadRecievedMessages(client);
+            if (unreadMessages.Any())
+            {
+                foreach (var unreadMessage in unreadMessages)
+                {
+                    unreadMessage.DateRead = DateTime.Now;
+                }
+            }
+            await _messageRepo.SaveAllAsync();
+            List<MessageDto> messageDtos = new List<MessageDto>();
+            messages.ForEach(x => messageDtos.Add(new MessageDto(x)));
+
+            return messageDtos;
+
         }
 
         [Authorize]

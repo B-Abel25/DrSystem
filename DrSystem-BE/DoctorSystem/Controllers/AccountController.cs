@@ -62,15 +62,15 @@ namespace DoctorSystem.Controllers
             Place place = await _placeRepo.GetPlaceByPostCodeAndCityAsync(registerDto.PostCode, registerDto.City);
             if (EntityExistsAsync(client))
             {
-                return BadRequest("Ez a TAJ szám már létezik");
+                return Unauthorized("Ez a TAJ szám már létezik");
             }
             if (!EntityExistsAsync(doctor))
             {
-                return BadRequest("Nem létezik doktor ilyen azonosítóval");
+                return Unauthorized("Nem létezik doktor ilyen azonosítóval");
             }
             if (!EntityExistsAsync(place))
             {
-                return BadRequest("Nem létezik ilyen hely");
+                return Unauthorized("Nem létezik ilyen hely");
             }
 
             client = new Client();

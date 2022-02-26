@@ -52,14 +52,28 @@ namespace DoctorSystem.Services
                 .Include(x => x.Sender.Place.City.County).SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<List<Message>> GetUnreadRecievedMessages(Doctor doctor)
+        public async Task<List<Message>> GetUnreadRecievedMessages(User user)
         {
-            return await _context._messages.Where(m => m.DateRead == null && m.Reciever.Id == doctor.Id).ToListAsync();        
+            return await _context._messages
+                .Include(x => x.Reciever.Place.City.County)
+                .Include(x => x.Sender.Place.City.County)
+                .Where(m => m.DateRead == null && m.Reciever.Id == user.Id)
+                .ToListAsync();        
         }
 
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<List<Message>> GetClientMessagesAsync(Client client)
+        {
+            return await _context._messages
+                .Include(x => x.Reciever.Place.City.County)
+                .Include(x => x.Sender.Place.City.County)
+                .Where(x => x.Sender.Id == client.Id || x.Reciever.Id == client.Id)
+                .ToListAsync();
+                
         }
     }
 }
