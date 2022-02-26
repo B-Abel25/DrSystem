@@ -37,9 +37,13 @@ namespace DoctorSystem
             
             services.AddDbContext<BaseDbContext>();
             
-            services.AddScoped<ITokenService, TokenService>();
+            //services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<RouterService>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IPlaceRepository, PlaceRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<EmailService>();
             services.AddScoped<WeatherForecast>();
 

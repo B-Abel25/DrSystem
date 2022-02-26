@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 namespace DoctorSystem.Dtos
 {
-    public abstract class UserDto
+    public class UserDto
     {
-        public string Id { get; set; }
         public string Name { get; set; }
         public string BirthDate { get; set; }
         public string Email { get; set; }
@@ -21,7 +20,6 @@ namespace DoctorSystem.Dtos
         
         public UserDto(User u)
         {
-            this.Id = u.Id;
             this.Name = u.Name;
             this.BirthDate = u.BirthDate.ToShortDateString();
             this.Email = u.Email;

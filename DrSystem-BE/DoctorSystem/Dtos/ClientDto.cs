@@ -21,7 +21,6 @@ namespace DoctorSystem.Dtos
 
         public ClientDto(Client c, string token)
         {
-            this.Id = c.Id;
             this.Name = c.Name;
             this.BirthDate = c.BirthDate.ToShortDateString();
             this.Email = c.Email;
@@ -37,7 +36,6 @@ namespace DoctorSystem.Dtos
 
         public ClientDto(Client c)
         {
-            this.Id = c.Id;
             this.Name = c.Name;
             this.BirthDate = c.BirthDate.ToShortDateString();
             this.Email = c.Email;
