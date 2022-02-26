@@ -9,14 +9,14 @@
                     <div class="chat-body">
                         <div class="header">
                             <small class="text-muted">
-                                <span class="fa fa-clock-o">{{message.messageSent}}</span>
+                                <span class="fa fa-clock-o">{{message.dateSent}}</span>
                                 <span class="text-danger"
-                                    *ngIf="!message.dateRead && message.sender.name !== client.id">
-                                    (unread)
+                                    *ngIf="!message.dateRead && message.sender.name !== null">
+                                    (Kézbesítve)
                                 </span>
-                                <span class="text-succes"
-                                    *ngIf="message.dateRead != null && message.sender.name !== client.id">
-                                   (read {{message.dateRead}})
+                                <span class="text-success"
+                                    *ngIf="message.dateRead != null && message.sender.name !== null">
+                                   (Látta {{message.dateRead}})
                                 </span>
                             
                             </small>

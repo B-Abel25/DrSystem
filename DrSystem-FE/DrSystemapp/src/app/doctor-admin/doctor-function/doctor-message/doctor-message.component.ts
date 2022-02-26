@@ -17,7 +17,7 @@ container='Unread';
     this.loadMessages();
   }
 loadMessages(){
-  this.messageService.getMessages().subscribe(response=>{
+  this.messageService.getMessagesDoctor().subscribe(response=>{
     this.messages=response;
   })
 }
