@@ -40,6 +40,8 @@ import { DoctorClientMessagingComponent } from './doctor-admin/doctor-function/d
 import { ClientMessagesComponent } from './client/clients-functions/client-messages/client-messages.component';
 import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/client-data.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ValidateEmailComponent } from './validate-email/validate-email.component';
+import { DeleteClientEmailComponent } from './delete-client-email/delete-client-email.component';
 
 
 
@@ -69,6 +71,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     DoctorClientMessagingComponent,
     ClientMessagesComponent,
     ClientDataComponent,
+    ValidateEmailComponent,
+    DeleteClientEmailComponent,
     
   ],
   imports: [

@@ -28,7 +28,7 @@ export class DoctorClientMessagingComponent implements OnInit {
       (item) => item.medNumber === this.route.snapshot.paramMap.get('medNumber')
     );
     this.loadMessages();
-    console.log(this.client.id)
+    
   }
 
   loadMessages() {
@@ -40,7 +40,7 @@ export class DoctorClientMessagingComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log(this.client);
+    
     this.messageService
       .sendMessageDoctor(this.client.medNumber, this.messageContent)
       .subscribe((messages) => {

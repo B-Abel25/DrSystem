@@ -3,13 +3,14 @@
         <ul *ngIf="messages?.length > 0" class="chat">
             <li *ngFor="let message of messages">
                 <div>
-                    <span class="float-center">
-                        <p>{{message.sender.name}}</p>
+                    <span class="float-center" *ngIf="message.sender.name!==client.medNumber">
+                        <p style="color:rgb(50, 206, 206)">{{message.sender.name}}</p>
                     </span>
+   
                     <div class="chat-body">
                         <div class="header">
                             <small class="text-muted">
-                                <span class="fa fa-clock-o">{{message.dateSent}}</span>
+                                <span class="fa fa-clock-o"> {{message.dateSent}}</span>
                                 <span class="text-danger"
                                     *ngIf="!message.dateRead && message.sender.name !== null">
                                     (Kézbesítve)

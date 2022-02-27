@@ -59,8 +59,17 @@ export class LostPasswordRequestComponent implements OnInit {
     })
   }
   public Close() {
-    console.log('Becsuk');
+   
     this.modalRef.hide();
+    this.lostPasswordForm.reset();
+  }
+  closeModal() {
+   
+    if (this.modalRef != null) {
+      this.modalRef.hide();
+      this.lostPasswordForm.reset();
+      
+    }
   }
 
 }

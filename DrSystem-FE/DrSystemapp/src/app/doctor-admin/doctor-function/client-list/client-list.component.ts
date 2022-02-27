@@ -49,7 +49,7 @@ export class ClientListComponent implements OnInit {
   }
 
   Search() {
-    console.log('Blablabla');
+    
     
       this.filteredClients = this.clients.filter((res) => {
         return res.name

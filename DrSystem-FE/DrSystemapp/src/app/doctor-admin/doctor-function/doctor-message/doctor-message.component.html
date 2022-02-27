@@ -1,18 +1,18 @@
 <app-admin-navbar></app-admin-navbar>
-<div class="content">
+<!-- <div class="content">
   <tabset style="margin-left:200px" [justified]="true">
     <tab heading="Olvasatlan">Justified content</tab>
     <tab heading="Beérkező levelek">Short Labeled Justified content</tab>
     <tab heading="Kimenő levelek">Long Labeled Justified content</tab>
   </tabset>
-</div>
+</div> -->
 
-<!-- <div class="content">
+<div class="content">
 <div class="row mb-4">
-    <div class="btn-group" name="container">
+    <div class="btn-group" name='container'>
       <button
         class="btn btn-dark"
-        btnRadio="Unread"
+        btnRadio='Unread'
       [(ngModel)]="container"
         (click)="loadMessages()"
       >
@@ -21,7 +21,7 @@
       <button
         class="btn btn-dark"
         [(ngModel)]="container"
-        btnRadio="Inbox"
+        btnRadio='Inbox'
         
         (click)="loadMessages()"
       >
@@ -29,7 +29,7 @@
       </button>
       <button
         class="btn btn-dark"
-        btnRadio="Outbox"
+        btnRadio='Outbox'
         [(ngModel)]="container"
         (click)="loadMessages()"
       >
@@ -49,18 +49,21 @@
         <th style="width: 30%;">Küldte</th>
         <th style="width: 30%;"></th>
     </tr>
-    <tr *ngFor="let message of messages" routerLink="">
+    <tr *ngFor="let message of messages" routerLink='{{container==="Outbox" ? "admin/messaging/"+ message.reciever.name : "admin/messaging/"+ message.sender.name}}'>
         <td>{{message.content}}</td>
         <td>
             <div *ngIf="container==='Outbox'">
-                <strong>{{message.senderUsername}}</strong>
+                <strong>{{message.sender.name}}</strong>
+            </div>
+            <div *ngIf="container!=='Outbox'">
+                <strong>{{message.sender.name}}</strong>
             </div>
         </td>
-        <td>{{message.messageSent | timeago}}</td>
+        <td>{{message.messageSent }}</td>
         <td>
             <button (click)="$event.stopPropagation()" (click)="deleteMessage(message.id)" class="btn btn-light">Törlés</button>
         </td>
     </tr>
 </table>
 </div>
-</div> -->
+</div>

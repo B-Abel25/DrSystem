@@ -4,7 +4,7 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 30px;
-  background-color: #0c0f15;
+  background-color: #4e71b8;
   overflow-x:hidden;
   color: #ababab; }
 
@@ -14,15 +14,9 @@ body {
   
 }
 
-::-webkit-scrollbar-thumb {
-    background-color: #f90a23;
-    background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
-}
 
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #F5F5F5;
-}
+
+
 
 .heading-page
 {
@@ -55,16 +49,7 @@ p {
   p:last-child {
     margin-bottom: 0; }
 
-/*
- * Selection color
- */
-::-moz-selection {
-  background-color: #FA6862;
-  color: #fff; }
 
-::selection {
-  background-color: #FA6862;
-  color: #fff; }
 
 /*
  *  Reset bootstrap's default style
@@ -104,7 +89,7 @@ textarea, label {
     outline: 0 none; }
 
 .btn-primary {
-  background-color: #FA6862;
+  
   border: 0;
   font-family: "Open Sans", sans-serif;
   font-weight: 700;
@@ -113,12 +98,9 @@ textarea, label {
   padding: 0 42px;
   text-transform: uppercase; }
   .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:focus {
-    background-color: #f9423a; }
+    background-color: #1da2b9; }
 
-.btn-border {
-  border: 1px solid #d7d8db;
-  display: inline-block;
-  padding: 7px; }
+
 
 /*
  *  CSS Helper Class
@@ -151,9 +133,8 @@ textarea, label {
 .relative {
   position: relative; }
 
-.primary,
-.link:hover {
-  color: #FA6862; }
+
+
 
 .no-gutter {
   margin-left: 0;
@@ -183,8 +164,7 @@ textarea, label {
   -moz-justify-content: space-between;
   justify-content: space-between; }
 
-.nicescroll-cursors {
-  background: #FA6862 !important; }
+
 
 .preloader {
   bottom: 0;
@@ -202,7 +182,7 @@ textarea, label {
     display: none; }
 
 .loading-mask {
-  background-color: #FA6862;
+
   height: 100%;
   left: 0;
   position: absolute;
@@ -247,8 +227,7 @@ textarea, label {
 	Start Styling
 -------------------------------------------------*/
 .mt20{margin-top:20px;}
-.site-wrapper {
-  border-top: 4px solid #ff0037; }
+
 
 .page-close {
   font-size: 30px;
@@ -271,7 +250,7 @@ textarea, label {
   .page-title p {
     font-size: 16px; }
   .page-title .title-bg {
-    color: rgba(30, 37, 48, 0.07);
+    color: rgba(255, 255, 255, 0.07);
     font-size: 158px;
     left: 0;
     letter-spacing: 10px;
@@ -300,12 +279,10 @@ textarea, label {
       left: -moz-calc(100% + 14px);
       left: calc(100% + 14px); }
     .section-title h3::before {
-      background-color: #1e2530;
+      background-color: #78a1e2;
       width: 96px;
       bottom: 14px; }
-    .section-title h3::after {
-      background-color: #FA6862;
-      width: 73px; }
+   
   .section-title.light h3 {
     color: #fff; }
     .section-title.light h3::before {
@@ -337,7 +314,7 @@ textarea, label {
   background-size: cover;
   vertical-align: middle; }
   .page-home .overlay {
-    background-color: rgba(14, 17, 24, 0.97);
+    background-color: rgba(85, 130, 241, 0.97);
 }
 
 /* End of container */
@@ -377,7 +354,7 @@ textarea, label {
         height: 5px; }
     .hexagon-item:hover .hex-item div::before,
     .hexagon-item:hover .hex-item div::after {
-      background-color: #ff0037; }
+      background-color: #92dae4; }
     .hexagon-item:hover .hex-content svg {
       -webkit-transform: scale(0.97);
       -moz-transform: scale(0.97);
@@ -459,7 +436,7 @@ textarea, label {
       transform: rotate(120deg); }
 
 .hex-content {
-  color: #fff;
+  color: rgb(159, 226, 238);
   display: block;
   height: 180px;
   margin: 0 auto;
@@ -549,7 +526,7 @@ textarea, label {
 
 .hexagon-item:hover .icon i
 {
-  color:#ff0037;
+  color:#97bde0;
   transition:0.6s;
   
 }

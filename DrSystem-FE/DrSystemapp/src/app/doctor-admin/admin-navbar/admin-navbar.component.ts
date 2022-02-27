@@ -15,8 +15,7 @@ export class AdminNavbarComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentDoctor();
-    console.log(this.doctor);
-    console.log("adminnavbar")
+  
   }
   logout() {
     this.doctorService.logout();

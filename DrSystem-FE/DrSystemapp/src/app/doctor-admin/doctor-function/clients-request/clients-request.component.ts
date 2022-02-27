@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Client } from 'src/app/_models/client';
 import { Doctor} from 'src/app/_models/doctor';
 import { DoctorService } from 'src/app/_services/doctor.service';
+import jwt_decode from 'jwt-decode';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-clients-request',
@@ -24,7 +26,11 @@ export class ClientsRequestComponent implements OnInit {
   ngOnInit() {
     
     this.doctor = JSON.parse(localStorage.getItem("doctor"));
-    console.log(this.doctor);
+    let contentHeader = new HttpHeaders({ "Content-Type":"application/json" });
+    console.log(contentHeader)
+   //const tokenInfo = this.getDecodedAccessToken(); // decode token
+//const expireDate = tokenInfo.exp; // get token expiration dateTime
+//console.log(tokenInfo);
     this.loadDoctorClientsRequest();
   }
 
@@ -39,8 +45,8 @@ export class ClientsRequestComponent implements OnInit {
       });
   }
   deleteClient(medNumber: string) {
-    console.log('Törlés');
-    console.log(medNumber);
+    
+    
     this.doctorService.deleteClient(medNumber);
     for (let i = 0; i < this.doctor.clients.length; i++) {
       if (this.doctor.clients[i].medNumber === medNumber) {
@@ -50,8 +56,7 @@ export class ClientsRequestComponent implements OnInit {
   }
 
   acceptClient(medNumber: string) {
-    console.log('Elfogad');
-    console.log(medNumber);
+    
     this.doctorService.acceptClient(medNumber);
     for (let i = 0; i < this.doctor.clients.length; i++) {
       if (this.doctor.clients[i].medNumber === medNumber) {
@@ -60,7 +65,7 @@ export class ClientsRequestComponent implements OnInit {
     }
   }
   Search() {
-    console.log('Blablabla');
+    
 
     this.filteredClients = this.doctor.clients.filter((res) => {
       return res.name.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
@@ -70,8 +75,16 @@ export class ClientsRequestComponent implements OnInit {
   key: string = 'id';
   reverse: boolean = false;
   sort(key) {
-    console.log('SSZIJJAAA');
+    
     this.key = key;
     this.reverse = !this.reverse;
+  }
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
+   
   }
 }

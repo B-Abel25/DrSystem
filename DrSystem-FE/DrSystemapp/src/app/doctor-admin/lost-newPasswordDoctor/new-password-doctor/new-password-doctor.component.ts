@@ -18,7 +18,7 @@ import { AccountService } from 'src/app/_services/account.service';
 })
 export class NewPasswordDoctorComponent implements OnInit {
   newPasswordFormDoctor: FormGroup;
-
+  fieldTextType: boolean;
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -66,5 +66,8 @@ export class NewPasswordDoctorComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 }

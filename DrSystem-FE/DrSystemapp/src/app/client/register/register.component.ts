@@ -33,10 +33,10 @@ export class RegisterComponent implements OnInit {
   places: Place[];
   public showPasswordOnPress: boolean;
   showMsg: boolean = false;
-
+  fieldTextType: boolean;
   constructor(
     private accountService: AccountService,
-    private toatsr: ToastrService,
+    private toastr: ToastrService,
     private doctorService: DoctorService,
     private fb: FormBuilder,
     private router: Router
@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
       alert(
         'Form Submitted succesfully!!!\n Check the values in browser console.'
       );
-      console.table(this.registerForm.value);
+     
     }
   }
 
@@ -127,7 +127,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm.controls['postCode'].valueChanges.subscribe((x) => {
       x = x + '';
       if (x.length == 4) {
-        console.log(x);
+        
         this.registerForm.controls['city'].setValue(
           this.places.find((y) => y.postCode == x).city
         );
@@ -142,8 +142,7 @@ export class RegisterComponent implements OnInit {
           y.city == x &&
           y.postCode == this.registerForm.controls['postCode'].value
       );
-      console.log(exist);
-      console.log('itt');
+     
       if (exist != null) {
         this.registerForm.controls['placeId'].setValue(exist.id);
       } else {
@@ -155,7 +154,7 @@ export class RegisterComponent implements OnInit {
       let exist = this.doctors.find(
         (y) => y.name + ' ' + '-' + ' ' + y.place.postCode == x
       );
-      console.log(exist);
+      
       if (exist != null)
         this.registerForm.controls['doctorSealNumber'].setValue(
           exist.sealNumber
@@ -173,11 +172,12 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.registerForm.value);
+    
     this.accountService.register(this.registerForm.value).subscribe(
       (response) => {
         this.router.navigateByUrl('/login');
         this.showMsg = true;
+        this.toastr.success("Sikeres regisztráció! Kérjük erősítse meg email címét!");
       },
       (error) => {
         this.validationErrors = error;
@@ -195,5 +195,8 @@ export class RegisterComponent implements OnInit {
     this.accountService.getPlaces().subscribe((postCodes) => {
       this.places = postCodes;
     });
+  }
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 }

@@ -29,6 +29,7 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": false,
     "strictDomEventTypes": false,
-    "strictNullChecks":false
+    "strictNullChecks":false,
+  
   }
 }

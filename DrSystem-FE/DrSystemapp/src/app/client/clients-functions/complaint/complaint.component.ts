@@ -34,7 +34,7 @@ export class ComplaintComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log(this.doctor);
+    
     this.messageService
       .sendMessageClient(this.messageContent)
       .subscribe((messages) => {

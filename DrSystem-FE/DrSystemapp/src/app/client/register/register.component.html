@@ -101,9 +101,17 @@
                             <div class="col-md-4 form-group required">
 
                                 <label for="password" class="form-label "> Jelszó</label>
+                               
                                 <div class="input-group has-validation">
 
-                                    <input [class.is-invalid]='registerForm.get("password").errors && registerForm.get("password").touched' type="password" class="form-control" formControlName="password" required>
+                                    <input [class.is-invalid]='registerForm.get("password").errors && registerForm.get("password").touched' [type]="fieldTextType ? 'text' : 'password'" class="form-control" formControlName="password" required>
+                                    <span class="input-group-text"  (click)="toggleFieldTextType()">
+                                        <i class="fa" [ngClass]="{
+                                          'fa-eye-slash': !fieldTextType,
+                                          'fa-eye': fieldTextType
+                                        }"
+                                       ></i>
+                                      </span>
                                     <div *ngIf="registerForm.get('password').hasError('required')" class="invalid-feedback">
                                         Adja meg a jelszavát!
                                     </div>
@@ -118,14 +126,22 @@
 
                             <div class="col-md-4 form-group required">
                                 <label class="form-label "> Jelszó megerősítés</label>
-                                <input [class.is-invalid]='registerForm.get("confirmPassword").errors && registerForm.get("confirmPassword").touched' type="password" class="form-control" formControlName="confirmPassword" required>
+                                <div class="input-group has-validation">
+                                <input [class.is-invalid]='registerForm.get("confirmPassword").errors && registerForm.get("confirmPassword").touched' [type]="fieldTextType ? 'text' : 'password'" class="form-control" formControlName="confirmPassword" required>
+                                <span class="input-group-text"  (click)="toggleFieldTextType()">
+                                    <i class="fa" [ngClass]="{
+                                      'fa-eye-slash': !fieldTextType,
+                                      'fa-eye': fieldTextType
+                                    }"
+                                   ></i>
+                                  </span>
                                 <div *ngIf="registerForm.get('confirmPassword').hasError('required')" class="invalid-feedback">
                                     Adja meg a jelszó megerősítését!
                                 </div>
                                 <div *ngIf="registerForm.get('confirmPassword').hasError('isMatching')" class="invalid-feedback">
                                     A két jelszónak egyeznie kell!
                                 </div>
-
+                                </div>
 
                             </div>
                             <div class="col-md-8 form-group required">
@@ -161,7 +177,7 @@
 
                         </form>
 
-                        <p>{{this.registerForm.value | json}}</p>
+                      
                         <br>
 
                         <!-- <div class="form-group col-md-8 offset-md-2"  *ngIf="!showMsg">

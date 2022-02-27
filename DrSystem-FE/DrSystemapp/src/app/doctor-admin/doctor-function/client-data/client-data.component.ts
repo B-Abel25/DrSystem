@@ -15,7 +15,7 @@ client:Client;
 
   ngOnInit(): void {
     this.loadMember();
-    console.log(this.client);
+    
 
     
     

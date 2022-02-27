@@ -27,7 +27,6 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
     ReactiveFormsModule,
     NgxPaginationModule,
     TabsModule.forRoot(),
-    
    
 
   ],
@@ -40,10 +39,12 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
     NgxPaginationModule,
     TabsModule,
     
+   
     
     
    
     
   ]
 })
+
 export class SharedModule { }

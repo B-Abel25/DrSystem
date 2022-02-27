@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +20,7 @@ export class DoctorLoginComponent implements OnInit {
   doctorLoginForm: FormGroup;
   clients: Client[];
   doctor: Doctor;
-
+  fieldTextType: boolean;
   constructor(public doctorService: DoctorService, private router: Router, private toastr: ToastrService, private modalService: BsModalService, private fb: FormBuilder, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -32,13 +33,13 @@ export class DoctorLoginComponent implements OnInit {
   login() {
 
     this.doctorService.login(this.doctorLoginForm.value).subscribe(response => {
-      console.log(response);
+      
       this.router.navigateByUrl('/admin/doctor-page');
       this.loggedIn = true;
     }, error => {
       console.log(error);
       this.toastr.error(error.error);
-
+     
     })
   }
 
@@ -50,7 +51,7 @@ export class DoctorLoginComponent implements OnInit {
   getCurrentDoctor() {
     this.doctorService.currentDoctor$.subscribe(doctor => {
       this.doctor = doctor;
-      console.log(this.doctor);
+     
       this.loggedIn = !!doctor;
     }, error => {
       console.log(error);
@@ -64,7 +65,7 @@ export class DoctorLoginComponent implements OnInit {
     })
   }
   closeModal() {
-    console.log('force close')
+    
     if (this.modalRef != null) {
       this.modalRef.hide();
 
@@ -77,6 +78,8 @@ export class DoctorLoginComponent implements OnInit {
     }
     this.modalRef = this.modalService.show(template);
   }
-
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
 
 }

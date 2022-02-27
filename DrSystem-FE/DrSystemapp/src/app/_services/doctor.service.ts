@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 import { map, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -21,7 +22,7 @@ export class DoctorService {
   private currentDoctorSource = new ReplaySubject<Doctor>(1);
   currentDoctor$ = this.currentDoctorSource.asObservable();
   singleuserdata: Client[];
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastr:ToastrService) { }
 
   login(model: any) {
 
@@ -32,8 +33,11 @@ export class DoctorService {
           this.setCurrentDoctor(doctor);
           localStorage.setItem('doctor', JSON.stringify(doctor));
         }
+        this.toastr.success("Belépés sikeres!");
       })
+      
     );
+  
   }
   setCurrentDoctor(doctor: Doctor) {
     localStorage.setItem('doctor', JSON.stringify(doctor));

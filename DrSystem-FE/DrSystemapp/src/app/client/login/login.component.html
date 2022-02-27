@@ -16,22 +16,35 @@
 
                 <div class="form-group   required">
                   <label for="medNumber">TAJ-szám</label>
+                  
+                
                   <input name="medNumber" type="text" class="form-control" id="medNumber" formControlName="medNumber"
                     [class.is-invalid]='loginForm.get("medNumber").errors && loginForm.get("medNumber").touched'
                     required>
+                   
+                     
+                  
                   <div *ngIf="loginForm.get('medNumber').hasError('required')" class="invalid-feedback">
                     A TAJ-szám nem megfelelő!
                   </div>
-
+                  
                 </div>
                 <div class="form-group required">
                   <label for="password">Jelszó</label>
-                  <input name="password" type="password" class="form-control" id="password" formControlName="password"
+                  <div class="input-group has-validation">
+                  <input name="password"  [type]="fieldTextType ? 'text' : 'password'" class="form-control" id="password" formControlName="password"
                     required [class.is-invalid]='loginForm.get("password").errors && loginForm.get("password").touched'>
-                  <div *ngIf="loginForm.get('password').hasError('required')" class="invalid-feedback">
+                    <span class="input-group-text"  (click)="toggleFieldTextType()">
+                      <i class="fa" [ngClass]="{
+                        'fa-eye-slash': !fieldTextType,
+                        'fa-eye': fieldTextType
+                      }"
+                     ></i>
+                    </span>
+                    <div *ngIf="loginForm.get('password').hasError('required')" class="invalid-feedback">
                     A jelszó nem megfelelő!
                   </div>
-
+                  </div>
                 </div>
 
                 <div class="checkbox mb-3">
