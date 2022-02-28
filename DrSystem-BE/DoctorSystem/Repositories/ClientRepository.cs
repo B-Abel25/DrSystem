@@ -30,6 +30,11 @@ namespace DoctorSystem.Services
             return await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).SingleOrDefaultAsync(x => x.MedNumber == medNumber);
         }
 
+        public async Task<Client> GetClientByIdAsync(string id)
+        {
+            return await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).SingleOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<List<Client>> GetClientsAsync()
         {
             return await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).ToListAsync();

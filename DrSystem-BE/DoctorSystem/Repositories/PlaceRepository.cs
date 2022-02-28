@@ -18,17 +18,17 @@ namespace DoctorSystem.Services
 
         public async Task<Place> GetPlaceByIdAsync(string id)
         {
-            return await _context._place.Include(x => x.City.County).SingleOrDefaultAsync(x => x.Id == id);
+            return await _context._places.Include(x => x.City.County).SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Place> GetPlaceByPostCodeAndCityAsync(int postCode, string city)
         {
-            return await _context._place.Include(x => x.City.County).SingleOrDefaultAsync(x => x.City.Name == city && x.PostCode == postCode);
+            return await _context._places.Include(x => x.City.County).SingleOrDefaultAsync(x => x.City.Name == city && x.PostCode == postCode);
         }
 
         public async Task<List<Place>> GetPlacesAsync()
         {
-            return await _context._place.Include(x => x.City.County).ToListAsync();
+            return await _context._places.Include(x => x.City.County).ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()
@@ -38,7 +38,7 @@ namespace DoctorSystem.Services
 
         public void Update(Place place)
         {
-            _context.Entry(place).State = EntityState.Modified;
+            _context._places.Update(place);
         }
     }
 }

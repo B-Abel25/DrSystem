@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Client } from '../_models/client';
 
 @Injectable({
   providedIn: 'root',
@@ -27,23 +28,24 @@ export class MessageService {
     );
   }
 
-
   getMessageThreadClient() {
-    return this.http.get<Message[]>(
-      this.baseUrl + 'private/client/messages' 
-    );
+    return this.http.get<Message[]>(this.baseUrl + 'private/client/messages');
   }
 
   //TODO object helyett string kéne
-  sendMessageClient( content: string) {
-   
-    
+  sendMessageClient(content: string) {
     return this.http.post<Message>(
       this.baseUrl + 'private/client/message/send',
-      {content}
+      { content }
     );
   }
   deleteMessage(id: string) {
     return this.http.delete(this.baseUrl + 'private/user/message/delete/' + id);
+  }
+
+  getDoctorUnreadMessages() {
+    return this.http.get<Client[]>(
+      this.baseUrl + 'private/doctor/messages/unread'
+    );
   }
 }

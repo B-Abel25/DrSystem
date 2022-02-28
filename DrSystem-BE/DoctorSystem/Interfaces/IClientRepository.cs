@@ -12,5 +12,6 @@ namespace DoctorSystem.Services
         Task<List<Client>> GetClientsAsync();
         Task<bool> SaveAllAsync();
         void Update(Client user);
+        Task<Client> GetClientByIdAsync(string id);
     }
 }

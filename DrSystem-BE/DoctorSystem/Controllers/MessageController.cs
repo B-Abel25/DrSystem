@@ -90,7 +90,7 @@ namespace DoctorSystem.Controllers
             message.SenderDeleted = false;
             message.RecieverDeleted = false;
 
-            _messageRepo.AddMessage(message);
+            _messageRepo.UpdateMessage(message);
             await _messageRepo.SaveAllAsync();
 
             return new MessageDto(message);
@@ -141,7 +141,7 @@ namespace DoctorSystem.Controllers
             message.SenderDeleted = false;
             message.RecieverDeleted = false;
 
-            _messageRepo.AddMessage(message);
+            _messageRepo.UpdateMessage(message);
             await _messageRepo.SaveAllAsync();
 
             return new MessageDto(message);
@@ -173,28 +173,60 @@ namespace DoctorSystem.Controllers
         }
 
         [Authorize]
-        [Route("user/message/delete/{messageId}")]
+        [Route("client/message/delete")]
         [HttpDelete]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> DeleteMessageById()
+        public async Task<ActionResult<MessageDto>> ClientMessageDelete(DeleteMessageDto deleteDto)
         {
-
-            return null;
+            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
+            Message m = await _messageRepo.GetMessageByContentAndDateSentAndUserId(deleteDto.Content,deleteDto.DateSent,client);
+            if (m.Sender.Id == client.Id)
+            {
+                m.SenderDeleted = true;
+            }
+            else
+            {
+                m.RecieverDeleted = true;
+            }
+            _messageRepo.UpdateMessage(m);
+            await _messageRepo.SaveAllAsync();
+            return Accepted();
         }
 
-        //[Authorize]
+        [Authorize]
+        [Route("doctor/message/delete")]
+        [HttpDelete]
+        public async Task<ActionResult<MessageDto>> DoctorMessageDelete(DeleteMessageDto deleteDto)
+        {            
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            Message m = await _messageRepo.GetMessageByContentAndDateSentAndUserId(deleteDto.Content, deleteDto.DateSent, doctor);
+            if (m.Sender.Id == doctor.Id)
+            {
+                m.SenderDeleted = true;
+            }
+            else
+            {
+                m.RecieverDeleted = true;
+            }
+
+            _messageRepo.UpdateMessage(m);
+            await _messageRepo.SaveAllAsync();
+            return Accepted();
+        }
+
+        [Authorize]
         [Route("doctor/messages/unread")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetDoctorUnreadMessages()
         {
-            string doctorSealNumber = "69585";// _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            string doctorSealNumber =  _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
-           
-            List<User> senders = (await _messageRepo.GetUnreadRecievedMessages(doctor))
+            List<ClientDto> unreadSenders = new List<ClientDto>();
+                (await _messageRepo.GetUnreadRecievedMessages(doctor))
                 .Select(x => x.Sender)
                 .Distinct()
-                .ToList();
-            List<UserDto> unreadSenders = new List<UserDto>();
-            senders.ForEach(x => unreadSenders.Add(new UserDto(x)));
+                .ToList().ForEach(async x => unreadSenders.Add(new ClientDto(await _clientRepo.GetClientByIdAsync(x.Id))));
             return unreadSenders;
         }
 

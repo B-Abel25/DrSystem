@@ -87,7 +87,7 @@ namespace DoctorSystem.Data
                 }
                 place.City = city;
 
-                _context._place.Add(place);
+                _context._places.Add(place);
                 await _context.SaveChangesAsync();
             }
 
@@ -116,7 +116,7 @@ namespace DoctorSystem.Data
                 doc.PhoneNumber = doctorModel.PhoneNumber;
                 string PC = doctorModel.PostCode.Split(' ')[0];
                 string CT = doctorModel.PostCode.Split(' ')[1];
-                doc.Place = await _context._place.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
+                doc.Place = await _context._places.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
                 doc.Street = doctorModel.Street;
                 doc.HouseNumber = doctorModel.HouseNumber;
                 doc.EmailToken = Guid.NewGuid().ToString() + (char)random.Next(97, 123);
@@ -154,7 +154,7 @@ namespace DoctorSystem.Data
                 cli.PhoneNumber = clientModel.PhoneNumber;
                 string PC = clientModel.PostCode.Split(' ')[0];
                 string CT = clientModel.PostCode.Split(' ')[1];
-                cli.Place = await _context._place.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
+                cli.Place = await _context._places.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
                 cli.Street = clientModel.Street;
                 cli.HouseNumber = clientModel.HouseNumber;
                 cli.EmailToken = Guid.NewGuid().ToString() + (char)random.Next(97, 123);

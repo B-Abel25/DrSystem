@@ -39,7 +39,7 @@ namespace DoctorSystem.Services
 
         public void Update(Doctor doctor)
         {
-            _context.Entry(doctor).State = EntityState.Modified;
+            _context._doctors.Update(doctor);
         }
 
     }

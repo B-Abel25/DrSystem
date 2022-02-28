@@ -2,6 +2,7 @@
 using DoctorSystem.Entities.Contexts;
 using DoctorSystem.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,9 +16,9 @@ namespace DoctorSystem.Services
         {
             _context = context;
         }
-        public void AddMessage(Message message)
+        public void UpdateMessage(Message message)
         {
-            _context._messages.Add(message);
+            _context._messages.Update(message);
         }
 
         public void DeleteMessage(Message message)
@@ -75,7 +76,13 @@ namespace DoctorSystem.Services
                 .Where(x => x.Sender.Id == client.Id || x.Reciever.Id == client.Id)
                 .OrderBy(x => x.DateSent)
                 .ToListAsync();
-                
+        }
+
+        public async Task<Message> GetMessageByContentAndDateSentAndUserId(string content, string sentDate, User user)
+        {
+            return await _context._messages.SingleOrDefaultAsync(x => 
+            (x.DateSent.ToString("yyyy.MM.dd HH:mm:ss") == sentDate && x.Content == content) &&
+            (x.Sender.Id == user.Id || x.Reciever.Id == user.Id));
         }
     }
 }

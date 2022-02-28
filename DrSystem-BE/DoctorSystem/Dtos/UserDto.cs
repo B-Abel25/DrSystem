@@ -21,7 +21,7 @@ namespace DoctorSystem.Dtos
         public UserDto(User u)
         {
             this.Name = u.Name;
-            this.BirthDate = u.BirthDate.ToShortDateString();
+            this.BirthDate = u.BirthDate.ToString("yyyy.MM.dd");
             this.Email = u.Email;
             this.PhoneNumber = u.PhoneNumber;
             this.Place = new PlaceDto(u.Place);

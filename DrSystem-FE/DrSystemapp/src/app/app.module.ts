@@ -43,6 +43,11 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ValidateEmailComponent } from './validate-email/validate-email.component';
 import { DeleteClientEmailComponent } from './delete-client-email/delete-client-email.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { FullCalendarModule, Interaction } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([dayGridPlugin, interactionPlugin]);
 
 @NgModule({
   declarations: [
@@ -86,6 +91,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     Ng2OrderModule,
     Ng2SearchPipeModule,
     TabsModule.forRoot(),
+    FullCalendarModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

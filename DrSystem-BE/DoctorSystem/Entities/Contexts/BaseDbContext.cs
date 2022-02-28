@@ -21,7 +21,7 @@ namespace DoctorSystem.Entities.Contexts
 
         public virtual DbSet<Client> _clients { get; set; }
         public virtual DbSet<Doctor> _doctors { get; set; }
-        public virtual DbSet<Place> _place { get; set; }
+        public virtual DbSet<Place> _places { get; set; }
         public virtual DbSet<City> _city { get; set; }
         public virtual DbSet<County> _county { get; set; }
         public virtual DbSet<Message> _messages { get; set; }
