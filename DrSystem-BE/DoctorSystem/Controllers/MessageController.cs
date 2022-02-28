@@ -22,7 +22,6 @@ namespace DoctorSystem.Controllers
     public class MessageController : ControllerBase
     {
         private readonly ILogger<MessageController> _logger;
-        //private readonly BaseDbContext _context;
         private readonly ITokenService _tokenService;
         private readonly EmailService _emailService;
         private readonly IMessageRepository _messageRepo;
@@ -41,7 +40,6 @@ namespace DoctorSystem.Controllers
         {
             _logger = logger;
             _tokenService = tokenService;
-            //_context = context;
             _emailService = emailService;
             _messageRepo = messageRepository;
             _clientRepo = clientRepository;
@@ -222,11 +220,18 @@ namespace DoctorSystem.Controllers
         {
             string doctorSealNumber =  _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+
             List<ClientDto> unreadSenders = new List<ClientDto>();
-                (await _messageRepo.GetUnreadRecievedMessages(doctor))
+            List<User> users= (await _messageRepo.GetUnreadRecievedMessages(doctor))
                 .Select(x => x.Sender)
                 .Distinct()
-                .ToList().ForEach(async x => unreadSenders.Add(new ClientDto(await _clientRepo.GetClientByIdAsync(x.Id))));
+                .ToList();
+
+            foreach (var user in users)
+            {
+                Client c = await _clientRepo.GetClientByIdAsync(user.Id);
+                unreadSenders.Add(new ClientDto(c));
+            }
             return unreadSenders;
         }
 

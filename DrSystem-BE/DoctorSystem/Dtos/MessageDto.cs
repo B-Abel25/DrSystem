@@ -14,7 +14,6 @@ namespace DoctorSystem.Dtos
         public bool RecieverDeleted { get; set; }
         public MessageDto(Message m)
         {
-            //TODO itt megkéne nézni ezt a Generic type-ot, nem biztos, hogy ez a jó megoldás
             Sender = new UserDto(m.Sender);
             Reciever = new UserDto(m.Reciever);
             DateRead = m.DateRead?.ToString("yyyy.MM.dd HH:mm:ss");
