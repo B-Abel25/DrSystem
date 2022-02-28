@@ -53,6 +53,9 @@ namespace DoctorSystem.Controllers
 
         }
 
+        
+
+
         [Route("client/register")]
         [HttpPost]
         public async Task<ActionResult> Register(RegisterDto registerDto)

@@ -101,11 +101,11 @@
                             <div class="col-md-4 form-group required">
 
                                 <label for="password" class="form-label "> Jelszó</label>
-                               
+
                                 <div class="input-group has-validation">
 
                                     <input [class.is-invalid]='registerForm.get("password").errors && registerForm.get("password").touched' [type]="fieldTextType ? 'text' : 'password'" class="form-control" formControlName="password" required>
-                                    <span class="input-group-text"  (click)="toggleFieldTextType()">
+                                    <span class="input-group-text" (click)="toggleFieldTextType()">
                                         <i class="fa" [ngClass]="{
                                           'fa-eye-slash': !fieldTextType,
                                           'fa-eye': fieldTextType
@@ -127,20 +127,20 @@
                             <div class="col-md-4 form-group required">
                                 <label class="form-label "> Jelszó megerősítés</label>
                                 <div class="input-group has-validation">
-                                <input [class.is-invalid]='registerForm.get("confirmPassword").errors && registerForm.get("confirmPassword").touched' [type]="fieldTextType ? 'text' : 'password'" class="form-control" formControlName="confirmPassword" required>
-                                <span class="input-group-text"  (click)="toggleFieldTextType()">
+                                    <input [class.is-invalid]='registerForm.get("confirmPassword").errors && registerForm.get("confirmPassword").touched' [type]="fieldTextType ? 'text' : 'password'" class="form-control" formControlName="confirmPassword" required>
+                                    <span class="input-group-text" (click)="toggleFieldTextType()">
                                     <i class="fa" [ngClass]="{
                                       'fa-eye-slash': !fieldTextType,
                                       'fa-eye': fieldTextType
                                     }"
                                    ></i>
                                   </span>
-                                <div *ngIf="registerForm.get('confirmPassword').hasError('required')" class="invalid-feedback">
-                                    Adja meg a jelszó megerősítését!
-                                </div>
-                                <div *ngIf="registerForm.get('confirmPassword').hasError('isMatching')" class="invalid-feedback">
-                                    A két jelszónak egyeznie kell!
-                                </div>
+                                    <div *ngIf="registerForm.get('confirmPassword').hasError('required')" class="invalid-feedback">
+                                        Adja meg a jelszó megerősítését!
+                                    </div>
+                                    <div *ngIf="registerForm.get('confirmPassword').hasError('isMatching')" class="invalid-feedback">
+                                        A két jelszónak egyeznie kell!
+                                    </div>
                                 </div>
 
                             </div>
@@ -161,8 +161,8 @@
                             <div class="col-12 was-validated">
                                 <div class="form-check">
                                     <input class="form-check-input is-invalid" type="checkbox" [class.is-invalid]='registerForm.get("acceptTerms").errors && registerForm.get("acceptTerms").touched' formControlName="acceptTerms" required>
-                                    <label class="form-check-label" for="invalidCheck3">Adatvédelmi szabályzat és
-                                        feltételek</label>
+                                    <label class="form-check-label" for="invalidCheck3">Tudomásul veszem és elfogadom az 
+                                        <a routerLink="/privacy-policy">adatvédelmi szabályzatot és feltételeket</a></label>
                                     <div *ngIf="registerForm.get('acceptTerms').hasError('required')" class="invalid-feedback">
                                         A regisztráció előtt el kell fogadnia!
                                     </div>
@@ -177,7 +177,7 @@
 
                         </form>
 
-                      
+
                         <br>
 
                         <!-- <div class="form-group col-md-8 offset-md-2"  *ngIf="!showMsg">

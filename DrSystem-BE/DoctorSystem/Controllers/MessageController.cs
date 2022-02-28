@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DoctorSystem.Controllers
@@ -27,7 +28,7 @@ namespace DoctorSystem.Controllers
         private readonly IMessageRepository _messageRepo;
         private readonly IClientRepository _clientRepo;
         private readonly IDoctorRepository _doctorRepo;
-
+        private readonly Regex sWhitespace = new Regex(@"\s+");
         public MessageController(
             ILogger<MessageController> logger,
             BaseDbContext context,
@@ -125,6 +126,11 @@ namespace DoctorSystem.Controllers
         [HttpPost]
         public async Task<ActionResult<MessageDto>> SendClientMessage(SendMessageDto sendDto)
         {
+            if (RemoveWhitespace(sendDto.Content) == "")
+            {
+                return Unauthorized("Nem lehet üres üzenetet küldeni");
+            }
+
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             //TODO validáció
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
@@ -175,6 +181,24 @@ namespace DoctorSystem.Controllers
             return null;
         }
 
+        //[Authorize]
+        [Route("doctor/messages/unread")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetDoctorUnreadMessages()
+        {
+            string doctorSealNumber = "69585";// _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+           
+            List<User> senders = (await _messageRepo.GetUnreadRecievedMessages(doctor))
+                .Select(x => x.Sender)
+                .Distinct()
+                .ToList();
+            List<UserDto> unreadSenders = new List<UserDto>();
+            senders.ForEach(x => unreadSenders.Add(new UserDto(x)));
+            return unreadSenders;
+        }
+
+
         [Authorize]
         [Route("doctor/messages")]
         [HttpGet]
@@ -189,6 +213,12 @@ namespace DoctorSystem.Controllers
             messages.ForEach(x => messageDtos.Add(new MessageDto(x)));
 
             return messageDtos;
+        }
+
+        
+        private string RemoveWhitespace(string input)
+        {
+            return sWhitespace.Replace(input, "");
         }
     }
 }
