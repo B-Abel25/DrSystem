@@ -42,14 +42,7 @@ import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ValidateEmailComponent } from './validate-email/validate-email.component';
 import { DeleteClientEmailComponent } from './delete-client-email/delete-client-email.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin  from '@fullcalendar/interaction';
-
-FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  interactionPlugin,
-]);
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +72,7 @@ FullCalendarModule.registerPlugins([
     ClientDataComponent,
     ValidateEmailComponent,
     DeleteClientEmailComponent,
-    
+    PrivacyPolicyComponent,
   ],
   imports: [
     FormsModule,
@@ -93,17 +86,13 @@ FullCalendarModule.registerPlugins([
     Ng2OrderModule,
     Ng2SearchPipeModule,
     TabsModule.forRoot(),
-    FullCalendarModule,
-    
-    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: DoctorJWTInterceptor, multi: true },
-  
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
