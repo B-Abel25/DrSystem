@@ -13,3 +13,6 @@ border:none;
     padding-bottom: 10px;
     border-bottom: 1px dotted #fff;
 }
+.content{
+    height: 100vh;
+}

@@ -9,7 +9,7 @@
 
                 <tr>
                     <th style="width:250px;" (click)="sort('name')">Név&nbsp;<i class="fa fa-sort"></i></th>
-                    <th style="text-align:center">TAJ-szám</th>
+                    <th style="text-align:center">TAJ szám</th>
                     <th style="text-align:center" (click)="sort('birthDate')">
                         Dátum&nbsp;<i class="fa fa-sort"></i>
                     </th>
@@ -32,15 +32,10 @@
         ">
                     <td style="text-align: left">{{ client.name }}</td>
                     <td style="text-align: center">{{ client.medNumber }}</td>
-                    <td style="text-align: center">{{ client.birthDate }}</td>
-                    <td style="text-align: center">
-                        {{ client.place.postCode }} {{ client.place.city }}
-                    </td>
+                    <td style="text-align: center">{{ client.lastMessageSentDate }}</td>
+                    
                     <td>
-                        <li class="list-inline-item">
-                            <button class="btn btn-light" routerLink="/admin/client-details/{{client.medNumber}}"><i class="fa fa-user"></i></button>
-                        </li>
-                        <li class="list-inline-item">
+                     <li class="list-inline-item">
                             <button routerLink="/admin/messaging/{{client.medNumber}}" class="btn btn-light">
               <i class="fa fa-envelope"></i>
             </button>

@@ -27,7 +27,14 @@ export class MessageService {
       { recieverNumber: medNumber, content }
     );
   }
+  getDoctorUnreadMessages() {
+    return this.http.get<Client[]>(
+      this.baseUrl + 'private/doctor/messages/unread'
+    );
+  }
 
+
+  
   getMessageThreadClient() {
     return this.http.get<Message[]>(this.baseUrl + 'private/client/messages');
   }
@@ -43,9 +50,5 @@ export class MessageService {
     return this.http.delete(this.baseUrl + 'private/user/message/delete/' + id);
   }
 
-  getDoctorUnreadMessages() {
-    return this.http.get<Client[]>(
-      this.baseUrl + 'private/doctor/messages/unread'
-    );
-  }
+ 
 }

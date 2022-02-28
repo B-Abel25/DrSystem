@@ -12,6 +12,7 @@ import { MessageService } from 'src/app/_services/message.service';
 export class DoctorMessageComponent implements OnInit {
   clients: Client[];
   filteredClients: Client[];
+  
   constructor(
     private messageService: MessageService,
     private route: ActivatedRoute

@@ -9,7 +9,7 @@ export interface Client extends User{
    
     member: boolean;
     doctor: Doctor;
-
+    lastMessageSentDate:string;
 
 
 }

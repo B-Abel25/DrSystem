@@ -4,7 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
-
+import esLocale from '@fullcalendar/core/locales/hu';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 declare let $: any;
 
 
@@ -30,23 +34,7 @@ export class BookingComponent implements OnInit {
 
     
   }
-  calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
-    weekends: false,
-    headerToolbar:{
-      left: 'prev,next today myCustomButton',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-
-
-    },
-   
-   
-    editable: true,
-    selectable: true,
-    selectMirror: true,
-    
-  };
+  calendarOptions: CalendarOptions = {};
  
   toggleWeekends() {
     this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
@@ -88,11 +76,28 @@ export class BookingComponent implements OnInit {
       this.calendarOptions = {
         initialView: 'dayGridMonth',
         dateClick: this.handleDateClick.bind(this),
+        weekends: false,
+        
+        locale: esLocale,
+       
+        headerToolbar:{
+          left: 'prev,next today ',
+          center: 'title',
+          right: 'dayGridMonth,dayGridWeek,dayGridDay'
+    
+    
+        },
+       
+       
+        editable: true,
+        selectable: true,
+        selectMirror: true,
       
     };
     //Add User form validations
     this.addEventForm = this.formBuilder.group({
-      title: ['', [Validators.required]]
+      title: ['', [Validators.required]],
+      Date:['',Validators.required]
       });
   }
   //Show Modal with Forn on dayClick Event

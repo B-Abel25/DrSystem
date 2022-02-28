@@ -11,6 +11,7 @@ ng add ngx-bootstrap --component tabs
 npm i @fullcalendar/angular
 npm i @fullcalendar/daygrid
 npm i @fullcalendar/interaction
+npm i @fullcalendar/timegrid
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
 
 ## Development server

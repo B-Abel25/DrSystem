@@ -1,2 +1,34 @@
-<p >{{client.name}}</p>
+<div class="row center" *ngIf="client">
+<div class="col-4">
+  <div class="card">
+      <div class="card-body">
+          <div>
+              <strong>Név:</strong>
+              <p>{{client.name}}</p>
+          </div>
+          <div>
+            <strong>TAJ szám:</strong>
+            <p>{{client.medNumber}}</p>
+        </div>
+          <div>
+            <strong>Lakcím:</strong>
+            <p>{{client.place.postCode}} {{client.place.city}} {{client.street}} {{client.houseNumber}} </p>
+        </div>
+        <div>
+            <strong>Születési idő:</strong>
+            <p>{{client.birthDate}}</p>
+        </div>
+        <div>
+            <strong>Telefonszám:</strong>
+            <p>{{client.phoneNumber}}</p>
+        </div>
+        <div>
+            <strong>Email cím</strong>
+            <p>{{client.email}}</p>
+        </div>
+        
+      </div>
+  </div>  
+</div>
+</div>
 

@@ -83,7 +83,8 @@ color:#fff
     border-radius: 10px 10px 10px 10px;
     background: #517eda;
     padding: 30px;
-    min-width: 40%;
+    
+    width: 50vh;
    
     position: relative;
     padding: 0px;

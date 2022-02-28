@@ -1,6 +1,11 @@
+<div class="content">
+<div class="container">
 <div class="card">
     <div class="card-body">
-        <ul *ngIf="messages?.length > 0" class="chat">
+        <ul #scrollMe
+        style="overflow:scroll; max-height: 500px;"
+        [scrollTop]="scrollMe.scrollHeight"
+         *ngIf="messages?.length > 0" class="chat">
             <li *ngFor="let message of messages">
                 <div>
                     <span class="float-center" *ngIf="message.sender.name!==client.medNumber">
@@ -32,9 +37,14 @@
     <div class="card-footer">
         <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
             <input name="messageContent" required [(ngModel)]="messageContent" type="text" class="form-control input-sm" placeholder="Üzenet küldés...">
+            <br>
             <div class="input-group-append">
                 <button [disabled]="!messageForm.valid" class="btn btn-dark" type="submit">Küldés</button>
+                
             </div>
+            <i class="fa fa-angles"></i>
         </form>
     </div>
+</div>
+</div>
 </div>
