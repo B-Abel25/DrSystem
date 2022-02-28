@@ -1,6 +1,6 @@
 import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-
+import { CalendarOptions } from '@fullcalendar/angular';
 
 
 
@@ -11,7 +11,9 @@ import { Component, OnInit } from '@angular/core';
   
 })
 export class BookingComponent implements OnInit {
-
+  calendarOptions: CalendarOptions = {
+    initialView: 'dayGridMonth'
+  };
   constructor(private location: LocationStrategy) {
     history.pushState(null, null, window.location.href);
     this.location.onPopState(() => {

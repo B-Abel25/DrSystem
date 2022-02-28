@@ -42,8 +42,14 @@ import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ValidateEmailComponent } from './validate-email/validate-email.component';
 import { DeleteClientEmailComponent } from './delete-client-email/delete-client-email.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin  from '@fullcalendar/interaction';
 
-
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  interactionPlugin,
+]);
 
 @NgModule({
   declarations: [
@@ -87,7 +93,8 @@ import { DeleteClientEmailComponent } from './delete-client-email/delete-client-
     Ng2OrderModule,
     Ng2SearchPipeModule,
     TabsModule.forRoot(),
-   
+    FullCalendarModule,
+    
     
   ],
   providers: [
