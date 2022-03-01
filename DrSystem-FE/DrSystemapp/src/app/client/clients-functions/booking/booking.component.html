@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
-<button (click)="toggleWeekends()">toggle weekends</button>
-<full-calendar style="color:rgb(23, 33, 66)" [options]="calendarOptions" dateClick="dateClick($event)" (click)="eventClick($event)">
+
+<full-calendar style="color:rgb(23, 33, 66); padding-top:20px" [options]="calendarOptions" dateClick="dateClick($event)" (click)="eventClick($event)">
     
 
 </full-calendar>
@@ -19,24 +19,30 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label>Event Title</label>
-                                <input placeholder="Add Event Title" type="text" formControlName="title" class="titleinp form-control" [ngClass]="{ 'is-invalid': submitted && f['title'].errors }" />
+                                <label>Foglalás oka:</label>
+                                <input placeholder="Foglalás oka..." type="text" formControlName="title" class="titleinp form-control" [ngClass]="{ 'is-invalid': submitted && f['title'].errors }" />
                                 <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
-                                    <div *ngIf="f.title.errors.required">Title is required</div>
+                                    <div *ngIf="f.title.errors.required"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label>Event Date:</label>
+                                <label>Foglalás dátuma:</label>
                                 <div class="form-control eventstarttitle"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Foglalás ideje:</label>
+                               <input type="text" class="form-control">
                             </div>
                         </div>
 
 
-
+<br>
                     </div>
-                    <button type="submit" (click)="hideForm()" class="btn btn-primary">Submit</button>
+                    <button type="submit" data-dismiss="modal"  class="btn btn-primary">Foglalás</button>
                 </form>
             </div>
         </div>

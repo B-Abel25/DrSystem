@@ -2,13 +2,14 @@ import { LocationStrategy } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CalendarOptions } from '@fullcalendar/angular';
-import { Calendar } from '@fullcalendar/core';
+import { CalendarOptions,DateSelectArg, EventApi, EventClickArg } from '@fullcalendar/angular';
+import { Calendar, Duration } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/hu';
-import timeGridPlugin from '@fullcalendar/timegrid';
+
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+import timeGridPlugin from '@fullcalendar/timegrid';
+
 declare let $: any;
 
 
@@ -26,6 +27,7 @@ export class BookingComponent implements OnInit {
   successdata:any;
   addEventForm: FormGroup;
   submitted = false;
+  minTime="10:00:00";
   constructor(private location: LocationStrategy,private formBuilder: FormBuilder, private http: HttpClient) {
     history.pushState(null, null, window.location.href);
     this.location.onPopState(() => {
@@ -74,12 +76,19 @@ export class BookingComponent implements OnInit {
     
     ngOnInit() {
       this.calendarOptions = {
-        initialView: 'dayGridMonth',
+        
         dateClick: this.handleDateClick.bind(this),
         weekends: false,
-        
+        initialView: 'timeGridWeek',
         locale: esLocale,
-       
+       slotEventOverlap:false,
+       eventMinHeight:2,
+       allDaySlot: false,
+       slotMinTime:this.minTime,
+       events: [
+        { title: 'event 1', date: '2022-03-01' },
+        { title: 'event 2', date: '2020-06-30' }
+      ],
         headerToolbar:{
           left: 'prev,next today ',
           center: 'title',
@@ -104,7 +113,7 @@ export class BookingComponent implements OnInit {
   handleDateClick(arg) {
     $("#myModal").modal("show");
     $(".modal-title, .eventstarttitle").text("");
-    $(".modal-title").text("Add Event at : "+arg.dateStr);
+    $(".modal-title").text("Foglalás erre a napra : "+arg.dateStr);
     $(".eventstarttitle").text(arg.dateStr);
    
   }

@@ -46,8 +46,8 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { FullCalendarModule, Interaction } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import bootstrap5Plugin from '@fullcalendar/bootstrap5';
-FullCalendarModule.registerPlugins([dayGridPlugin, interactionPlugin,  bootstrap5Plugin]);
+import timeGridPlugin from '@fullcalendar/timegrid';
+FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
 
 @NgModule({
   declarations: [
