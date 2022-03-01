@@ -28,6 +28,8 @@ export class BookingComponent implements OnInit {
   addEventForm: FormGroup;
   submitted = false;
   minTime="10:00:00";
+  currentDate = new Date();
+  myDate = Date.now();
   constructor(private location: LocationStrategy,private formBuilder: FormBuilder, private http: HttpClient) {
     history.pushState(null, null, window.location.href);
     this.location.onPopState(() => {
@@ -86,18 +88,21 @@ export class BookingComponent implements OnInit {
        allDaySlot: false,
        slotMinTime:this.minTime,
        events: [
-        { title: 'event 1', date: '2022-03-01' },
+        { title: 'event 1', date: '2022-03-01T10:00:00+01:00', color:'red' },
         { title: 'event 2', date: '2020-06-30' }
       ],
         headerToolbar:{
-          left: 'prev,next today ',
+          left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth,dayGridWeek,dayGridDay'
+          
     
     
         },
-       
-       
+
+        validRange:{
+        start:this.myDate
+        },
+        slotDuration:"00:10:00",
         editable: true,
         selectable: true,
         selectMirror: true,

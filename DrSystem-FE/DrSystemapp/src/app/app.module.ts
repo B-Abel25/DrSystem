@@ -27,6 +27,7 @@ import { DrsystemHomeComponent } from './client/drsystem-home/drsystem-home.comp
 import { ClientListComponent } from './doctor-admin/doctor-function/client-list/client-list.component';
 import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-message/doctor-message.component';
 import { NewPasswordComponent } from './client/lost-newPassword/new-password/new-password.component';
+
 import { BookingComponent } from './client/clients-functions/booking/booking.component';
 import { ComplaintComponent } from './client/clients-functions/complaint/complaint.component';
 import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/new-password-doctor/new-password-doctor.component';
@@ -47,6 +48,9 @@ import { FullCalendarModule, Interaction } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { SettingsComponent } from './doctor-admin/doctor-function/settings/settings.component';
+import { AppointmentListComponent } from './doctor-admin/doctor-function/appointment-list/appointment-list.component';
+
 FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
 
 @NgModule({
@@ -78,6 +82,8 @@ FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
     ValidateEmailComponent,
     DeleteClientEmailComponent,
     PrivacyPolicyComponent,
+    SettingsComponent,
+    AppointmentListComponent,
   ],
   imports: [
     FormsModule,

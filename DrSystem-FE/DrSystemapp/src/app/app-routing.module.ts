@@ -23,6 +23,8 @@ import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-
 import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/client-data.component';
 import { DoctorClientMessagingComponent } from './doctor-admin/doctor-function/doctor-client-messaging/doctor-client-messaging.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { SettingsComponent } from './doctor-admin/doctor-function/settings/settings.component';
+import { AppointmentListComponent } from './doctor-admin/doctor-function/appointment-list/appointment-list.component';
 
 const routes: Routes = [
   { path: '', component: DrsystemHomeComponent },
@@ -70,6 +72,8 @@ const routes: Routes = [
         path: 'admin/messaging/:medNumber',
         component: DoctorClientMessagingComponent,
       },
+      { path: 'admin/settings', component: SettingsComponent },
+      { path: 'admin/appointments', component: AppointmentListComponent },
     ],
   },
 
