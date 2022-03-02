@@ -51,8 +51,8 @@ export class BookingComponent implements OnInit {
   
     this.submitted = true;
     // stop here if form is invalid and reset the validations
-    this.addEventForm.get('title').setValidators([Validators.required]);
-    this.addEventForm.get('title').updateValueAndValidity();
+    //this.addEventForm.get('title').setValidators([Validators.required]);
+    //this.addEventForm.get('title').updateValueAndValidity();
     
    //Form Submittion and send data via API
    if(this.submitted)
@@ -78,7 +78,7 @@ export class BookingComponent implements OnInit {
     
     ngOnInit() {
       this.calendarOptions = {
-        
+       
         dateClick: this.handleDateClick.bind(this),
         weekends: false,
         initialView: 'timeGridWeek',
@@ -87,8 +87,12 @@ export class BookingComponent implements OnInit {
        eventMinHeight:2,
        allDaySlot: false,
        slotMinTime:this.minTime,
+       eventClick:function(arg){
+        alert(arg.event.title)
+        alert(arg.event.start)
+      },
        events: [
-        { title: 'event 1', date: '2022-03-01T10:00:00+01:00', color:'red' },
+        { title: 'Igy kaphatom meg az event adatait', date: '2022-03-02T10:00:00+01:00', color:'red' },
         { title: 'event 2', date: '2020-06-30' }
       ],
         headerToolbar:{
@@ -123,12 +127,12 @@ export class BookingComponent implements OnInit {
    
   }
   //Hide Modal PopUp and clear the form validations
-  hideForm(){
-    this.addEventForm.patchValue({ title : ""});
-    this.addEventForm.get('title').clearValidators();
-    this.addEventForm.get('title').updateValueAndValidity();
+   hideForm(){
+  //   this.addEventForm.patchValue({ title : ""});
+  //   this.addEventForm.get('title').clearValidators();
+  //   this.addEventForm.get('title').updateValueAndValidity();
     }
-  
+   
 
 }
 

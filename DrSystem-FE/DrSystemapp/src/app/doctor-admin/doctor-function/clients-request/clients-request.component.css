@@ -90,7 +90,8 @@ input.form-control:focus{
     height: 100%; 
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
-    overflow: auto;
+    overflow: scroll;
+    
   }
   
   .overlay {
@@ -109,10 +110,13 @@ input.form-control:focus{
     background-size: cover;
     vertical-align: middle; 
     min-height:100vh;
+    overflow-y:hidden;
     
 ;}
     .content .overlay {
       background-color: rgba(97, 136, 228, 0.97);
   }
 
- 
+ .thead{
+     position: sticky;
+ }
