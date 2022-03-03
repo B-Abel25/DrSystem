@@ -51,21 +51,11 @@ export class BookingComponent implements OnInit {
   
     this.submitted = true;
     // stop here if form is invalid and reset the validations
-    //this.addEventForm.get('title').setValidators([Validators.required]);
-    //this.addEventForm.get('title').updateValueAndValidity();
+    this.addEventForm.get('title').setValidators([Validators.required]);
+    this.addEventForm.get('title').updateValueAndValidity();
+    if (this.addEventForm.invalid) {
+        return;
     
-   //Form Submittion and send data via API
-   if(this.submitted)
-    {
-      // Initialize Params Object
-      var myFormData = new FormData();
-    
-      // Begin assigning parameters
-     
-         myFormData.append('title', this.addEventForm.value.title);
-         myFormData.append('startdate', this.eventdate);
-     
-       //post request
        
        
            
@@ -115,7 +105,7 @@ export class BookingComponent implements OnInit {
     //Add User form validations
     this.addEventForm = this.formBuilder.group({
       title: ['', [Validators.required]],
-      Date:['',Validators.required]
+    
       });
   }
   //Show Modal with Forn on dayClick Event
@@ -128,9 +118,9 @@ export class BookingComponent implements OnInit {
   }
   //Hide Modal PopUp and clear the form validations
    hideForm(){
-  //   this.addEventForm.patchValue({ title : ""});
-  //   this.addEventForm.get('title').clearValidators();
-  //   this.addEventForm.get('title').updateValueAndValidity();
+    this.addEventForm.patchValue({ title : ""});
+   this.addEventForm.get('title').clearValidators();
+    this.addEventForm.get('title').updateValueAndValidity();
     }
    
 
