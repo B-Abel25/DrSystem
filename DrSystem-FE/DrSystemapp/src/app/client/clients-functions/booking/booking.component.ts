@@ -9,6 +9,9 @@ import esLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { calendar } from 'ngx-bootstrap/chronos/moment/calendar';
+import { ToastrService } from 'ngx-toastr';
+import { AppointmentService } from 'src/app/_services/appointment.service';
 
 declare let $: any;
 
@@ -30,7 +33,7 @@ export class BookingComponent implements OnInit {
   minTime="10:00:00";
   currentDate = new Date();
   myDate = Date.now();
-  constructor(private location: LocationStrategy,private formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(private location: LocationStrategy,private formBuilder: FormBuilder, private http: HttpClient, private appointmentService:AppointmentService, private toastr:ToastrService) {
     history.pushState(null, null, window.location.href);
     this.location.onPopState(() => {
       history.pushState(null, null, window.location.href);
@@ -48,21 +51,27 @@ export class BookingComponent implements OnInit {
   }
 
   onSubmit() {
-  
+  console.log("Hello")
     this.submitted = true;
     // stop here if form is invalid and reset the validations
-    this.addEventForm.get('title').setValidators([Validators.required]);
-    this.addEventForm.get('title').updateValueAndValidity();
-    if (this.addEventForm.invalid) {
-        return;
-    
-       
-       
-           
-        
-         
    
-    }
+    this.addEventForm.get('Description').updateValueAndValidity();
+  
+    if (this.addEventForm.invalid) {
+        return;      
+      }
+
+      else{
+        this.appointmentService.Appointment(this.addEventForm.value).subscribe(response => {
+          
+    
+          
+        }, error => {
+          console.log(error);
+          this.toastr.error(error.error);
+          
+        })
+      }
   }
       
     
@@ -73,6 +82,7 @@ export class BookingComponent implements OnInit {
         weekends: false,
         initialView: 'timeGridWeek',
         locale: esLocale,
+        timeZone:'local',
        slotEventOverlap:false,
        eventMinHeight:2,
        allDaySlot: false,
@@ -92,7 +102,7 @@ export class BookingComponent implements OnInit {
     
     
         },
-
+       
         validRange:{
         start:this.myDate
         },
@@ -104,9 +114,12 @@ export class BookingComponent implements OnInit {
     };
     //Add User form validations
     this.addEventForm = this.formBuilder.group({
-      title: ['', [Validators.required]],
-    
+      Description: ['', [Validators.required]],
+    Date:['']
       });
+
+      
+          
   }
   //Show Modal with Forn on dayClick Event
   handleDateClick(arg) {
@@ -116,11 +129,13 @@ export class BookingComponent implements OnInit {
     $(".eventstarttitle").text(arg.dateStr);
    
   }
+  
+  
   //Hide Modal PopUp and clear the form validations
    hideForm(){
     this.addEventForm.patchValue({ title : ""});
-   this.addEventForm.get('title').clearValidators();
-    this.addEventForm.get('title').updateValueAndValidity();
+   this.addEventForm.get('Description').clearValidators();
+    this.addEventForm.get('Description').updateValueAndValidity();
     }
    
 
