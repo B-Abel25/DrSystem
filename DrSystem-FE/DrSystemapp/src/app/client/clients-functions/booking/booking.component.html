@@ -1,6 +1,8 @@
+<div class="content " style="background-image: url(/assets/logofekete.png)">
+    <div class="overlay"></div>
 <app-navbar></app-navbar>
 
-<full-calendar style="color:rgb(23, 33, 66); padding-top:20px" [options]="calendarOptions" dateClick="dateClick($event)" (click)="eventClick($event)">
+<full-calendar id="calendar" style="color:rgb(255, 255, 255); padding-top:20px" [options]="calendarOptions" dateClick="dateClick($event)" (click)="eventClick($event)">
     
 
 </full-calendar>
@@ -43,4 +45,6 @@
             </div>
         </div>
     </div>
+</div>
+
 </div>

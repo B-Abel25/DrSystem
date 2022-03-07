@@ -49,7 +49,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark  position-lg-absolute w-100">
 	<div class="container px-0">
-		<a class="navbar-brand" href="./index.html"><img src="./assets/images/geeksui-logo.png" alt=""></a>
+		<a class="navbar-brand" ><img src="./assets/images/geeksui-logo.png" alt=""></a>
     <img id='imagelogo' src="assets/logo2.png" [routerLink]="['']" >
     <a class="navbar-brand center" [routerLink]="['']">
 
@@ -62,184 +62,65 @@
     </button>
 		<!-- Collapse -->
 		<div  class="collapse navbar-collapse" id="navbarSupportedContent" >
-			<ul class="navbar-nav">
+			<ul class="navbar-nav"  *ngIf="!(accountService.currentClient$ | async)">
 			
 							<li class="nav-item ">
-								<a class="nav-link" href="https://codescandy.com/geeks-bootstrap-5/pages/dashboard/admin-dashboard.html">
-								Dashboard
+								<a class="nav-link"  [routerLink]="['/login']" routerLinkActive="active">
+								Bejelentkezés
 								</a>
 								</li>
 								<li class="nav-item ">
-									<a class="nav-link" href="https://codescandy.com/geeks-bootstrap-5/docs/index.html">
-									Docs
+									<a class="nav-link" [routerLink]="['/register']" routerLinkActive="active">
+									Regisztráció
 									</a>
 									</li>
 
 
 			</ul>
+			<ul class="navbar-nav"  *ngIf="(accountService.currentClient$ | async)">
+			
+				<li class="nav-item ">
+					<a class="nav-link"  [routerLink]="['/booking']" routerLinkActive="active">
+					Időpontfoglalás
+					</a>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link" [routerLink]="['/complaint']" routerLinkActive="active">
+						Üzenetek
+						</a>
+						</li>
+
+
+</ul>
 
 			<div class="ms-auto mt-3 mt-lg-0">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav"  *ngIf="(accountService.currentClient$ | async)">
         <li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarAccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Accounts
+						Profil
 					</a>
 					<ul class="dropdown-menu dropdown-menu-arrow" aria-labelledby="navbarAccount">
 						<li>
-							<h4 class="dropdown-header">Accounts</h4>
+							<h4 class="dropdown-header">Profil</h4>
 						</li>
-						<li class="dropdown-submenu dropend">
-							<a class="dropdown-item dropdown-list-group-item dropdown-toggle" href="#">
-								Instructor
-							</a>
-							<ul class="dropdown-menu">
-								<li class="text-wrap">
-									<h5 class="dropdown-header text-dark">Instructor</h5>
-									<p class="dropdown-text mb-0">
-										Instructor dashboard for manage courses and earning.
-									</p>
-								</li>
-								<li>
-									<hr class="mx-3">
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/dashboard-instructor.html">
-										Dashboard</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/instructor-profile.html">
-										Profile</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/instructor-courses.html">
-										My Courses
-									</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/instructor-order.html">
-										Orders</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/instructor-reviews.html">
-										Reviews</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/instructor-students.html">
-										Students</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/instructor-payouts.html">
-										Payouts</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/instructor-earning.html">
-										Earning</a>
-								</li>
-							</ul>
-						</li>
-						<li class="dropdown-submenu dropend">
-							<a class="dropdown-item dropdown-list-group-item dropdown-toggle" href="#">
-								Students
-							</a>
-							<ul class="dropdown-menu">
-								<li class="text-wrap">
-									<h5 class="dropdown-header text-dark">Students</h5>
-									<p class="dropdown-text mb-0">
-										Students dashboard to manage your courses and subscriptions.
-									</p>
-								</li>
-								<li>
-									<hr class="mx-3">
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/dashboard-student.html">
-										Dashboard</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/student-subscriptions.html">
-										Subscriptions
-									</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/payment-method.html">
-										Payments</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/billing-info.html">
-										Billing Info</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/invoice.html">
-										Invoice</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/invoice-details.html">
-										Invoice Details</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/dashboard-student.html">
-										Bookmarked</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/dashboard-student.html">
-										My Path</a>
-								</li>
-							</ul>
-						</li>
+					
+					
 
 						<li>
 							<hr class="mx-3">
 						</li>
+						
 						<li>
-							<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/sign-in.html">
-								Sign In
+							<a class="dropdown-item" >
+								Profil szerkeztése
 							</a>
 						</li>
 						<li>
-							<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/sign-up.html">
-								Sign Up
+							<a class="dropdown-item" (click)="logout()">
+								Kilépés
 							</a>
 						</li>
-						<li>
-							<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/forget-password.html">
-								Forgot Password
-							</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/profile-edit.html">
-								Edit Profile
-							</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/security.html">
-								Security
-							</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/social-profile.html">
-								Social Profiles
-							</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/notifications.html">
-								Notifications
-							</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/profile-privacy.html">
-								Privacy Settings
-							</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/delete-profile.html">
-								Delete Profile
-							</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="https://codescandy.com/geeks-bootstrap-5/pages/linked-accounts.html">
-								Linked Accounts
-							</a>
-						</li>
+						
 					</ul>
 				</li>
 					

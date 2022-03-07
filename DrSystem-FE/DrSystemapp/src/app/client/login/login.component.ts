@@ -28,7 +28,10 @@ export class LoginComponent {
   ngOnInit(): void {
     this.initializationForm();
     this.getCurrentClient();
-    
+    if (this.loggedIn)
+    {
+      this.router.navigateByUrl('/booking')
+    }
   }
   login() {
 

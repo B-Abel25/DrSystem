@@ -1,0 +1,31 @@
+.overlay {
+    position:absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+   
+ }
+
+     
+  .content {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    vertical-align: middle; 
+    height:100vh;
+    overflow-y:hidden;
+    
+;}
+    .content .overlay {
+      background-color: rgba(97, 136, 228, 0.97);
+  }
+
+
+
+  .fc .fc-col-header-cell-cushion {
+    display: inline-block;
+    padding: 2px 4px;
+  }
+
+ 

@@ -26,7 +26,10 @@ export class DoctorLoginComponent implements OnInit {
   ngOnInit() {
     this.initializationForm();
     this.getCurrentDoctor();
-
+if(this.loggedIn)
+{
+  this.router.navigateByUrl('/admin/doctor-page')
+}
 
   }
 
