@@ -1,12 +1,12 @@
-#imagelogo{
+ #imagelogo{
     width:120px;
     height: 120px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 0px;
+    margin-right: 20px;
     margin-top: 0px;
     margin-bottom: 0px;
 }
-
+/*
 .dropdown-toggle, .dropdown-item{
     cursor: pointer;
 }
@@ -75,4 +75,4 @@ li:active {
     -webkit-transform-origin: center center;
     -webkit-transform: scale(1, 1);
   }
-}
+} */

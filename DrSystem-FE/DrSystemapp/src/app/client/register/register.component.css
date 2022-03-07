@@ -122,3 +122,10 @@ input:invalid {
 .page-home .overlay {
     background-color: rgba(46, 76, 144, 0.97);
 }
+
+button[type=submit].btn:disabled {
+    border-radius: 20px;
+    background-color: #121518;
+    color: rgb(255, 255, 255);
+    border: 2px solid #2ee4f5;
+}
