@@ -1,8 +1,6 @@
 
-<main class="site-wrapper">
-  <div class="pt-tablecell page-home relative " style="background-image: url(/assets/logofekete.png);
-  background-position: center;
-  background-size: cover;">
+
+  <div class="content" style="background-image: url(/assets/logofekete.png);">
     <div class="overlay"></div>
     
     <app-navbar></app-navbar>
@@ -26,7 +24,7 @@
                      
                   
                   <div *ngIf="loginForm.get('medNumber').hasError('required')" class="invalid-feedback">
-                    A TAJ-szám nem megfelelő!
+                    A TAJ szám nem megfelelő!
                   </div>
                   
                 </div>
@@ -72,4 +70,3 @@
 
   </div>
 
-</main>

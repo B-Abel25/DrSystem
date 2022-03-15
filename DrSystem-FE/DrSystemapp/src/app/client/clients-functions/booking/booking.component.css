@@ -19,6 +19,7 @@
 ;}
     .content .overlay {
       background-color: rgba(97, 136, 228, 0.97);
+      height: 100vh;
   }
 
 

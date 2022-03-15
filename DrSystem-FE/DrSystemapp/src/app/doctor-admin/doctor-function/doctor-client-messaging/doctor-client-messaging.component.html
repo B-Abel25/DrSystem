@@ -1,9 +1,10 @@
-<div class="content">
+<div class="content" style="background-image: url(/assets/logofekete.png);">
+    <div class="overlay"></div>
 <div class="container">
 <div class="card">
     <div class="card-body">
         <ul #scrollMe
-        style="overflow:scroll; max-height: 500px;"
+        style="overflow:scroll; max-height: 80vh;"
         [scrollTop]="scrollMe.scrollHeight"
          *ngIf="messages?.length > 0" class="chat">
             <li *ngFor="let message of messages">

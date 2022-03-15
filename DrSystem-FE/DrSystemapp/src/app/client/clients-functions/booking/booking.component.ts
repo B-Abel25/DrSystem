@@ -93,7 +93,7 @@ export class BookingComponent implements OnInit {
       },
        events: [
         { title: 'Igy kaphatom meg az event adatait', date: '2022-03-02T10:00:00+01:00', color:'red' },
-        { title: 'event 2', date: '2020-06-30' }
+        { title: 'event 2', date: this.myDate }
       ],
         headerToolbar:{
           left: 'prev,next today',
@@ -106,6 +106,7 @@ export class BookingComponent implements OnInit {
         validRange:{
         start:this.myDate
         },
+        eventBackgroundColor:"#ffff",
         slotDuration:"00:10:00",
         editable: true,
         selectable: true,

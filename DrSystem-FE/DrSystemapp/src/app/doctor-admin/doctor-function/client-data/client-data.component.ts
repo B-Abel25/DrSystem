@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ClientMessagesComponent } from 'src/app/client/clients-functions/client-messages/client-messages.component';
 import { Client } from 'src/app/_models/client';
 import { DoctorService } from 'src/app/_services/doctor.service';
 

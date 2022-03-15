@@ -38,7 +38,7 @@ import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { DoctorClientMessagingComponent } from './doctor-admin/doctor-function/doctor-client-messaging/doctor-client-messaging.component';
-import { ClientMessagesComponent } from './client/clients-functions/client-messages/client-messages.component';
+
 import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/client-data.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ValidateEmailComponent } from './validate-email/validate-email.component';
@@ -77,7 +77,7 @@ FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
     DoctorMainPageComponent,
     ClientsRequestComponent,
     DoctorClientMessagingComponent,
-    ClientMessagesComponent,
+    
     ClientDataComponent,
     ValidateEmailComponent,
     DeleteClientEmailComponent,

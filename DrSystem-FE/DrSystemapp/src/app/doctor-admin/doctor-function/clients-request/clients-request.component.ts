@@ -5,6 +5,7 @@ import { Doctor} from 'src/app/_models/doctor';
 import { DoctorService } from 'src/app/_services/doctor.service';
 import jwt_decode from 'jwt-decode';
 import { HttpHeaders } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clients-request',
@@ -20,7 +21,8 @@ export class ClientsRequestComponent implements OnInit {
   doctor: Doctor;
   constructor(
     private doctorService: DoctorService,
-    private route: ActivatedRoute
+    
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit() {
@@ -53,6 +55,7 @@ export class ClientsRequestComponent implements OnInit {
         this.doctor.clients.splice(i, 1);
       }
     }
+    this.toastr.error("Sikeresen elutasította a kérelmet!")
   }
 
   acceptClient(medNumber: string) {
@@ -63,6 +66,7 @@ export class ClientsRequestComponent implements OnInit {
         this.doctor.clients.splice(i, 1);
       }
     }
+    this.toastr.success("Sikeresen elfogadta a kérelmet!")
   }
   Search() {
     

@@ -34,7 +34,7 @@ export class AppointmentListComponent implements OnInit {
   
       },
 
-      
+      themeSystem: 'bootstrap5',
       slotDuration:"00:10:00",
       editable: true,
       selectable: true,
