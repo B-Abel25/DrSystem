@@ -25,6 +25,7 @@ namespace DoctorSystem.Entities.Contexts
         public virtual DbSet<City> _city { get; set; }
         public virtual DbSet<County> _county { get; set; }
         public virtual DbSet<Message> _messages { get; set; }
+        public virtual DbSet<OfficeHours> _officehours { get; set; }
 
 
 
