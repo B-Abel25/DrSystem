@@ -9,17 +9,17 @@ namespace DoctorSystem.Controllers
 {
     [Route("private/")]
     [ApiController]
-    public class BookingController : ControllerBase
+    public class AppointmentController : ControllerBase
     {
-        private readonly ILogger<BookingController> _logger;
+        private readonly ILogger<AppointmentController> _logger;
         private readonly ITokenService _tokenService;
         private readonly EmailService _emailService;
         private readonly IMessageRepository _messageRepo;
         private readonly IClientRepository _clientRepo;
         private readonly IDoctorRepository _doctorRepo;
         private readonly Regex sWhitespace = new Regex(@"\s+");
-        public BookingController(
-            ILogger<BookingController> logger,
+        public AppointmentController(
+            ILogger<AppointmentController> logger,
             ITokenService tokenService,
             EmailService emailService,
             IMessageRepository messageRepository,
