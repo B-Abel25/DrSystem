@@ -9,6 +9,9 @@ import esLocale from '@fullcalendar/core/locales/hu';
 export class AppointmentListComponent implements OnInit {
   calendarOptions: CalendarOptions = {};
   minTime="10:00:00";
+  showModal: boolean;
+  name:string;
+  date:string;
   constructor() { }
 
   ngOnInit() {
@@ -42,5 +45,14 @@ export class AppointmentListComponent implements OnInit {
     
   };
   }
-
+  eventClick(model: any) {
+    this.name = model.event.title;
+    this.date = model.event.date;
+    this.showModal = true;
+  }
+  hide()
+{
+  this.showModal = false;
+}
+//https://stackoverflow.com/questions/29072645/fullcalendar-open-bootstrap-modal-on-dayclick
 }
