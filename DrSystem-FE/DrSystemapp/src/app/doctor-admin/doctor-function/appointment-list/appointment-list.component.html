@@ -1,29 +1,5 @@
 <app-admin-navbar></app-admin-navbar>
-<full-calendar style="color:rgb(23, 33, 66); padding-top:20px" [options]="calendarOptions" dateClick="dateClick($event)" (click)="eventClick($event)">
+<full-calendar style="color:rgb(23, 33, 66); padding-top:20px" [options]="calendarOptions" dateClick="dateClick($event)">
     <!-- (click)="eventClick($event)" -->
 
 </full-calendar>
-
-<div class="modal" id="myModal" [style.display]="showModal ? 'block' : 'none'">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">{{ name }}</h4>
-          <button type="button" class="close" data-dismiss="modal" (click) = "hide()">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          Event Start From : {{ date }}
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" (click) = "hide()">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
