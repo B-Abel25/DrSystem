@@ -22,7 +22,7 @@ namespace DoctorSystem.Controllers
         private readonly EmailService _emailService;
         IDoctorRepository _doctorRepo;
         IOfficeHoursRepository _officeHoursRepo;
-       
+
         public OfficeHoursController(
            ILogger<OfficeHoursController> logger,
            ITokenService tokenService,
@@ -53,7 +53,7 @@ namespace DoctorSystem.Controllers
             }
             return ohDtos;
         }
-        
+
         [Authorize]
         [HttpPut]
         [Route("doctor/office-hours/modify")]
@@ -66,7 +66,7 @@ namespace DoctorSystem.Controllers
             modifyDto = modifyDto.OrderBy(x => x.day).ToList();
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
-            
+
             RemoveOfficeHours(doctor);
 
             foreach (var modify in modifyDto)
@@ -80,7 +80,7 @@ namespace DoctorSystem.Controllers
                 _officeHoursRepo.Update(oh);
             }
             await _officeHoursRepo.SaveAllAsync();
-            
+
             return Accepted();
         }
         private async void RemoveOfficeHours(Doctor doctor)
@@ -92,6 +92,14 @@ namespace DoctorSystem.Controllers
                 _officeHoursRepo.RemoveOfficeHour(item);
             }
             await _officeHoursRepo.SaveAllAsync();
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("doctor/duration/modify")]
+        public async Task<ActionResult> ModifyDuration(string duration)
+        {
+            return Accepted();
         }
     }
 }
