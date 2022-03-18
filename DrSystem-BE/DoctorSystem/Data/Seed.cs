@@ -57,6 +57,7 @@ namespace DoctorSystem.Data
             await SeedAddress(_context);
             await SeedDoctors(_context);
             await SeedClients(_context);
+            await SeedOfficeHours(_context);
         }
 
         private static async Task SeedAddress(BaseDbContext _context)
@@ -169,6 +170,10 @@ namespace DoctorSystem.Data
 
         }
 
+        private static async Task SeedOfficeHours(BaseDbContext _context)
+        {
+
+        }
 
     }
 }

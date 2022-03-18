@@ -41,7 +41,7 @@ namespace DoctorSystem.Controllers
             _doctorRepo = doctorRepository;
         }
 
-        [Authorize]
+       
         [HttpPost]
         [Route("client/post/appointment")]
         public async Task<ActionResult> TakeAppointment(AppointmentDto appDto)
