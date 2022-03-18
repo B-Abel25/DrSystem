@@ -24,7 +24,7 @@ declare let $: any;
 })
 export class BookingComponent implements OnInit {
    Events: any[] = [];
-  
+  currentDateTimeSent:string;
   get f() { return this.addEventForm.controls; }
   eventdate:string;
   successdata:any;
@@ -52,6 +52,7 @@ export class BookingComponent implements OnInit {
 
   onSubmit() {
   console.log("Hello")
+  console.log(this.addEventForm.value)
     this.submitted = true;
     // stop here if form is invalid and reset the validations
    
@@ -62,6 +63,7 @@ export class BookingComponent implements OnInit {
       }
 
       else{
+      
         this.appointmentService.Appointment(this.addEventForm.value).subscribe(response => {
           
     
@@ -113,22 +115,30 @@ export class BookingComponent implements OnInit {
         selectMirror: true,
       
     };
-    //Add User form validations
-    this.addEventForm = this.formBuilder.group({
-      Description: ['', [Validators.required]],
-    Date:['']
-      });
+    
+    
+    
 
       
           
   }
   //Show Modal with Forn on dayClick Event
   handleDateClick(arg) {
+    let time=arg.dateStr.split('T');
+   
     $("#myModal").modal("show");
     $(".modal-title, .eventstarttitle").text("");
-    $(".modal-title").text("Foglalás erre a napra : "+arg.dateStr);
-    $(".eventstarttitle").text(arg.dateStr);
-   
+    let currentTime=time[1].split('+');
+    $(".modal-title").text("Foglalás erre a napra : "+time[0]);
+    $(".eventstarttitle").text(currentTime[0]);
+    this.currentDateTimeSent=arg.dateStr;
+    
+    console.log(this.currentDateTimeSent);
+    this.addEventForm = this.formBuilder.group({
+      Description: ['', [Validators.required]],
+    
+    Date:this.currentDateTimeSent
+      });
   }
   
   

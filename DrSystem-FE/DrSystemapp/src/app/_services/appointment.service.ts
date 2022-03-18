@@ -13,7 +13,7 @@ baseUrl=environment.apiUrl;
 
   Appointment(model: any) {
     return this.http
-      .post<Appointment>(this.baseUrl + 'private/client/appointment', model)
+      .post<Appointment>(this.baseUrl + 'private/client/post/appointment', model)
       .pipe(
         map((response: Appointment) => {
           const client = response;
