@@ -2,7 +2,12 @@ import { LocationStrategy } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CalendarOptions,DateSelectArg, EventApi, EventClickArg } from '@fullcalendar/angular';
+import {
+  CalendarOptions,
+  DateSelectArg,
+  EventApi,
+  EventClickArg,
+} from '@fullcalendar/angular';
 import { Calendar, Duration } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/hu';
 
@@ -15,132 +20,119 @@ import { AppointmentService } from 'src/app/_services/appointment.service';
 
 declare let $: any;
 
-
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css'],
-  
 })
 export class BookingComponent implements OnInit {
-   Events: any[] = [];
-  
-  get f() { return this.addEventForm.controls; }
-  eventdate:string;
-  successdata:any;
+  Events: any[] = [];
+
+  get f() {
+    return this.addEventForm.controls;
+  }
+  eventdate: string;
+  successdata: any;
   addEventForm: FormGroup;
   submitted = false;
-  minTime="10:00:00";
+  minTime = '10:00:00';
   currentDate = new Date();
   myDate = Date.now();
-  constructor(private location: LocationStrategy,private formBuilder: FormBuilder, private http: HttpClient, private appointmentService:AppointmentService, private toastr:ToastrService) {
+  constructor(
+    private location: LocationStrategy,
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private appointmentService: AppointmentService,
+    private toastr: ToastrService
+  ) {
     history.pushState(null, null, window.location.href);
     this.location.onPopState(() => {
       history.pushState(null, null, window.location.href);
     });
-
-    
   }
   calendarOptions: CalendarOptions = {};
- 
+
   toggleWeekends() {
-    this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
+    this.calendarOptions.weekends = !this.calendarOptions.weekends; // toggle the boolean!
   }
-  eventClick(event){
-    console.log(event);
-  }
+  eventClick(event) {}
 
   onSubmit() {
-  console.log("Hello")
+    console.log('Hello');
     this.submitted = true;
     // stop here if form is invalid and reset the validations
-   
-    this.addEventForm.get('Description').updateValueAndValidity();
-  
-    if (this.addEventForm.invalid) {
-        return;      
-      }
 
-      else{
-        this.appointmentService.Appointment(this.addEventForm.value).subscribe(response => {
-          
-    
-          
-        }, error => {
+    this.addEventForm.get('Description').updateValueAndValidity();
+
+    if (this.addEventForm.invalid) {
+      return;
+    } else {
+      this.appointmentService.Appointment(this.addEventForm.value).subscribe(
+        (response) => {},
+        (error) => {
           console.log(error);
           this.toastr.error(error.error);
-          
-        })
-      }
+        }
+      );
+    }
   }
-      
-    
-    ngOnInit() {
-      this.calendarOptions = {
-       
-        dateClick: this.handleDateClick.bind(this),
-        weekends: false,
-        initialView: 'timeGridWeek',
-        locale: esLocale,
-        timeZone:'local',
-       slotEventOverlap:false,
-       eventMinHeight:2,
-       allDaySlot: false,
-       slotMinTime:this.minTime,
-       eventClick:function(arg){
-        alert(arg.event.title)
-        alert(arg.event.start)
+
+  ngOnInit() {
+    this.calendarOptions = {
+      dateClick: this.handleDateClick.bind(this),
+      weekends: false,
+      initialView: 'timeGridWeek',
+      locale: esLocale,
+      timeZone: 'local',
+      slotEventOverlap: false,
+      eventMinHeight: 2,
+      allDaySlot: false,
+      slotMinTime: this.minTime,
+      eventClick: function (arg) {
+        alert(arg.event.title);
+        alert(arg.event.start);
       },
-       events: [
-        { title: 'Igy kaphatom meg az event adatait', date: '2022-03-02T10:00:00+01:00', color:'red' },
-        { title: 'event 2', date: this.myDate }
+      events: [
+        {
+          title: 'Igy kaphatom meg az event adatait',
+          date: '2022-03-02T10:00:00+01:00',
+          color: 'red',
+        },
+        { title: 'event 2', date: this.myDate },
       ],
-        headerToolbar:{
-          left: 'prev,next today',
-          center: 'title',
-          
-    
-    
-        },
-       
-        validRange:{
-        start:this.myDate
-        },
-        eventBackgroundColor:"#ffff",
-        slotDuration:"00:10:00",
-        editable: true,
-        selectable: true,
-        selectMirror: true,
-      
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+      },
+
+      validRange: {
+        start: this.myDate,
+      },
+      eventBackgroundColor: '#ffff',
+      slotDuration: '00:10:00',
+      editable: true,
+      selectable: true,
+      selectMirror: true,
     };
     //Add User form validations
     this.addEventForm = this.formBuilder.group({
       Description: ['', [Validators.required]],
-    Date:['']
-      });
-
-      
-          
+      Date: [''],
+    });
   }
   //Show Modal with Forn on dayClick Event
   handleDateClick(arg) {
-    $("#myModal").modal("show");
-    $(".modal-title, .eventstarttitle").text("");
-    $(".modal-title").text("Foglalás erre a napra : "+arg.dateStr);
-    $(".eventstarttitle").text(arg.dateStr);
-   
+    $('#myModal').modal('show');
+    $('.modal-title, .eventstarttitle').text('');
+    $('.modal-title').text('Foglalás erre a napra : ' + arg.dateStr);
+    $('.eventstarttitle').text(arg.dateStr);
+    console.log(arg.dateStr);
   }
-  
-  
+
   //Hide Modal PopUp and clear the form validations
-   hideForm(){
-    this.addEventForm.patchValue({ title : ""});
-   this.addEventForm.get('Description').clearValidators();
+  hideForm() {
+    this.addEventForm.patchValue({ title: '' });
+    this.addEventForm.get('Description').clearValidators();
     this.addEventForm.get('Description').updateValueAndValidity();
-    }
-   
-
+  }
 }
-
-
-
