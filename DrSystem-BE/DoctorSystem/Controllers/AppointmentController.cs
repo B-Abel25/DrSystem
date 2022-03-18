@@ -42,8 +42,8 @@ namespace DoctorSystem.Controllers
         }
 
         [Authorize]
-        [HttpPut]
-        [Route("client/put/appointment")]
+        [HttpPost]
+        [Route("client/post/appointment")]
         public async Task<ActionResult> TakeAppointment(AppointmentDto appDto)
         {
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
@@ -62,7 +62,7 @@ namespace DoctorSystem.Controllers
         }
 
         [Authorize]
-        [HttpPut]
+        [HttpGet]
         [Route("doctor/get/appointments")]
         public async Task<ActionResult<List<AppointmentDto>>> GetClientAppointments()
         {
