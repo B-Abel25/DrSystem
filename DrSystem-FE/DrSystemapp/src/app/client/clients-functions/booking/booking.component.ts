@@ -26,13 +26,11 @@ declare let $: any;
   styleUrls: ['./booking.component.css'],
 })
 export class BookingComponent implements OnInit {
-  Events: any[] = [];
-
-  get f() {
-    return this.addEventForm.controls;
-  }
-  eventdate: string;
-  successdata: any;
+   Events: any[] = [];
+  currentDateTimeSent:string;
+  get f() { return this.addEventForm.controls; }
+  eventdate:string;
+  successdata:any;
   addEventForm: FormGroup;
   submitted = false;
   minTime = '10:00:00';
@@ -58,23 +56,23 @@ export class BookingComponent implements OnInit {
   eventClick(event) {}
 
   onSubmit() {
-    console.log('Hello');
+  console.log("Hello")
+  console.log(this.addEventForm.value)
     this.submitted = true;
     // stop here if form is invalid and reset the validations
 
-    this.addEventForm.get('Description').updateValueAndValidity();
-
-    if (this.addEventForm.invalid) {
-      return;
-    } else {
-      this.appointmentService.Appointment(this.addEventForm.value).subscribe(
-        (response) => {},
-        (error) => {
+      
+      
+        this.appointmentService.Appointment(this.addEventForm.value).subscribe(response => {
+          
+    
+          
+        }, error => {
           console.log(error);
           this.toastr.error(error.error);
         }
       );
-    }
+    
   }
 
   ngOnInit() {
@@ -114,19 +112,30 @@ export class BookingComponent implements OnInit {
       selectable: true,
       selectMirror: true,
     };
-    //Add User form validations
-    this.addEventForm = this.formBuilder.group({
-      Description: ['', [Validators.required]],
-      Date: [''],
-    });
+    
+    
+    
+
+      
+          
   }
   //Show Modal with Forn on dayClick Event
   handleDateClick(arg) {
-    $('#myModal').modal('show');
-    $('.modal-title, .eventstarttitle').text('');
-    $('.modal-title').text('Foglalás erre a napra : ' + arg.dateStr);
-    $('.eventstarttitle').text(arg.dateStr);
-    console.log(arg.dateStr);
+    let time=arg.dateStr.split('T');
+   
+    $("#myModal").modal("show");
+    $(".modal-title, .eventstarttitle").text("");
+    let currentTime=time[1].split('+');
+    $(".modal-title").text("Foglalás erre a napra : "+time[0]);
+    $(".eventstarttitle").text(currentTime[0]);
+    this.currentDateTimeSent=arg.dateStr;
+    
+    console.log(this.currentDateTimeSent);
+    this.addEventForm = this.formBuilder.group({
+      Description: ['', [Validators.required]],
+    
+    Date:this.currentDateTimeSent
+      });
   }
 
   //Hide Modal PopUp and clear the form validations
