@@ -42,12 +42,12 @@ namespace DoctorSystem.Controllers
         }
 
        
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("client/post/appointment")]
         public async Task<ActionResult> ClientTakeAppointment(AppointmentDto appDto)
         {
-            string clientMedNumber = "111111111"; // _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
             Appointment appointment = new Appointment();
@@ -68,7 +68,7 @@ namespace DoctorSystem.Controllers
         [Route("doctor/post/appointment")]
         public async Task<ActionResult> DoctorTakeAppointment(AppointmentDto appDto)
         {
-            string clientMedNumber = "111111111"; //_tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
             Appointment appointment = new Appointment();
@@ -89,7 +89,7 @@ namespace DoctorSystem.Controllers
         [Route("doctor/get/appointments")]
         public async Task<ActionResult<List<AppointmentDto>>> GetClientsAppointmentsToDoctor()
         {
-            string doctorSealNumber = "69585"; //_tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
 
             List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByDoctorAsync(doctor);
@@ -106,12 +106,12 @@ namespace DoctorSystem.Controllers
             return Dtos;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("client/get/appointments")]
         public async Task<ActionResult<List<AppointmentDto>>> GetClientsAppointmentsToClient()
         {
-            string clientMedNumber = "111111111";// _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
             List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByDoctorAsync(client.Doctor);
