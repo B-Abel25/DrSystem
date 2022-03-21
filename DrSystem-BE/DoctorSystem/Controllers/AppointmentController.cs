@@ -50,6 +50,7 @@ namespace DoctorSystem.Controllers
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
+
             Appointment appointment = new Appointment();
             appointment.AppointmentingUser = client;
             appointment.Doctor = client.Doctor;
@@ -114,6 +115,11 @@ namespace DoctorSystem.Controllers
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
+            if (await HaveAppointment(client))
+            {
+                return Unauthorized("Egyszerre csak egy foglalás lehet aktív");
+            }
+
             List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByDoctorAsync(client.Doctor);
 
             List<AppointmentDto> Dtos = new List<AppointmentDto>();
@@ -131,7 +137,18 @@ namespace DoctorSystem.Controllers
             return Dtos;
         }
 
-
+        private async Task<bool> HaveAppointment(Client client)
+        {
+            List<Appointment> apps = await _appointmentRepo.GetAppointmentsByClientAsync(client);
+            foreach (var app in apps)
+            {
+                if (app.Date > DateTime.Now && !app.IsDeleted)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
     }
 }
