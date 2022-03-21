@@ -42,18 +42,20 @@ namespace DoctorSystem.Controllers
         }
 
        
+        //[Authorize]
         [HttpPost]
         [Route("client/post/appointment")]
-        public async Task<ActionResult> TakeAppointment(AppointmentDto appDto)
+        public async Task<ActionResult> ClientTakeAppointment(AppointmentDto appDto)
         {
-            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            string clientMedNumber = "111111111"; // _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
             Appointment appointment = new Appointment();
-            appointment.Client = client;
+            appointment.AppointmentingUser = client;
             appointment.Doctor = client.Doctor;
             appointment.Description = appDto.Description;
             appointment.Date = appDto.Date;
+            appointment.IsDeleted = false;
 
             _appointmentRepo.PutAppointment(appointment);
             await _appointmentRepo.SaveAllAsync();
@@ -61,20 +63,69 @@ namespace DoctorSystem.Controllers
             return Accepted();
         }
 
-        [Authorize]
+        //[Authorize]
+        [HttpPost]
+        [Route("doctor/post/appointment")]
+        public async Task<ActionResult> DoctorTakeAppointment(AppointmentDto appDto)
+        {
+            string clientMedNumber = "111111111"; //_tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
+
+            Appointment appointment = new Appointment();
+            appointment.AppointmentingUser = client;
+            appointment.Doctor = client.Doctor;
+            appointment.Description = appDto.Description;
+            appointment.Date = appDto.Date;
+            appointment.IsDeleted = false;
+
+            _appointmentRepo.PutAppointment(appointment);
+            await _appointmentRepo.SaveAllAsync();
+
+            return Accepted();
+        }
+
+        //[Authorize]
         [HttpGet]
         [Route("doctor/get/appointments")]
-        public async Task<ActionResult<List<AppointmentDto>>> GetClientAppointments()
+        public async Task<ActionResult<List<AppointmentDto>>> GetClientsAppointmentsToDoctor()
         {
-            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            string doctorSealNumber = "69585"; //_tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
 
-            List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByDoctor(doctor);
+            List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByDoctorAsync(doctor);
 
             List<AppointmentDto> Dtos = new List<AppointmentDto>();
             foreach (var docApp in docApps)
             {
-                Dtos.Add(new AppointmentDto(docApp));
+                if (!docApp.IsDeleted)
+                {
+                    Dtos.Add(new AppointmentDto(docApp));
+                }
+            }
+
+            return Dtos;
+        }
+
+        //[Authorize]
+        [HttpGet]
+        [Route("client/get/appointments")]
+        public async Task<ActionResult<List<AppointmentDto>>> GetClientsAppointmentsToClient()
+        {
+            string clientMedNumber = "111111111";// _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
+
+            List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByDoctorAsync(client.Doctor);
+
+            List<AppointmentDto> Dtos = new List<AppointmentDto>();
+            foreach (var docApp in docApps)
+            {
+                if (!docApp.IsDeleted)
+                {
+                    AppointmentDto d = new AppointmentDto(docApp);
+                    d.Name = "Foglalt";
+                    d.Description = "";
+                    Dtos.Add(d);
+                }
             }
 
             return Dtos;

@@ -17,5 +17,8 @@ namespace DoctorSystem.Controllers
             this.Closing = oh.Closing;
             this.Closed = oh.Closed;    
         }
+        public OfficeHoursDto()
+        {
+        }
     }
 }

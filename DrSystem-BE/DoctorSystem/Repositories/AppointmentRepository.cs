@@ -1,5 +1,6 @@
 ﻿using DoctorSystem.Entities;
 using DoctorSystem.Entities.Contexts;
+using DoctorSystem.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DoctorSystem.Repositories
 {
-    public class AppointmentRepository : Interfaces.IAppointmentRepository
+    public class AppointmentRepository : IAppointmentRepository
     {
         private readonly BaseDbContext _context;
 
@@ -26,14 +27,14 @@ namespace DoctorSystem.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<List<Appointment>> GetAppointmentsByClient(Client client)
+        public async Task<List<Appointment>> GetAppointmentsByClientAsync(Client client)
         {
-            return await _context._appointments.Where(x => x.Client == client).ToListAsync();
+            return await _context._appointments.Include(x => x.AppointmentingUser).Where(x => x.AppointmentingUser == client).ToListAsync();
         }
 
-        public async Task<List<Appointment>> GetAppointmentsByDoctor(Doctor doctor)
+        public async Task<List<Appointment>> GetAppointmentsByDoctorAsync(Doctor doctor)
         {
-            return await _context._appointments.Include(x => x.Client).Where(x => x.Doctor == doctor).ToListAsync();
+            return await _context._appointments.Include(x => x.AppointmentingUser).Where(x => x.Doctor == doctor).ToListAsync();
         }
 
     }

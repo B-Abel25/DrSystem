@@ -6,8 +6,8 @@ namespace DoctorSystem.Interfaces
 {
     public interface IAppointmentRepository
     {
-        Task<List<Appointment>> GetAppointmentsByClient(Client client);
-        Task<List<Appointment>> GetAppointmentsByDoctor(Doctor doctor);
+        Task<List<Appointment>> GetAppointmentsByClientAsync(Client client);
+        Task<List<Appointment>> GetAppointmentsByDoctorAsync(Doctor doctor);
         void PutAppointment(Appointment appointment);
         Task<bool> SaveAllAsync();
     }

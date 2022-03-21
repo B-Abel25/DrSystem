@@ -6,14 +6,18 @@ namespace DoctorSystem.Dtos
     public class AppointmentDto
     {
         public string Name { get; set; }
-        public DateTime Date{ get; set; }
+        public DateTime Date { get; set; }
         public string Description { get; set; }
 
         public AppointmentDto(Appointment app)
         {
-            Name = app.Client.Name;
-            Date = app.Date;
-            Description = app.Description;
+            this.Name = app.AppointmentingUser.Name;
+            this.Date = app.Date;
+            this.Description = app.Description;
+        }
+
+        public AppointmentDto()
+        {
         }
     }
 }

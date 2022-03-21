@@ -172,7 +172,7 @@ namespace DoctorSystem.Data
 
         private static async Task SeedOfficeHours(BaseDbContext _context)
         {
-
+           List<Doctor> doctors = await _context._doctors.ToListAsync();
         }
 
     }

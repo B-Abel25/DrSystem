@@ -9,13 +9,13 @@ namespace DoctorSystem.Entities
     [MySqlCharset("utf8")]
     public class Appointment : AbstractAuditable
     {
-        public Client Client { get; set; }
+        public User AppointmentingUser { get; set; }
         public Doctor Doctor { get; set; }
         public DateTime Date { get; set; }
         [MySqlCollation("utf8_hungarian_ci")]
         [Column("Description", TypeName = "varchar")]
         [StringLength(300)]
         public string Description { get; set; }
-
+        public bool IsDeleted { get; set; }
     }
 }
