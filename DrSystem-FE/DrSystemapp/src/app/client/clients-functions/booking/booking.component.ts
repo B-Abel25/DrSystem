@@ -31,6 +31,7 @@ export class BookingComponent implements OnInit {
   addEventForm: FormGroup;
   submitted = false;
   minTime="10:00:00";
+  slotDuration="00:10:00";
   currentDate = new Date();
   myDate = Date.now();
   constructor(private location: LocationStrategy,private formBuilder: FormBuilder, private http: HttpClient, private appointmentService:AppointmentService, private toastr:ToastrService) {
@@ -51,7 +52,7 @@ export class BookingComponent implements OnInit {
   }
 
   onSubmit() {
-  console.log("Hello")
+  
   console.log(this.addEventForm.value)
     this.submitted = true;
     // stop here if form is invalid and reset the validations
@@ -86,7 +87,7 @@ export class BookingComponent implements OnInit {
         locale: esLocale,
         timeZone:'local',
        slotEventOverlap:false,
-       eventMinHeight:2,
+       //eventMinHeight:2,
        allDaySlot: false,
        slotMinTime:this.minTime,
        eventClick:function(arg){
@@ -94,24 +95,24 @@ export class BookingComponent implements OnInit {
         alert(arg.event.start)
       },
        events: [
-        { title: 'Igy kaphatom meg az event adatait', date: '2022-03-02T10:00:00+01:00', color:'red' },
-        { title: 'event 2', date: this.myDate }
+        { title: 'Igy kaphatom meg az event adatait', start: '2022-03-21T10:00:00+01:00', end:'2022-03-21T10:10:00+01:00', color:'red' },
+        { title: 'event 2', date: '2022-03-21T11:00:00+01:00-11:10:00+01:00', color:'yellow' }
       ],
         headerToolbar:{
-          left: 'prev,next today',
-          center: 'title',
+          
+     
           
     
     
         },
-       
+     
         validRange:{
         start:this.myDate
         },
         eventBackgroundColor:"#ffff",
-        slotDuration:"00:10:00",
-        editable: true,
-        selectable: true,
+        slotDuration:this.slotDuration,
+        editable: false,
+        selectable: false,
         selectMirror: true,
       
     };
@@ -130,6 +131,8 @@ export class BookingComponent implements OnInit {
     $(".modal-title, .eventstarttitle").text("");
     let currentTime=time[1].split('+');
     $(".modal-title").text("Foglalás erre a napra : "+time[0]);
+   
+    
     $(".eventstarttitle").text(currentTime[0]);
     this.currentDateTimeSent=arg.dateStr;
    
