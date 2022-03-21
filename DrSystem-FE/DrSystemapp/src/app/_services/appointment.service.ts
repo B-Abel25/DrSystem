@@ -23,4 +23,25 @@ export class AppointmentService {
         })
       );
   }
+
+  AppointmentDoctor(model: any) {
+    return this.http
+      .post<Appointment>(
+        this.baseUrl + 'private/doctor/post/appointment',
+        model
+      )
+      .pipe(
+        map((response: Appointment) => {
+          const doctor = response;
+        })
+      );
+  }
+
+  getDoctorAppointment() {
+    return this.http.get<Appointment[]>(this.baseUrl + 'private/doctor/get/appointments');
+  }
+
+  getClientAppointment() {
+    return this.http.get<Appointment[]>(this.baseUrl + 'private/client/get/appointment');
+  }
 }

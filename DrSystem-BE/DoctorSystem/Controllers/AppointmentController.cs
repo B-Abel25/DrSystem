@@ -50,7 +50,10 @@ namespace DoctorSystem.Controllers
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
-
+            if (await HaveAppointment(client))
+            {
+                return Unauthorized("Egyszerre csak egy foglalás lehet aktív");
+            }
             Appointment appointment = new Appointment();
             appointment.AppointmentingUser = client;
             appointment.Doctor = client.Doctor;
@@ -64,7 +67,7 @@ namespace DoctorSystem.Controllers
             return Accepted();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("doctor/post/appointment")]
         public async Task<ActionResult> DoctorTakeAppointment(AppointmentDto appDto)
@@ -85,7 +88,7 @@ namespace DoctorSystem.Controllers
             return Accepted();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("doctor/get/appointments")]
         public async Task<ActionResult<List<AppointmentDto>>> GetClientsAppointmentsToDoctor()
@@ -115,10 +118,7 @@ namespace DoctorSystem.Controllers
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
-            if (await HaveAppointment(client))
-            {
-                return Unauthorized("Egyszerre csak egy foglalás lehet aktív");
-            }
+         
 
             List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByDoctorAsync(client.Doctor);
 

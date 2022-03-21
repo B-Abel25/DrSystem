@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/hu';
+import { Appointment } from 'src/app/_models/appointment';
+import { AppointmentService } from 'src/app/_services/appointment.service';
 declare let $: any;
 @Component({
   selector: 'app-appointment-list',
@@ -15,7 +17,8 @@ export class AppointmentListComponent implements OnInit {
   showModal: boolean;
   name:string;
   date:string;
-  constructor() { }
+  appointment:Appointment[];
+  constructor(private appointmentService:AppointmentService) { }
 
   ngOnInit() {
     this.calendarOptions = {
@@ -48,7 +51,7 @@ export class AppointmentListComponent implements OnInit {
         alert(arg.event.start)
       },
       events: [
-        { title: 'Igy kaphatom meg az event adatait', start: '2022-03-21T10:00:00+01:00', end:'2022-03-21T10:10:00+01:00', color:'red' },
+        { title: '', start: '2022-03-21T10:00:00+01:00', end:'2022-03-21T10:10:00+01:00', color:'red' },
         { title: 'event 2', date: '2022-03-21T11:00:00+01:00-11:10:00+01:00', color:'yellow' }
       ],
       themeSystem: 'bootstrap5',
@@ -59,6 +62,16 @@ export class AppointmentListComponent implements OnInit {
       droppable: false,
       selectOverlap: false,
     };
+
+    this.loadDoctorAppontment();
   }
 
+  loadDoctorAppontment() {
+    this.appointmentService
+      .getDoctorAppointment()
+      .subscribe((appointment) => {
+        this.appointment = appointment;
+       console.log(this.appointment)
+      });
+  }
 }
