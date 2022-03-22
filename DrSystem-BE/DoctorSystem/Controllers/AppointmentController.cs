@@ -58,7 +58,7 @@ namespace DoctorSystem.Controllers
             appointment.AppointmentingUser = client;
             appointment.Doctor = client.Doctor;
             appointment.Description = appDto.Description;
-            appointment.Date = appDto.DateStart;
+            appointment.Date = appDto.Start;
             appointment.IsDeleted = false;
 
             _appointmentRepo.PutAppointment(appointment);
@@ -84,7 +84,7 @@ namespace DoctorSystem.Controllers
             appointment.AppointmentingUser = client;
             appointment.Doctor = client.Doctor;
             appointment.Description = appDto.Description;
-            appointment.Date = appDto.DateStart;
+            appointment.Date = appDto.Start;
             appointment.IsDeleted = false;
 
             _appointmentRepo.PutAppointment(appointment);
@@ -133,7 +133,7 @@ namespace DoctorSystem.Controllers
                 if (!docApp.IsDeleted)
                 {
                     AppointmentDto d = new AppointmentDto(docApp);
-                    d.Name = "Foglalt";
+                    d.Title = "Foglalt";
                     d.Description = "";
                     Dtos.Add(d);
                 }
