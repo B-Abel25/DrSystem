@@ -1,8 +1,8 @@
 .content{
-    background-color: aqua;
+    background-color:rgba(131, 159, 224, 0.97);
     height: 100vh;
 }
 .container{
-    background-color: blueviolet;
+    background-color: rgba(202, 216, 248, 0.97);
     height: 800px;
 }

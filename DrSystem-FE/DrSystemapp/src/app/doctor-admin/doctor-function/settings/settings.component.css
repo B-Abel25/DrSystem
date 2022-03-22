@@ -27,12 +27,18 @@
   }
   button[type=submit].btn{
     border-radius: 20px;
-    background-color: #77b6e9;
-    color: rgb(10, 16, 68);
+    background-color: #00182c;
+    color: rgb(255, 255, 255);
+}
+input.checkbox{
+  width: 30px;
+  height: 30px;
+  transform : scale(1);
 }
 
-input{
+input.form-control{
   width: 200px;
- 
 }
+
+
   

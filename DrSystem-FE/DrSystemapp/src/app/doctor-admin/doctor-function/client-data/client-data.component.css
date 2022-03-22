@@ -6,3 +6,6 @@
 .row{
     align-items: center;
 }
+.content{
+    background-color: rgba(131, 159, 224, 0.97);
+}
