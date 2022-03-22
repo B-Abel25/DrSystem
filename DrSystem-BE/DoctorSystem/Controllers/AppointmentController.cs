@@ -135,6 +135,7 @@ namespace DoctorSystem.Controllers
                     AppointmentDto d = new AppointmentDto(docApp);
                     d.Title = "Foglalt";
                     d.Description = "";
+                    d.Color = "darkblue";
                     Dtos.Add(d);
                 }
             }

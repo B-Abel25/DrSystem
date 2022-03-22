@@ -60,7 +60,7 @@ export class BookingComponent implements OnInit {
     this.calendarOptions.weekends = !this.calendarOptions.weekends; // toggle the boolean!
   }
   eventClick(event) {
-    console.log(event);
+    //console.log(event);
   }
 
   onSubmit() {
@@ -73,17 +73,26 @@ export class BookingComponent implements OnInit {
     if (this.addEventForm.invalid) {
       return;
     } else {
+      $('#myModal').modal('hide');
+      console.log(this.addEventForm.value);
       this.appointmentService.Appointment(this.addEventForm.value).subscribe(
-        (response) => {},
+        (response) => {
+          this.loadClientAppointments();
+        },
         (error) => {
           console.log(error);
           this.toastr.error(error.error);
         }
       );
+      this.addEventForm.reset();
     }
   }
 
   ngOnInit() {
+    this.initializationForm();
+    console.log('ott');
+    this.loadClientAppointments();
+    console.log('itt');
     this.calendarOptions = {
       dateClick: this.handleDateClick.bind(this),
       weekends: false,
@@ -98,14 +107,73 @@ export class BookingComponent implements OnInit {
         alert(arg.event.title);
         alert(arg.event.start);
       },
-       events: [
-         
-        this.Events,
-        //{ title: 'Te foglalásod', start: this.appointment[0].dateStart, end:this.appointment[0].dateEnd, color:'red' },
+      events: [
         {
-          title: 'event 2',
-          date: '2022-03-21T11:00:00+01:00-11:10:00+01:00',
-          color: 'yellow',
+          title: 'green',
+          start: '2022-03-23T10:40:00+01:00',
+          end: '2022-03-23T10:50:00+01:00',
+          color: 'blue',
+        },
+        {
+          title: 'green',
+          start: '2022-03-23T10:50:00+01:00',
+          end: '2022-03-23T11:00:00+01:00',
+          color: 'green',
+        },
+        {
+          title: 'blue',
+          start: '2022-03-23T11:00:00+01:00',
+          end: '2022-03-23T11:10:00+01:00',
+          color: 'blue',
+        },
+        {
+          title: 'light blue',
+          start: '2022-03-23T11:10:00+01:00',
+          end: '2022-03-23T11:20:00+01:00',
+          color: 'green',
+        },
+        {
+          title: 'lightblue',
+          start: '2022-03-23T11:20:00+01:00',
+          end: '2022-03-23T11:30:00+01:00',
+          color: 'blue',
+        },
+        {
+          title: 'lightblue',
+          start: '2022-03-23T11:30:00+01:00',
+          end: '2022-03-23T11:40:00+01:00',
+          color: 'blue',
+        },
+        //------
+        {
+          title: 'darkgreen',
+          start: '2022-03-24T10:40:00+01:00',
+          end: '2022-03-24T10:50:00+01:00',
+          color: 'darkgreen',
+        },
+        {
+          title: 'dark green',
+          start: '2022-03-24T10:50:00+01:00',
+          end: '2022-03-24T11:00:00+01:00',
+          color: 'dark green',
+        },
+        {
+          title: 'green',
+          start: '2022-03-24T11:00:00+01:00',
+          end: '2022-03-24T11:10:00+01:00',
+          color: 'green',
+        },
+        {
+          title: 'light green',
+          start: '2022-03-24T11:10:00+01:00',
+          end: '2022-03-24T11:20:00+01:00',
+          color: 'light green',
+        },
+        {
+          title: 'lightgreen',
+          start: '2022-03-24T11:20:00+01:00',
+          end: '2022-03-24T11:30:00+01:00',
+          color: 'lighgreen',
         },
       ],
       headerToolbar: {},
@@ -119,25 +187,6 @@ export class BookingComponent implements OnInit {
       selectable: false,
       selectMirror: true,
     };
-
-    this.initializationForm();
-    this.loadClientAppointments();
-
-    console.log(this.appointments);
-    // for (let index = 0; index < this.appointments.length; index++) {
-    //   let calendarEvent:EventObject;
-        
-    
-    // calendarEvent.dateStart=this.appointments[index].dateStart;
-    // calendarEvent.dateEnd=this.appointments[index].dateEnd;
-    // calendarEvent.title=this.appointments[index].name;
-    // calendarEvent.color='red';
-    // this.calendarEvents.push(calendarEvent)
-      
-    // }
-    //   this.calendarOptions.events=this.calendarEvents;
-      this.initializationForm();
-      this.loadClientAppointments();     
   }
   //Show Modal with Forn on dayClick Event
   handleDateClick(arg) {
@@ -155,7 +204,7 @@ export class BookingComponent implements OnInit {
     this.addEventForm = this.formBuilder.group({
       Description: ['', [Validators.required]],
 
-      dateStart: this.currentDateTimeSent,
+      Start: this.currentDateTimeSent,
     });
   }
 
@@ -164,31 +213,24 @@ export class BookingComponent implements OnInit {
     this.addEventForm.patchValue({ title: '' });
     this.addEventForm.get('Description').clearValidators();
     this.addEventForm.get('Description').updateValueAndValidity();
-    }
-    initializationForm() {
-      console.log(this.currentDateTimeSent);
-      this.addEventForm = this.formBuilder.group({
-        Description: ['', [Validators.required]],
-      
-      dateStart:this.currentDateTimeSent
-        });
-    }
-    loadClientAppointments() {
-      this.appointmentService
-        .getClientAppointment()
-        .subscribe((appointment:any) => {
-          this.Events.push(appointment);
-         console.log(appointment);
-         console.log(this.Events)
-        });
-    }
-
   }
-     
- 
-export interface EventObject {
-  dateStart: string;
-  dateEnd: string;
-  title: string;
-  color: string;
+  initializationForm() {
+    //console.log(this.currentDateTimeSent);
+    this.addEventForm = this.formBuilder.group({
+      Description: ['', [Validators.required]],
+
+      Start: this.currentDateTimeSent,
+    });
+  }
+  loadClientAppointments() {
+    console.log('kiderül az igazság');
+    this.appointmentService
+      .getClientAppointment()
+      .subscribe((appointment: any) => {
+        this.Events.push(appointment);
+        console.log(appointment);
+        console.log(this.Events);
+        this.calendarOptions.events = appointment;
+      });
+  }
 }
