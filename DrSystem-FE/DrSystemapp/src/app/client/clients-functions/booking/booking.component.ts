@@ -98,7 +98,8 @@ export class BookingComponent implements OnInit {
         alert(arg.event.start)
       },
        events: [
-        this.calendarEvents,
+         
+        this.Events,
         //{ title: 'Te foglalásod', start: this.appointment[0].dateStart, end:this.appointment[0].dateEnd, color:'red' },
         { title: 'event 2', date: '2022-03-21T11:00:00+01:00-11:10:00+01:00', color:'yellow' }
       ],
@@ -125,18 +126,18 @@ export class BookingComponent implements OnInit {
     
     
     console.log(this.appointments);
-    for (let index = 0; index < this.appointments.length; index++) {
-      let calendarEvent:EventObject;
+    // for (let index = 0; index < this.appointments.length; index++) {
+    //   let calendarEvent:EventObject;
         
     
-    calendarEvent.dateStart=this.appointments[index].dateStart;
-    calendarEvent.dateEnd=this.appointments[index].dateEnd;
-    calendarEvent.title=this.appointments[index].name;
-    calendarEvent.color='red';
-    this.calendarEvents.push(calendarEvent)
+    // calendarEvent.dateStart=this.appointments[index].dateStart;
+    // calendarEvent.dateEnd=this.appointments[index].dateEnd;
+    // calendarEvent.title=this.appointments[index].name;
+    // calendarEvent.color='red';
+    // this.calendarEvents.push(calendarEvent)
       
-    }
-      this.calendarOptions.events=this.calendarEvents;
+    // }
+    //   this.calendarOptions.events=this.calendarEvents;
       this.initializationForm();
       this.loadClientAppointments();     
   }
@@ -179,9 +180,10 @@ export class BookingComponent implements OnInit {
     loadClientAppointments() {
       this.appointmentService
         .getClientAppointment()
-        .subscribe((appointment) => {
-          this.appointments = appointment;
-         console.log(this.appointments);
+        .subscribe((appointment:any) => {
+          this.Events.push(appointment);
+         console.log(appointment);
+         console.log(this.Events)
         });
     }
 
