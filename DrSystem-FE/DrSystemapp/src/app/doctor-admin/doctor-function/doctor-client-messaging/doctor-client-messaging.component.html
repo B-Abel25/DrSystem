@@ -9,7 +9,7 @@
          *ngIf="messages?.length > 0" class="chat">
             <li *ngFor="let message of messages">
                 <div>
-                    <span class="float-center" *ngIf="message.sender.name!==client.medNumber">
+                    <span class="float-center" >
                         <p style="color:rgb(50, 206, 206)">{{message.sender.name}}</p>
                         <i class="fa fa-user"></i>
                     </span>

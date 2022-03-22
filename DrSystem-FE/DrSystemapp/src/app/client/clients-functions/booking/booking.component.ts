@@ -11,6 +11,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { calendar } from 'ngx-bootstrap/chronos/moment/calendar';
 import { ToastrService } from 'ngx-toastr';
+import { Appointment } from 'src/app/_models/appointment';
 import { AppointmentService } from 'src/app/_services/appointment.service';
 
 declare let $: any;
@@ -25,9 +26,11 @@ declare let $: any;
 export class BookingComponent implements OnInit {
    Events: any[] = [];
   currentDateTimeSent:string;
+  appointments:Appointment[];
   get f() { return this.addEventForm.controls; }
   eventdate:string;
   successdata:any;
+  calendarEvents:EventObject[];
   addEventForm: FormGroup;
   submitted = false;
   minTime="10:00:00";
@@ -95,7 +98,8 @@ export class BookingComponent implements OnInit {
         alert(arg.event.start)
       },
        events: [
-        { title: 'Igy kaphatom meg az event adatait', start: '2022-03-21T10:00:00+01:00', end:'2022-03-21T10:10:00+01:00', color:'red' },
+        this.calendarEvents,
+        //{ title: 'Te foglalásod', start: this.appointment[0].dateStart, end:this.appointment[0].dateEnd, color:'red' },
         { title: 'event 2', date: '2022-03-21T11:00:00+01:00-11:10:00+01:00', color:'yellow' }
       ],
         headerToolbar:{
@@ -116,12 +120,25 @@ export class BookingComponent implements OnInit {
         selectMirror: true,
       
     };
+   
+   
     
-    this.initializationForm();
     
-
+    console.log(this.appointments);
+    for (let index = 0; index < this.appointments.length; index++) {
+      let calendarEvent:EventObject;
+        
+    
+    calendarEvent.dateStart=this.appointments[index].dateStart;
+    calendarEvent.dateEnd=this.appointments[index].dateEnd;
+    calendarEvent.title=this.appointments[index].name;
+    calendarEvent.color='red';
+    this.calendarEvents.push(calendarEvent)
       
-          
+    }
+      this.calendarOptions.events=this.calendarEvents;
+      this.initializationForm();
+      this.loadClientAppointments();     
   }
   //Show Modal with Forn on dayClick Event
   handleDateClick(arg) {
@@ -140,7 +157,7 @@ export class BookingComponent implements OnInit {
     this.addEventForm = this.formBuilder.group({
       Description: ['', [Validators.required]],
     
-    Date:this.currentDateTimeSent
+    dateStart:this.currentDateTimeSent
       });
   }
   
@@ -156,10 +173,25 @@ export class BookingComponent implements OnInit {
       this.addEventForm = this.formBuilder.group({
         Description: ['', [Validators.required]],
       
-      Date:this.currentDateTimeSent
+      dateStart:this.currentDateTimeSent
+        });
+    }
+    loadClientAppointments() {
+      this.appointmentService
+        .getClientAppointment()
+        .subscribe((appointment) => {
+          this.appointments = appointment;
+         console.log(this.appointments);
         });
     }
 
+
+}
+export interface EventObject {
+  dateStart: string;
+  dateEnd:string;
+  title:string;
+  color:string;
 }
 
 

@@ -123,10 +123,7 @@ namespace DoctorSystem.Controllers
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
-            if (await HaveAppointment(client))
-            {
-                return Unauthorized("Egyszerre csak egy foglalás lehet aktív");
-            }
+            
 
             List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByDoctorAsync(client.Doctor);
 

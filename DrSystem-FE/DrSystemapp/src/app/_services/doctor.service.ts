@@ -105,6 +105,9 @@ export class DoctorService {
     });
 
   }
+  getDoctors() {
+    return this.http.get<Doctor[]>(this.baseUrl + 'public/register/doctors');
+  }
 }
 
 

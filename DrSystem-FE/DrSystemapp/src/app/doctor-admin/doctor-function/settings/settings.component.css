@@ -22,11 +22,17 @@
   }
 
   table{
-    display: flex;
-    align-items: center;
-    flex-direction: column; 
-    justify-content: center;
-   
-    padding: 100px;
+   padding: 100px;
+   align-items: center;
   }
+  button[type=submit].btn{
+    border-radius: 20px;
+    background-color: #77b6e9;
+    color: rgb(10, 16, 68);
+}
+
+input{
+  width: 200px;
+ 
+}
   

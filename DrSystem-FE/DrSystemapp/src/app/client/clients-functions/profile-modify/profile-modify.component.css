@@ -70,10 +70,10 @@ div.form-group label:first-child {
     border-radius: 10px 10px 10px 10px;
     background: #5384e7;
   
-   
-    width: 900px;
+    
+    width: 800px;
     position: absolute;
-   
+    padding: 0px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
     box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
 }
@@ -112,12 +112,10 @@ input:invalid {
     background-repeat: no-repeat;
     background-size: cover;
     vertical-align: middle; 
-    
     height:100vh;
 ;}
     .content .overlay {
       background-color: rgba(46, 76, 144, 0.97);
-      height: 100vh;
   }
 
 button[type=submit].btn:disabled {

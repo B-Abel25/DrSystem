@@ -42,6 +42,6 @@ export class AppointmentService {
   }
 
   getClientAppointment() {
-    return this.http.get<Appointment[]>(this.baseUrl + 'private/client/get/appointment');
+    return this.http.get<Appointment[]>(this.baseUrl + 'private/client/get/appointments');
   }
 }

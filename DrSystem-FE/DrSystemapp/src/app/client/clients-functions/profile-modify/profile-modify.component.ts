@@ -1,30 +1,18 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
-
-import { ToastrService } from 'ngx-toastr';
-
-import { Doctor } from '../../_models/doctor';
-import { Place } from '../../_models/place';
-import { AccountService } from '../../_services/account.service';
-
-import { DoctorService } from '../../_services/doctor.service';
-
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DATE_PIPE_DEFAULT_TIMEZONE } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { Doctor } from 'src/app/_models/doctor';
+import { Place } from 'src/app/_models/place';
+import { AccountService } from 'src/app/_services/account.service';
+import { DoctorService } from 'src/app/_services/doctor.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  selector: 'app-profile-modify',
+  templateUrl: './profile-modify.component.html',
+  styleUrls: ['./profile-modify.component.css']
 })
-export class RegisterComponent implements OnInit {
-  @Output() cancelRegister = new EventEmitter();
+export class ProfileModifyComponent implements OnInit {
 
   doctors: Doctor[];
   submitted: boolean = false;
@@ -214,3 +202,5 @@ export class RegisterComponent implements OnInit {
     this.fieldTextType = !this.fieldTextType;
   }
 }
+
+

@@ -50,6 +50,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { SettingsComponent } from './doctor-admin/doctor-function/settings/settings.component';
 import { AppointmentListComponent } from './doctor-admin/doctor-function/appointment-list/appointment-list.component';
+import { ProfileModifyComponent } from './client/clients-functions/profile-modify/profile-modify.component';
+import { ReferralComponent } from './doctor-admin/doctor-function/referral/referral.component';
 
 FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
 
@@ -84,6 +86,8 @@ FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
     PrivacyPolicyComponent,
     SettingsComponent,
     AppointmentListComponent,
+    ProfileModifyComponent,
+    ReferralComponent,
   ],
   imports: [
     FormsModule,

@@ -25,6 +25,7 @@ import { DoctorClientMessagingComponent } from './doctor-admin/doctor-function/d
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SettingsComponent } from './doctor-admin/doctor-function/settings/settings.component';
 import { AppointmentListComponent } from './doctor-admin/doctor-function/appointment-list/appointment-list.component';
+import { ProfileModifyComponent } from './client/clients-functions/profile-modify/profile-modify.component';
 
 const routes: Routes = [
   { path: '', component: DrsystemHomeComponent },
@@ -53,6 +54,7 @@ const routes: Routes = [
     children: [
       { path: 'booking', component: BookingComponent },
       { path: 'complaint', component: ComplaintComponent },
+      {path: 'profile-modify', component: ProfileModifyComponent}
     ],
   },
   {

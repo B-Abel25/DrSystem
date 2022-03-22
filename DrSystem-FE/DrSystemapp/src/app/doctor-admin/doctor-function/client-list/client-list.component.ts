@@ -7,10 +7,12 @@ import {
   Output,
   PipeTransform,
   QueryList,
+  TemplateRef,
   ViewChildren,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Client } from 'src/app/_models/client';
 
@@ -24,9 +26,11 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 export class ClientListComponent implements OnInit {
   clients: Client[];
   filteredClients: Client[];
+  modalRef!: BsModalRef;
   constructor(
     private doctorService: DoctorService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: BsModalService
   ) {}
   filterTerm:string;
   totalLength: any;
@@ -64,5 +68,19 @@ export class ClientListComponent implements OnInit {
   sort(key) {
     this.key = key;
     this.reverse = !this.reverse;
+  }
+  openModal(template: TemplateRef<any>) {
+    if (this.modalRef != null) {
+      this.modalRef.hide();
+
+    }
+    this.modalRef = this.modalService.show(template);
+  }
+  closeModal() {
+    
+    if (this.modalRef != null) {
+      this.modalRef.hide();
+      
+    }
   }
 }

@@ -1,7 +1,7 @@
 <div class="content"  style="background-image: url(/assets/logofekete.png);">
     <div class="overlay"></div>
     <app-navbar></app-navbar>
-
+<div class="container">
 <div class="card">
     <div class="card-body">
         <ul #scrollMe
@@ -9,8 +9,8 @@
         [scrollTop]="scrollMe.scrollHeight" *ngIf="messages?.length > 0" class="chat">
             <li *ngFor="let message of messages">
                 <div>
-                    <span class="float-center" *ngIf="message.sender.name!==null">
-                        <p style="color:rgb(255, 8, 0)">{{message.reciever.name}}</p>
+                    <span class="float-center" >
+                        <p style="color:rgb(255, 8, 0)">{{message.sender.name}}</p>
                     </span>
                     <div class="chat-body">
                         <div class="header">
@@ -42,5 +42,6 @@
             </div>
         </form>
     </div>
+</div>
 </div>
 </div>
