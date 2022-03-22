@@ -35,7 +35,7 @@ export class BookingComponent implements OnInit {
   }
   eventdate: string;
   successdata: any;
-  calendarEvents: EventObject[];
+  
   addEventForm: FormGroup;
   submitted = false;
   minTime = '10:00:00';

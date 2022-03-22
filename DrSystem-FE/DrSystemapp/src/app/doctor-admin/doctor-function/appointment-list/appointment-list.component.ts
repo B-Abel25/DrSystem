@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalendarOptions } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/hu';
 import { Appointment } from 'src/app/_models/appointment';
@@ -18,9 +19,28 @@ export class AppointmentListComponent implements OnInit {
   name:string;
   date:string;
   appointment:Appointment[];
-  constructor(private appointmentService:AppointmentService) { }
+  Events: any[] = [];
+  currentDateTimeSent: string;
+  appointments: Appointment[];
+  get f() {
+    return this.addEventForm.controls;
+  }
+  eventdate: string;
+  successdata: any;
+  
+  addEventForm: FormGroup;
+  submitted = false;
+  
+  slotDuration = '00:10:00';
+  currentDate = new Date();
+  myDate = Date.now();
+  constructor(private appointmentService:AppointmentService, private formBuilder:FormBuilder) { }
 
   ngOnInit() {
+    this.initializationForm();
+    console.log('ott');
+    this.loadDoctorAppointment();
+    console.log('itt');
     this.calendarOptions = {
       //dateClick: this.handleDateClick.bind(this),
       weekends: false,
@@ -31,21 +51,11 @@ export class AppointmentListComponent implements OnInit {
       allDaySlot: false,
       slotMinTime: this.minTime,
      contentHeight:500,
+     dateClick: this.handleDateClick.bind(this),
       headerToolbar: {
       
       },
-      // eventClick:function(arg){
-        
-   
-      //   $("#myModal").modal("show");
-      //   $(".modal-title, .eventstarttitle").text("");
-       
-      //   $(".modal-title").text("Foglalás erre a napra :");
-       
-        
-      //   $(".eventstarttitle").text("Hello");
-        
-      // },
+      
       eventClick:function(arg){
         alert(arg.event.title)
         alert(arg.event.start)
@@ -63,15 +73,72 @@ export class AppointmentListComponent implements OnInit {
       selectOverlap: false,
     };
 
-    this.loadDoctorAppontment();
+    
   }
+  handleDateClick(arg) {
+    let time = arg.dateStr.split('T');
 
-  loadDoctorAppontment() {
+    $('#myModal').modal('show');
+    $('.modal-title, .eventstarttitle').text('');
+    let currentTime = time[1].split('+');
+    $('.modal-title').text('Foglalás erre a napra : ' + time[0]);
+
+    $('.eventstarttitle').text(currentTime[0]);
+    this.currentDateTimeSent = arg.dateStr;
+
+    console.log(this.currentDateTimeSent);
+    this.addEventForm = this.formBuilder.group({
+      Description: ['', [Validators.required]],
+
+      Start: this.currentDateTimeSent,
+    });
+  }
+  loadDoctorAppointment() {
     this.appointmentService
       .getDoctorAppointment()
       .subscribe((appointment) => {
         this.appointment = appointment;
        console.log(this.appointment)
       });
+  }
+  onSubmit() {
+    console.log(this.addEventForm.value);
+    this.submitted = true;
+    // stop here if form is invalid and reset the validations
+
+    this.addEventForm.get('Description').updateValueAndValidity();
+
+    if (this.addEventForm.invalid) {
+      return;
+    } else {
+      $('#myModal').modal('hide');
+      console.log(this.addEventForm.value);
+      this.appointmentService.Appointment(this.addEventForm.value).subscribe(
+        (response) => {
+          this.loadDoctorAppointment();
+        },
+        (error) => {
+          console.log(error);
+          
+        }
+      );
+      this.addEventForm.reset();
+    }
+  }
+  hideForm() {
+    this.addEventForm.patchValue({ title: '' });
+    this.addEventForm.get('Description').clearValidators();
+    this.addEventForm.get('Description').updateValueAndValidity();
+  }
+  initializationForm() {
+    //console.log(this.currentDateTimeSent);
+    this.addEventForm = this.formBuilder.group({
+      Description: ['', [Validators.required]],
+
+      Start: this.currentDateTimeSent,
+    });
+  }
+  eventClick(event) {
+    //console.log(event);
   }
 }
