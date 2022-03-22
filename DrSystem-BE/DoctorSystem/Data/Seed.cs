@@ -1,6 +1,7 @@
 ﻿using DoctorSystem.Dtos;
 using DoctorSystem.Entities;
 using DoctorSystem.Entities.Contexts;
+using DoctorSystem.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -98,8 +99,8 @@ namespace DoctorSystem.Data
         {
             if (await _context._doctors.AnyAsync()) return;
 
-            var docData = await System.IO.File.ReadAllTextAsync("Data/DoctorSeedData.json", Encoding.UTF8);
-            var docModels = JsonSerializer.Deserialize<List<DoctorSeedModel>>(docData);
+            string docData = await System.IO.File.ReadAllTextAsync("Data/DoctorSeedData.json", Encoding.UTF8);
+            List<DoctorSeedModel> docModels = JsonSerializer.Deserialize<List<DoctorSeedModel>>(docData);
 
             foreach (var doctorModel in docModels)
             {
@@ -124,6 +125,7 @@ namespace DoctorSystem.Data
                 var hmac = new HMACSHA512();
                 doc.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(doctorModel.Password));
                 doc.PasswordSalt = hmac.Key;
+                doc.Duration = 10;
 
                 _context._doctors.Add(doc);
                 await _context.SaveChangesAsync();
@@ -172,7 +174,26 @@ namespace DoctorSystem.Data
 
         private static async Task SeedOfficeHours(BaseDbContext _context)
         {
-           List<Doctor> doctors = await _context._doctors.ToListAsync();
+            if (await _context._officehours.AnyAsync()) return;
+
+            List<Doctor> doctors = await _context._doctors.ToListAsync();
+            List<OfficeHours> ohs = new List<OfficeHours>();
+            
+
+            foreach (var doctor in doctors)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    OfficeHours oh = new OfficeHours();
+                    oh.Doctor = doctor;
+                    oh.Closing = DateTime.Parse("18:00");
+                    oh.Opening = DateTime.Parse("10:00");
+                    oh.Day = (Days)i;
+                    oh.Closed = false;
+                    _context._officehours.Add(oh);
+                }
+            }
+            await _context.SaveChangesAsync();
         }
 
     }

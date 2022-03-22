@@ -95,10 +95,24 @@ namespace DoctorSystem.Controllers
         }
 
         [Authorize]
-        [HttpPut]
-        [Route("doctor/duration/modify")]
-        public async Task<ActionResult> ModifyDuration(string duration)
+        [HttpGet]
+        [Route("doctor/get/duration")]
+        public async Task<ActionResult<int>> GetDoctorDuration()
         {
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            return doctor.Duration;
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("doctor/put/duration/{duration:int}")]
+        public async Task<ActionResult> PutDoctorDuration(int duration)
+        {
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            doctor.Duration = duration;
+            await _doctorRepo.SaveAllAsync();
             return Accepted();
         }
     }

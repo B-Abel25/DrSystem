@@ -6,13 +6,15 @@ namespace DoctorSystem.Dtos
     public class AppointmentDto
     {
         public string Name { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DateStart { get; set; }
+        public DateTime DateEnd { get; set; }
         public string Description { get; set; }
 
         public AppointmentDto(Appointment app)
         {
             this.Name = app.AppointmentingUser.Name;
-            this.Date = app.Date;
+            this.DateStart = app.Date;
+            this.DateEnd = app.Date.AddMinutes(app.Doctor.Duration);
             this.Description = app.Description;
         }
 

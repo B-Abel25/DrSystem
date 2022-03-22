@@ -49,13 +49,17 @@ namespace DoctorSystem.Controllers
         {
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
-
+            
+            if (await HaveAppointment(client))
+            {
+                return Unauthorized("Egyszerre csak egy foglalás lehet aktív");
+            }
 
             Appointment appointment = new Appointment();
             appointment.AppointmentingUser = client;
             appointment.Doctor = client.Doctor;
             appointment.Description = appDto.Description;
-            appointment.Date = appDto.Date;
+            appointment.Date = appDto.DateStart;
             appointment.IsDeleted = false;
 
             _appointmentRepo.PutAppointment(appointment);
@@ -72,11 +76,16 @@ namespace DoctorSystem.Controllers
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
+            if (await HaveAppointment(client))
+            {
+                return Unauthorized("Egyszerre csak egy foglalás lehet aktív");
+            }
+
             Appointment appointment = new Appointment();
             appointment.AppointmentingUser = client;
             appointment.Doctor = client.Doctor;
             appointment.Description = appDto.Description;
-            appointment.Date = appDto.Date;
+            appointment.Date = appDto.DateStart;
             appointment.IsDeleted = false;
 
             _appointmentRepo.PutAppointment(appointment);
@@ -115,10 +124,7 @@ namespace DoctorSystem.Controllers
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
-            if (await HaveAppointment(client))
-            {
-                return Unauthorized("Egyszerre csak egy foglalás lehet aktív");
-            }
+            
 
             List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByDoctorAsync(client.Doctor);
 
