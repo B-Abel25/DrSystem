@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,7 @@ namespace DoctorSystem.Controller
         private readonly ITokenService _tokenService;
         private readonly IClientRepository _clientRepo;
         private readonly IDoctorRepository _doctorRepo;
+        private readonly IPlaceRepository _placeRepo;
         private readonly EmailService _emailService;
 
         public UserController(
@@ -34,7 +36,8 @@ namespace DoctorSystem.Controller
             ITokenService tokenService,
             IClientRepository clientRepository,
             IDoctorRepository doctorRepository,
-            EmailService emailService
+            EmailService emailService,
+            IPlaceRepository placeRepo
             )
         {
             _logger = logger;
@@ -43,6 +46,7 @@ namespace DoctorSystem.Controller
             _emailService = emailService;
             _clientRepo = clientRepository;
             _doctorRepo = doctorRepository;
+            _placeRepo = placeRepo;
         }
 
         [Authorize]
@@ -66,7 +70,6 @@ namespace DoctorSystem.Controller
             return clientDtos;
 
         }
-
         
         [Authorize]
         [Route("doctor/clients-request")]
@@ -108,7 +111,6 @@ namespace DoctorSystem.Controller
             return Unauthorized("asztapaszta");
         }
 
-
         [Authorize]
         [Route("doctor/client-request/decline/{medNumber}")]
         [HttpDelete]
@@ -128,6 +130,42 @@ namespace DoctorSystem.Controller
             return Unauthorized("asztapaszta");
         }
 
-       
+        [Authorize]
+        [Route("client/get/me")]
+        [HttpGet]
+        public async Task<ActionResult<ClientDto>> GetClientsByMedNumber()
+        {
+            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
+
+            return new ClientDto(client);
+        }
+
+        [Route("client/register/modify")]
+        [HttpPut]
+        public async Task<ActionResult> RegisterModify(RegisterDto registerDto)
+        {
+            Client client = await _clientRepo.GetClientByMedNumberAsync(registerDto.MedNumber);
+            Place place = await _placeRepo.GetPlaceByPostCodeAndCityAsync(registerDto.PostCode, registerDto.City);
+
+
+            client.Name = registerDto.Name;
+            client.MedNumber = registerDto.MedNumber;
+            client.Email = registerDto.Email;
+            client.PhoneNumber = registerDto.PhoneNumber;
+            HMACSHA512 hmac = new HMACSHA512();
+            client.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
+            client.PasswordSalt = hmac.Key;
+            client.Place = place;
+            client.Street = registerDto.Street;
+            client.HouseNumber = registerDto.HouseNumber;
+            client.BirthDate = DateTime.Parse(registerDto.BirthDate);
+
+            _clientRepo.Update(client);
+            await _clientRepo.SaveAllAsync();
+
+            return Accepted();
+        }
+
     }
 }

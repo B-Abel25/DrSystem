@@ -35,7 +35,6 @@ export class BookingComponent implements OnInit {
   }
   eventdate: string;
   successdata: any;
-  calendarEvents: EventObject[];
   addEventForm: FormGroup;
   submitted = false;
   minTime = '10:00:00';
@@ -115,10 +114,10 @@ export class BookingComponent implements OnInit {
           color: 'blue',
         },
         {
-          title: 'green',
+          title: 'purple',
           start: '2022-03-23T10:50:00+01:00',
           end: '2022-03-23T11:00:00+01:00',
-          color: 'green',
+          color: '#fd7e14',
         },
         {
           title: 'blue',

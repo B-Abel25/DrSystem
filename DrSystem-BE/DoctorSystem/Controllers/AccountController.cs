@@ -91,6 +91,7 @@ namespace DoctorSystem.Controllers
             client.BirthDate = DateTime.Parse(registerDto.BirthDate);
             client.Doctor = doctor;
             client.Member = false;
+            client.MotherName = registerDto.MotherName;
 
             _clientRepo.Update(client);
 

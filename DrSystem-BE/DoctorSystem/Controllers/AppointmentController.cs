@@ -1,6 +1,7 @@
 ﻿using DoctorSystem.Dtos;
 using DoctorSystem.Entities;
 using DoctorSystem.Interfaces;
+using DoctorSystem.Model.Enums;
 using DoctorSystem.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,6 +24,7 @@ namespace DoctorSystem.Controllers
         private readonly IClientRepository _clientRepo;
         private readonly IDoctorRepository _doctorRepo;
         private readonly IAppointmentRepository _appointmentRepo;
+        private readonly IOfficeHoursRepository _officeHoursRepo;
         private readonly Regex sWhitespace = new Regex(@"\s+");
         public AppointmentController(
             ILogger<AppointmentController> logger,
@@ -30,7 +32,8 @@ namespace DoctorSystem.Controllers
             EmailService emailService,
             IClientRepository clientRepository,
             IDoctorRepository doctorRepository,
-            IAppointmentRepository appointmentRepo
+            IAppointmentRepository appointmentRepo,
+            IOfficeHoursRepository officeHoursRepo
             )
         {
             _logger = logger;
@@ -39,6 +42,7 @@ namespace DoctorSystem.Controllers
             _appointmentRepo = appointmentRepo;
             _clientRepo = clientRepository;
             _doctorRepo = doctorRepository;
+            _officeHoursRepo = officeHoursRepo;
         }
 
        
@@ -49,6 +53,30 @@ namespace DoctorSystem.Controllers
         {
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
+
+            if (appDto.Start < DateTime.Now)
+            {
+                return Unauthorized("Ez az időpont már elmúlt Próbáljon későbbi időpontot foglalni");
+            }
+
+            List<Appointment> apps = await _appointmentRepo.GetAppointmentsByDoctorAsync(client.Doctor);
+            foreach (var app in apps)
+            {
+                if (!(appDto.Start > app.Date && appDto.Start < app.Date.AddMinutes(client.Doctor.Duration)))
+                {
+                    return Unauthorized("Ez az időpont már le van foglalva, válasszon másikat");
+                }
+            }
+
+            OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(client.Doctor, (Days)((int)appDto.Start.DayOfWeek-1));
+            foreach (var app in apps)
+            {
+                if (!(appDto.Start >= oh.Opening && appDto.Start <= oh.Closing.AddMinutes(-10)))
+                {
+                    return Unauthorized("Az időpont az orvos rendelési idején kívülre esik");
+                }
+            }
+
 
             if (await HaveAppointment(client))
             {
@@ -72,17 +100,35 @@ namespace DoctorSystem.Controllers
         [Route("doctor/post/appointment")]
         public async Task<ActionResult> DoctorTakeAppointment(AppointmentDto appDto)
         {
-            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
-            Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
 
-            if (await HaveAppointment(client))
+            if (appDto.Start < DateTime.Now)
             {
-                return Unauthorized("Egyszerre csak egy foglalás lehet aktív");
+                return Unauthorized("Ez az időpont már elmúlt Próbáljon későbbi időpontot foglalni");
+            }
+
+            List<Appointment> apps = await _appointmentRepo.GetAppointmentsByDoctorAsync(doctor);
+            foreach (var app in apps)
+            {
+                if (appDto.Start > app.Date && appDto.Start < app.Date.AddMinutes(doctor.Duration))
+                {
+                    return Unauthorized("Ez az időpont már le van foglalva, válasszon másikat");
+                }
+            }
+
+            OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(doctor, (Days)((int)appDto.Start.DayOfWeek - 1));
+            foreach (var app in apps)
+            {
+                if (appDto.Start >= oh.Opening && appDto.Start <= oh.Closing.AddMinutes(-doctor.Duration))
+                {
+                    return Unauthorized("Az időpont az orvos rendelési idején kívülre esik");
+                }
             }
 
             Appointment appointment = new Appointment();
-            appointment.AppointmentingUser = client;
-            appointment.Doctor = client.Doctor;
+            appointment.AppointmentingUser = doctor;
+            appointment.Doctor = doctor;
             appointment.Description = appDto.Description;
             appointment.Date = appDto.Start;
             appointment.IsDeleted = false;
@@ -106,10 +152,20 @@ namespace DoctorSystem.Controllers
             List<AppointmentDto> Dtos = new List<AppointmentDto>();
             foreach (var docApp in docApps)
             {
-                if (!docApp.IsDeleted)
+                AppointmentDto d = new AppointmentDto(docApp);
+                if (!docApp.IsDeleted && docApp.AppointmentingUser.Id != doctor.Id)
                 {
-                    Dtos.Add(new AppointmentDto(docApp));
+
+                    d.Title = "Foglalt";
+                    d.Description = "";
+                    d.Color = "blue";
+
                 }
+                else
+                {
+                    d.Color = "purple";
+                }
+                Dtos.Add(d);
             }
 
             return Dtos;
@@ -130,18 +186,68 @@ namespace DoctorSystem.Controllers
             List<AppointmentDto> Dtos = new List<AppointmentDto>();
             foreach (var docApp in docApps)
             {
-                if (!docApp.IsDeleted)
+                AppointmentDto d = new AppointmentDto(docApp);
+                if (!docApp.IsDeleted && docApp.AppointmentingUser.Id != client.Id)
                 {
-                    AppointmentDto d = new AppointmentDto(docApp);
+                   
                     d.Title = "Foglalt";
                     d.Description = "";
-                    d.Color = "darkblue";
-                    Dtos.Add(d);
+                    d.Color = "blue";
+                    
                 }
+                else
+                {
+                    d.Color = "green";
+                }
+                Dtos.Add(d);
             }
 
             return Dtos;
         }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("client/delete/appointment")]
+        public async Task<ActionResult<List<AppointmentDto>>> DeleteClientAppointment()
+        {
+            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
+
+            List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByClientAsync(client);
+
+            foreach (var docApp in docApps)
+            {
+                if (docApp.Date > DateTime.Now)
+                {
+                    docApp.IsDeleted = true;
+                }
+            }
+            await _appointmentRepo.SaveAllAsync();
+            return Accepted();
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("doctor/delete/appointment")]
+        public async Task<ActionResult<List<AppointmentDto>>> DeleteDoctorAppointment()
+        {
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+
+            List<Appointment> docApps = await _appointmentRepo.GetAppointmentsByDoctorAsync(doctor);
+
+            foreach (var docApp in docApps)
+            {
+                if (docApp.Date > DateTime.Now) //TODO ez itt nem jó mert az orvosnak több foglalása is lehet ezért valahogy majd azonosítani kell!!
+                {
+                    docApp.IsDeleted = true;
+                }
+            }
+            await _appointmentRepo.SaveAllAsync();
+            return Accepted();
+        }
+
+
 
         private async Task<bool> HaveAppointment(Client client)
         {
@@ -156,5 +262,6 @@ namespace DoctorSystem.Controllers
             return false;
         }
 
+       
     }
 }

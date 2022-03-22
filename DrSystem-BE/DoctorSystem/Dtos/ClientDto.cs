@@ -13,6 +13,8 @@ namespace DoctorSystem.Dtos
         public string MedNumber { get; set; }
         public bool Member { get; set; }
         public DoctorDto Doctor { get; set; }
+        public string MotherName { get; set; }
+        //TODO BirthPlace
 
         public ClientDto()
         {
@@ -32,6 +34,7 @@ namespace DoctorSystem.Dtos
             this.Member = c.Member;
             this.Doctor = new DoctorDto(c.Doctor);
             this.Token = token;
+            this.MotherName = c.MotherName;
         }
 
         public ClientDto(Client c)
@@ -46,6 +49,7 @@ namespace DoctorSystem.Dtos
             this.MedNumber = c.MedNumber;
             this.Member = c.Member;
             this.Doctor = new DoctorDto(c.Doctor);
+            this.MotherName = c.MotherName;
         }
     }
 }
