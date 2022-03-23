@@ -167,6 +167,7 @@ namespace DoctorSystem.Data
                 cli.Doctor = await _context._doctors.SingleOrDefaultAsync(x => x.Id == Barbi.Id);
                 cli.Member = clientModel.Member == "false" ? false : true;
                 cli.MotherName = cliModels[cliModels.IndexOf(clientModel)].Name.ToString() + cliModels.IndexOf(clientModel);
+                cli.BirthPlace = cli.Place.City;
                 _context._clients.Add(cli);
                 await _context.SaveChangesAsync();
             }
