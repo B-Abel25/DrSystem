@@ -136,6 +136,7 @@ export class ProfileModifyComponent implements OnInit {
       ],
       confirmPassword: [
         '',
+        
         [ this.matchValues('password')],
       ],
     });
@@ -179,12 +180,17 @@ export class ProfileModifyComponent implements OnInit {
       (response) => {
        
         this.toastr.success("Sikeresen módosította az adatait!");
+        
       },
       (error) => {
+       
         this.validationErrors = error;
         console.log(error);
       }
+     
     );
+    this.profileModifyForm.controls['password'].setValue('');
+    this.profileModifyForm.controls['confirmPassword'].setValue('');
   }
 
  
