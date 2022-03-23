@@ -58,8 +58,16 @@ namespace DoctorSystem.Controllers
             {
                 return Unauthorized("Ez az időpont már elmúlt Próbáljon későbbi időpontot foglalni");
             }
-
             List<Appointment> apps = await _appointmentRepo.GetAppointmentsByDoctorAsync(client.Doctor);
+            OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(client.Doctor, (Days)((int)appDto.Start.DayOfWeek - 1));
+            foreach (var app in apps)
+            {
+                if (!(appDto.Start >= oh.Opening && appDto.Start <= oh.Closing.AddMinutes(-10)))
+                {
+                    return Unauthorized("Az időpont az orvos rendelési idején kívülre esik");
+                }
+            }
+            
             foreach (var app in apps)
             {
                 if (!(appDto.Start > app.Date && appDto.Start < app.Date.AddMinutes(client.Doctor.Duration)))
@@ -68,14 +76,7 @@ namespace DoctorSystem.Controllers
                 }
             }
 
-            OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(client.Doctor, (Days)((int)appDto.Start.DayOfWeek-1));
-            foreach (var app in apps)
-            {
-                if (!(appDto.Start >= oh.Opening && appDto.Start <= oh.Closing.AddMinutes(-10)))
-                {
-                    return Unauthorized("Az időpont az orvos rendelési idején kívülre esik");
-                }
-            }
+           
 
 
             if (await HaveAppointment(client))
@@ -175,7 +176,7 @@ namespace DoctorSystem.Controllers
         [HttpGet]
         [Route("client/get/appointments")]
         public async Task<ActionResult<List<AppointmentDto>>> GetClientsAppointmentsToClient()
-        {
+        { 
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 

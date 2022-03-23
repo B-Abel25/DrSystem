@@ -86,4 +86,22 @@ export class AccountService {
   getDoctors() {
     return this.http.get<Doctor[]>(this.baseUrl + 'public/register/doctors');
   }
+
+  getProfileDatas() {
+    return this.http.get<Registration>(this.baseUrl + 'private/client/get/me');
+  }
+  
+  profileModifyPut(model: any) {
+    return this.http
+      .put<Registration>(this.baseUrl + 'private/client/register/modify', model)
+      .pipe(
+        map((datas:Registration) => {
+          if (datas) {
+            
+            console.log(model);
+          }
+        })
+      );
+  }
+ 
 }

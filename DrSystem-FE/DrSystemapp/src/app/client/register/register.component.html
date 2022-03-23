@@ -35,7 +35,7 @@
                                 [class.is-invalid]='registerForm.get("motherName").errors && registerForm.get("motherName").touched'
                                 type="text" class="form-control" formControlName="motherName" required>
                             <div *ngIf="registerForm.get('motherName').hasError('required')" class="invalid-feedback">
-                                Adja meg a teljes nevét!
+                                Adja meg a anyja lánykori nevét!
                             </div>
 
                         </div>
@@ -46,7 +46,7 @@
                                 [class.is-invalid]='registerForm.get("birthPlace").errors && registerForm.get("birthPlace").touched'
                                 type="text" class="form-control" formControlName="birthPlace" required>
                             <div *ngIf="registerForm.get('birthPlace').hasError('required')" class="invalid-feedback">
-                                Adja meg a teljes nevét!
+                                Adja meg a születési helyét!
                             </div>
 
                         </div>
@@ -198,7 +198,7 @@
                             <input
                                 [class.is-invalid]='registerForm.get("doctor").errors && registerForm.get("doctor").touched'
                                 class="form-control" list="datalistOptions" formControlName="doctor"
-                                id="exampleDataList" placeholder="Type to search..." required>
+                                id="exampleDataList" placeholder="Doktor keresése..." required>
                             <datalist id="datalistOptions">
                                 <option *ngFor="let doctor of doctors">{{doctor.name}} - {{doctor.place.postCode}}
                                 </option>

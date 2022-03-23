@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Doctor } from 'src/app/_models/doctor';
 import { Place } from 'src/app/_models/place';
+import { Registration } from 'src/app/_models/registration';
 import { AccountService } from 'src/app/_services/account.service';
 import { DoctorService } from 'src/app/_services/doctor.service';
 
@@ -13,12 +14,13 @@ import { DoctorService } from 'src/app/_services/doctor.service';
   styleUrls: ['./profile-modify.component.css']
 })
 export class ProfileModifyComponent implements OnInit {
-
+profileDatas:Registration;
   doctors: Doctor[];
   submitted: boolean = false;
-  registerForm: FormGroup;
+  profileModifyForm: FormGroup;
   validationErrors: string[];
   places: Place[];
+  placesString:string[];
   public showPasswordOnPress: boolean;
   showMsg: boolean = false;
   fieldTextType: boolean;
@@ -32,13 +34,17 @@ export class ProfileModifyComponent implements OnInit {
 
   ngOnInit() {
     this.loadDoctors();
+    console.log("anyád1");
     this.loadPostCodes();
+    console.log("anyád3");
+    this.loadProfileDatas();
     this.initializeForm();
+    
   }
 
   onSubmit() {
     this.submitted = true;
-    if (this.registerForm.valid) {
+    if (this.profileModifyForm.valid) {
       alert(
         'Form Submitted succesfully!!!\n Check the values in browser console.'
       );
@@ -47,7 +53,7 @@ export class ProfileModifyComponent implements OnInit {
   }
 
   initializeForm() {
-    this.registerForm = this.fb.group({
+    this.profileModifyForm = this.fb.group({
       phoneNumber: [
         '',
         [
@@ -126,42 +132,42 @@ export class ProfileModifyComponent implements OnInit {
       ],
     });
 
-    this.registerForm.controls['postCode'].valueChanges.subscribe((x) => {
+    this.profileModifyForm.controls['postCode'].valueChanges.subscribe((x) => {
       x = x + '';
       if (x.length == 4) {
         
-        this.registerForm.controls['city'].setValue(
+        this.profileModifyForm.controls['city'].setValue(
           this.places.find((y) => y.postCode == x).city
         );
       } else {
-        this.registerForm.controls['city'].setValue('');
+        this.profileModifyForm.controls['city'].setValue('');
       }
     });
 
-    this.registerForm.controls['city'].valueChanges.subscribe((x) => {
+    this.profileModifyForm.controls['city'].valueChanges.subscribe((x) => {
       let exist = this.places.find(
         (y) =>
           y.city == x &&
-          y.postCode == this.registerForm.controls['postCode'].value
+          y.postCode == this.profileModifyForm.controls['postCode'].value
       );
      
       if (exist != null) {
-        this.registerForm.controls['placeId'].setValue(exist.id);
+        this.profileModifyForm.controls['placeId'].setValue(exist.id);
       } else {
-        this.registerForm.controls['placeId'].setValue('');
+        this.profileModifyForm.controls['placeId'].setValue('');
       }
     });
 
-    this.registerForm.controls['doctor'].valueChanges.subscribe((x) => {
+    this.profileModifyForm.controls['doctor'].valueChanges.subscribe((x) => {
       let exist = this.doctors.find(
         (y) => y.name + ' ' + '-' + ' ' + y.place.postCode == x
       );
       
       if (exist != null)
-        this.registerForm.controls['doctorSealNumber'].setValue(
+        this.profileModifyForm.controls['doctorSealNumber'].setValue(
           exist.sealNumber
         );
-      else this.registerForm.controls['doctorSealNumber'].setValue('');
+      else this.profileModifyForm.controls['doctorSealNumber'].setValue('');
     });
   }
 
@@ -175,7 +181,7 @@ export class ProfileModifyComponent implements OnInit {
 
   register() {
     
-    this.accountService.register(this.registerForm.value).subscribe(
+    this.accountService.register(this.profileModifyForm.value).subscribe(
       (response) => {
         this.router.navigateByUrl('/login');
         this.showMsg = true;
@@ -194,13 +200,30 @@ export class ProfileModifyComponent implements OnInit {
     });
   }
   loadPostCodes() {
-    this.accountService.getPlaces().subscribe((postCodes) => {
+  
+     this.accountService.getPlaces().subscribe((postCodes) => {
       this.places = postCodes;
+      this.loadPlaces();
     });
   }
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
+
+  loadPlaces() {
+   
+      this.placesString=[...new Set(this.places.map(x=>x.city))];
+    
+  }
+  loadProfileDatas() {
+    this.accountService.getProfileDatas().subscribe((profile) => {
+      this.profileDatas = profile;
+      console.log("szijja")
+    });
+  }
+  
 }
+
+  
 
 
