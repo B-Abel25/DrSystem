@@ -212,7 +212,9 @@ export class ProfileModifyComponent implements OnInit {
     this.accountService.getProfileDatas().subscribe((profile) => {
       this.profileDatas = profile;
      // TODO:dupla replace helyett 1
+     
      this.profileDatas.birthDate=this.profileDatas.birthDate.replace(".","-").replace(".","-");
+     this.profileDatas.phoneNumber=this.profileDatas.phoneNumber.replace("+36","");
      this.setControlValues();
      console.log(this.profileDatas);
     });

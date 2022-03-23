@@ -43,11 +43,13 @@
                             <label class="form-label">Születési hely</label>
 
                             <input
-                                [class.is-invalid]='registerForm.get("birthPlace").errors && registerForm.get("birthPlace").touched'
-                                type="text" class="form-control" formControlName="birthPlace" required>
-                            <div *ngIf="registerForm.get('birthPlace').hasError('required')" class="invalid-feedback">
-                                Adja meg a születési helyét!
-                            </div>
+                            [class.is-invalid]='registerForm.get("birthPlace").errors && registerForm.get("birthPlace").touched'
+                            class="form-control" list="data" formControlName="birthPlace"
+                            id="exampleData" placeholder="Születési hely..." required>
+                        <datalist  id="data">
+                            <option *ngFor="let place of placesString">{{place}}
+                            </option>
+                        </datalist>
 
                         </div>
                         <div class="col-md-6 form-group has-validation required">
