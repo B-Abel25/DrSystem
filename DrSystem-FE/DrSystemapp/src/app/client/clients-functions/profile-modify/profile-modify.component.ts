@@ -39,9 +39,8 @@ export class ProfileModifyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadPostCodes();
-
     this.initializeForm();
+    this.loadPostCodes();
   }
 
   onSubmit() {
@@ -123,11 +122,7 @@ export class ProfileModifyComponent implements OnInit {
         '',
         Validators.compose([Validators.minLength(8), Validators.maxLength(16)]),
       ],
-      confirmPassword: [
-        '',
-        
-        [ this.matchValues('password')],
-      ],
+      confirmPassword: ['', [this.matchValues('password')]],
     });
 
     this.profileModifyForm.controls['postCode'].valueChanges.subscribe((x) => {
@@ -141,6 +136,26 @@ export class ProfileModifyComponent implements OnInit {
         this.profileModifyForm.controls['city'].setValue('');
       }
     });
+
+    this.profileModifyForm.controls['password'].valueChanges.subscribe(
+      (passwordValue) => {
+        if (passwordValue !== '') {
+          this.profileModifyForm
+            .get('confirmPassword')
+            .addValidators(Validators.required);
+          console.log('added');
+          let seged = this.profileModifyForm.controls['password'].validator();
+          // TODO https://www.angularfix.com/2021/09/get-validators-present-in.html
+          // https://stackoverflow.com/questions/43838108/get-validators-present-in-formgroup-formcontrol
+          console.log();
+        } else if (passwordValue === '') {
+          this.profileModifyForm
+            .get('confirmPassword')
+            .removeValidators(Validators.required);
+          console.log('removed');
+        }
+      }
+    );
   }
 
   matchValues(matchTo: string): ValidatorFn {
@@ -156,18 +171,18 @@ export class ProfileModifyComponent implements OnInit {
     if (this.profileModifyForm.controls['password'].value == '') {
       this.profileModifyForm.controls['password'].setValue('not-modified');
     }
-   
-    
-    this.accountService.profileModifyPut(this.profileModifyForm.value).subscribe(
-      (response) => {
-       
-        this.toastr.success("Sikeresen módosította az adatait!");
-      },
-      (error) => {
-        this.validationErrors = error;
-        console.log(error);
-      }
-    );
+
+    this.accountService
+      .profileModifyPut(this.profileModifyForm.value)
+      .subscribe(
+        (response) => {
+          this.toastr.success('Sikeresen módosította az adatait!');
+        },
+        (error) => {
+          this.validationErrors = error;
+          console.log(error);
+        }
+      );
     this.profileModifyForm.controls['password'].setValue('');
     this.profileModifyForm.controls['confirmPassword'].setValue('');
   }
@@ -190,18 +205,20 @@ export class ProfileModifyComponent implements OnInit {
   loadProfileDatas() {
     this.accountService.getProfileDatas().subscribe((profile) => {
       this.profileDatas = profile;
-     // TODO:dupla replace helyett 1
-     
-     this.profileDatas.birthDate=this.profileDatas.birthDate.replace(".","-").replace(".","-");
-     this.profileDatas.phoneNumber=this.profileDatas.phoneNumber.replace("+36","");
-     this.setControlValues();
-     console.log(this.profileDatas);
+      // TODO:dupla replace helyett 1
+
+      this.profileDatas.birthDate = this.profileDatas.birthDate
+        .replace('.', '-')
+        .replace('.', '-');
+      this.profileDatas.phoneNumber = this.profileDatas.phoneNumber.replace(
+        '+36',
+        ''
+      );
+      this.setControlValues();
     });
   }
 
   setControlValues() {
-    console.log(this.fb.control['confirmPassword']);
-
     this.profileModifyForm.controls['name'].setValue(this.profileDatas.name);
     this.profileModifyForm.controls['medNumber'].setValue(
       this.profileDatas.medNumber
