@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Doctor } from 'src/app/_models/doctor';
@@ -11,16 +17,16 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 @Component({
   selector: 'app-profile-modify',
   templateUrl: './profile-modify.component.html',
-  styleUrls: ['./profile-modify.component.css']
+  styleUrls: ['./profile-modify.component.css'],
 })
 export class ProfileModifyComponent implements OnInit {
-profileDatas:Registration;
+  profileDatas: Registration;
   doctors: Doctor[];
   submitted: boolean = false;
   profileModifyForm: FormGroup;
   validationErrors: string[];
   places: Place[];
-  placesString:string[];
+  placesString: string[];
   public showPasswordOnPress: boolean;
   showMsg: boolean = false;
   fieldTextType: boolean;
@@ -34,12 +40,11 @@ profileDatas:Registration;
 
   ngOnInit() {
     this.loadDoctors();
-    console.log("anyád1");
+    console.log('komment1');
     this.loadPostCodes();
-    console.log("anyád3");
+    console.log('komment3');
     this.loadProfileDatas();
     this.initializeForm();
-    
   }
 
   onSubmit() {
@@ -48,7 +53,6 @@ profileDatas:Registration;
       alert(
         'Form Submitted succesfully!!!\n Check the values in browser console.'
       );
-     
     }
   }
 
@@ -135,7 +139,6 @@ profileDatas:Registration;
     this.profileModifyForm.controls['postCode'].valueChanges.subscribe((x) => {
       x = x + '';
       if (x.length == 4) {
-        
         this.profileModifyForm.controls['city'].setValue(
           this.places.find((y) => y.postCode == x).city
         );
@@ -150,7 +153,7 @@ profileDatas:Registration;
           y.city == x &&
           y.postCode == this.profileModifyForm.controls['postCode'].value
       );
-     
+
       if (exist != null) {
         this.profileModifyForm.controls['placeId'].setValue(exist.id);
       } else {
@@ -162,7 +165,7 @@ profileDatas:Registration;
       let exist = this.doctors.find(
         (y) => y.name + ' ' + '-' + ' ' + y.place.postCode == x
       );
-      
+
       if (exist != null)
         this.profileModifyForm.controls['doctorSealNumber'].setValue(
           exist.sealNumber
@@ -180,12 +183,13 @@ profileDatas:Registration;
   }
 
   register() {
-    
     this.accountService.register(this.profileModifyForm.value).subscribe(
       (response) => {
         this.router.navigateByUrl('/login');
         this.showMsg = true;
-        this.toastr.success("Sikeres regisztráció! Kérjük erősítse meg email címét!");
+        this.toastr.success(
+          'Sikeres regisztráció! Kérjük erősítse meg email címét!'
+        );
       },
       (error) => {
         this.validationErrors = error;
@@ -200,9 +204,9 @@ profileDatas:Registration;
     });
   }
   loadPostCodes() {
-  
-     this.accountService.getPlaces().subscribe((postCodes) => {
+    this.accountService.getPlaces().subscribe((postCodes) => {
       this.places = postCodes;
+      console.log('komment2');
       this.loadPlaces();
     });
   }
@@ -211,19 +215,11 @@ profileDatas:Registration;
   }
 
   loadPlaces() {
-   
-      this.placesString=[...new Set(this.places.map(x=>x.city))];
-    
+    this.placesString = [...new Set(this.places.map((x) => x.city))];
   }
   loadProfileDatas() {
     this.accountService.getProfileDatas().subscribe((profile) => {
       this.profileDatas = profile;
-      console.log("szijja")
     });
   }
-  
 }
-
-  
-
-

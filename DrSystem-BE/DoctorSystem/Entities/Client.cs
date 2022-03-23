@@ -16,6 +16,6 @@ namespace DoctorSystem.Entities
         [Required]
         public Doctor Doctor { get; set; }
         public string MotherName { get; set; }
-        //TODO BirthPlace
+        public City BirthPlace { get; set; }
     }
 }

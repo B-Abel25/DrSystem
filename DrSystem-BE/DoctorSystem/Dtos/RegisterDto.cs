@@ -32,6 +32,7 @@ namespace DoctorSystem.Dtos
         public string HouseNumber { get; set; }
         [Required]
         public string MotherName { get; set; }
-        //TODO BirthPlace
+        [Required]
+        public string BirthPlace { get; set; }
     }
 }
