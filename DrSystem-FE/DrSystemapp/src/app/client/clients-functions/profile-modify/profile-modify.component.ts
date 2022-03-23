@@ -123,7 +123,11 @@ export class ProfileModifyComponent implements OnInit {
         '',
         Validators.compose([Validators.minLength(8), Validators.maxLength(16)]),
       ],
-      confirmPassword: ['', [this.matchValues('password')]],
+      confirmPassword: [
+        '',
+        
+        [ this.matchValues('password')],
+      ],
     });
 
     this.profileModifyForm.controls['postCode'].valueChanges.subscribe((x) => {
@@ -152,18 +156,20 @@ export class ProfileModifyComponent implements OnInit {
     if (this.profileModifyForm.controls['password'].value == '') {
       this.profileModifyForm.controls['password'].setValue('not-modified');
     }
-
-    this.accountService
-      .profileModifyPut(this.profileModifyForm.value)
-      .subscribe(
-        (response) => {
-          this.toastr.success('Sikeresen módosította az adatait!');
-        },
-        (error) => {
-          this.validationErrors = error;
-          console.log(error);
-        }
-      );
+   
+    
+    this.accountService.profileModifyPut(this.profileModifyForm.value).subscribe(
+      (response) => {
+       
+        this.toastr.success("Sikeresen módosította az adatait!");
+      },
+      (error) => {
+        this.validationErrors = error;
+        console.log(error);
+      }
+    );
+    this.profileModifyForm.controls['password'].setValue('');
+    this.profileModifyForm.controls['confirmPassword'].setValue('');
   }
 
   loadPostCodes() {
@@ -184,12 +190,12 @@ export class ProfileModifyComponent implements OnInit {
   loadProfileDatas() {
     this.accountService.getProfileDatas().subscribe((profile) => {
       this.profileDatas = profile;
-      // TODO:dupla replace helyett 1
-      this.profileDatas.birthDate = this.profileDatas.birthDate
-        .replace('.', '-')
-        .replace('.', '-');
-      this.setControlValues();
-      console.log(this.profileDatas);
+     // TODO:dupla replace helyett 1
+     
+     this.profileDatas.birthDate=this.profileDatas.birthDate.replace(".","-").replace(".","-");
+     this.profileDatas.phoneNumber=this.profileDatas.phoneNumber.replace("+36","");
+     this.setControlValues();
+     console.log(this.profileDatas);
     });
   }
 

@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit {
   public showPasswordOnPress: boolean;
   showMsg: boolean = false;
   fieldTextType: boolean;
+  placesString:string[];
   constructor(
     private accountService: AccountService,
     private toastr: ToastrService,
@@ -46,6 +47,7 @@ export class RegisterComponent implements OnInit {
     this.loadDoctors();
     this.loadPostCodes();
     this.initializeForm();
+    
   }
 
   onSubmit() {
@@ -198,9 +200,16 @@ export class RegisterComponent implements OnInit {
   loadPostCodes() {
     this.accountService.getPlaces().subscribe((postCodes) => {
       this.places = postCodes;
+     this.loadPlaces();
     });
   }
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
+  loadPlaces() {
+   
+    this.placesString=[...new Set(this.places.map(x=>x.city))];
+    
+  
+}
 }
