@@ -52,14 +52,12 @@ export class AppointmentListComponent implements OnInit {
       slotMinTime: this.minTime,
      contentHeight:500,
      dateClick: this.handleDateClick.bind(this),
+
       headerToolbar: {
       
       },
       
-      eventClick:function(arg){
-        alert(arg.event.title)
-        alert(arg.event.start)
-      },
+     
       events: [
         { title: '', start: '2022-03-21T10:00:00+01:00', end:'2022-03-21T10:10:00+01:00', color:'red' },
         { title: 'event 2', date: '2022-03-21T11:00:00+01:00-11:10:00+01:00', color:'yellow' }
@@ -93,12 +91,26 @@ export class AppointmentListComponent implements OnInit {
       Start: this.currentDateTimeSent,
     });
   }
+ 
+  eventClick(arg) {
+   
+    alert(arg.event.start);
+    this.showModal = true;
+  }
+  hide()
+{
+  this.showModal = false;
+}
+
+
+
   loadDoctorAppointment() {
     this.appointmentService
       .getDoctorAppointment()
       .subscribe((appointment) => {
         this.appointment = appointment;
        console.log(this.appointment)
+       this.calendarOptions.events = appointment;
       });
   }
   onSubmit() {
@@ -113,7 +125,7 @@ export class AppointmentListComponent implements OnInit {
     } else {
       $('#myModal').modal('hide');
       console.log(this.addEventForm.value);
-      this.appointmentService.Appointment(this.addEventForm.value).subscribe(
+      this.appointmentService.AppointmentDoctor(this.addEventForm.value).subscribe(
         (response) => {
           this.loadDoctorAppointment();
         },
@@ -138,7 +150,5 @@ export class AppointmentListComponent implements OnInit {
       Start: this.currentDateTimeSent,
     });
   }
-  eventClick(event) {
-    //console.log(event);
-  }
+  
 }

@@ -130,12 +130,12 @@ namespace DoctorSystem.Controller
             return Unauthorized("asztapaszta");
         }
 
-        [Authorize]
+        //[Authorize]
         [Route("client/get/me")]
         [HttpGet]
         public async Task<ActionResult<ClientDto>> GetClientsByMedNumber()
         {
-            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            string clientMedNumber = "111111111";//_tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
             return new ClientDto(client);
