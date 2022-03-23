@@ -12,14 +12,14 @@
 
 
                     <form class="row g-3 " [formGroup]="profileModifyForm" autocomplete="off"
-                        (ngSubmit)="profileModifyForm.valid && register()" novalidate>
+                        (ngSubmit)="profileModifyForm.valid && profileModify()" novalidate>
 
                         <div class="col-md-6 form-group has-validation required">
                             <label class="form-label fa fa-user-circle-o"> Teljes Név</label>
 
                             <input
                                 [class.is-invalid]='profileModifyForm.get("name").errors && profileModifyForm.get("name").touched'
-                                type="text" class="form-control" formControlName="name" required [value]="profileDatas.name">
+                                type="text" class="form-control" formControlName="name" required >
                             <div *ngIf="profileModifyForm.get('name').hasError('required')" class="invalid-feedback">
                                 Adja meg a teljes nevét!
                             </div>
@@ -142,16 +142,16 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 form-group required">
+                        <div class="col-md-4 form-group ">
 
-                            <label for="password" class="form-label "> Jelszó</label>
+                            <label for="password" class="form-label ">Új jelszó</label>
 
                             <div class="input-group has-validation">
 
                                 <input
                                     [class.is-invalid]='profileModifyForm.get("password").errors && profileModifyForm.get("password").touched'
                                     [type]="fieldTextType ? 'text' : 'password'" class="form-control"
-                                    formControlName="password" required>
+                                    formControlName="password" >
                                 <span class="input-group-text" (click)="toggleFieldTextType()">
                                     <i class="fa" [ngClass]="{
                                           'fa-eye-slash': !fieldTextType,
@@ -172,13 +172,13 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 form-group required">
-                            <label class="form-label "> Jelszó megerősítés</label>
+                        <div class="col-md-4 form-group ">
+                            <label class="form-label ">Új jelszó megerősítés</label>
                             <div class="input-group has-validation">
                                 <input
                                     [class.is-invalid]='profileModifyForm.get("confirmPassword").errors && profileModifyForm.get("confirmPassword").touched'
                                     [type]="fieldTextType ? 'text' : 'password'" class="form-control"
-                                    formControlName="confirmPassword" required>
+                                    formControlName="confirmPassword" >
                                 <span class="input-group-text" (click)="toggleFieldTextType()">
                                     <i class="fa" [ngClass]="{
                                       'fa-eye-slash': !fieldTextType,
@@ -210,6 +210,7 @@
                     </form>
 
 <br>
+<p>Érték: {{profileModifyForm.value | json}}</p>
                    
 
 
