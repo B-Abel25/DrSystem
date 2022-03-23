@@ -40,10 +40,8 @@ export class ProfileModifyComponent implements OnInit {
 
   ngOnInit() {
     this.loadPostCodes();
-    
-   
+
     this.initializeForm();
-    console.log("anyukádat");
   }
 
   onSubmit() {
@@ -56,7 +54,6 @@ export class ProfileModifyComponent implements OnInit {
   }
 
   initializeForm() {
-   
     this.profileModifyForm = this.fb.group({
       phoneNumber: [
         '',
@@ -72,10 +69,7 @@ export class ProfileModifyComponent implements OnInit {
         '',
         [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')],
       ],
-      doctorSealNumber: [
-        'not-modified',
-        [Validators.required],
-      ],
+      doctorSealNumber: ['not-modified', [Validators.required]],
 
       houseNumber: [
         '',
@@ -94,18 +88,17 @@ export class ProfileModifyComponent implements OnInit {
       ],
       city: ['', Validators.required],
       postCode: ['', Validators.required],
-      
+
       email: [
         '',
         [
           Validators.required,
-          Validators.pattern('[a-z 0-9 A-Z .-]+@[a-z .-]+\.[a-z]*'),
+          Validators.pattern('[a-z 0-9 A-Z .-]+@[a-z .-]+.[a-z]*'),
           Validators.email,
-          
         ],
       ],
       name: [
-      '',
+        '',
         [
           Validators.required,
           Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ -]*'),
@@ -125,39 +118,25 @@ export class ProfileModifyComponent implements OnInit {
           Validators.pattern('[a-z A-Z áéűúőóüöíÁÉŰÚŐÓÜÖÍ -]*'),
         ],
       ],
-      
+
       password: [
         '',
-        Validators.compose([
-         
-          Validators.minLength(8),
-          Validators.maxLength(16),
-        ]),
+        Validators.compose([Validators.minLength(8), Validators.maxLength(16)]),
       ],
-      confirmPassword: [
-        '',
-        [ this.matchValues('password')],
-      ],
+      confirmPassword: ['', [this.matchValues('password')]],
     });
 
     this.profileModifyForm.controls['postCode'].valueChanges.subscribe((x) => {
       x = x + '';
-      
-      let placeHelper=this.places.find((y) => y.postCode == x);
-      
-      if (x.length == 4 && placeHelper!=undefined) {
-        
-        this.profileModifyForm.controls['city'].setValue(
-         placeHelper.city
-        );
-       
+
+      let placeHelper = this.places.find((y) => y.postCode == x);
+
+      if (x.length == 4 && placeHelper != undefined) {
+        this.profileModifyForm.controls['city'].setValue(placeHelper.city);
       } else {
         this.profileModifyForm.controls['city'].setValue('');
       }
     });
-
-
-   
   }
 
   matchValues(matchTo: string): ValidatorFn {
@@ -169,33 +148,30 @@ export class ProfileModifyComponent implements OnInit {
   }
 
   profileModify() {
-    console.log(this.profileModifyForm.controls['password'].value)
-    if(this.profileModifyForm.controls['password'].value==""){
+    console.log(this.profileModifyForm.controls['password'].value);
+    if (this.profileModifyForm.controls['password'].value == '') {
       this.profileModifyForm.controls['password'].setValue('not-modified');
     }
-   
-    
-    this.accountService.profileModifyPut(this.profileModifyForm.value).subscribe(
-      (response) => {
-       
-        this.toastr.success("Sikeresen módosította az adatait!");
-      },
-      (error) => {
-        this.validationErrors = error;
-        console.log(error);
-      }
-    );
+
+    this.accountService
+      .profileModifyPut(this.profileModifyForm.value)
+      .subscribe(
+        (response) => {
+          this.toastr.success('Sikeresen módosította az adatait!');
+        },
+        (error) => {
+          this.validationErrors = error;
+          console.log(error);
+        }
+      );
   }
 
- 
   loadPostCodes() {
     this.accountService.getPlaces().subscribe((postCodes) => {
       this.places = postCodes;
       console.log('komment2');
       this.loadPlaces();
-      this.loadProfileDatas(); 
-      
-   
+      this.loadProfileDatas();
     });
   }
   toggleFieldTextType() {
@@ -203,33 +179,51 @@ export class ProfileModifyComponent implements OnInit {
   }
 
   loadPlaces() {
-   
-      this.placesString=[...new Set(this.places.map(x=>x.city))];
-      
-    
+    this.placesString = [...new Set(this.places.map((x) => x.city))];
   }
   loadProfileDatas() {
     this.accountService.getProfileDatas().subscribe((profile) => {
       this.profileDatas = profile;
-     // TODO:dupla replace helyett 1
-     this.profileDatas.birthDate=this.profileDatas.birthDate.replace(".","-").replace(".","-");
-     this.setControlValues();
-     console.log(this.profileDatas);
+      // TODO:dupla replace helyett 1
+      this.profileDatas.birthDate = this.profileDatas.birthDate
+        .replace('.', '-')
+        .replace('.', '-');
+      this.setControlValues();
+      console.log(this.profileDatas);
     });
   }
-  
-  setControlValues(){
+
+  setControlValues() {
+    console.log(this.fb.control['confirmPassword']);
+
     this.profileModifyForm.controls['name'].setValue(this.profileDatas.name);
-    this.profileModifyForm.controls['medNumber'].setValue(this.profileDatas.medNumber);
-    this.profileModifyForm.controls['phoneNumber'].setValue(this.profileDatas.phoneNumber);
-  
-    this.profileModifyForm.controls['street'].setValue(this.profileDatas.street);
-    this.profileModifyForm.controls['birthDate'].setValue(this.profileDatas.birthDate);
-    this.profileModifyForm.controls['city'].setValue(this.profileDatas.place.city);
-    this.profileModifyForm.controls['postCode'].setValue(this.profileDatas.place.postCode);
-    this.profileModifyForm.controls['birthPlace'].setValue(this.profileDatas.birthPlace);
-    this.profileModifyForm.controls['motherName'].setValue(this.profileDatas.motherName);
-    this.profileModifyForm.controls['houseNumber'].setValue(this.profileDatas.houseNumber);
+    this.profileModifyForm.controls['medNumber'].setValue(
+      this.profileDatas.medNumber
+    );
+    this.profileModifyForm.controls['phoneNumber'].setValue(
+      this.profileDatas.phoneNumber
+    );
+    this.profileModifyForm.controls['street'].setValue(
+      this.profileDatas.street
+    );
+    this.profileModifyForm.controls['birthDate'].setValue(
+      this.profileDatas.birthDate
+    );
+    this.profileModifyForm.controls['city'].setValue(
+      this.profileDatas.place.city
+    );
+    this.profileModifyForm.controls['postCode'].setValue(
+      this.profileDatas.place.postCode
+    );
+    this.profileModifyForm.controls['birthPlace'].setValue(
+      this.profileDatas.birthPlace
+    );
+    this.profileModifyForm.controls['motherName'].setValue(
+      this.profileDatas.motherName
+    );
+    this.profileModifyForm.controls['houseNumber'].setValue(
+      this.profileDatas.houseNumber
+    );
     this.profileModifyForm.controls['email'].setValue(this.profileDatas.email);
   }
 }
