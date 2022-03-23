@@ -26,6 +26,11 @@ namespace DoctorSystem.Services
             return await _context._places.Include(x => x.City.County).SingleOrDefaultAsync(x => x.City.Name == city && x.PostCode == postCode);
         }
 
+        public async Task<City> GetCityByNameAsync(string city)
+        {
+            return await _context._city.Include(x => x.County).SingleOrDefaultAsync(x => x.Name == city);
+        }
+
         public async Task<List<Place>> GetPlacesAsync()
         {
             return await _context._places.Include(x => x.City.County).ToListAsync();

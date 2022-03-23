@@ -11,5 +11,6 @@ namespace DoctorSystem.Interfaces
         Task<List<Place>> GetPlacesAsync();
         Task<bool> SaveAllAsync();
         void Update(Place place);
+        Task<City> GetCityByNameAsync(string city);
     }
 }

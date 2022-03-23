@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Doctor } from 'src/app/_models/doctor';
@@ -11,16 +17,16 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 @Component({
   selector: 'app-profile-modify',
   templateUrl: './profile-modify.component.html',
-  styleUrls: ['./profile-modify.component.css']
+  styleUrls: ['./profile-modify.component.css'],
 })
 export class ProfileModifyComponent implements OnInit {
-profileDatas:Registration;
+  profileDatas: Registration;
   doctors: Doctor[];
   submitted: boolean = false;
   profileModifyForm: FormGroup;
   validationErrors: string[];
   places: Place[];
-  placesString:string[];
+  placesString: string[];
   public showPasswordOnPress: boolean;
   showMsg: boolean = false;
   fieldTextType: boolean;
@@ -46,7 +52,6 @@ profileDatas:Registration;
       alert(
         'Form Submitted succesfully!!!\n Check the values in browser console.'
       );
-     
     }
   }
 
@@ -184,9 +189,9 @@ profileDatas:Registration;
 
  
   loadPostCodes() {
-  
-     this.accountService.getPlaces().subscribe((postCodes) => {
+    this.accountService.getPlaces().subscribe((postCodes) => {
       this.places = postCodes;
+      console.log('komment2');
       this.loadPlaces();
       this.loadProfileDatas(); 
       
@@ -228,7 +233,3 @@ profileDatas:Registration;
     this.profileModifyForm.controls['email'].setValue(this.profileDatas.email);
   }
 }
-
-  
-
-

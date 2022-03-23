@@ -147,7 +147,7 @@ namespace DoctorSystem.Controller
         {
             Client client = await _clientRepo.GetClientByMedNumberAsync(registerDto.MedNumber);
             Place place = await _placeRepo.GetPlaceByPostCodeAndCityAsync(registerDto.PostCode, registerDto.City);
-
+            City birthPlace = await _placeRepo.GetCityByNameAsync(registerDto.BirthPlace);
 
             client.Name = registerDto.Name;
             client.MedNumber = registerDto.MedNumber;
@@ -160,6 +160,8 @@ namespace DoctorSystem.Controller
             client.Street = registerDto.Street;
             client.HouseNumber = registerDto.HouseNumber;
             client.BirthDate = DateTime.Parse(registerDto.BirthDate);
+            client.MotherName = registerDto.MotherName;
+            client.BirthPlace = birthPlace;
 
             _clientRepo.Update(client);
             await _clientRepo.SaveAllAsync();

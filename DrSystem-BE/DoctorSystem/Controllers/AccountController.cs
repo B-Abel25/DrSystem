@@ -44,7 +44,6 @@ namespace DoctorSystem.Controllers
         {
             _logger = logger;
             _tokenService = tokenService;
-            //_context = context;
             _emailService = emailService;
             _router = routerService;
             _clientRepo = clientRepository;
@@ -63,6 +62,7 @@ namespace DoctorSystem.Controllers
             Client client = await _clientRepo.GetClientByMedNumberAsync(registerDto.MedNumber);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(registerDto.DoctorSealNumber);
             Place place = await _placeRepo.GetPlaceByPostCodeAndCityAsync(registerDto.PostCode, registerDto.City);
+            City birthPlace = await _placeRepo.GetCityByNameAsync(registerDto.BirthPlace);
             if (EntityExistsAsync(client))
             {
                 return Unauthorized("Ez a TAJ szám már létezik");
@@ -92,6 +92,7 @@ namespace DoctorSystem.Controllers
             client.Doctor = doctor;
             client.Member = false;
             client.MotherName = registerDto.MotherName;
+            client.BirthPlace = birthPlace;
 
             _clientRepo.Update(client);
 
