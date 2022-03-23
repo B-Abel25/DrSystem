@@ -166,6 +166,7 @@ namespace DoctorSystem.Data
                 cli.PasswordSalt = hmac.Key;
                 cli.Doctor = await _context._doctors.SingleOrDefaultAsync(x => x.Id == Barbi.Id);
                 cli.Member = clientModel.Member == "false" ? false : true;
+                cli.MotherName = cliModels[cliModels.IndexOf(clientModel)].ToString() + cliModels[cliModels.IndexOf(clientModel)];
                 _context._clients.Add(cli);
                 await _context.SaveChangesAsync();
             }

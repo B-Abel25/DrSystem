@@ -44,20 +44,30 @@ namespace DoctorSystem.Services
             smtp.Disconnect(true);
         }
 
-        public void NewPassword(User c)
+        public void NewPassword(User u)
         {
             //https://www.c-sharpcorner.com/article/send-email-using-templates-in-asp-net-core-applications/
             MimeMessage email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse("DoctorSystemapp@gmail.com"));
-            email.To.Add(MailboxAddress.Parse(c.Email));
+            email.To.Add(MailboxAddress.Parse(u.Email));
             email.Subject = "Új jelszó kérelem";
-            if (c.GetType() == typeof(Doctor))
+
+           
+            if (u.GetType() == typeof(Doctor))
             {
-                email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = "<a href=\"" + _config["Root"] + "/admin/new-password/" + c.EmailToken + "\">Új jelszó</a>" };
+                email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                {
+                 Text = string.Format(
+                 File.ReadAllText("Services/EmailTemplates/NewPassword.html", Encoding.UTF8), u.Name ,_config["Root"] + "/admin/new-password/" + u.EmailToken)
+                };
             }
             else
             {
-                email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = "<a href=\"" + _config["Root"] + "/new-password/" + c.EmailToken + "\">Új jelszó</a>" };
+                email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                {
+                    Text = string.Format(
+                File.ReadAllText("Services/EmailTemplates/NewPassword.html", Encoding.UTF8), u.Name, _config["Root"] + "/new-password/" + u.EmailToken)
+                };
             }
 
             Send(email);
