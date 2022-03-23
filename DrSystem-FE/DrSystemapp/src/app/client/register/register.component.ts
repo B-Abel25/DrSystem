@@ -99,7 +99,7 @@ export class RegisterComponent implements OnInit {
         [
           Validators.required,
           Validators.email,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+          Validators.pattern('[a-z 0-9 A-Z .-]+@[a-z .-]+\.[a-z]*'),
         ],
       ],
       name: [
@@ -140,29 +140,19 @@ export class RegisterComponent implements OnInit {
 
     this.registerForm.controls['postCode'].valueChanges.subscribe((x) => {
       x = x + '';
-      if (x.length == 4) {
+      let placeHelper=this.places.find((y) => y.postCode == x);
+      if (x.length == 4 && placeHelper!=undefined) {
         
         this.registerForm.controls['city'].setValue(
-          this.places.find((y) => y.postCode == x).city
+         placeHelper.city
         );
+       
       } else {
         this.registerForm.controls['city'].setValue('');
       }
     });
 
-    this.registerForm.controls['city'].valueChanges.subscribe((x) => {
-      let exist = this.places.find(
-        (y) =>
-          y.city == x &&
-          y.postCode == this.registerForm.controls['postCode'].value
-      );
-     
-      if (exist != null) {
-        this.registerForm.controls['placeId'].setValue(exist.id);
-      } else {
-        this.registerForm.controls['placeId'].setValue('');
-      }
-    });
+   
 
     this.registerForm.controls['doctor'].valueChanges.subscribe((x) => {
       let exist = this.doctors.find(
