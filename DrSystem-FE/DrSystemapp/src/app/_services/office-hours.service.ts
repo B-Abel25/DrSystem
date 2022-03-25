@@ -19,7 +19,7 @@ export class OfficeHoursService {
       )
       .pipe(
         map((response: officeHours) => {
-          const client = response;
+          const officeHours = response;
         })
       );
   }
@@ -32,7 +32,7 @@ export class OfficeHoursService {
       )
       .pipe(
         map((response: officeHours) => {
-          const doctor = response;
+          const duration = response;
         })
       );
   }

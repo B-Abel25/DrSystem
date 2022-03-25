@@ -94,14 +94,28 @@ export class AppointmentListComponent implements OnInit {
  
   eventClick(arg) {
    
-    alert(arg.event.start);
+   
+   console.log( this.calendarOptions.events);
+    $('#myModal2').modal('show');
+   
+    $('.modal-title, .eventstarttitle').text('');
+  
+    $('.modal-title').text('');
+
+    $('.eventstarttitle').text();
+   
     this.showModal = true;
-  }
+
+}
   hide()
 {
   this.showModal = false;
 }
 
+ShowModal()
+{
+this.showModal=!this.showModal;
+}
 
 
   loadDoctorAppointment() {
