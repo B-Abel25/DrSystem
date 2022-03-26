@@ -188,10 +188,9 @@ namespace DoctorSystem.Data
                 {
                     OfficeHours oh = new OfficeHours();
                     oh.Doctor = doctor;
-                    oh.Closing = DateTime.Parse("18:00");
-                    oh.Opening = DateTime.Parse("10:00");
+                    oh.Close = DateTime.Parse("18:00");
+                    oh.Open = DateTime.Parse("10:00");
                     oh.Day = (Days)i;
-                    oh.Closed = false;
                     _context._officehours.Add(oh);
                 }
             }
