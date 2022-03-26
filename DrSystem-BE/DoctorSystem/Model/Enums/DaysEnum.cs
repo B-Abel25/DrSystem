@@ -2,10 +2,12 @@
 {
     public enum Days
     {
+        Vasárnap,
         Hétfő,
         Kedd,
         Szerda,
         Csütörtök,
-        Péntek
+        Péntek,
+        Szombat
     }
 }

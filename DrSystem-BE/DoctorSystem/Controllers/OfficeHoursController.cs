@@ -65,7 +65,7 @@ namespace DoctorSystem.Controllers
             {
                 return Unauthorized("Nem 5 objektum érkezett");
             }
-            modifyDto = modifyDto.OrderBy(x => x.day).ToList();
+            modifyDto = modifyDto.OrderBy(x => x.Day).ToList();
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
 
@@ -74,10 +74,9 @@ namespace DoctorSystem.Controllers
             foreach (var modify in modifyDto)
             {
                 OfficeHours oh = new OfficeHours();
-                oh.Day = modify.day;
-                oh.Opening = modify.Opening;
-                oh.Closing = modify.Closing;
-                oh.Closed = modify.Closed;
+                oh.Day = modify.Day;
+                oh.Opening = DateTime.Parse(modify.Open);
+                oh.Closing = DateTime.Parse(modify.Close);
                 oh.Doctor = doctor;
                 _officeHoursRepo.Update(oh);
             }

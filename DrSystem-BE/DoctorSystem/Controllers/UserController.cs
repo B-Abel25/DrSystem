@@ -130,7 +130,7 @@ namespace DoctorSystem.Controller
             return Unauthorized("asztapaszta");
         }
 
-        //[Authorize]
+        [Authorize]
         [Route("client/get/me")]
         [HttpGet]
         public async Task<ActionResult<ClientDto>> GetClientsByMedNumber()
