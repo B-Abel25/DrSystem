@@ -34,8 +34,6 @@ export class MessageService {
     );
   }
 
-
-  
   getMessageThreadClient() {
     return this.http.get<Message[]>(this.baseUrl + 'private/client/messages');
   }
@@ -51,8 +49,10 @@ export class MessageService {
     return this.http.delete(this.baseUrl + 'private/user/message/delete/' + id);
   }
 
-  sendEmailDoctor(content:string , subject:string) {
-    return this.http.post<EmailMessage>(this.baseUrl + 'private/client/message/send',{content,subject});
+  sendEmailDoctor(subject: string, content: string) {
+    return this.http.post<EmailMessage>(
+      this.baseUrl + 'private/doctor/send-email',
+      { subject, content }
+    );
   }
- 
 }

@@ -1,6 +1,6 @@
 <app-admin-navbar></app-admin-navbar>
 
-<div id="container">
+<!--<div id="container">
     <h1>&bull; Keep in Touch &bull;</h1>
     <div class="underline">
     </div>
@@ -34,6 +34,16 @@
       <div class="submit">
         <input type="submit" value="Send Message" id="form_button" />
       </div>
-    </form><!-- // End form -->
-  </div><!-- // End #container -->
+    </form><!-- // End form 
 
+
+</div><!-- // End #container -->
+
+<div id="container">
+<form [formGroup]="sendEmailForm" (ngSubmit)="sendMailSubmit()">
+  <input type="text" formControlName="subject" >
+  <input type="text" formControlName="content" >
+  <div style="align-items: right;"><button type="submit" class=" btn btn-lg btn-primary sumbit">Rögzítés</button></div>
+</form>
+<p>{{this.sendEmailForm.value | json}}</p>
+</div>
