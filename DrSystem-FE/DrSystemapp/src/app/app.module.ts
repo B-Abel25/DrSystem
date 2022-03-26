@@ -53,6 +53,8 @@ import { AppointmentListComponent } from './doctor-admin/doctor-function/appoint
 import { ProfileModifyComponent } from './client/clients-functions/profile-modify/profile-modify.component';
 import { ReferralComponent } from './doctor-admin/doctor-function/referral/referral.component';
 
+import { SendEmailsComponent } from './doctor-admin/doctor-function/send-emails/send-emails.component';
+
 FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
 
 @NgModule({
@@ -88,6 +90,8 @@ FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
     AppointmentListComponent,
     ProfileModifyComponent,
     ReferralComponent,
+   
+    SendEmailsComponent,
   ],
   imports: [
     FormsModule,
