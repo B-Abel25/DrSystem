@@ -9,9 +9,7 @@ namespace DoctorSystem.Controllers
     {
         [Required]
         public Days Day { get; set; }
-        [Required]
         public string Open { get; set; }
-        [Required]
         public string Close { get; set; }
         public OfficeHoursDto(OfficeHours oh)
         {

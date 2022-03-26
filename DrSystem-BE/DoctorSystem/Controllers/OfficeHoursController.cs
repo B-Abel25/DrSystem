@@ -69,7 +69,7 @@ namespace DoctorSystem.Controllers
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
             foreach (var modifyDto in modifyDtos)
             {
-                if (DateTime.Parse(modifyDto.Open).AddMinutes(doctor.Duration) > DateTime.Parse(modifyDto.Close))
+                if ((DateTime.Parse(modifyDto.Open).AddMinutes(doctor.Duration) > DateTime.Parse(modifyDto.Close)) && (modifyDto.Open != "" && modifyDto.Close != ""))
                 {
                     return Unauthorized("A nyitási időnek legalább egy foglalásnyiidővel kebesebbnek kell lennie a zárásnál");
                 }  
@@ -84,8 +84,14 @@ namespace DoctorSystem.Controllers
             {
                 OfficeHours oh = new OfficeHours();
                 oh.Day = modifyDto.Day;
-                oh.Open = DateTime.Parse(modifyDto.Open);
-                oh.Close = DateTime.Parse(modifyDto.Close);
+                if (modifyDto.Open != "")
+                {
+                    oh.Open = DateTime.Parse(modifyDto.Open);
+                }
+                if (modifyDto.Close != "")
+                {
+                    oh.Close = DateTime.Parse(modifyDto.Close);
+                }
                 oh.Doctor = doctor;
                 _officeHoursRepo.Update(oh);
             }
