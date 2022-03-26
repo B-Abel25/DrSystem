@@ -14,8 +14,14 @@ namespace DoctorSystem.Controllers
         public OfficeHoursDto(OfficeHours oh)
         {
             this.Day = oh.Day;
-            this.Open = oh.Open.ToString("HH:mm");
-            this.Close = oh.Close.ToString("HH:mm");
+            if (oh.Open != DateTime.MinValue)
+            {
+                this.Open = oh.Open.ToString("HH:mm");
+            }
+            if (oh.Open != DateTime.MinValue)
+            {
+                this.Close = oh.Close.ToString("HH:mm");
+            }
            
         }
         public OfficeHoursDto()
