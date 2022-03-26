@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { OfficeHoursService } from 'src/app/_services/office-hours.service';
 
@@ -15,8 +15,10 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.officeHoursinitializationForm();
+    console.log(this.officeHoursForm.value);
   }
   officeHours() {
+console.log(this.officeHoursForm.value)
     this.officeHoursService.officeHours(this.officeHoursForm.value).subscribe(
       (response) => {
         
@@ -26,9 +28,6 @@ export class SettingsComponent implements OnInit {
         this.toastr.error(error.error);
       }
     );
-  }
-
-  duration() {
     this.officeHoursService.Duration(this.durationForm.value).subscribe(
       (response) => {
         
@@ -39,12 +38,63 @@ export class SettingsComponent implements OnInit {
       }
     );
   }
+
+  // duration() {
+  //   this.officeHoursService.Duration(this.durationForm.value).subscribe(
+  //     (response) => {
+        
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       this.toastr.error(error.error);
+  //     }
+  //   );
+  // }
   officeHoursinitializationForm() {
     this.officeHoursForm = this.fb.group({
-      medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')],],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
-    })
+      tomb:this.fb.array([ 
+
+      {
+        day: '1',
+        open: new FormControl('', [Validators.required]),
+        close: new FormControl('', [Validators.required]),
+      },
+      {
+        day: new FormControl('2'),
+        open: new FormControl('', [Validators.required]),
+        close: new FormControl('', [Validators.required]),
+      },
+     {
+        day: new FormControl('3'),
+        open: new FormControl('', [Validators.required]),
+        close: new FormControl('', [Validators.required]),
+      },
+     {
+        day: new FormControl('4'),
+        open: new FormControl('', [Validators.required]),
+        close: new FormControl('', [Validators.required]),
+      },
+     {
+        day: new FormControl('5'),
+        open: new FormControl('', [Validators.required]),
+        close: new FormControl('', [Validators.required]),
+      }
+     
+    ])
+  })
   }
+  get hours() : FormArray {
+    return this.officeHoursForm.get("tomb") as FormArray
+  }
+  matchValues(matchTo: string): ValidatorFn {
+    return (control: AbstractControl | any) => {
+      return control?.value !== control?.parent?.controls[matchTo].value
+        ? null
+        : { isMatching: true };
+    };
+  }
+
+ 
   durationInitializationForm() {
     this.durationForm = this.fb.group({
       duration: ['', [Validators.required, Validators.pattern('[0-9]')],],
