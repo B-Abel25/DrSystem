@@ -257,5 +257,19 @@ namespace DoctorSystem.Controllers
         {
             return sWhitespace.Replace(input, "");
         }
+
+        [Authorize]
+        [Route("doctor/send-email")]
+        [HttpPost]
+        public async Task<ActionResult> SendEmailEveryBody(EmailDto dto)
+        {
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+           
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+
+            _emailService.SendEmailToEverybody(doctor, dto.Subject, dto.Content);
+
+            return Accepted();
+        }
     }
 }
