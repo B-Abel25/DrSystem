@@ -73,6 +73,22 @@ namespace DoctorSystem.Services
             Send(email);
         }
 
+        public void SendEmailToEverybody(Doctor d, string subject, string content)
+        {
+            MimeMessage email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(d.Email));
+            foreach (var client in d.Clients)
+            {
+                email.Bcc.Add(MailboxAddress.Parse(client.Email));
+            }
+            email.Subject = subject;
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = content,
+            };
+
+            Send(email);
+        }
      
     }
 }
