@@ -53,7 +53,7 @@ namespace DoctorSystem.Controllers
             {
                 ohDtos.Add(new OfficeHoursDto(oh));
             }
-            return ohDtos;
+            return ohDtos.OrderBy(x => x.Day).ToList();
         }
 
         [Authorize]

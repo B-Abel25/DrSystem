@@ -18,9 +18,17 @@ namespace DoctorSystem.Controllers
             {
                 this.Open = oh.Open.ToString("HH:mm");
             }
+            else
+            {
+                this.Open = "";
+            }
             if (oh.Open != DateTime.MinValue)
             {
                 this.Close = oh.Close.ToString("HH:mm");
+            }
+            else
+            {
+                this.Close = "";
             }
            
         }
