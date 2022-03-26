@@ -147,6 +147,11 @@ export class ProfileModifyComponent implements OnInit {
           this.profileModifyForm
             .get('confirmPassword')
             .addValidators(Validators.required);
+          console.log('added');
+       
+          // TODO https://www.angularfix.com/2021/09/get-validators-present-in.html
+          // https://stackoverflow.com/questions/43838108/get-validators-present-in-formgroup-formcontrol
+          console.log();
         } else if (passwordValue === '') {
           this.profileModifyForm
             .get('password')

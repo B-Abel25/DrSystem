@@ -5,53 +5,60 @@
 
 
   <div class="container">
+    <form [formGroup]="officeHoursForm" (ngSubmit)="officeHours()">
 <table class="table">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Hétköznapok</th>
         <th scope="col">Foglalás kezdete:</th>
         <th scope="col">Foglalás vége:</th>
-        <th scope="col">Zárva</th>
+        
         
       </tr>
     </thead>
-    <tbody>
-      <tr>
+    
+    <tbody  formArrayName="tomb"  *ngFor="let hour of hours.controls; let i=index">
+     
+      <tr  [formGroupName]="i">
         <th scope="row">Hétfő</th>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="checkbox" class="checkbox"></td>
+        <td><input  formControlName="open" type="time" class="form-control"></td>
+        <td><input   formControlName="close" type="time" class="form-control"></td>
        
       </tr>
-      <tr>
+      <tr formGroupName="tuesday">
         <th scope="row">Kedd</th>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="checkbox" class="checkbox"></td>
+        <td><input  type="time" class="form-control"></td>
+        <td><input type="time" class="form-control"></td>
+      
       </tr>
-      <tr>
+      <tr formGroupName="wednesday">
         <th scope="row">Szerda</th>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="checkbox" class="checkbox"></td>
+        <td><input  type="time" class="form-control"></td>
+        <td><input type="time" class="form-control"></td>
+        
       </tr>
-      <tr>
+      <tr formGroupName="thursday">
         <th scope="row">Csütörtök</th>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="checkbox" class="checkbox" ></td>
+        <td><input type="time" class="form-control"></td>
+        <td><input type="time" class="form-control"></td>
+        
       </tr>
-      <tr>
+      <tr formGroupName="friday">
         <th scope="row">Péntek</th>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="checkbox" class="checkbox" ></td>
+        <td><input type="time" class="form-control"></td>
+        <td><input type="time" class="form-control"></td>
+        
       </tr>
+   
     </tbody>
   </table>
-  <p>Foglalások időtartama: <input type="text"  class="form-control"></p>
+  <div style="align-items: right;"><button type="submit" class=" btn btn-lg btn-primary sumbit">Rögzítés</button></div>
+    </form>
+  <p>Foglalások időtartama:(perc) <input type="text"  class="form-control"></p>
   <div style="align-items: right;"><button type="submit" class=" btn btn-lg btn-primary sumbit">Rögzítés</button></div>
 </div>
+
+<p>{{officeHoursForm.value | json}}</p>
   </div>
   </div>
 
