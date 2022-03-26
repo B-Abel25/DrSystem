@@ -17,36 +17,36 @@
       </tr>
     </thead>
     
-    <tbody  formArrayName="tomb"  *ngFor="let hour of hours.controls; let i=index">
+    <tbody  >
      
-      <tr  [formGroupName]="i">
+      <tr  formGroupName="1">
         <th scope="row">Hétfő</th>
         <td><input  formControlName="open" type="time" class="form-control"></td>
         <td><input   formControlName="close" type="time" class="form-control"></td>
        
       </tr>
-      <tr formGroupName="tuesday">
+      <tr formGroupName="2" >
         <th scope="row">Kedd</th>
-        <td><input  type="time" class="form-control"></td>
-        <td><input type="time" class="form-control"></td>
+        <td><input formControlName="open"  type="time" class="form-control"></td>
+        <td><input formControlName="close" type="time" class="form-control"></td>
       
       </tr>
-      <tr formGroupName="wednesday">
+      <tr formGroupName="3" >
         <th scope="row">Szerda</th>
-        <td><input  type="time" class="form-control"></td>
-        <td><input type="time" class="form-control"></td>
+        <td><input formControlName="open"  type="time" class="form-control"></td>
+        <td><input formControlName="close" type="time" class="form-control"></td>
         
       </tr>
-      <tr formGroupName="thursday">
+      <tr  formGroupName="4">
         <th scope="row">Csütörtök</th>
-        <td><input type="time" class="form-control"></td>
-        <td><input type="time" class="form-control"></td>
+        <td><input formControlName="open" type="time" class="form-control"></td>
+        <td><input formControlName="close" type="time" class="form-control"></td>
         
       </tr>
-      <tr formGroupName="friday">
+      <tr formGroupName="5">
         <th scope="row">Péntek</th>
-        <td><input type="time" class="form-control"></td>
-        <td><input type="time" class="form-control"></td>
+        <td><input formControlName="open" type="time" class="form-control"></td>
+        <td><input formControlName="close" type="time" class="form-control"></td>
         
       </tr>
    

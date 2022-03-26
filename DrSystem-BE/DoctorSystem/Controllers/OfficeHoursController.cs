@@ -27,13 +27,15 @@ namespace DoctorSystem.Controllers
            ILogger<OfficeHoursController> logger,
            ITokenService tokenService,
            EmailService emailService,
-           IDoctorRepository doctorRepository
+           IDoctorRepository doctorRepository,
+           IOfficeHoursRepository officeHoursRepository
            )
         {
             _logger = logger;
             _tokenService = tokenService;
             _emailService = emailService;
             _doctorRepo = doctorRepository;
+            _officeHoursRepo = officeHoursRepository;
         }
 
 
@@ -67,7 +69,7 @@ namespace DoctorSystem.Controllers
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
 
-            RemoveOfficeHours(doctor);
+            await RemoveOfficeHours(doctor);
 
             foreach (var modify in modifyDto)
             {
@@ -83,7 +85,7 @@ namespace DoctorSystem.Controllers
 
             return Accepted();
         }
-        private async void RemoveOfficeHours(Doctor doctor)
+        private async Task<bool> RemoveOfficeHours(Doctor doctor)
         {
             List<OfficeHours> oh = await _officeHoursRepo.GetOfficeHoursAllDayByDoctor(doctor);
 
@@ -92,6 +94,7 @@ namespace DoctorSystem.Controllers
                 _officeHoursRepo.RemoveOfficeHour(item);
             }
             await _officeHoursRepo.SaveAllAsync();
+            return true;
         }
 
         [Authorize]

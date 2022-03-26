@@ -11,35 +11,10 @@ export class OfficeHoursService {
   baseUrl = environment.apiUrl;
   constructor(private http:HttpClient) { }
   
-  officeHours(model: any) {
-    return this.http
-      .post<officeHours>(
-        this.baseUrl + 'private/doctor/office-hours',
-        model
-      )
-      .pipe(
-        map((response: officeHours) => {
-          const officeHours = response;
-        })
-      );
-  }
+  
+  officeHoursPut(modal:officeHours[]) {
 
-  Duration(model: any) {
-    return this.http
-      .post<officeHours>(
-        this.baseUrl + 'private/doctor/get/duration',
-        model
-      )
-      .pipe(
-        map((response: officeHours) => {
-          const duration = response;
-        })
-      );
-  }
-
-  officeHoursPut(modal:any) {
-
-
+console.log(modal)
     return this.http.put(this.baseUrl + 'private/doctor/office-hours/modify',modal).subscribe({
       next: data => {
         console.log(data)

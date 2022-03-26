@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { officeHours } from 'src/app/_models/officeHours';
 import { OfficeHoursService } from 'src/app/_services/office-hours.service';
 
 @Component({
@@ -19,24 +20,20 @@ export class SettingsComponent implements OnInit {
   }
   officeHours() {
 console.log(this.officeHoursForm.value)
-    this.officeHoursService.officeHours(this.officeHoursForm.value).subscribe(
-      (response) => {
-        
-      },
-      (error) => {
-        console.log(error);
-        this.toastr.error(error.error);
-      }
-    );
-    this.officeHoursService.Duration(this.durationForm.value).subscribe(
-      (response) => {
-        
-      },
-      (error) => {
-        console.log(error);
-        this.toastr.error(error.error);
-      }
-    );
+
+let tomb:officeHours[]=[];
+for (let index = 1; index < 6; index++) {
+  let item:officeHours={
+day:index,
+open:this.officeHoursForm.value[index].open,
+close:this.officeHoursForm.value[index].close,
+  };
+tomb.push(item);
+  
+}
+console.log(tomb);
+    this.officeHoursService.officeHoursPut(tomb);
+   
   }
 
   // duration() {
@@ -52,36 +49,36 @@ console.log(this.officeHoursForm.value)
   // }
   officeHoursinitializationForm() {
     this.officeHoursForm = this.fb.group({
-      tomb:this.fb.array([ 
-
-      {
-        day: '1',
-        open: new FormControl('', [Validators.required]),
-        close: new FormControl('', [Validators.required]),
-      },
-      {
-        day: new FormControl('2'),
-        open: new FormControl('', [Validators.required]),
-        close: new FormControl('', [Validators.required]),
-      },
-     {
-        day: new FormControl('3'),
-        open: new FormControl('', [Validators.required]),
-        close: new FormControl('', [Validators.required]),
-      },
-     {
-        day: new FormControl('4'),
-        open: new FormControl('', [Validators.required]),
-        close: new FormControl('', [Validators.required]),
-      },
-     {
-        day: new FormControl('5'),
-        open: new FormControl('', [Validators.required]),
-        close: new FormControl('', [Validators.required]),
-      }
      
-    ])
-  })
+
+    1:new FormGroup({
+       
+        open: new FormControl('', [Validators.required]),
+        close: new FormControl('', [Validators.required]),
+     }),
+     2:new FormGroup({
+       
+      open: new FormControl('', [Validators.required]),
+      close: new FormControl('', [Validators.required]),
+   }),
+   3:new FormGroup({
+       
+    open: new FormControl('', [Validators.required]),
+    close: new FormControl('', [Validators.required]),
+ }),
+ 4:new FormGroup({
+       
+  open: new FormControl('', [Validators.required]),
+  close: new FormControl('', [Validators.required]),
+}),
+5:new FormGroup({
+       
+  open: new FormControl('', [Validators.required]),
+  close: new FormControl('', [Validators.required]),
+}),
+     
+  
+    })
   }
   get hours() : FormArray {
     return this.officeHoursForm.get("tomb") as FormArray
