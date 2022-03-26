@@ -7,13 +7,11 @@ namespace DoctorSystem.Dtos
     public class ModifyOfficeHoursDto
     {
         [Required]
-        public Days day { get; set; }
+        public Days Day { get; set; }
         [Required]
-        public DateTime Opening { get; set; }
+        public string Open { get; set; }
         [Required]
-        public DateTime Closing { get; set; }
-        [Required]
-        public bool Closed { get; set; }
+        public string Close { get; set; }
 
     }
 }
