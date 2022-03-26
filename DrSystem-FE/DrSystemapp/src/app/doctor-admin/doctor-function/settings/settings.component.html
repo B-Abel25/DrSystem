@@ -5,7 +5,7 @@
 
 
   <div class="container">
-    <form [formGroup]="officeHoursForm" (ngSubmit)="officeHours()">
+<form  id="border1" [formGroup]="officeHoursForm " (ngSubmit)="officeHours()">
 <table class="table">
     <thead class="thead-dark">
       <tr>
@@ -52,13 +52,24 @@
    
     </tbody>
   </table>
+
+   
+  
+  
   <div style="align-items: right;"><button type="submit" class=" btn btn-lg btn-primary sumbit">Rögzítés</button></div>
-    </form>
-  <p>Foglalások időtartama:(perc) <input type="text"  class="form-control"></p>
-  <div style="align-items: right;"><button type="submit" class=" btn btn-lg btn-primary sumbit">Rögzítés</button></div>
+
+
+</form>
+
+<br>
+<form id="border2" [formGroup]="durationForm" (ngSubmit)="durationSubmit()">
+<p>Foglalások időtartama:(perc) <input type="number" formControlName="duration" class="form-control"></p>
+<div style="align-items: right;"><button type="submit" class=" btn btn-lg btn-primary sumbit">Rögzítés</button></div>
+</form>
 </div>
 
-<p>{{officeHoursForm.value | json}}</p>
+
+
   </div>
   </div>
 

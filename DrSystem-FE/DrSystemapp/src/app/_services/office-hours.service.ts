@@ -27,10 +27,10 @@ console.log(modal)
 
   }
   
-  durationPut(duration:any) {
+  durationPut(duration:number) {
 
 
-    return this.http.put(this.baseUrl + '​private​/doctor​/put​/duration​/'+duration, {}).subscribe({
+    return this.http.put(this.baseUrl + 'private/doctor/put/duration/'+duration, {}).subscribe({
       next: data => {
         console.log(data)
       },
@@ -42,4 +42,10 @@ console.log(modal)
 
   }
 
+  getOfficeHours() {
+    return this.http.get<officeHours>(this.baseUrl + 'private/doctor/office-hours');
+  }
+  getDuration() {
+    return this.http.get<number>(this.baseUrl + 'private/doctor/get/duration');
+  }
 }

@@ -124,7 +124,7 @@ namespace DoctorSystem.Controllers
 
         [Authorize]
         [HttpPut]
-        [Route("doctor/put/duration/{duration:int}")]
+        [Route("doctor/put/duration/{duration}")]
         public async Task<ActionResult> PutDoctorDuration(int duration)
         {
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
