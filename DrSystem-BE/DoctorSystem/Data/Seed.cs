@@ -184,7 +184,7 @@ namespace DoctorSystem.Data
 
             foreach (var doctor in doctors)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 1; i < 6; i++)
                 {
                     OfficeHours oh = new OfficeHours();
                     oh.Doctor = doctor;
