@@ -3,6 +3,7 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Client } from '../_models/client';
+import { EmailMessage } from '../_models/email-message';
 
 @Injectable({
   providedIn: 'root',
@@ -50,5 +51,8 @@ export class MessageService {
     return this.http.delete(this.baseUrl + 'private/user/message/delete/' + id);
   }
 
+  sendEmailDoctor(content:string , subject:string) {
+    return this.http.post<EmailMessage>(this.baseUrl + 'private/client/message/send',{content,subject});
+  }
  
 }

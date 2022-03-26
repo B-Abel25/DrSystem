@@ -5,4 +5,5 @@ export interface Message {
   content: string;
   dateRead?: string;
   dateSent: string;
+  
 }

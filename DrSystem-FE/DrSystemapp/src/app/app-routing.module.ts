@@ -27,6 +27,8 @@ import { SettingsComponent } from './doctor-admin/doctor-function/settings/setti
 import { AppointmentListComponent } from './doctor-admin/doctor-function/appointment-list/appointment-list.component';
 import { ProfileModifyComponent } from './client/clients-functions/profile-modify/profile-modify.component';
 
+import { SendEmailsComponent } from './doctor-admin/doctor-function/send-emails/send-emails.component';
+
 const routes: Routes = [
   { path: '', component: DrsystemHomeComponent },
 
@@ -76,6 +78,7 @@ const routes: Routes = [
       },
       { path: 'admin/settings', component: SettingsComponent },
       { path: 'admin/appointments', component: AppointmentListComponent },
+      { path: 'admin/email', component: SendEmailsComponent},
     ],
   },
 
