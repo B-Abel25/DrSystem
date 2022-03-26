@@ -59,24 +59,33 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [HttpPut]
         [Route("doctor/office-hours/modify")]
-        public async Task<ActionResult> ModifyDoctorOfficeHours(List<ModifyOfficeHoursDto> modifyDto)
+        public async Task<ActionResult> ModifyDoctorOfficeHours(List<OfficeHoursDto> modifyDtos)
         {
-            if (modifyDto.Count != 5)
+            if (modifyDtos.Count != 5)
             {
                 return Unauthorized("Nem 5 objektum érkezett");
             }
-            modifyDto = modifyDto.OrderBy(x => x.Day).ToList();
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            foreach (var modifyDto in modifyDtos)
+            {
+                if (DateTime.Parse(modifyDto.Open).AddMinutes(doctor.Duration) > DateTime.Parse(modifyDto.Close))
+                {
+                    return Unauthorized("A nyitási időnek legalább egy foglalásnyiidővel kebesebbnek kell lennie a zárásnál");
+                }  
+            }
+            modifyDtos = modifyDtos.OrderBy(x => x.Day).ToList();
 
+
+            //TODO ha van foglálas olyan időpontra akkor ne lehessen megváltoztatni
             await RemoveOfficeHours(doctor);
 
-            foreach (var modify in modifyDto)
+            foreach (var modifyDto in modifyDtos)
             {
                 OfficeHours oh = new OfficeHours();
-                oh.Day = modify.Day;
-                oh.Opening = DateTime.Parse(modify.Open);
-                oh.Closing = DateTime.Parse(modify.Close);
+                oh.Day = modifyDto.Day;
+                oh.Open = DateTime.Parse(modifyDto.Open);
+                oh.Close = DateTime.Parse(modifyDto.Close);
                 oh.Doctor = doctor;
                 _officeHoursRepo.Update(oh);
             }
@@ -95,6 +104,7 @@ namespace DoctorSystem.Controllers
             await _officeHoursRepo.SaveAllAsync();
             return true;
         }
+
 
         [Authorize]
         [HttpGet]

@@ -62,7 +62,7 @@ namespace DoctorSystem.Controllers
             OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(client.Doctor, (Days)((int)appDto.Start.DayOfWeek - 1));
             foreach (var app in apps)
             {
-                if (!(appDto.Start >= oh.Opening && appDto.Start <= oh.Closing.AddMinutes(-10)))
+                if (!(appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(-10)))
                 {
                     return Unauthorized("Az időpont az orvos rendelési idején kívülre esik");
                 }
@@ -121,7 +121,7 @@ namespace DoctorSystem.Controllers
             OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(doctor, (Days)((int)appDto.Start.DayOfWeek - 1));
             foreach (var app in apps)
             {
-                if (appDto.Start >= oh.Opening && appDto.Start <= oh.Closing.AddMinutes(-doctor.Duration))
+                if (appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(-doctor.Duration))
                 {
                     return Unauthorized("Az időpont az orvos rendelési idején kívülre esik");
                 }

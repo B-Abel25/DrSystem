@@ -8,9 +8,8 @@ namespace DoctorSystem.Entities
     public class OfficeHours : AbstractIdentifiable
     {
         public Days Day { get; set; }
-        public DateTime Opening { get; set; }
-        public DateTime Closing { get; set; }
-        public bool Closed { get; set; }
+        public DateTime Open { get; set; }
+        public DateTime Close { get; set; }
         public Doctor Doctor { get; set; }
     }
 }
