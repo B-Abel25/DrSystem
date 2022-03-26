@@ -139,7 +139,11 @@ export class ProfileModifyComponent implements OnInit {
 
     this.profileModifyForm.controls['password'].valueChanges.subscribe(
       (passwordValue) => {
+        
         if (passwordValue !== '') {
+          this.profileModifyForm
+            .get('password')
+            .addValidators(Validators.required);
           this.profileModifyForm
             .get('confirmPassword')
             .addValidators(Validators.required);
@@ -150,12 +154,29 @@ export class ProfileModifyComponent implements OnInit {
           console.log();
         } else if (passwordValue === '') {
           this.profileModifyForm
+            .get('password')
+            .removeValidators(Validators.required);
+          this.profileModifyForm
             .get('confirmPassword')
             .removeValidators(Validators.required);
           console.log('removed');
         }
+        // console.log('confirmPass');
+        // console.log(
+        //   this.profileModifyForm.controls['confirmPassword'].hasValidator(
+        //     Validators.required
+        //   )
+        // );
+        // console.log('Pass');
+        // console.log(
+        //   this.profileModifyForm.controls['confirmPassword'].hasValidator(
+        //     Validators.required
+        //   )
+        // );
       }
     );
+
+    console.log(this.profileModifyForm.controls);
   }
 
   matchValues(matchTo: string): ValidatorFn {

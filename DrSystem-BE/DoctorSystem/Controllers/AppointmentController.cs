@@ -156,11 +156,9 @@ namespace DoctorSystem.Controllers
                 AppointmentDto d = new AppointmentDto(docApp);
                 if (!docApp.IsDeleted && docApp.AppointmentingUser.Id != doctor.Id)
                 {
-
                     d.Title = "Foglalt";
                     d.Description = "";
                     d.Color = "blue";
-
                 }
                 else
                 {
