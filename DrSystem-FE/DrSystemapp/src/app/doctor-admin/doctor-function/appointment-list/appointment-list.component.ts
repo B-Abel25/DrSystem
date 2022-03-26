@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalendarOptions } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/hu';
 import { Appointment } from 'src/app/_models/appointment';
+import { officeHours } from 'src/app/_models/officeHours';
 import { AppointmentService } from 'src/app/_services/appointment.service';
+import { OfficeHoursService } from 'src/app/_services/office-hours.service';
 declare let $: any;
 @Component({
   selector: 'app-appointment-list',
@@ -27,20 +29,23 @@ export class AppointmentListComponent implements OnInit {
   }
   eventdate: string;
   successdata: any;
-  
+  duration:number;
   addEventForm: FormGroup;
   submitted = false;
-  
-  slotDuration = '00:10:00';
+  Hours:officeHours;
+ 
   currentDate = new Date();
   myDate = Date.now();
-  constructor(private appointmentService:AppointmentService, private formBuilder:FormBuilder) { }
+  constructor(private appointmentService:AppointmentService, private formBuilder:FormBuilder, private officeHoursService:OfficeHoursService) { }
 
   ngOnInit() {
     this.initializationForm();
+    
     console.log('ott');
     this.loadDoctorAppointment();
     console.log('itt');
+   
+    console.log(this.duration)
     this.calendarOptions = {
       //dateClick: this.handleDateClick.bind(this),
       weekends: false,
@@ -53,17 +58,20 @@ export class AppointmentListComponent implements OnInit {
      contentHeight:500,
      dateClick: this.handleDateClick.bind(this),
 
-      headerToolbar: {
+     titleFormat: { // will produce something like "Tuesday, September 18, 2018"
+      month: 'long',
+      year: 'numeric',
+      day: 'numeric',
+      weekday: 'long'
+    },
       
-      },
-      
-     
+     hiddenDays:[2],
       events: [
         { title: '', start: '2022-03-21T10:00:00+01:00', end:'2022-03-21T10:10:00+01:00', color:'red' },
         { title: 'event 2', date: '2022-03-21T11:00:00+01:00-11:10:00+01:00', color:'yellow' }
       ],
       themeSystem: 'bootstrap5',
-      slotDuration: '00:10:00',
+    
       editable: false,
       selectable: true,
       selectMirror: true,
@@ -126,6 +134,8 @@ this.showModal=!this.showModal;
        console.log(this.appointment)
        this.calendarOptions.events = appointment;
       });
+      this.loadOfficeHours();
+      this.loadDuration();
   }
   onSubmit() {
     console.log(this.addEventForm.value);
@@ -164,5 +174,31 @@ this.showModal=!this.showModal;
       Start: this.currentDateTimeSent,
     });
   }
-  
+  loadDuration() {
+    this.officeHoursService.getDuration().subscribe((durationGet) => {
+      this.duration = durationGet;
+      this.calendarOptions.slotDuration="00:"+this.duration+":00";
+      console.log(this.calendarOptions.slotDuration)
+      console.log(durationGet)
+      
+      console.log('komment2');
+     
+    });
+  }
+  loadOfficeHours() {
+    this.officeHoursService.getOfficeHours().subscribe((officeHoursGet) => {
+     for (let index = 0; index < 5; index++) {
+     
+      if ( this.Hours[index].open === " ") {
+        this.Hours = officeHoursGet;
+      }
+     }
+     
+     
+      console.log(officeHoursGet.day)
+      console.log(this.Hours);
+      console.log('komment2');
+     
+    });
+  }
 }

@@ -40,5 +40,12 @@ input.form-control{
   width: 200px;
 }
 
+#border1{
+  border: 1px solid #000000;
+}
+#border2{
+  border: 1px solid #ffffff;
+}
+
 
   
