@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DoctorSystem.Entities
 {
-    [Table("appointment")]
+    [Table("Appointment")]
     [MySqlCharset("utf8")]
     public class Appointment : AbstractAuditable
     {
