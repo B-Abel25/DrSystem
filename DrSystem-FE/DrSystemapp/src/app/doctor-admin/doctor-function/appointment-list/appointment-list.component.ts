@@ -23,7 +23,7 @@ export class AppointmentListComponent implements OnInit {
   appointment:Appointment[];
   Events: any[] = [];
   currentDateTimeSent: string;
-  appointments: Appointment[];
+  
   get f() {
     return this.addEventForm.controls;
   }
@@ -33,7 +33,7 @@ export class AppointmentListComponent implements OnInit {
   addEventForm: FormGroup;
   submitted = false;
   Hours:officeHours;
- 
+  
   currentDate = new Date();
   myDate = Date.now();
   constructor(private appointmentService:AppointmentService, private formBuilder:FormBuilder, private officeHoursService:OfficeHoursService) { }
@@ -59,7 +59,7 @@ export class AppointmentListComponent implements OnInit {
      dateClick: this.handleDateClick.bind(this),
      eventClick() {
       $('#myModal2').modal('show');
-     
+   
 
     
     },
@@ -98,14 +98,16 @@ export class AppointmentListComponent implements OnInit {
     this.currentDateTimeSent = arg.dateStr;
 
     console.log(this.currentDateTimeSent);
-    this.addEventForm = this.formBuilder.group({
-      Description: ['', [Validators.required]],
-
-      Start: this.currentDateTimeSent,
-    });
+    this.initializationForm();
   }
-  eventClick(event) {
-    
+  eventClick(model:any) {
+    console.log(model)
+    this.setValues();
+  console.log(this.addEventForm.controls['Start'].value);
+  console.log(this.addEventForm.controls['Description'].value)
+   this.name=this.addEventForm.controls['Description'].value;
+   this.date=this.addEventForm.controls['Start'].value;
+   
   }
   
   hide()
@@ -126,10 +128,14 @@ this.showModal=!this.showModal;
         this.appointment = appointment;
        console.log(this.appointment)
        this.calendarOptions.events = appointment;
+       
       });
       this.loadOfficeHours();
       this.loadDuration();
+      
   }
+
+
   onSubmit() {
     console.log(this.addEventForm.value);
     this.submitted = true;
@@ -190,5 +196,17 @@ this.showModal=!this.showModal;
       console.log('komment2');
      
     });
+  }
+  setValues()
+  {
+console.log(this.appointment)
+this.initializationForm();
+  for (let index = 0; index < this.appointment.length; index++) {
+    this.addEventForm.controls['Description'].setValue(this.appointment[index].Description);
+    console.log(this.addEventForm.controls['Description']);
+    this.addEventForm.controls['Start'].setValue(this.appointment[index].start);
+    
+  }
+    
   }
 }
