@@ -22,12 +22,14 @@ namespace DoctorSystem.Controllers
         private readonly EmailService _emailService;
         IDoctorRepository _doctorRepo;
         IOfficeHoursRepository _officeHoursRepo;
+        IClientRepository _clientRepo;
 
         public OfficeHoursController(
            ILogger<OfficeHoursController> logger,
            ITokenService tokenService,
            EmailService emailService,
            IDoctorRepository doctorRepository,
+           IClientRepository clientRepository,
            IOfficeHoursRepository officeHoursRepository
            )
         {
@@ -36,6 +38,7 @@ namespace DoctorSystem.Controllers
             _emailService = emailService;
             _doctorRepo = doctorRepository;
             _officeHoursRepo = officeHoursRepository;
+            _clientRepo = clientRepository;
         }
 
 
@@ -128,6 +131,16 @@ namespace DoctorSystem.Controllers
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
             return doctor.Duration;
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("client/get/duration")]
+        public async Task<ActionResult<int>> GetClientDuration()
+        {
+            string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
+            return client.Doctor.Duration;
         }
 
         [Authorize]

@@ -259,7 +259,7 @@ namespace DoctorSystem.Controllers
                  doctor = await _doctorRepo.GetDoctorBySealNumberAsync(userNumber);
                 if (!doctor.Clients.Contains(c))
                 {
-                    return Unauthorized("Eza páciens nem önhöz tartozik");
+                    return Unauthorized("Ez a páciens nem önhöz tartozik");
                 }
             }
 
