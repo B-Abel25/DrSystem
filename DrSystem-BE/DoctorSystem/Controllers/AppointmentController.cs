@@ -115,11 +115,11 @@ namespace DoctorSystem.Controllers
             }
 
             OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(doctor, (Days)((int)appDto.Start.DayOfWeek));
-            
-                if (appDto.Start != DateTime.MinValue && appDto.End != DateTime.MinValue && appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(-doctor.Duration))
-                {
+
+            if ((oh.Open == DateTime.MinValue && oh.Close == DateTime.MinValue) || appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(-doctor.Duration))
+            {
                     return Unauthorized("Az időpont rendelési időn kívülre esik");
-                }
+            }
             
 
             Appointment appointment = new Appointment();
