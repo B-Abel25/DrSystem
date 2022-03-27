@@ -12,40 +12,42 @@ declare let $: any;
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.css'],
 })
-
 export class AppointmentListComponent implements OnInit {
-  
   calendarOptions: CalendarOptions = {};
-  minTime="10:00:00";
+  minTime = '10:00:00';
   showModal: boolean;
-  name:string;
-  date:string;
-  appointment:Appointment[];
+  name: string;
+  date: string;
+  appointment: Appointment[];
   Events: any[] = [];
   currentDateTimeSent: string;
-  
+
   get f() {
     return this.addEventForm.controls;
   }
   eventdate: string;
   successdata: any;
-  duration:number;
+  duration: number;
   addEventForm: FormGroup;
   submitted = false;
-  Hours:officeHours;
-  
+  Hours: officeHours;
+
   currentDate = new Date();
   myDate = Date.now();
-  constructor(private appointmentService:AppointmentService, private formBuilder:FormBuilder, private officeHoursService:OfficeHoursService) { }
+  constructor(
+    private appointmentService: AppointmentService,
+    private formBuilder: FormBuilder,
+    private officeHoursService: OfficeHoursService
+  ) {}
 
   ngOnInit() {
     this.initializationForm();
-    
+
     console.log('ott');
     this.loadDoctorAppointment();
     console.log('itt');
-   
-    console.log(this.duration)
+
+    console.log(this.duration);
     this.calendarOptions = {
       //dateClick: this.handleDateClick.bind(this),
       weekends: false,
@@ -55,36 +57,41 @@ export class AppointmentListComponent implements OnInit {
       eventMinHeight: 2,
       allDaySlot: false,
       slotMinTime: this.minTime,
-     contentHeight:500,
-     dateClick: this.handleDateClick.bind(this),
-     eventClick() {
-      $('#myModal2').modal('show');
-   
+      contentHeight: 500,
+      dateClick: this.handleDateClick.bind(this),
+      eventClick() {
+        $('#myModal2').modal('show');
+      },
+      titleFormat: {
+        // will produce something like "Tuesday, September 18, 2018"
+        month: 'long',
+        year: 'numeric',
+        day: 'numeric',
+        weekday: 'long',
+      },
 
-    
-    },
-     titleFormat: { // will produce something like "Tuesday, September 18, 2018"
-      month: 'long',
-      year: 'numeric',
-      day: 'numeric',
-      weekday: 'long'
-    },
-      
-     hiddenDays:[2],
+      hiddenDays: [2],
       events: [
-        { title: '', start: '2022-03-21T10:00:00+01:00', end:'2022-03-21T10:10:00+01:00', color:'red' },
-        { title: 'event 2', date: '2022-03-21T11:00:00+01:00-11:10:00+01:00', color:'yellow' }
+        {
+          title: '',
+          start: '2022-03-21T10:00:00+01:00',
+          end: '2022-03-21T10:10:00+01:00',
+          color: 'red',
+        },
+        {
+          title: 'event 2',
+          date: '2022-03-21T11:00:00+01:00-11:10:00+01:00',
+          color: 'yellow',
+        },
       ],
       themeSystem: 'bootstrap5',
-    
+
       editable: false,
       selectable: true,
       selectMirror: true,
       droppable: false,
       selectOverlap: false,
     };
-
-    
   }
   handleDateClick(arg) {
     let time = arg.dateStr.split('T');
@@ -100,41 +107,32 @@ export class AppointmentListComponent implements OnInit {
     console.log(this.currentDateTimeSent);
     this.initializationForm();
   }
-  eventClick(model:any) {
-    console.log(model)
+  eventClick(model: any) {
+    console.log(model);
     this.setValues();
-  console.log(this.addEventForm.controls['Start'].value);
-  console.log(this.addEventForm.controls['Description'].value)
-   this.name=this.addEventForm.controls['Description'].value;
-   this.date=this.addEventForm.controls['Start'].value;
-   
+    console.log(this.addEventForm.controls['Start'].value);
+    console.log(this.addEventForm.controls['Description'].value);
+    this.name = this.addEventForm.controls['Description'].value;
+    this.date = this.addEventForm.controls['Start'].value;
   }
-  
-  hide()
-{
-  this.showModal = false;
-}
 
-ShowModal()
-{
-this.showModal=!this.showModal;
-}
+  hide() {
+    this.showModal = false;
+  }
 
+  ShowModal() {
+    this.showModal = !this.showModal;
+  }
 
   loadDoctorAppointment() {
-    this.appointmentService
-      .getDoctorAppointment()
-      .subscribe((appointment) => {
-        this.appointment = appointment;
-       console.log(this.appointment)
-       this.calendarOptions.events = appointment;
-       
-      });
-      this.loadOfficeHours();
-      this.loadDuration();
-      
+    this.appointmentService.getDoctorAppointment().subscribe((appointment) => {
+      this.appointment = appointment;
+      console.log(this.appointment);
+      this.calendarOptions.events = appointment;
+    });
+    this.loadOfficeHours();
+    this.loadDuration();
   }
-
 
   onSubmit() {
     console.log(this.addEventForm.value);
@@ -148,15 +146,16 @@ this.showModal=!this.showModal;
     } else {
       $('#myModal').modal('hide');
       console.log(this.addEventForm.value);
-      this.appointmentService.AppointmentDoctor(this.addEventForm.value).subscribe(
-        (response) => {
-          this.loadDoctorAppointment();
-        },
-        (error) => {
-          console.log(error);
-          
-        }
-      );
+      this.appointmentService
+        .AppointmentDoctor(this.addEventForm.value)
+        .subscribe(
+          (response) => {
+            this.loadDoctorAppointment();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       this.addEventForm.reset();
     }
   }
@@ -176,37 +175,33 @@ this.showModal=!this.showModal;
   loadDuration() {
     this.officeHoursService.getDuration().subscribe((durationGet) => {
       this.duration = durationGet;
-      this.calendarOptions.slotDuration="00:"+this.duration+":00";
-      console.log(this.calendarOptions.slotDuration)
-      console.log(durationGet)
-      
+      this.calendarOptions.slotDuration = '00:' + this.duration + ':00';
+      console.log(this.calendarOptions.slotDuration);
+      console.log(durationGet);
+
       console.log('komment2');
-     
     });
   }
   loadOfficeHours() {
     this.officeHoursService.getOfficeHours().subscribe((officeHoursGet) => {
-    
-        this.Hours = officeHoursGet;
-      
-     
-     
-      console.log(officeHoursGet.day)
+      this.Hours = officeHoursGet;
+
+      console.log(officeHoursGet.day);
       console.log(this.Hours);
       console.log('komment2');
-     
     });
   }
-  setValues()
-  {
-console.log(this.appointment)
-this.initializationForm();
-  for (let index = 0; index < this.appointment.length; index++) {
-    this.addEventForm.controls['Description'].setValue(this.appointment[index].Description);
+  setValues() {
+    console.log(this.appointment);
+    this.initializationForm();
     console.log(this.addEventForm.controls['Description']);
-    this.addEventForm.controls['Start'].setValue(this.appointment[index].start);
-    
-  }
-    
+    for (let index = 0; index < this.appointment.length; index++) {
+      this.addEventForm.controls['Description'].setValue(
+        this.appointment[index].Description
+      );
+      this.addEventForm.controls['Start'].setValue(
+        this.appointment[index].start
+      );
+    }
   }
 }
