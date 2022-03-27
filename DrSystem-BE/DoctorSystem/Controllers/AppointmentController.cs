@@ -26,6 +26,7 @@ namespace DoctorSystem.Controllers
         private readonly IAppointmentRepository _appointmentRepo;
         private readonly IOfficeHoursRepository _officeHoursRepo;
         private readonly Regex sWhitespace = new Regex(@"\s+");
+
         public AppointmentController(
             ILogger<AppointmentController> logger,
             ITokenService tokenService,
@@ -59,14 +60,13 @@ namespace DoctorSystem.Controllers
                 return Unauthorized("Ez az időpont már elmúlt Próbáljon későbbi időpontot foglalni");
             }
             List<Appointment> apps = await _appointmentRepo.GetAppointmentsByDoctorAsync(client.Doctor);
-            OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(client.Doctor, (Days)((int)appDto.Start.DayOfWeek));
-           
-                if (!(appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(client.Doctor.Duration)))
-                {
-                    return Unauthorized("Az időpont az orvos rendelési idején kívülre esik");
-                }
+            OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(client.Doctor, (Days)((int)appDto.Start.DayOfWeek));        
             
-            
+            if (!(appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(client.Doctor.Duration)))
+            {
+                return Unauthorized("Az időpont az orvos rendelési idején kívülre esik");
+            }
+                        
             foreach (var app in apps)
             {
                 if (!(appDto.Start > app.Date && appDto.Start < app.Date.AddMinutes(client.Doctor.Duration)))
@@ -74,9 +74,6 @@ namespace DoctorSystem.Controllers
                     return Unauthorized("Ez az időpont már le van foglalva, válasszon másikat");
                 }
             }
-
-           
-
 
             if (await HaveAppointment(client))
             {
@@ -120,11 +117,9 @@ namespace DoctorSystem.Controllers
             OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(doctor, (Days)((int)appDto.Start.DayOfWeek));
             foreach (var app in apps)
             {
-                if (appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(-doctor.Duration))
-                {
-                    return Unauthorized("Az időpont az orvos rendelési idején kívülre esik");
-                }
+                    return Unauthorized("Az időpont rendelési időn kívülre esik");
             }
+            
 
             Appointment appointment = new Appointment();
             appointment.AppointmentingUser = doctor;
@@ -206,7 +201,7 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [HttpDelete]
         [Route("client/delete/appointment")]
-        public async Task<ActionResult<List<AppointmentDto>>> DeleteClientAppointment()
+        public async Task<ActionResult> DeleteClientAppointment()
         {
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
@@ -227,7 +222,7 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [HttpDelete]
         [Route("doctor/delete/appointment")]
-        public async Task<ActionResult<List<AppointmentDto>>> DeleteDoctorAppointment()
+        public async Task<ActionResult> DeleteDoctorAppointment(AppointmentDto dto)
         {
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
@@ -236,7 +231,7 @@ namespace DoctorSystem.Controllers
 
             foreach (var docApp in docApps)
             {
-                if (docApp.Date > DateTime.Now) //TODO ez itt nem jó mert az orvosnak több foglalása is lehet ezért valahogy majd azonosítani kell!!
+                if (docApp.Date > DateTime.Now && dto.Start == docApp.Date)
                 {
                     docApp.IsDeleted = true;
                 }
@@ -245,7 +240,36 @@ namespace DoctorSystem.Controllers
             return Accepted();
         }
 
+        [Authorize]
+        [HttpDelete]
+        [Route("oneClient/appointments/{medNumber}")]
+        public async Task<ActionResult<List<AppointmentDto>>> GetOneClientAppointments(string medNumber)
+        {
+            Client c = await _clientRepo.GetClientByMedNumberAsync(medNumber);
+            if (c == null)
+            {
+                return Unauthorized("Nincs ilyen TAJ számmal rendelkező páciens");
+            }
+            string userNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor;
+            if (userNumber != medNumber && medNumber.Length == 9)
+            {
+                 doctor = await _doctorRepo.GetDoctorBySealNumberAsync(userNumber);
+                if (!doctor.Clients.Contains(c))
+                {
+                    return Unauthorized("Eza páciens nem önhöz tartozik");
+                }
+            }
 
+            List<Appointment> apps = await _appointmentRepo.GetAppointmentsByClientAsync(c);
+            List<AppointmentDto> appDtos = new List<AppointmentDto>();
+
+            foreach (var app in apps)
+            {
+                appDtos.Add(new AppointmentDto(app));
+            }
+            return appDtos;
+        }
 
         private async Task<bool> HaveAppointment(Client client)
         {
