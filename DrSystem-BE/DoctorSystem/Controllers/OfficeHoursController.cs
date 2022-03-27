@@ -45,12 +45,29 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [HttpGet]
         [Route("doctor/office-hours")]
-        public async Task<ActionResult<IEnumerable<OfficeHoursDto>>> GetDoctorOfficeHours()
+        public async Task<ActionResult<List<OfficeHoursDto>>> GetDoctorOfficeHours()
         {
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
 
             List<OfficeHours> ohs = await _officeHoursRepo.GetOfficeHoursAllDayByDoctor(doctor);
+            List<OfficeHoursDto> ohDtos = new List<OfficeHoursDto>();
+            foreach (var oh in ohs)
+            {
+                ohDtos.Add(new OfficeHoursDto(oh));
+            }
+            return ohDtos.OrderBy(x => x.Day).ToList();
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("client/office-hours")]
+        public async Task<ActionResult<List<OfficeHoursDto>>> GetClientOfficeHours()
+        {
+            string clientMednumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Client client = await _clientRepo.GetClientByMedNumberAsync(clientMednumber);
+
+            List<OfficeHours> ohs = await _officeHoursRepo.GetOfficeHoursAllDayByDoctor(client.Doctor);
             List<OfficeHoursDto> ohDtos = new List<OfficeHoursDto>();
             foreach (var oh in ohs)
             {
