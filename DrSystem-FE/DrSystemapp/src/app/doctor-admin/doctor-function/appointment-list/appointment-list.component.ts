@@ -12,12 +12,11 @@ declare let $: any;
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.css'],
 })
-
 export class AppointmentListComponent implements OnInit {
-  
   calendarOptions: CalendarOptions = {};
-  minTime="10:00:00";
+  minTime = '10:00:00';
   showModal: boolean;
+<<<<<<< HEAD
   name:string;
   date:string;
   appointments:Appointment[];
@@ -25,19 +24,31 @@ export class AppointmentListComponent implements OnInit {
   currentDateTimeSent: string;
   
   acctualEvent:any;
+=======
+  name: string;
+  date: string;
+  appointment: Appointment[];
+  Events: any[] = [];
+  currentDateTimeSent: string;
+
+>>>>>>> 6d541ed49a2b54c1c98b83aaa131b947fd3c1f37
   get f() {
     return this.addEventForm.controls;
   }
   eventdate: string;
   successdata: any;
-  duration:number;
+  duration: number;
   addEventForm: FormGroup;
   submitted = false;
-  Hours:officeHours;
-  
+  Hours: officeHours;
+
   currentDate = new Date();
   myDate = Date.now();
-  constructor(private appointmentService:AppointmentService, private formBuilder:FormBuilder, private officeHoursService:OfficeHoursService) { }
+  constructor(
+    private appointmentService: AppointmentService,
+    private formBuilder: FormBuilder,
+    private officeHoursService: OfficeHoursService
+  ) {}
 
   ngOnInit() {
     this.initializationForm();
@@ -75,19 +86,26 @@ export class AppointmentListComponent implements OnInit {
       
      hiddenDays:[2],
       events: [
-        { title: '', start: '2022-03-21T10:00:00+01:00', end:'2022-03-21T10:10:00+01:00', color:'red' },
-        { title: 'event 2', date: '2022-03-21T11:00:00+01:00-11:10:00+01:00', color:'yellow' }
+        {
+          title: '',
+          start: '2022-03-21T10:00:00+01:00',
+          end: '2022-03-21T10:10:00+01:00',
+          color: 'red',
+        },
+        {
+          title: 'event 2',
+          date: '2022-03-21T11:00:00+01:00-11:10:00+01:00',
+          color: 'yellow',
+        },
       ],
       themeSystem: 'bootstrap5',
-    
+
       editable: false,
       selectable: true,
       selectMirror: true,
       droppable: false,
       selectOverlap: false,
     };
-
-    
   }
   handleDateClick(arg) {
     let time = arg.dateStr.split('T');
@@ -111,17 +129,14 @@ export class AppointmentListComponent implements OnInit {
   
   
   }
-  
-  hide()
-{
-  this.showModal = false;
-}
 
-ShowModal()
-{
-this.showModal=!this.showModal;
-}
+  hide() {
+    this.showModal = false;
+  }
 
+  ShowModal() {
+    this.showModal = !this.showModal;
+  }
 
   loadDoctorAppointment() {
     this.appointmentService
@@ -137,7 +152,6 @@ this.showModal=!this.showModal;
     
       
   }
-
 
   onSubmit() {
     

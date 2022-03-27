@@ -115,10 +115,12 @@ namespace DoctorSystem.Controllers
             }
 
             OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(doctor, (Days)((int)appDto.Start.DayOfWeek));
-            foreach (var app in apps)
-            {
-                    return Unauthorized("Az időpont rendelési időn kívülre esik");
+            
+            if ((oh.Open == DateTime.MinValue && oh.Close == DateTime.MinValue) ||appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(-doctor.Duration))
+            { 
+                return Unauthorized("Az időpont rendelési időn kívülre esik");
             }
+            
             
 
             Appointment appointment = new Appointment();
@@ -241,7 +243,7 @@ namespace DoctorSystem.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpGet]
         [Route("oneClient/appointments/{medNumber}")]
         public async Task<ActionResult<List<AppointmentDto>>> GetOneClientAppointments(string medNumber)
         {
