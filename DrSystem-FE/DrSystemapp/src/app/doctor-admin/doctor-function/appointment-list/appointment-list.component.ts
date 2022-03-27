@@ -57,7 +57,12 @@ export class AppointmentListComponent implements OnInit {
       slotMinTime: this.minTime,
      contentHeight:500,
      dateClick: this.handleDateClick.bind(this),
+     eventClick() {
+      $('#myModal2').modal('show');
+     
 
+    
+    },
      titleFormat: { // will produce something like "Tuesday, September 18, 2018"
       month: 'long',
       year: 'numeric',
@@ -99,22 +104,10 @@ export class AppointmentListComponent implements OnInit {
       Start: this.currentDateTimeSent,
     });
   }
- 
-  eventClick(arg) {
-   
-   
-   console.log( this.calendarOptions.events);
-    $('#myModal2').modal('show');
-   
-    $('.modal-title, .eventstarttitle').text('');
+  eventClick(event) {
+    
+  }
   
-    $('.modal-title').text('');
-
-    $('.eventstarttitle').text();
-   
-    this.showModal = true;
-
-}
   hide()
 {
   this.showModal = false;
@@ -187,12 +180,9 @@ this.showModal=!this.showModal;
   }
   loadOfficeHours() {
     this.officeHoursService.getOfficeHours().subscribe((officeHoursGet) => {
-     for (let index = 0; index < 5; index++) {
-     
-      if ( this.Hours[index].open === " ") {
+    
         this.Hours = officeHoursGet;
-      }
-     }
+      
      
      
       console.log(officeHoursGet.day)

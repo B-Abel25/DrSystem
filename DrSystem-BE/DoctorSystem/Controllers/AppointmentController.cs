@@ -117,7 +117,7 @@ namespace DoctorSystem.Controllers
                 }
             }
 
-            OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(doctor, (Days)((int)appDto.Start.DayOfWeek - 1));
+            OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(doctor, (Days)((int)appDto.Start.DayOfWeek));
             foreach (var app in apps)
             {
                 if (appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(-doctor.Duration))

@@ -1,10 +1,15 @@
 <app-admin-navbar></app-admin-navbar>
 <div class="content">
-<div class="container">
-<full-calendar style="color:rgb(23, 33, 66); padding-top:20px" [options]="calendarOptions" dateClick="dateClick($event)"  (click)="eventClick($event)"  >
-  
+   
+
+    <div class="split left">
+        <div class="centered">
+<full-calendar style="color:rgb(23, 33, 66); padding-top:20px" [options]="calendarOptions" dateClick="dateClick($event)" (click)="eventClick($event)"  >
+
 
 </full-calendar>
+</div>
+        </div>
 <div class="modal" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -47,29 +52,30 @@
 </div>
 </div>
 
-<div class="modal" id="myModal2" [style.display]="showModal ? 'true' : 'false'">
+ <div class="modal" id="myModal2" [style.display]="showModal ? 'true' : 'false'">
     <div class="modal-dialog">
       <div class="modal-content">
       
         <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Hi</h4>
+         <div class="modal-header">
+            <h4 class="modal-title align-center"></h4>
           <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
-        </div>
+        </div> 
         
         <!-- Modal body -->
-        <div class="modal-body" >
+         <div class="modal-body" >
            
            
          
-        </div>
+        </div> 
         
         <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" (click) = "hide()">Close</button>
+         <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="hide()">Bezár</button>
         </div>
         
       </div>
     </div>
-  </div>
-</div>
+  </div> 
+
+

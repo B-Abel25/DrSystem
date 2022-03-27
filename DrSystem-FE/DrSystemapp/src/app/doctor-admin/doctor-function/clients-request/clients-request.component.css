@@ -1,35 +1,16 @@
-.client-icons{
-    position: absolute;
-    bottom: -30%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0;
-    float:inline-end;
-    color:black;
-    
-}
-.client-icons:hover{
-    transition: all .2s ease-in-out;   
-}
+
+
 table{
     text-align: center;
-    min-width: 100vh;
-    padding-left: 100vh;
+   
+   
     
 }
 .list-inline-item{
    float: center;
    margin: 6px;
 }
-.my-pagination /deep/ .ngx-pagination .current {
-    background: rgb(3, 20, 53);
-  }
-  .mb-8{
-    float:center;
-    padding-left:10px;
-}
+
 
 
 input.form-control,input.form-control:focus{
@@ -120,3 +101,9 @@ input.form-control:focus{
  .thead{
      position: sticky;
  }
+ @media screen and (max-width: 768px) {
+    .container {
+      
+      width: 80%;
+    }
+  }

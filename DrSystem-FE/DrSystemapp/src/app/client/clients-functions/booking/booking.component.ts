@@ -15,6 +15,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { calendar } from 'ngx-bootstrap/chronos/moment/calendar';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Appointment } from 'src/app/_models/appointment';
 import { AppointmentService } from 'src/app/_services/appointment.service';
@@ -30,6 +31,7 @@ export class BookingComponent implements OnInit {
   Events: any[] = [];
   currentDateTimeSent: string;
   appointments: Appointment[];
+  modalRef!: BsModalRef;
   get f() {
     return this.addEventForm.controls;
   }
@@ -46,7 +48,8 @@ export class BookingComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private appointmentService: AppointmentService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: BsModalService,
   ) {
     history.pushState(null, null, window.location.href);
     this.location.onPopState(() => {
