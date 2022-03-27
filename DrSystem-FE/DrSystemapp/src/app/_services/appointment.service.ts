@@ -44,4 +44,37 @@ export class AppointmentService {
   getClientAppointment() {
     return this.http.get<Appointment[]>(this.baseUrl + 'private/client/get/appointments');
   }
+
+  deleteAppointmentClient() {
+
+    return this.http.delete(this.baseUrl + 'private/client/delete/appointment').subscribe({
+      next: data => {
+        console.log(data)
+      },
+      error: error => {
+
+        console.error('There was an error!', error);
+      }
+    });
+
+  }
+
+  deleteAppointmentDoctor() {
+
+    return this.http.delete(this.baseUrl + 'private/doctor/delete/appointment').subscribe({
+      next: data => {
+        console.log(data)
+      },
+      error: error => {
+
+        console.error('There was an error!', error);
+      }
+    });
+
+  }
+
+
+  getOneClientAppointments(medNumber:number) {
+    return this.http.get<Appointment[]>(this.baseUrl + 'private/oneClient/appointments/'+medNumber);
+  }
 }

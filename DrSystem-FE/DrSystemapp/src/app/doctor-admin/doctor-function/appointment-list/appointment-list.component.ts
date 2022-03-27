@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CalendarOptions } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/hu';
 import { Appointment } from 'src/app/_models/appointment';
@@ -20,10 +20,11 @@ export class AppointmentListComponent implements OnInit {
   showModal: boolean;
   name:string;
   date:string;
-  appointment:Appointment[];
+  appointments:Appointment[];
   Events: any[] = [];
   currentDateTimeSent: string;
   
+  acctualEvent:any;
   get f() {
     return this.addEventForm.controls;
   }
@@ -41,9 +42,9 @@ export class AppointmentListComponent implements OnInit {
   ngOnInit() {
     this.initializationForm();
     
-    console.log('ott');
+    
     this.loadDoctorAppointment();
-    console.log('itt');
+   
    
     console.log(this.duration)
     this.calendarOptions = {
@@ -57,10 +58,12 @@ export class AppointmentListComponent implements OnInit {
       slotMinTime: this.minTime,
      contentHeight:500,
      dateClick: this.handleDateClick.bind(this),
-     eventClick() {
+     eventClick(param:any) {
       $('#myModal2').modal('show');
-   
-
+      
+   this.acctualEvent=param;
+   console.log(this.acctualEvent);
+   console.log(this.acctualEvent.event._def.extendedProps.description);
     
     },
      titleFormat: { // will produce something like "Tuesday, September 18, 2018"
@@ -100,14 +103,13 @@ export class AppointmentListComponent implements OnInit {
     console.log(this.currentDateTimeSent);
     this.initializationForm();
   }
+
+
   eventClick(model:any) {
-    console.log(model)
-    this.setValues();
-  console.log(this.addEventForm.controls['Start'].value);
-  console.log(this.addEventForm.controls['Description'].value)
-   this.name=this.addEventForm.controls['Description'].value;
-   this.date=this.addEventForm.controls['Start'].value;
-   
+    
+   this.setValues();
+  
+  
   }
   
   hide()
@@ -125,19 +127,20 @@ this.showModal=!this.showModal;
     this.appointmentService
       .getDoctorAppointment()
       .subscribe((appointment) => {
-        this.appointment = appointment;
-       console.log(this.appointment)
+        this.appointments = appointment;
+      
        this.calendarOptions.events = appointment;
        
       });
       this.loadOfficeHours();
       this.loadDuration();
+    
       
   }
 
 
   onSubmit() {
-    console.log(this.addEventForm.value);
+    
     this.submitted = true;
     // stop here if form is invalid and reset the validations
 
@@ -147,7 +150,7 @@ this.showModal=!this.showModal;
       return;
     } else {
       $('#myModal').modal('hide');
-      console.log(this.addEventForm.value);
+      
       this.appointmentService.AppointmentDoctor(this.addEventForm.value).subscribe(
         (response) => {
           this.loadDoctorAppointment();
@@ -165,48 +168,48 @@ this.showModal=!this.showModal;
     this.addEventForm.get('Description').clearValidators();
     this.addEventForm.get('Description').updateValueAndValidity();
   }
+
+
   initializationForm() {
     //console.log(this.currentDateTimeSent);
     this.addEventForm = this.formBuilder.group({
-      Description: ['', [Validators.required]],
+      Description: new FormControl(''),
 
-      Start: this.currentDateTimeSent,
+      Start:new FormControl(this.currentDateTimeSent),
     });
   }
+
+
   loadDuration() {
     this.officeHoursService.getDuration().subscribe((durationGet) => {
       this.duration = durationGet;
       this.calendarOptions.slotDuration="00:"+this.duration+":00";
-      console.log(this.calendarOptions.slotDuration)
-      console.log(durationGet)
-      
-      console.log('komment2');
-     
+                           
     });
   }
+
   loadOfficeHours() {
     this.officeHoursService.getOfficeHours().subscribe((officeHoursGet) => {
     
         this.Hours = officeHoursGet;
-      
-     
-     
-      console.log(officeHoursGet.day)
-      console.log(this.Hours);
-      console.log('komment2');
-     
+                          
     });
   }
+
+
   setValues()
   {
-console.log(this.appointment)
-this.initializationForm();
-  for (let index = 0; index < this.appointment.length; index++) {
-    this.addEventForm.controls['Description'].setValue(this.appointment[index].Description);
-    console.log(this.addEventForm.controls['Description']);
-    this.addEventForm.controls['Start'].setValue(this.appointment[index].start);
+
+
+ 
+    this.addEventForm.controls['Description'].setValue(
+      this.acctualEvent.event._def.extendedProps.description
+    );
+    console.log(this.acctualEvent.events._def.extendedProps.description);
+    this.addEventForm.controls['Start'].setValue(this.appointments[0].start);
+    console.log(this.addEventForm.controls);
     
-  }
+  
     
   }
 }
