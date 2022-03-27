@@ -65,33 +65,43 @@ namespace DoctorSystem.Data
         {
             if (await _context._county.AnyAsync()) return;
 
-            var AddressData = await System.IO.File.ReadAllTextAsync("Data/AddressSeedData.json", Encoding.UTF8);
-            var addressModels = JsonSerializer.Deserialize<List<AddressSeedModel>>(AddressData);
-            
-            foreach (var addressModel in addressModels)
+            string AddressData = await System.IO.File.ReadAllTextAsync("Data/AddressSeedData.json", Encoding.UTF8);
+            List<AddressSeedModel> addressModels = JsonSerializer.Deserialize<List<AddressSeedModel>>(AddressData);
+
+            List<County> Counties = new List<County>();
+            List<City> Cities = new List<City>();
+            List<Place> Places = new List<Place>();
+
+            foreach (AddressSeedModel addressModel in addressModels)
             {
-                var place = new Place();
+                Place place = new Place();
                 place.PostCode = int.Parse(addressModel.IrSzam);
 
 
-                var city = await _context._city.Include(x => x.County).SingleOrDefaultAsync(x => x.Name == addressModel.City);
+                City city = Cities.Find(x => x.Name == addressModel.City);
                 if (city == null)
                 {
                     city = new City();
                     city.Name = addressModel.City;
-                    var county = await _context._county.SingleOrDefaultAsync(x => x.Name == addressModel.County);
+                    County county = Counties.Find(x => x.Name == addressModel.County);
                     if (county == null)
                     {
                         county = new County();
                         county.Name = addressModel.County;
+                        Counties.Add(county);
                     }
-                    city.County= county;
+                    city.County = county;
+                    Cities.Add(city);
                 }
                 place.City = city;
+                Places.Add(place);
 
-                _context._places.Add(place);
-                await _context.SaveChangesAsync();
+               
             }
+            _context._county.AddRange(Counties);
+            _context._city.AddRange(Cities);
+            _context._places.AddRange(Places);
+            await _context.SaveChangesAsync();
 
         }
 
@@ -128,8 +138,8 @@ namespace DoctorSystem.Data
                 doc.Duration = 10;
 
                 _context._doctors.Add(doc);
-                await _context.SaveChangesAsync();
             }
+                await _context.SaveChangesAsync();
 
         }
 
@@ -169,8 +179,8 @@ namespace DoctorSystem.Data
                 cli.MotherName = cliModels[cliModels.IndexOf(clientModel)].Name.ToString() + cliModels.IndexOf(clientModel);
                 cli.BirthPlace = cli.Place.City;
                 _context._clients.Add(cli);
-                await _context.SaveChangesAsync();
             }
+                await _context.SaveChangesAsync();
 
         }
 
