@@ -48,4 +48,11 @@ console.log(modal)
   getDuration() {
     return this.http.get<number>(this.baseUrl + 'private/doctor/get/duration');
   }
+
+  getOfficeHoursClient() {
+    return this.http.get<officeHours[]>(this.baseUrl + 'private/client/office-hours');
+  }
+  getDurationClient() {
+    return this.http.get<number>(this.baseUrl + 'private/client/get/duration');
+  }
 }

@@ -16,22 +16,13 @@ export class AppointmentListComponent implements OnInit {
   calendarOptions: CalendarOptions = {};
   minTime = '10:00:00';
   showModal: boolean;
-<<<<<<< HEAD
   name:string;
   date:string;
   appointments:Appointment[];
   Events: any[] = [];
   currentDateTimeSent: string;
-  
-  acctualEvent:any;
-=======
-  name: string;
-  date: string;
-  appointment: Appointment[];
-  Events: any[] = [];
-  currentDateTimeSent: string;
-
->>>>>>> 6d541ed49a2b54c1c98b83aaa131b947fd3c1f37
+  start:Date;
+  actualAppointment:Appointment=<Appointment>{};
   get f() {
     return this.addEventForm.controls;
   }
@@ -61,6 +52,8 @@ export class AppointmentListComponent implements OnInit {
     this.calendarOptions = {
       //dateClick: this.handleDateClick.bind(this),
       weekends: false,
+      timeZone: 'Europe/Budapest',
+      timeZoneParam:'Europe/Budapest',
       initialView: 'timeGridWeek',
       locale: esLocale,
       slotEventOverlap: false,
@@ -71,11 +64,17 @@ export class AppointmentListComponent implements OnInit {
      dateClick: this.handleDateClick.bind(this),
      eventClick(param:any) {
       $('#myModal2').modal('show');
-      
-   this.acctualEvent=param;
-   console.log(this.acctualEvent);
-   console.log(this.acctualEvent.event._def.extendedProps.description);
-    
+      console.log(param);
+      this.actualAppointment={
+      description:param.event._def.extendedProps.description,
+      title:param.event._def.title,
+      start:param.event._instance.range.start.toUTCString(),
+      end:param.event._instance.range.end.toUTCString(),
+      };
+     this.start=this.actualAppointment.start;
+     console.log(this.start);
+      console.log(this.actualAppointment);
+      $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
     },
      titleFormat: { // will produce something like "Tuesday, September 18, 2018"
       month: 'long',
@@ -205,7 +204,7 @@ export class AppointmentListComponent implements OnInit {
   loadOfficeHours() {
     this.officeHoursService.getOfficeHours().subscribe((officeHoursGet) => {
     
-        this.Hours = officeHoursGet;
+       this.Hours=officeHoursGet;
                           
     });
   }
@@ -216,12 +215,6 @@ export class AppointmentListComponent implements OnInit {
 
 
  
-    this.addEventForm.controls['Description'].setValue(
-      this.acctualEvent.event._def.extendedProps.description
-    );
-    console.log(this.acctualEvent.events._def.extendedProps.description);
-    this.addEventForm.controls['Start'].setValue(this.appointments[0].start);
-    console.log(this.addEventForm.controls);
     
   
     
