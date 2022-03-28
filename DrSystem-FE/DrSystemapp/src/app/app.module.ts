@@ -113,7 +113,7 @@ FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: DoctorJWTInterceptor, multi: true },
-    { provide: DEFAULT_TIMEOUT, useValue: 1200000 },
+    { provide: DEFAULT_TIMEOUT, useValue: 1 },
   ],
   bootstrap: [AppComponent],
 })
