@@ -38,6 +38,7 @@ export class ClientListComponent implements OnInit {
   name: any;
   ngOnInit() {
     this.loadDoctorClients();
+    console.log("HALIHOO");
   }
 
   loadDoctorClients() {
@@ -48,7 +49,8 @@ export class ClientListComponent implements OnInit {
         this.clients = clients;
         // sort((one, two) => (one.name < two.name ? -1 : 1));
         this.totalLength = clients.length;
-        localStorage.setItem('clients', JSON.stringify(this.clients));
+       // localStorage.setItem('clients', JSON.stringify(this.clients));
+        console.log("helloka");
       });
   }
 
@@ -56,9 +58,7 @@ export class ClientListComponent implements OnInit {
     
     
       this.filteredClients = this.clients.filter((res) => {
-        return res.name
-          .toLocaleLowerCase()
-          .match(this.name.toLocaleLowerCase());
+        return res.name.toLocaleLowerCase().match(this.name);
       });
       this.totalLength = this.filteredClients.length;
     

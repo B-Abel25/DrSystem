@@ -21,7 +21,7 @@
                             <form>
                                 <div class="mb-8 row">
                                     <div class="col-xs-3 col-sm-auto">
-                                        <input class="form-control" type="text" name="name" [(ngModel)]="filterTerm" (ngModelChange)="Search()" placeholder="Keresés..." />
+                                        <input class="form-control" type="text" name="name" [(ngModel)]="filterTerm" (ngSubmit)="Search()" placeholder="Keresés..." />
                                     </div>
                                 </div>
                             </form>

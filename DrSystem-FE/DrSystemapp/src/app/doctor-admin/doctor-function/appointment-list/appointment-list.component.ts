@@ -23,13 +23,12 @@ export class AppointmentListComponent implements OnInit {
   currentDateTimeSent: string;
   start:Date;
   actualAppointment:Appointment=<Appointment>{};
-  get f() {
-    return this.addEventForm.controls;
-  }
+  
   eventdate: string;
   successdata: any;
   duration: number;
   addEventForm: FormGroup;
+  deleteEventForm:FormGroup;
   submitted = false;
   Hours: officeHours;
 
@@ -63,6 +62,7 @@ export class AppointmentListComponent implements OnInit {
      contentHeight:500,
      dateClick: this.handleDateClick.bind(this),
      eventClick(param:any) {
+     
       $('#myModal2').modal('show');
       console.log(param);
       this.actualAppointment={
@@ -70,11 +70,19 @@ export class AppointmentListComponent implements OnInit {
       title:param.event._def.title,
       start:param.event._instance.range.start.toUTCString(),
       end:param.event._instance.range.end.toUTCString(),
+      
       };
-     this.start=this.actualAppointment.start;
+     
+      this.deleteEventForm = this.formBuilder.group({
+     
+
+        Start:new FormControl(this.start),
+       
+      });
      console.log(this.start);
       console.log(this.actualAppointment);
       $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
+      $('.eventstarttitle').text(this.actualAppointment.start);
     },
      titleFormat: { // will produce something like "Tuesday, September 18, 2018"
       month: 'long',
@@ -124,7 +132,7 @@ export class AppointmentListComponent implements OnInit {
 
   eventClick(model:any) {
     
-   this.setValues();
+   
   
   
   }
@@ -191,6 +199,15 @@ export class AppointmentListComponent implements OnInit {
       Start:new FormControl(this.currentDateTimeSent),
     });
   }
+  initializationDeleteForm() {
+    //console.log(this.currentDateTimeSent);
+    this.deleteEventForm = this.formBuilder.group({
+     
+
+      Start:new FormControl(this.start),
+     
+    });
+  }
 
 
   loadDuration() {
@@ -210,13 +227,5 @@ export class AppointmentListComponent implements OnInit {
   }
 
 
-  setValues()
-  {
-
-
- 
-    
   
-    
-  }
 }

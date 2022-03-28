@@ -20,16 +20,14 @@
                         <form>
                             <div class="mb-8 row">
                                 <div class="col-xs-3 col-sm-auto">
-                                    <input class="form-control" type="text" name="name" [(ngModel)]="filterTerm" (ngSubmit)="Search()" placeholder="Keresés..." />
+                                    <input class="form-control" type="text" name="name" [(ngModel)]="filterTerm" (ngModelChange)="Search()" placeholder="Keresés..." />
                                 </div>
                             </div>
                         </form>
                     </th>
                 </tr>
             </thead>
-            <tbody #scrollMe
-            style="overflow:scroll; max-height: 80vh;"
-            [scrollTop]="scrollMe.scrollHeight">
+            <tbody >
                 <tr *ngFor="
             let client of filteredClients
               | orderBy: key:reverse
