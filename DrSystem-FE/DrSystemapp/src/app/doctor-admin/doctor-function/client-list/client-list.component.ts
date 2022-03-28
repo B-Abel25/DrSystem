@@ -49,7 +49,7 @@ export class ClientListComponent implements OnInit {
         this.clients = clients;
         // sort((one, two) => (one.name < two.name ? -1 : 1));
         this.totalLength = clients.length;
-       // localStorage.setItem('clients', JSON.stringify(this.clients));
+        localStorage.setItem('clients', JSON.stringify(this.clients));
         console.log("helloka");
       });
   }

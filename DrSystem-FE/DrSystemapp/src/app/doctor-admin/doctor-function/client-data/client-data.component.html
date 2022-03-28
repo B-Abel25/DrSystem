@@ -32,5 +32,30 @@
   </div>  
 </div>
 </div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <ul #scrollMe
+            style="overflow:scroll; max-height: 80vh;"
+            [scrollTop]="scrollMe.scrollHeight"
+             *ngIf="clientAppointment?.length > 0" class="chat">
+                <li *ngFor="let appointment of clientAppointment">
+                    <div>
+                        
+    
+                        <div class="chat-body">
+                           
+                           
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+       
+    </div>
 </div>
+
+
+
+
 

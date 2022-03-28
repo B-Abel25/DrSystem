@@ -39,6 +39,7 @@ export class LoginComponent {
       this.router.navigateByUrl('/booking');
 
       this.loggedIn = true;
+      
     }, error => {
       console.log(error);
       this.toastr.error(error.error);
