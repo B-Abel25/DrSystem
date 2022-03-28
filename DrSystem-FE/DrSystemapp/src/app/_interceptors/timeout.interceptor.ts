@@ -22,11 +22,15 @@ export class TimeoutInterceptor implements HttpInterceptor {
 
     return next.handle(modified).pipe(
       timeout(this.defaultTimeout),
+      
+      
       catchError(err => {
         if (err instanceof TimeoutError)
           console.error('Timeout has occurred', req.url);
         return empty();
       })
+      
     );
+    
   }
 }
