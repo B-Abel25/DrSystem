@@ -8,32 +8,34 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 @Component({
   selector: 'app-client-data',
   templateUrl: './client-data.component.html',
-  styleUrls: ['./client-data.component.css']
+  styleUrls: ['./client-data.component.css'],
 })
 export class ClientDataComponent implements OnInit {
-client:Client;
-clientAppointment:Appointment[];
-  constructor(private doctorService:DoctorService, private route: ActivatedRoute, private appointmentService:AppointmentService) { }
+  client: Client;
+  clientAppointment: Appointment[];
+  constructor(
+    private doctorService: DoctorService,
+    private route: ActivatedRoute,
+    private appointmentService: AppointmentService
+  ) {}
 
   ngOnInit(): void {
     this.loadClientData();
-    this.loadClientApointments();
-
-    
-    
   }
-loadClientData(){  
-  
-    this.client = JSON.parse(localStorage.getItem("clients"))
-    .find(item=>item.medNumber===this.route.snapshot.paramMap.get('medNumber'));
-}
+  loadClientData() {
+    this.doctorService
+      .getClientData(this.route.snapshot.paramMap.get('medNumber'))
+      .subscribe((gotClient) => {
+        this.client = gotClient;
+        this.loadClientApointments();
+      });
+  }
 
-loadClientApointments(){  
-  this.client = JSON.parse(localStorage.getItem("clients"))
-    .find(item=>item.medNumber===this.route.snapshot.paramMap.get('medNumber'));
- this.appointmentService.getOneClientAppointments(this.client.medNumber).subscribe(clientOneAppointments =>{
-this.clientAppointment=clientOneAppointments;
- }) 
- 
-}
+  loadClientApointments() {
+    this.appointmentService
+      .getOneClientAppointments(this.client.medNumber)
+      .subscribe((clientOneAppointments) => {
+        this.clientAppointment = clientOneAppointments;
+      });
+  }
 }

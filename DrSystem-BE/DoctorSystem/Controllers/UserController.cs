@@ -134,12 +134,23 @@ namespace DoctorSystem.Controller
         [Authorize]
         [Route("client/get/me")]
         [HttpGet]
-        public async Task<ActionResult<ClientDto>> GetClientsByMedNumber()
+        public async Task<ActionResult<ClientDto>> GetClientToClientByMedNumber()
         {
             string clientMedNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Client client = await _clientRepo.GetClientByMedNumberAsync(clientMedNumber);
 
             return new ClientDto(client);
+        }
+
+        [Authorize]
+        [Route("doctor/get/client/{medNumber}")]
+        [HttpGet]
+        public async Task<ActionResult<ClientDto>> GetDoctorToClientByMedNumber(string medNumber)
+        {
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+ 
+            return new ClientDto(await _clientRepo.GetClientByIdAsync(doctor.Clients.First(x => x.MedNumber == medNumber).Id));
         }
 
         [Route("client/register/modify")]

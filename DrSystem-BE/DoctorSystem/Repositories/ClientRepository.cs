@@ -27,17 +27,17 @@ namespace DoctorSystem.Services
 
         public async Task<Client> GetClientByMedNumberAsync(string medNumber)
         {
-            return await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).Include(x => x.BirthPlace.County).SingleOrDefaultAsync(x => x.MedNumber == medNumber);
+            return await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).Include(x => x.BirthPlace.County).Include(x => x.BirthPlace).SingleOrDefaultAsync(x => x.MedNumber == medNumber);
         }
 
         public async Task<Client> GetClientByIdAsync(string id)
         {
-            return await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).Include(x => x.BirthPlace.County).SingleOrDefaultAsync(x => x.Id == id);
+            return await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).Include(x => x.BirthPlace.County).Include(x => x.BirthPlace).SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<Client>> GetClientsAsync()
         {
-            return await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).Include(x => x.BirthPlace.County).ToListAsync();
+            return await _context._clients.Include(x => x.Place.City.County).Include(x => x.Doctor.Place.City.County).Include(x => x.BirthPlace.County).Include(x => x.BirthPlace).ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()

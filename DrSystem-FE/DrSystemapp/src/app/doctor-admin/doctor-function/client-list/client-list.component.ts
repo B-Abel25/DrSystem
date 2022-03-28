@@ -37,7 +37,6 @@ export class ClientListComponent implements OnInit {
   name: any;
   ngOnInit() {
     this.loadDoctorClients();
-    console.log('HALIHOO');
   }
 
   loadDoctorClients() {
