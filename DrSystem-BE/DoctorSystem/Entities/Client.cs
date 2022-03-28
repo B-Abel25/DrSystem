@@ -15,5 +15,7 @@ namespace DoctorSystem.Entities
         public bool Member { get; set; }
         [Required]
         public Doctor Doctor { get; set; }
+        public string MotherName { get; set; }
+        public City BirthPlace { get; set; }
     }
 }

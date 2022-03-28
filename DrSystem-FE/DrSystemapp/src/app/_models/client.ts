@@ -1,18 +1,11 @@
-
-import { Doctor } from "./doctor";
-export interface Client {
-    id: string;
-    medNumber: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    birthDate: string;
-    place: any;
-    street: string;
-    houseNumber: string;
-    member: boolean;
-    doctor: Doctor;
-
-
-
+import { Doctor } from './doctor';
+import { Place } from './place';
+import { User } from './user';
+export interface Client extends User {
+  medNumber: string;
+  member: boolean;
+  doctor: Doctor;
+  lastMessageSentDate: string;
+  motherName: string;
+  birthPlace: string;
 }

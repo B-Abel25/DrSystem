@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark ">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark ">
 
   <div class="container-fluid">
     <img id='imagelogo' src="assets/logo2.png" [routerLink]="['']">
@@ -25,10 +25,10 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 " *ngIf="(accountService.currentClient$ | async)">
 
         <li class="nav-item">
-          <a class="nav-link" routerLink="/booking" routerLinkActive="active">Időpont foglalás </a>
+          <a class="nav-link" routerLink="/booking" routerLinkActive="active">Időpontfoglalás </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/complaint" routerLinkActive="active">Panasz</a>
+          <a class="nav-link" routerLink="/complaint" routerLinkActive="active">Üzenetek</a>
         </li>
 
       </ul>
@@ -45,4 +45,90 @@
 
     </div>
   </div>
+</nav> -->
+<div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark  position-lg-absolute w-100">
+	<div class="container px-0">
+		<a class="navbar-brand" ></a>
+    <img id='imagelogo' src="assets/logo2.png" [routerLink]="['']" >
+    <a class="navbar-brand center" [routerLink]="['']">
+
+      <h1>DrSystem</h1>
+    </a>
+		<!-- Button -->
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+		<!-- Collapse -->
+		<div  class="collapse navbar-collapse" id="navbarSupportedContent" >
+			<ul class="navbar-nav"  *ngIf="!(accountService.currentClient$ | async)">
+			
+							<li class="nav-item ">
+								<a class="nav-link"  [routerLink]="['/login']" routerLinkActive="active">
+								Bejelentkezés
+								</a>
+								</li>
+								<li class="nav-item ">
+									<a class="nav-link" [routerLink]="['/register']" routerLinkActive="active">
+									Regisztráció
+									</a>
+									</li>
+
+
+			</ul>
+			<ul class="navbar-nav"  *ngIf="(accountService.currentClient$ | async)">
+			
+				<li class="nav-item ">
+					<a class="nav-link"  [routerLink]="['/booking']" routerLinkActive="active">
+					Időpontfoglalás
+					</a>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link" [routerLink]="['/complaint']" routerLinkActive="active">
+						Üzenetek
+						</a>
+						</li>
+
+
+</ul>
+
+			<div class="ms-auto mt-3 mt-lg-0">
+        <ul class="navbar-nav"  *ngIf="(accountService.currentClient$ | async)">
+        <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarAccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Profil
+					</a>
+					<ul class="dropdown-menu dropdown-menu-arrow" aria-labelledby="navbarAccount">
+						<li>
+							<h4 class="dropdown-header">Profil</h4>
+						</li>
+					
+					
+
+						<li>
+							<hr class="mx-3">
+						</li>
+						
+						<li>
+							<a class="dropdown-item" routerLink="/profile-modify" >
+								Profil szerkeztése
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" (click)="logout()">
+								Kilépés
+							</a>
+						</li>
+						
+					</ul>
+				</li>
+					
+
+
+        </ul>
+			</div>
+		</div>
+	</div>
 </nav>
+</div>

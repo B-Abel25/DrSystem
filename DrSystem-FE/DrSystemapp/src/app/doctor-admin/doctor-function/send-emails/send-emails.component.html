@@ -1,0 +1,26 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="content" style="background-image: url(/assets/logofekete.png)">
+  <div class="overlay"></div>
+<div class="container">
+    <h1>Páciensek email küldés </h1>
+    
+   
+    
+    <form [formGroup]="sendEmailForm" (ngSubmit)="sendMailSubmit()" id="contact_form">
+     
+      <div class="subject">
+        <label for="subject"></label>
+        <input type="text"  placeholder="Tárgy" formControlName="subject" >
+      </div>
+      <div class="message">
+        <label for="message"></label>
+        <textarea name="message" formControlName="content"  id="message_input" cols="30" rows="5" required></textarea>
+      </div>
+      <div style="align-items: right;"><button type="submit" class=" btn btn-lg btn-primary sumbit">Rögzítés</button></div>
+      <p>{{this.sendEmailForm.value | json}}</p>
+    </form>
+
+
+</div>
+</div>
+

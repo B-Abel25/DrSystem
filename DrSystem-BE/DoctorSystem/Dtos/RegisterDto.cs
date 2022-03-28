@@ -21,12 +21,18 @@ namespace DoctorSystem.Dtos
         [StringLength(16,MinimumLength = 8)]
         public string Password { get; set; }
         [Required]
-        public string DoctorId { get; set; }
+        public string DoctorSealNumber { get; set; }
         [Required]
-        public string PlaceId { get; set; }
+        public string City { get; set; }
+        [Required]
+        public int PostCode { get; set; }
         [Required]
         public string Street { get; set; }
         [Required]
         public string HouseNumber { get; set; }
+        [Required]
+        public string MotherName { get; set; }
+        [Required]
+        public string BirthPlace { get; set; }
     }
 }

@@ -1,1 +1,53 @@
+<div class="content">
 <app-admin-navbar></app-admin-navbar>
+
+<div class="overlay">
+    <div class="container">
+
+        <table class="table table-striped table-primary">
+
+            <thead class="thead-dark">
+
+                <tr>
+                    <th style="width:250px;" (click)="sort('name')">Név&nbsp;<i class="fa fa-sort"></i></th>
+                    <th style="text-align:center">TAJ szám</th>
+                    <th style="text-align:center" (click)="sort('birthDate')">
+                        Dátum&nbsp;<i class="fa fa-sort"></i>
+                    </th>
+                    <th style="width: 250px">
+                        <form>
+                            <div class="mb-8 row">
+                                <div class="col-xs-3 col-sm-auto">
+                                    <input class="form-control" type="text" name="name" [(ngModel)]="filterTerm" (ngModelChange)="Search()" placeholder="Keresés..." />
+                                </div>
+                            </div>
+                        </form>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="
+          let client of clients
+            | orderBy: key:reverse
+           |filter: filterTerm
+        " >
+                    <td style="text-align: left">{{ client.name }}</td>
+                    <td style="text-align: center">{{ client.medNumber }}</td>
+                    <td style="text-align: center">{{ client.lastMessageSentDate }}</td>
+                    
+                    <td>
+                     <li class="list-inline-item">
+                            <button routerLink="/admin/messaging/{{client.medNumber}}" class="btn btn-light">
+              <i class="fa fa-envelope"></i>
+            </button>
+                        </li>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+</div>

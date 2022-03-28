@@ -12,7 +12,7 @@ import { AccountService } from 'src/app/_services/account.service';
 })
 export class NewPasswordComponent implements OnInit {
   newPasswordForm: FormGroup;
-
+  fieldTextType: boolean;
   constructor(private fb: FormBuilder, private accountService: AccountService, private toatsr: ToastrService, private router: Router) {
 
   }
@@ -38,7 +38,7 @@ export class NewPasswordComponent implements OnInit {
     }
   }
   newPassword() {
-    console.log(this.newPasswordForm.value);
+   
     this.accountService.newPassword(this.newPasswordForm.value).subscribe(response => {
       this.router.navigateByUrl('/login');
 
@@ -47,5 +47,8 @@ export class NewPasswordComponent implements OnInit {
       console.log(error)
 
     })
+  }
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 }

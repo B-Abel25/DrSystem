@@ -1,0 +1,21 @@
+.overlay {
+    position:absolute;
+    left: 0;
+    top: 0;
+    min-width: 100%;
+    min-height: 100vh;
+    margin-left: 48px;
+  }
+  
+     
+  .content {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    vertical-align: middle; 
+    min-height:100vh;
+    
+  ;}
+    .content .overlay {
+      background-color: rgba(131, 159, 224, 0.97);
+  }

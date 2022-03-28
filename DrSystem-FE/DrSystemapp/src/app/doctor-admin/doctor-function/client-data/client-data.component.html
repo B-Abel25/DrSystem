@@ -1,0 +1,68 @@
+<div class="content">
+<div class="row center" *ngIf="client">
+<div class="col-4">
+  <div class="card">
+      <div class="card-body">
+          <div>
+              <strong>Név:</strong>
+              <p>{{client.name}}</p>
+          </div>
+          <div>
+            <strong>TAJ szám:</strong>
+            <p>{{client.medNumber}}</p>
+        </div>
+          <div>
+            <strong>Lakcím:</strong>
+            <p>{{client.place.postCode}} {{client.place.city}},<br>{{client.street}} {{client.houseNumber}} </p>
+        </div>
+        <div>
+            <strong>Születési idő:</strong>
+            <p>{{client.birthDate}}</p>
+        </div>
+        <div>
+            <strong>Telefonszám:</strong>
+            <p>{{client.phoneNumber}}</p>
+        </div>
+        <div>
+            <strong>Email cím:</strong>
+            <p>{{client.email}}</p>
+        </div>
+        <div>
+            <strong>Anyja neve:</strong>
+            <p>{{client.motherName}}</p>
+        </div>
+        <div>
+            <strong>Születési hely:</strong>
+            <p>{{client.birthPlace}}</p>
+        </div>
+      </div>
+  </div>  
+</div>
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <ul #scrollMe
+            style="overflow:scroll; max-height: 80vh;"
+            [scrollTop]="scrollMe.scrollHeight"
+             *ngIf="clientAppointment?.length > 0" class="chat">
+                <li *ngFor="let appointment of clientAppointment">
+                    <div>
+                        
+    
+                        <div class="chat-body">
+                           
+                           
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+       
+    </div>
+</div>
+
+
+
+
+

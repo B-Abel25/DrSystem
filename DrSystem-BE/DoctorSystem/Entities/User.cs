@@ -17,6 +17,7 @@ namespace DoctorSystem.Entities
         [Required]
         [MySqlCollation("utf8_hungarian_ci")]
         public string Name { get; set; }
+        [Required]
         public DateTime BirthDate { get; set; }
         [Required]
         [EmailAddress]
@@ -35,6 +36,8 @@ namespace DoctorSystem.Entities
         [Required]
         public string Street { get; set; }
         [Required]
-        public string  HouseNumber { get; set; }        
+        public string  HouseNumber { get; set; }
+        public ICollection<Message> MessagesRecieved { get; set; }
+        public ICollection<Message> MessagesSent { get; set; }
     }
 }

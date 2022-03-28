@@ -1,30 +1,117 @@
 .client-icons{
-    position: absolute;
-    bottom: -30%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0;
-    float:inline-end;
-    
+  position: absolute;
+  bottom: -30%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  float:inline-end;
+  color:black;
+  
 }
 .client-icons:hover{
-    transition: all .2s ease-in-out;   
+  transition: all .2s ease-in-out;   
 }
 table{
-    text-align: center;
-    max-width: 5000px;
-    
+  text-align: center;
+  min-width: 100vh;
+  padding-left: 100vh;
+  
 }
 .list-inline-item{
-   float: center;
-   margin: 6px;
+ float: center;
+ margin: 6px;
 }
 .my-pagination /deep/ .ngx-pagination .current {
-    background: rgb(3, 20, 53);
-  }
-.mb-8{
-    float:center;
-    padding-left:10px;
+  background: rgb(3, 20, 53);
 }
+.mb-8{
+  float:center;
+  padding-left:10px;
+}
+
+
+input.form-control,input.form-control:focus{
+  background-color:#fbfbfb;
+  color: rgb(10, 17, 56);
+  border: 1px solid #1950bd;
+
+}
+
+input.form-control:focus{
+  box-shadow: none;
+}
+
+
+
+
+
+
+
+
+
+
+form{
+    margin: 0px 16px;
+}
+
+div.form-group input.invalid{
+  border: 1px solid #05f7ff; 
+}
+div.form-group label:first-child{
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+#link{
+   
+   text-align: center;
+   color:#fff;
+  
+}
+.link{
+   
+  text-align: center;
+  color:#fff;
+ 
+}
+
+
+
+p{
+   color:#fff;
+}
+
+
+
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  height: 100%; 
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  overflow: auto;
+}
+
+.overlay {
+  position:absolute;
+  left: 0;
+  top: 0;
+  min-width: 100%;
+  min-height: 100vh;
+  margin-left: 48px;
+}
+
+   
+.content {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  vertical-align: middle; 
+  min-height:100vh;
+  
+;}
+  .content .overlay {
+    background-color: rgba(131, 159, 224, 0.97);
+}
+

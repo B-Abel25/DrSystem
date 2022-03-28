@@ -20,10 +20,19 @@ import { DoctorMessageComponent } from './doctor-admin/doctor-function/doctor-me
 import { NewPasswordDoctorComponent } from './doctor-admin/lost-newPasswordDoctor/new-password-doctor/new-password-doctor.component';
 import { DoctorMainPageComponent } from './doctor-admin/doctor-main-page/doctor-main-page.component';
 import { ClientsRequestComponent } from './doctor-admin/doctor-function/clients-request/clients-request.component';
+import { ClientDataComponent } from './doctor-admin/doctor-function/client-data/client-data.component';
+import { DoctorClientMessagingComponent } from './doctor-admin/doctor-function/doctor-client-messaging/doctor-client-messaging.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { SettingsComponent } from './doctor-admin/doctor-function/settings/settings.component';
+import { AppointmentListComponent } from './doctor-admin/doctor-function/appointment-list/appointment-list.component';
+import { ProfileModifyComponent } from './client/clients-functions/profile-modify/profile-modify.component';
+
+import { SendEmailsComponent } from './doctor-admin/doctor-function/send-emails/send-emails.component';
 
 const routes: Routes = [
   { path: '', component: DrsystemHomeComponent },
 
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'new-password/:emailToken', component: NewPasswordComponent },
   { path: 'home', component: DrsystemHomeComponent },
@@ -47,6 +56,7 @@ const routes: Routes = [
     children: [
       { path: 'booking', component: BookingComponent },
       { path: 'complaint', component: ComplaintComponent },
+      {path: 'profile-modify', component: ProfileModifyComponent}
     ],
   },
   {
@@ -55,11 +65,22 @@ const routes: Routes = [
     canActivate: [AdminGuard],
     children: [
       { path: 'admin/doctor-page', component: DoctorMainPageComponent },
-      { path: 'admin/client-list/:id', component: ClientListComponent },
-      { path: 'admin/clients-request/:id', component: ClientsRequestComponent }
+      { path: 'admin/client-list', component: ClientListComponent },
+      { path: 'admin/clients-request', component: ClientsRequestComponent },
+      { path: 'admin/doctor-messages', component: DoctorMessageComponent },
+      {
+        path: 'admin/client-details/:medNumber',
+        component: ClientDataComponent,
+      },
+      {
+        path: 'admin/messaging/:medNumber',
+        component: DoctorClientMessagingComponent,
+      },
+      { path: 'admin/settings', component: SettingsComponent },
+      { path: 'admin/appointments', component: AppointmentListComponent },
+      { path: 'admin/email', component: SendEmailsComponent},
     ],
   },
-
 
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
@@ -71,4 +92,4 @@ const routes: Routes = [
 
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

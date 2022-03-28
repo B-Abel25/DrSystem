@@ -1,6 +1,7 @@
 ﻿using DoctorSystem.Dtos;
 using DoctorSystem.Entities;
 using DoctorSystem.Entities.Contexts;
+using DoctorSystem.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -57,40 +58,50 @@ namespace DoctorSystem.Data
             await SeedAddress(_context);
             await SeedDoctors(_context);
             await SeedClients(_context);
+            await SeedOfficeHours(_context);
         }
 
         private static async Task SeedAddress(BaseDbContext _context)
         {
             if (await _context._county.AnyAsync()) return;
 
-            var AddressData = await System.IO.File.ReadAllTextAsync("Data/AddressSeedData.json", Encoding.UTF8);
-            var addressModels = JsonSerializer.Deserialize<List<AddressSeedModel>>(AddressData);
-            
-            foreach (var addressModel in addressModels)
+            string AddressData = await System.IO.File.ReadAllTextAsync("Data/AddressSeedData.json", Encoding.UTF8);
+            List<AddressSeedModel> addressModels = JsonSerializer.Deserialize<List<AddressSeedModel>>(AddressData);
+
+            List<County> Counties = new List<County>();
+            List<City> Cities = new List<City>();
+            List<Place> Places = new List<Place>();
+
+            foreach (AddressSeedModel addressModel in addressModels)
             {
+                Place place = new Place();
+                place.PostCode = int.Parse(addressModel.IrSzam);
 
-                var county = await _context._county.SingleOrDefaultAsync(x => x.Name == addressModel.County);
-                if (county == null)
-                {
-                    county = new County();
-                    county.Name = addressModel.County;
-                }
 
-                var city = await _context._city.SingleOrDefaultAsync(x => x.Name == addressModel.City);
+                City city = Cities.Find(x => x.Name == addressModel.City);
                 if (city == null)
                 {
                     city = new City();
                     city.Name = addressModel.City;
+                    County county = Counties.Find(x => x.Name == addressModel.County);
+                    if (county == null)
+                    {
+                        county = new County();
+                        county.Name = addressModel.County;
+                        Counties.Add(county);
+                    }
+                    city.County = county;
+                    Cities.Add(city);
                 }
-
-                var place = new Place();
-                place.PostCode = int.Parse(addressModel.IrSzam);
                 place.City = city;
-                place.City.County = county;
+                Places.Add(place);
 
-                _context._place.Add(place);
-                await _context.SaveChangesAsync();
+               
             }
+            _context._county.AddRange(Counties);
+            _context._city.AddRange(Cities);
+            _context._places.AddRange(Places);
+            await _context.SaveChangesAsync();
 
         }
 
@@ -98,8 +109,8 @@ namespace DoctorSystem.Data
         {
             if (await _context._doctors.AnyAsync()) return;
 
-            var docData = await System.IO.File.ReadAllTextAsync("Data/DoctorSeedData.json", Encoding.UTF8);
-            var docModels = JsonSerializer.Deserialize<List<DoctorSeedModel>>(docData);
+            string docData = await System.IO.File.ReadAllTextAsync("Data/DoctorSeedData.json", Encoding.UTF8);
+            List<DoctorSeedModel> docModels = JsonSerializer.Deserialize<List<DoctorSeedModel>>(docData);
 
             foreach (var doctorModel in docModels)
             {
@@ -117,17 +128,18 @@ namespace DoctorSystem.Data
                 doc.PhoneNumber = doctorModel.PhoneNumber;
                 string PC = doctorModel.PostCode.Split(' ')[0];
                 string CT = doctorModel.PostCode.Split(' ')[1];
-                doc.Place = await _context._place.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
+                doc.Place = await _context._places.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
                 doc.Street = doctorModel.Street;
                 doc.HouseNumber = doctorModel.HouseNumber;
                 doc.EmailToken = Guid.NewGuid().ToString() + (char)random.Next(97, 123);
                 var hmac = new HMACSHA512();
                 doc.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(doctorModel.Password));
                 doc.PasswordSalt = hmac.Key;
+                doc.Duration = 10;
 
                 _context._doctors.Add(doc);
-                await _context.SaveChangesAsync();
             }
+                await _context.SaveChangesAsync();
 
         }
 
@@ -155,7 +167,7 @@ namespace DoctorSystem.Data
                 cli.PhoneNumber = clientModel.PhoneNumber;
                 string PC = clientModel.PostCode.Split(' ')[0];
                 string CT = clientModel.PostCode.Split(' ')[1];
-                cli.Place = await _context._place.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
+                cli.Place = await _context._places.SingleOrDefaultAsync(x => x.PostCode == int.Parse(PC) && x.City.Name == CT);
                 cli.Street = clientModel.Street;
                 cli.HouseNumber = clientModel.HouseNumber;
                 cli.EmailToken = Guid.NewGuid().ToString() + (char)random.Next(97, 123);
@@ -164,12 +176,36 @@ namespace DoctorSystem.Data
                 cli.PasswordSalt = hmac.Key;
                 cli.Doctor = await _context._doctors.SingleOrDefaultAsync(x => x.Id == Barbi.Id);
                 cli.Member = clientModel.Member == "false" ? false : true;
+                cli.MotherName = cliModels[cliModels.IndexOf(clientModel)].Name.ToString() + cliModels.IndexOf(clientModel);
+                cli.BirthPlace = cli.Place.City;
                 _context._clients.Add(cli);
-                await _context.SaveChangesAsync();
             }
+                await _context.SaveChangesAsync();
 
         }
 
+        private static async Task SeedOfficeHours(BaseDbContext _context)
+        {
+            if (await _context._officehours.AnyAsync()) return;
+
+            List<Doctor> doctors = await _context._doctors.ToListAsync();
+            List<OfficeHours> ohs = new List<OfficeHours>();
+            
+
+            foreach (var doctor in doctors)
+            {
+                for (int i = 1; i < 6; i++)
+                {
+                    OfficeHours oh = new OfficeHours();
+                    oh.Doctor = doctor;
+                    oh.Close = DateTime.Parse("18:00");
+                    oh.Open = DateTime.Parse("10:00");
+                    oh.Day = (Days)i;
+                    _context._officehours.Add(oh);
+                }
+            }
+            await _context.SaveChangesAsync();
+        }
 
     }
 }

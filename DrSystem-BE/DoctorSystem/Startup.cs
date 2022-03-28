@@ -1,6 +1,7 @@
 using DoctorSystem.Controllers;
 using DoctorSystem.Entities.Contexts;
 using DoctorSystem.Interfaces;
+using DoctorSystem.Repositories;
 using DoctorSystem.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -37,9 +38,15 @@ namespace DoctorSystem
             
             services.AddDbContext<BaseDbContext>();
             
+            
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IPlaceRepository, PlaceRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IOfficeHoursRepository, OfficeHoursRepository>();
             services.AddScoped<RouterService>();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<EmailService>();
             services.AddScoped<WeatherForecast>();
 

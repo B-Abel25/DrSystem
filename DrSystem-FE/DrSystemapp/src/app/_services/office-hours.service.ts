@@ -1,0 +1,58 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { officeHours } from '../_models/officeHours';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class OfficeHoursService {
+  baseUrl = environment.apiUrl;
+  constructor(private http:HttpClient) { }
+  
+  
+  officeHoursPut(modal:officeHours[]) {
+
+console.log(modal)
+    return this.http.put(this.baseUrl + 'private/doctor/office-hours/modify',modal).subscribe({
+      next: data => {
+        console.log(data)
+      },
+      error: error => {
+
+        console.error('There was an error!', error);
+      }
+    });
+
+  }
+  
+  durationPut(duration:number) {
+
+
+    return this.http.put(this.baseUrl + 'private/doctor/put/duration/'+duration, {}).subscribe({
+      next: data => {
+        console.log(data)
+      },
+      error: error => {
+
+        console.error('There was an error!', error);
+      }
+    });
+
+  }
+
+  getOfficeHours() {
+    return this.http.get<officeHours>(this.baseUrl + 'private/doctor/office-hours');
+  }
+  getDuration() {
+    return this.http.get<number>(this.baseUrl + 'private/doctor/get/duration');
+  }
+
+  getOfficeHoursClient() {
+    return this.http.get<officeHours[]>(this.baseUrl + 'private/client/office-hours');
+  }
+  getDurationClient() {
+    return this.http.get<number>(this.baseUrl + 'private/client/get/duration');
+  }
+}

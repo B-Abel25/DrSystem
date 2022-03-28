@@ -1,0 +1,76 @@
+
+<div class="content" style="background-image: url(/assets/logofekete.png);">
+  <div class="overlay">
+    <app-admin-navbar></app-admin-navbar>
+
+
+  <div class="container">
+<form  id="border1" [formGroup]="officeHoursForm " (ngSubmit)="officeHours()">
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Hétköznapok</th>
+        <th scope="col">Foglalás kezdete:</th>
+        <th scope="col">Foglalás vége:</th>
+        
+        
+      </tr>
+    </thead>
+    
+    <tbody  >
+     
+      <tr  formGroupName="1">
+        <th scope="row">Hétfő</th>
+        <td><input  formControlName="open" type="time" class="form-control"></td>
+        <td><input   formControlName="close" type="time" class="form-control"></td>
+       
+      </tr>
+      <tr formGroupName="2" >
+        <th scope="row">Kedd</th>
+        <td><input formControlName="open"  type="time" class="form-control"></td>
+        <td><input formControlName="close" type="time" class="form-control"></td>
+      
+      </tr>
+      <tr formGroupName="3" >
+        <th scope="row">Szerda</th>
+        <td><input formControlName="open"  type="time" class="form-control"></td>
+        <td><input formControlName="close" type="time" class="form-control"></td>
+        
+      </tr>
+      <tr  formGroupName="4">
+        <th scope="row">Csütörtök</th>
+        <td><input formControlName="open" type="time" class="form-control"></td>
+        <td><input formControlName="close" type="time" class="form-control"></td>
+        
+      </tr>
+      <tr formGroupName="5">
+        <th scope="row">Péntek</th>
+        <td><input formControlName="open" type="time" class="form-control"></td>
+        <td><input formControlName="close" type="time" class="form-control"></td>
+        
+      </tr>
+   
+    </tbody>
+  </table>
+
+   
+  
+  
+  <div style="align-items: right;"><button type="submit" class=" btn btn-lg btn-primary sumbit">Rögzítés</button></div>
+
+
+</form>
+
+<br>
+<form id="border2" [formGroup]="durationForm" (ngSubmit)="durationSubmit()">
+<p>Foglalások időtartama:(perc) <input type="number" formControlName="duration" class="form-control"></p>
+<div style="align-items: right;"><button type="submit" class=" btn btn-lg btn-primary sumbit">Rögzítés</button></div>
+</form>
+</div>
+
+
+
+  </div>
+  </div>
+
+

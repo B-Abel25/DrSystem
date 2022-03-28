@@ -19,27 +19,66 @@ namespace DoctorSystem.Services
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
 
-        public string CreateToken(User user)
+        public string CreateToken(Doctor doctor)
         {
-            var claim = new List<Claim>
+            List<Claim> claim = new List<Claim>
             {
-                new Claim("id",user.Id)
+                new Claim("userNumber",doctor.SealNumber) //userNumber = sealNumber, csak a kiolvasás miatt kell azonos név
             };
 
-            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+            SigningCredentials creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
-            var tokenDescriptor = new SecurityTokenDescriptor()
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claim),
                 Expires = DateTime.Now.AddHours(1),
                 SigningCredentials = creds
             };
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
         }
+
+        public string CreateToken(Client client)
+        {
+            List<Claim> claim = new List<Claim>
+            {
+                new Claim("userNumber",client.MedNumber) //userNumber = medNumber, csak a kiolvasás miatt kell azonos név
+            };
+
+            SigningCredentials creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Subject = new ClaimsIdentity(claim),
+                Expires = DateTime.Now.AddHours(1),
+                SigningCredentials = creds
+            };
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
+
+        public string ReadToken(string token)
+        {
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityToken tokenBody =  tokenHandler.ReadJwtToken(token.Replace("Bearer ",""));
+            return tokenBody.Payload["userNumber"].ToString();
+        }
+        /*
+        public string SetExpireDateToken(string token, int minutes = 60)
+        {
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            tokenHandler.TokenLifetimeInMinutes = minutes;
+
+            tokenHandler.WriteToken(tokenHandler.CreateToken());
+        }
+        */
     }
 }

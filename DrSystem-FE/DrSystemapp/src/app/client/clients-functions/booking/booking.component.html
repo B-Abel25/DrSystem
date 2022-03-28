@@ -1,1 +1,55 @@
-<app-navbar></app-navbar>
+<div class="content " style="background-image: url(/assets/logofekete.png);">
+
+    <div class="overlay">
+        <app-navbar></app-navbar>
+
+        <div class="container">
+
+            <full-calendar id="calendar" style="color:rgb(15, 7, 134); padding-top:20px; height: 500px;" [options]="calendarOptions" dateClick="dateClick($event)" (click)="eventClick($event)">
+
+
+            </full-calendar>
+
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title align-center"></h4>
+
+                        </div>
+
+                        <div class="modal-body">
+                            <form [formGroup]="addEventForm" (ngSubmit)="onSubmit()">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Foglalás oka:</label>
+                                            <input placeholder="Foglalás oka..." type="text" formControlName="Description" [class.is-invalid]='addEventForm.get("Description").errors && addEventForm.get("Description").touched' class="titleinp form-control" />
+                                            <div *ngIf="addEventForm.get('Description').hasError('required')" class="invalid-feedback">
+                                                Kérem adja meg a foglalás okát!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Foglalás Ideje:</label>
+                                            <div class="form-control eventstarttitle "></div>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                                <br>
+                                <button type="submit" data-dismiss="modal" class="btn btn-primary">Foglalás</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

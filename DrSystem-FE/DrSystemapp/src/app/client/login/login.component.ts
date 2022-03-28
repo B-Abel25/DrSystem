@@ -16,15 +16,22 @@ export class LoginComponent {
   loggedIn: boolean = false;
   modalRef!: BsModalRef;
   loginForm: FormGroup;
-  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService, private modalService: BsModalService, private fb: FormBuilder,) {
+  public remember:boolean=false;
+  fieldTextType: boolean;
+  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService,
+     private modalService: BsModalService, private fb: FormBuilder, ) {
 
+}
 
-  }
+  
 
   ngOnInit(): void {
     this.initializationForm();
     this.getCurrentClient();
-    console.log();
+    if (this.loggedIn)
+    {
+      this.router.navigateByUrl('/booking')
+    }
   }
   login() {
 
@@ -32,9 +39,11 @@ export class LoginComponent {
       this.router.navigateByUrl('/booking');
 
       this.loggedIn = true;
+      
     }, error => {
       console.log(error);
       this.toastr.error(error.error);
+      
     })
   }
   logout() {
@@ -45,7 +54,7 @@ export class LoginComponent {
   getCurrentClient() {
     this.accountService.currentClient$.subscribe(client => {
       this.loggedIn = !!client;
-      console.log(client)
+      
     }, error => {
       console.log(error);
     });
@@ -60,10 +69,10 @@ export class LoginComponent {
     this.modalRef = this.modalService.show(template);
   }
   closeModal() {
-    console.log('force close')
+    
     if (this.modalRef != null) {
       this.modalRef.hide();
-
+      
     }
   }
   initializationForm() {
@@ -71,5 +80,8 @@ export class LoginComponent {
       medNumber: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')],],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16)])],
     })
+  }
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 }

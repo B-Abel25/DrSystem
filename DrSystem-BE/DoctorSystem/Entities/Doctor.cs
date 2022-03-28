@@ -16,5 +16,7 @@ namespace DoctorSystem.Entities
         public string SealNumber { get; set; }
         [Required]
         public ICollection<Client> Clients { get; set; }
+        [Required]
+        public int Duration { get; set; }
     }
 }

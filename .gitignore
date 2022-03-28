@@ -6,6 +6,7 @@ DrSystem-BE/DoctorSystem/DoctorSystem.csproj.user
 DrSystem-BE/DoctorSystem/obj
 DrSystem-BE/DoctorSystem.sln.DotSettings.user
 DrSystem-BE/DoctorSystem/Migrations
+DrSystem-FE\DrSystemapp\.vscode
 
 
 ## Ignore Visual Studio temporary files, build results, and

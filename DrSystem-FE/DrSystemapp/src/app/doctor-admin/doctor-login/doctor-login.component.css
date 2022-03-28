@@ -13,8 +13,9 @@ input.form-control:focus{
 
 button[type=submit].btn{
     border-radius: 20px;
-    background-color: #77b6e9;
-    color: rgb(10, 16, 68);
+    color: rgb(255, 255, 255);
+    border: 2px solid #2ee4f5;
+    background-color: #80a6f0;
 }
 
 div.form-group label:not(.text-danger){
@@ -73,8 +74,8 @@ color:#fff
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
     background: #5384e7;
-    width: 90%;
-    width: 450px;
+    width: 350px;
+    
     position: relative;
     padding: 0px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
@@ -93,10 +94,10 @@ color:#fff
      
   .page-home {
     background-position: center;
-    background-repeat: no-repeat;
+   
     background-size: cover;
     vertical-align: middle; 
-    min-height: 100vh;
+    height: 100vh;
    
   
 ;}
@@ -121,6 +122,14 @@ input:invalid {
   .form-check-label{
       color:#05051d
   }
+
+  button[type=submit].btn:disabled {
+    border-radius: 20px;
+    color: rgb(255, 255, 255);
+    border: 2px solid #2ee4f5;
+    background-color: #80a6f0;
+    opacity: 30%;
+}
 
 
 

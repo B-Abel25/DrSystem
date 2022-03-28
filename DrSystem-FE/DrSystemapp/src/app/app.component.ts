@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Doctor } from './_models/doctor';
 
-import { DoctorAdmin } from './_models/doctorsadmin';
+
 import { Registration } from './_models/registration';
 import { AccountService } from './_services/account.service';
 import { DoctorService } from './_services/doctor.service';
@@ -38,7 +39,7 @@ export class AppComponent implements OnInit {
     this.accountService.setCurrentClient(client);
   }
   setCurrentDoctor() {
-    const doctor: DoctorAdmin = JSON.parse(localStorage.getItem('doctor'));
+    const doctor: Doctor = JSON.parse(localStorage.getItem('doctor'));
     this.doctorService.setCurrentDoctor(doctor);
   }
   getCurrentClient() {
