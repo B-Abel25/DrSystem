@@ -13,8 +13,9 @@ input.form-control:focus{
 
 button[type=submit].btn{
     border-radius: 20px;
-    background-color: #77b6e9;
-    color: rgb(10, 16, 68);
+    color: rgb(255, 255, 255);
+    border: 2px solid #2ee4f5;
+    background-color: #80a6f0;
 }
 
 div.form-group label:not(.text-danger){
@@ -121,6 +122,14 @@ input:invalid {
   .form-check-label{
       color:#05051d
   }
+
+  button[type=submit].btn:disabled {
+    border-radius: 20px;
+    color: rgb(255, 255, 255);
+    border: 2px solid #2ee4f5;
+    background-color: #80a6f0;
+    opacity: 30%;
+}
 
 
 

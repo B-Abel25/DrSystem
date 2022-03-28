@@ -12,8 +12,9 @@ input.form-control:focus {
 
 button[type=submit].btn {
     border-radius: 20px;
-    background-color: #77b6e9;
-    color: rgb(10, 16, 68);
+    color: rgb(255, 255, 255);
+    border: 2px solid #2ee4f5;
+    background-color: #80a6f0;
 }
 
 div.form-group label:not(.text-danger) {
@@ -58,11 +59,13 @@ div.form-group label:first-child {
     text-align: center;
 }
 
+
 .container {
     display: flex;
     align-items: center;
     flex-direction: column;
-  
+  height:80vh;
+  background-color: #ff0000;
 }
 
 .wrapped-div {
@@ -122,7 +125,8 @@ input:invalid {
 
 button[type=submit].btn:disabled {
     border-radius: 20px;
-    background-color: #121518;
     color: rgb(255, 255, 255);
     border: 2px solid #2ee4f5;
+    background-color: #80a6f0;
+    opacity: 30%;
 }

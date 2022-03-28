@@ -74,7 +74,7 @@ export class AppointmentService {
   }
 
 
-  getOneClientAppointments(medNumber:number) {
+  getOneClientAppointments(medNumber:string) {
     return this.http.get<Appointment[]>(this.baseUrl + 'private/oneClient/appointments/'+medNumber);
   }
 }

@@ -64,10 +64,12 @@ export class ClientsRequestComponent implements OnInit {
   }
   Search() {
     this.filteredClients = this.doctor.clients.filter((res) => {
-      return res.name.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
+      return res.name.toLocaleLowerCase().match(this.name);
     });
-    this.totalLength = this.filteredClients.length;
+   // this.totalLength = this.filteredClients.length;
   }
+
+
   key: string = 'id';
   reverse: boolean = false;
   sort(key) {
