@@ -54,6 +54,7 @@ import { ProfileModifyComponent } from './client/clients-functions/profile-modif
 import { ReferralComponent } from './doctor-admin/doctor-function/referral/referral.component';
 
 import { SendEmailsComponent } from './doctor-admin/doctor-function/send-emails/send-emails.component';
+import { DEFAULT_TIMEOUT } from './_interceptors/timeout.interceptor';
 
 FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
 
@@ -112,6 +113,7 @@ FullCalendarModule.registerPlugins([ interactionPlugin, timeGridPlugin]);
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: DoctorJWTInterceptor, multi: true },
+    { provide: DEFAULT_TIMEOUT, useValue: 1200000 },
   ],
   bootstrap: [AppComponent],
 })
