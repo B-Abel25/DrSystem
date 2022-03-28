@@ -34,8 +34,9 @@ namespace DoctorSystem.Entities.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string mySqlConnectionStr = _configuration.GetConnectionString("DefaultConnection");
+            //string mySqlConnectionStr = _configuration.GetConnectionString("LocalConnection");
 
-            optionsBuilder.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr));
+            optionsBuilder.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr), options => options.EnableRetryOnFailure());
 
             //optionsBuilder.UseNpgsql(posgresConnectionStr,
             //    sqlOptions =>

@@ -60,7 +60,7 @@ namespace DoctorSystem.Controller
             List<Client> clients = await _clientRepo.GetClientsAsync();
 
             List<ClientDto> clientDtos = new List<ClientDto>();
-            clients.OrderByDescending(x => x.CreateDate);
+            clients.OrderBy(x => x.CreateDate);
             foreach (var client in clients)
             {
                 if (client.Doctor.Id == doctor.Id && client.Member)
@@ -82,7 +82,7 @@ namespace DoctorSystem.Controller
             List<Client> clients = await _clientRepo.GetClientsAsync();
 
             List<ClientDto> clientDtos = new List<ClientDto>();
-            clients.OrderByDescending(x => x.CreateDate);
+            clients.OrderBy(x => x.CreateDate);
             foreach (var client in clients)
             {
                 if (client.Doctor.Id == doctor.Id && !client.Member)
@@ -119,7 +119,6 @@ namespace DoctorSystem.Controller
         public async Task<ActionResult> DeclineClientRequest(string medNumber)
         {
             //TODO email éretsítés az elutasításról
-            //TODO elutasítás validáció
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
             Client client = await _clientRepo.GetClientByMedNumberAsync(medNumber);
