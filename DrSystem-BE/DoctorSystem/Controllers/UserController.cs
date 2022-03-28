@@ -60,6 +60,7 @@ namespace DoctorSystem.Controller
             List<Client> clients = await _clientRepo.GetClientsAsync();
 
             List<ClientDto> clientDtos = new List<ClientDto>();
+            clients.OrderByDescending(x => x.CreateDate);
             foreach (var client in clients)
             {
                 if (client.Doctor.Id == doctor.Id && client.Member)
@@ -81,6 +82,7 @@ namespace DoctorSystem.Controller
             List<Client> clients = await _clientRepo.GetClientsAsync();
 
             List<ClientDto> clientDtos = new List<ClientDto>();
+            clients.OrderByDescending(x => x.CreateDate);
             foreach (var client in clients)
             {
                 if (client.Doctor.Id == doctor.Id && !client.Member)

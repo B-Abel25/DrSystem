@@ -80,7 +80,7 @@ namespace DoctorSystem.Controllers
             client.Name = registerDto.Name;
             client.MedNumber = registerDto.MedNumber;
             client.Email = registerDto.Email;
-            client.PhoneNumber = registerDto.PhoneNumber;
+            client.PhoneNumber = "+36" + registerDto.PhoneNumber;
             HMACSHA512 hmac = new HMACSHA512();
             client.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
             client.PasswordSalt = hmac.Key;
