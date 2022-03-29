@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+    web:
+        container_name: drsystem-be
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "5001:80"
+        depends_on:
+            - postgres
+    postgres:
+        image: postgres
+        # build:
+        #     context: .
+        #     dockerfile: postgres.Dockerfile
+        # env_file:
+        #     - database.env # configure postgres
+        volumes:
+            # - ./scripts:/docker-entrypoint-initdb.d
+            - ./sc-testdb-1:/var/lib/postgresql/data/ # persist data even if container shuts down
+            # - ./source/scripts/schema-postgres.sql:/docker-entrypoint-initdb.d/1.sql
+            # - ./scripts/schema-postgres.sh:/docker-entrypoint-initdb.d/initdb.sh
+            # - ./scripts/schema-postgres.sql:/docker-entrypoint-initdb.d/schema-postgres.sql
+
+
+
+        # image: mysql
+        # command: --default-authentication-plugin=mysql_native_password
+        environment:
+            POSTGRES_HOST_AUTH_METHOD: trust
+            POSTGRES_PASSWORD: toor
+            POSTGRES_USER: root
+            POSTGRES_DB: doctorsystem
+
+        ports:
+            - "5432:5432"
+volumes:
+    sc-testdb-1: 
+#     scripts: 

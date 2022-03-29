@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  angular-frontend:
+    container_name: drsystem-fe
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '4200:80'
+    volumes:
+      - '.:/DrSystemapp'
+      - '/DrSystemapp/node_modules'
+    # environment:
+    #   - NODE_ENV=production

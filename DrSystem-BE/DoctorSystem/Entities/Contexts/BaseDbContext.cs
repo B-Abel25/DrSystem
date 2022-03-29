@@ -28,9 +28,6 @@ namespace DoctorSystem.Entities.Contexts
         public virtual DbSet<OfficeHours> _officehours { get; set; }
         public virtual DbSet<Appointment> _appointments { get; set; }
 
-
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //string posgresConnectionStr = _configuration.GetConnectionString("PostGresConnection");
@@ -77,35 +74,19 @@ namespace DoctorSystem.Entities.Contexts
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-           
-/*
-            // Add the shadow property to the model
-            modelBuilder.Entity<City>()
-                .Property<string>("CountyFK");
-*/
-            // Use the shadow property as a foreign key
             modelBuilder.Entity<City>()
                 .HasOne(ci => ci.County)
                 .WithMany(co => co.Cities)
                 .HasForeignKey(ci => ci.CountyId);
-            
-/*
-            // Add the shadow property to the model
-            modelBuilder.Entity<Place>()
-                .Property<string>("CityFK");
-*/ 
-            // Use the shadow property as a foreign key
+
             modelBuilder.Entity<Place>()
                 .HasOne(p => p.City)
                 .WithMany(ci => ci.Places)
                 .HasForeignKey(p => p.CityId);
 
-
             modelBuilder.Entity<Message>()
                 .HasOne(x => x.Reciever)
                 .WithMany(u => u.MessagesRecieved);
-
 
             modelBuilder.Entity<Message>()
                 .HasOne(x => x.Sender)

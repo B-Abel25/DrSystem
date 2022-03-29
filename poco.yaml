@@ -1,0 +1,11 @@
+version: "2.0"
+maintainer: "operation@shiwaforce.com"
+
+plan:
+  default:
+    - ./DrSystem-BE/docker-compose.yaml
+    - ./DrSystem-FE/DrSystemapp/docker-compose-all.yaml
+  account-module:
+    - ./DrSystem-BE/docker-compose.yaml
+  angular-frontent:
+    - ./DrSystem-FE/DrSystemapp/docker-compose.yaml
