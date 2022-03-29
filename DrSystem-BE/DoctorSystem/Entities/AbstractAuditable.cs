@@ -12,8 +12,10 @@ namespace DoctorSystem
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime CreateDate { get; set; } = DateTime.UtcNow;
 
-        // TODO https://stackoverflow.com/questions/37285948/how-to-set-created-date-and-modified-date-to-enitites-in-db-first-approach/47980095
+        /*// TODO https://stackoverflow.com/questions/37285948/how-to-set-created-date-and-modified-date-to-enitites-in-db-first-approach/47980095
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime ModifyDate { get; set; }
+        public DateTime ModifyDate { get; set; } = DateTime.UtcNow;
+ 
+        */
     }
 }
