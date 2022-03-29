@@ -73,16 +73,18 @@ export class AppointmentListComponent implements OnInit {
       
       };
      
+      
+     console.log(this.start);
+      console.log(this.actualAppointment);
+      $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
+      $('.eventstarttitle').text(this.actualAppointment.start);
+
       this.deleteEventForm = this.formBuilder.group({
      
 
         Start:new FormControl(this.start),
        
       });
-     console.log(this.start);
-      console.log(this.actualAppointment);
-      $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
-      $('.eventstarttitle').text(this.actualAppointment.start);
     },
      titleFormat: { // will produce something like "Tuesday, September 18, 2018"
       month: 'long',

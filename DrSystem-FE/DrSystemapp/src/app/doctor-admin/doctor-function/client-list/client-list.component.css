@@ -15,7 +15,7 @@
 }
 table{
   text-align: center;
-  min-width: 100vh;
+  width: 100vh;
   padding-left: 100vh;
   
 }
@@ -23,9 +23,7 @@ table{
  float: center;
  margin: 6px;
 }
-.my-pagination /deep/ .ngx-pagination .current {
-  background: rgb(3, 20, 53);
-}
+
 .mb-8{
   float:center;
   padding-left:10px;
@@ -42,7 +40,6 @@ input.form-control,input.form-control:focus{
 input.form-control:focus{
   box-shadow: none;
 }
-
 
 
 
@@ -85,7 +82,7 @@ p{
 
 
 table { 
-  width: 100%; 
+  width: 100%;
   border-collapse: collapse; 
   height: 100%; 
   -webkit-border-radius: 10px 10px 10px 10px;
@@ -105,13 +102,27 @@ table {
    
 .content {
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  vertical-align: middle; 
-  min-height:100vh;
+  background-repeat:no-repeat;
+  background-size:auto;
+  vertical-align:super; 
+  height: 100vh;
+  background-attachment: fixed; 
+  
   
 ;}
   .content .overlay {
     background-color: rgba(131, 159, 224, 0.97);
 }
+
+.scrollIt{
+  border:1px solid rgb(0,0,0,0.1);
+  max-height: 500px !important;
+  overflow: scroll !important;
+  overflow-x: hidden !important;
+ position: relative;
+}
+
+
+
+
 

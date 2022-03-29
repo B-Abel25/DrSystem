@@ -19,7 +19,7 @@ export class ClientDataComponent implements OnInit {
     private appointmentService: AppointmentService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadClientData();
   }
   loadClientData() {
@@ -27,13 +27,13 @@ export class ClientDataComponent implements OnInit {
       .getClientData(this.route.snapshot.paramMap.get('medNumber'))
       .subscribe((gotClient) => {
         this.client = gotClient;
-        this.loadClientApointments();
+        this.loadClientAppointments();
       });
   }
 
-  loadClientApointments() {
+  loadClientAppointments() {
     this.appointmentService
-      .getOneClientAppointments(this.client.medNumber)
+      .getOneClientAppointments(this.route.snapshot.paramMap.get('medNumber'))
       .subscribe((clientOneAppointments) => {
         this.clientAppointment = clientOneAppointments;
       });
