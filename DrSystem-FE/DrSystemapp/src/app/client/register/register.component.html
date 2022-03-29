@@ -3,39 +3,39 @@
    ">
    
 <div class="overlay"></div>
-<app-navbar></app-navbar>  
-
+ 
+<app-navbar></app-navbar> 
 
     <div class="container">
-
-        <div class="wrapped-div">
-
-            <div class="row">
+        
+        <div class="wrapped-div ">
+            <H1 style="text-align: center; text-transform: uppercase;">Regisztráció</H1>
+            <div class="row ">
                 <div class="col-md-10 offset-md-1 ">
 
-
-                    <form class="row g-3 " [formGroup]="registerForm" autocomplete="off"
+                  
+                    <form class="row g-3 scrollIt" [formGroup]="registerForm" autocomplete="off"
                         (ngSubmit)="registerForm.valid && register()" novalidate>
-
+                        
                         <div class="col-md-6 form-group has-validation required">
-                            <label class="form-label fa fa-user-circle-o"> Teljes Név</label>
+                            <label class="form-label "> Teljes név</label>
 
-                            <input
+                            <input placeholder="Teljes név"
                                 [class.is-invalid]='registerForm.get("name").errors && registerForm.get("name").touched'
                                 type="text" class="form-control" formControlName="name" required>
                             <div *ngIf="registerForm.get('name').hasError('required')" class="invalid-feedback">
-                                Adja meg a teljes nevét!
+                                Kérem adja meg teljes nevét!
                             </div>
 
                         </div>
                         <div class="col-md-6 form-group has-validation required">
                             <label class="form-label">Anyja lánykori neve</label>
 
-                            <input
+                            <input placeholder="Anyja lánykori neve"
                                 [class.is-invalid]='registerForm.get("motherName").errors && registerForm.get("motherName").touched'
                                 type="text" class="form-control" formControlName="motherName" required>
                             <div *ngIf="registerForm.get('motherName').hasError('required')" class="invalid-feedback">
-                                Adja meg a anyja lánykori nevét!
+                               Kérem adja meg anyja lánykori nevét!
                             </div>
 
                         </div>
@@ -45,12 +45,14 @@
                             <input
                             [class.is-invalid]='registerForm.get("birthPlace").errors && registerForm.get("birthPlace").touched'
                             class="form-control" list="data" formControlName="birthPlace"
-                            id="exampleData" placeholder="Születési hely..." required>
+                            id="exampleData" placeholder="Születési hely" required>
                         <datalist  id="data">
                             <option *ngFor="let place of placesString">{{place}}
                             </option>
                         </datalist>
-
+                        <div *ngIf="registerForm.get('birthPlace').hasError('required')" class="invalid-feedback">
+                            Kérem adja meg születési helyét!
+                        </div>
                         </div>
                         <div class="col-md-6 form-group has-validation required">
                             <label class="form-label">Születési idő</label>
@@ -58,29 +60,29 @@
                                 [class.is-invalid]='registerForm.get("birthDate").errors && registerForm.get("birthDate").touched'
                                 class="form-control " formControlName="birthDate" required>
                             <div *ngIf="registerForm.get('birthDate').hasError('required')" class="invalid-feedback">
-                                Adja meg a születési idejét!
+                                Kérem adja meg születési idejét!
                             </div>
                         </div>
 
                         <div class="col-md-3 form-group required">
                             <label class="form-label required">Irányítószám</label>
-                            <input type="number" class="form-control"
+                            <input type="number" class="form-control" placeholder="Irányítószám"
                                 [class.is-invalid]='registerForm.get("postCode").errors && registerForm.get("postCode").touched'
                                 class="form-control " formControlName="postCode" required>
 
                             <div *ngIf="registerForm.get('postCode').hasError('required')" class="invalid-feedback">
-                                Adja meg az irányítószámát!
+                                Kérem adja meg irányítószámát!
                             </div>
                         </div>
 
                         <div class="col-md-3 form-group required">
                             <label class="form-label required">Város</label>
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control" placeholder="Város"
                                 [class.is-invalid]='registerForm.get("city").errors && registerForm.get("city").touched'
                                 class="form-control " formControlName="city" required>
 
                             <div *ngIf="registerForm.get('city').hasError('required')" class="invalid-feedback">
-                                Adja meg a városát!
+                                Kérem adja meg városát!
                             </div>
                         </div>
 
@@ -88,56 +90,56 @@
                             <label class="form-label">Utca</label>
                             <input type="text"
                                 [class.is-invalid]='registerForm.get("street").errors && registerForm.get("street").touched'
-                                class="form-control " formControlName="street" required>
+                                class="form-control " formControlName="street" required placeholder="Utca">
                             <div *ngIf="registerForm.get('street').hasError('required')" class="invalid-feedback">
-                                Adja meg az utcát!
+                               Kérem adja meg az utcát!
                             </div>
                         </div>
 
                         <div class="col-md-3 form-group required">
                             <label class="form-label">Házszám</label>
-                            <input type="text"
+                            <input type="text" placeholder="Házszám"
                                 [class.is-invalid]='registerForm.get("houseNumber").errors && registerForm.get("houseNumber").touched'
                                 class="form-control " formControlName="houseNumber" required>
                             <div *ngIf="registerForm.get('houseNumber').hasError('required')" class="invalid-feedback">
-                                Adja meg a házszámát!
+                                Kérem adja meg házszámát!
                             </div>
                         </div>
 
                         <div class="col-md-6 form-group required">
-                            <label class="form-label fa fa-envelope"> Email cím</label>
+                            <label class="form-label"> Email cím</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text">@</span>
-                                <input type="email"
+                                <input type="email" placeholder="pl: nev@pelda.com"
                                     [class.is-invalid]='registerForm.get("email").errors && registerForm.get("email").touched'
                                     class="form-control " formControlName="email" required>
                                 <div *ngIf="registerForm.get('email').hasError('required')" class="invalid-feedback">
-                                    Adja meg az email címét!
+                                    Kérem adja meg email címét!
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-6 form-group required">
-                            <label class="form-label fa fa-mobile"> Telefonszám</label>
+                            <label class="form-label "> Telefonszám</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend3">+36</span>
-                                <input type="tel"
+                                <input type="tel" placeholder="Telefonszám"
                                     [class.is-invalid]='registerForm.get("phoneNumber").errors && registerForm.get("phoneNumber").touched'
                                     class="form-control " formControlName="phoneNumber" required>
                                 <div *ngIf="registerForm.get('phoneNumber').hasError('required')"
                                     class="invalid-feedback">
-                                    Adja meg a telefonszámát!
+                                    Kérem adja meg telefonszámát!
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-4 form-group required">
                             <label class="form-label">TAJ szám</label>
-                            <input
+                            <input placeholder="TAJ szám"
                                 [class.is-invalid]='registerForm.get("medNumber").errors && registerForm.get("medNumber").touched'
                                 type="text" class="form-control" formControlName="medNumber" required>
                             <div *ngIf="registerForm.get('medNumber').hasError('required')" class="invalid-feedback">
-                                Kérem a TAJ számát!
+                                Kérem adja meg TAJ számát!
                             </div>
                         </div>
 
@@ -147,7 +149,7 @@
 
                             <div class="input-group has-validation">
 
-                                <input
+                                <input placeholder="********"
                                     [class.is-invalid]='registerForm.get("password").errors && registerForm.get("password").touched'
                                     [type]="fieldTextType ? 'text' : 'password'" class="form-control"
                                     formControlName="password" required>
@@ -158,7 +160,7 @@
                                         }"></i>
                                 </span>
                                 <div *ngIf="registerForm.get('password').hasError('required')" class="invalid-feedback">
-                                    Adja meg a jelszavát!
+                                    Jelszó kötelező!
                                 </div>
                                 <div *ngIf="registerForm.get('password').hasError('minlength')"
                                     class="invalid-feedback">
@@ -174,7 +176,7 @@
                         <div class="col-md-4 form-group required">
                             <label class="form-label "> Jelszó megerősítés</label>
                             <div class="input-group has-validation">
-                                <input
+                                <input placeholder="********"
                                     [class.is-invalid]='registerForm.get("confirmPassword").errors && registerForm.get("confirmPassword").touched'
                                     [type]="fieldTextType ? 'text' : 'password'" class="form-control"
                                     formControlName="confirmPassword" required>
@@ -186,7 +188,7 @@
                                 </span>
                                 <div *ngIf="registerForm.get('confirmPassword').hasError('required')"
                                     class="invalid-feedback">
-                                    Adja meg a jelszó megerősítését!
+                                 Jelszó megerősítése kötelező!
                                 </div>
                                 <div *ngIf="registerForm.get('confirmPassword').hasError('isMatching')"
                                     class="invalid-feedback">
@@ -200,14 +202,14 @@
                             <input
                                 [class.is-invalid]='registerForm.get("doctor").errors && registerForm.get("doctor").touched'
                                 class="form-control" list="datalistOptions" formControlName="doctor"
-                                id="exampleDataList" placeholder="Doktor keresése..." required>
+                                id="exampleDataList" placeholder="Orvos keresése" required>
                             <datalist id="datalistOptions">
                                 <option *ngFor="let doctor of doctors">{{doctor.name}} - {{doctor.place.postCode}}
                                 </option>
                             </datalist>
 
                             <div *ngIf="registerForm.get('doctor').hasError('required')" class="invalid-feedback">
-                                Adja meg az orvosát!
+                                Kérem adja meg választott orvosát!
                             </div>
 
                         </div>
@@ -217,8 +219,8 @@
                                 <input class="form-check-input is-invalid" type="checkbox"
                                     [class.is-invalid]='registerForm.get("acceptTerms").errors && registerForm.get("acceptTerms").touched'
                                     formControlName="acceptTerms" required>
-                                <label class="form-check-label" for="invalidCheck3">Tudomásul veszem és elfogadom az
-                                    <a routerLink="/privacy-policy">adatvédelmi szabályzatot és feltételeket</a></label>
+                                <label class="form-check-label" >Tudomásul veszem és elfogadom az
+                                    <a routerLink="/privacy-policy"> adatvédelmi szabályzatot és feltételeket!</a></label>
                                 <div *ngIf="registerForm.get('acceptTerms').hasError('required')"
                                     class="invalid-feedback">
                                     A regisztráció előtt el kell fogadnia!
@@ -231,6 +233,7 @@
                                 <button [disabled]="!registerForm.valid" class="w-100 btn btn-lg btn-primary"
                                     type="submit">Regisztráció</button>
                             </div>
+                            <br>
                         </div>
 
                     </form>

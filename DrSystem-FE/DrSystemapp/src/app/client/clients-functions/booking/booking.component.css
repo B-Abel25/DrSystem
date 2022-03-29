@@ -16,22 +16,23 @@
     height:100vh;
     overflow-y:hidden;
     
-;}
-    .content .overlay {
+}
+
+.content .overlay {
       background-color: rgba(97, 136, 228, 0.97);
       height: 100vh;
-  }
+}
 
-
-
-  .fc .fc-col-header-cell-cushion {
+.fc .fc-col-header-cell-cushion {
     display: inline-block;
     padding: 2px 4px;
-  }
-  .container{
-    background-color: aliceblue;
-  }
-.calendar{
-  background-color: aqua;
 }
+
+.container{
+    background-color: aliceblue;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    padding-bottom: 10px;
+}
+
  

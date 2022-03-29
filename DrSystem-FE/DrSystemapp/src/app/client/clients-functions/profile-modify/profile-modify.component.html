@@ -11,29 +11,29 @@
                 <div class="col-md-10 offset-md-1 ">
 
 
-                    <form class="row g-3 " [formGroup]="profileModifyForm" autocomplete="off"
+                    <form class="row g-3 scrollIt" [formGroup]="profileModifyForm" autocomplete="off"
                         (ngSubmit)="profileModifyForm.valid && profileModify()" novalidate>
 
                         <div class="col-md-6 form-group has-validation required">
-                            <label class="form-label fa fa-user-circle-o"> Teljes Név</label>
+                            <label class="form-label"> Teljes Név</label>
 
-                            <input
+                            <input placeholder="Teljes név"
                                 [class.is-invalid]='profileModifyForm.get("name").errors && profileModifyForm.get("name").touched'
                                 type="text" class="form-control" formControlName="name" required>
                             <div *ngIf="profileModifyForm.get('name').hasError('required')" class="invalid-feedback">
-                                Adja meg a teljes nevét!
+                                Kérem adja meg teljes nevét!
                             </div>
 
                         </div>
                         <div class="col-md-6 form-group has-validation required">
                             <label class="form-label">Anyja lánykori neve</label>
 
-                            <input
+                            <input placeholder="Anyja lánykori neve"
                                 [class.is-invalid]='profileModifyForm.get("motherName").errors && profileModifyForm.get("motherName").touched'
                                 type="text" class="form-control" formControlName="motherName" required>
                             <div *ngIf="profileModifyForm.get('motherName').hasError('required')"
                                 class="invalid-feedback">
-                                Adja meg az anyja lánykori nevét!
+                              Kérem adja meg anyja lánykori nevét!
                             </div>
 
                         </div>
@@ -42,7 +42,7 @@
                             <input
                                 [class.is-invalid]='profileModifyForm.get("birthPlace").errors && profileModifyForm.get("birthPlace").touched'
                                 class="form-control" list="datalistOptions" formControlName="birthPlace"
-                                id="exampleDataList" placeholder="Születési hely..." required>
+                                id="exampleDataList" placeholder="Születési hely" required>
                             <datalist id="datalistOptions">
                                 <option *ngFor="let place of placesString">{{place}}
                                 </option>
@@ -50,7 +50,7 @@
 
                             <div *ngIf="profileModifyForm.get('birthPlace').hasError('required')"
                                 class="invalid-feedback">
-                                Adja meg a születési helyét!
+                               Kérem adja meg születési helyét!
                             </div>
 
 
@@ -62,90 +62,90 @@
                                 class="form-control " formControlName="birthDate" required>
                             <div *ngIf="profileModifyForm.get('birthDate').hasError('required')"
                                 class="invalid-feedback">
-                                Adja meg a születési idejét!
+                                Kérem adja meg születési idejét!
                             </div>
                         </div>
 
                         <div class="col-md-3 form-group required">
                             <label class="form-label required">Irányítószám</label>
-                            <input type="number" class="form-control"
+                            <input type="number" class="form-control" placeholder="Irányítószám"
                                 [class.is-invalid]='profileModifyForm.get("postCode").errors && profileModifyForm.get("postCode").touched'
                                 class="form-control " formControlName="postCode" required>
 
                             <div *ngIf="profileModifyForm.get('postCode').hasError('required')"
                                 class="invalid-feedback">
-                                Adja meg az irányítószámát!
+                               Kérem adja meg irányítószámát!
                             </div>
                         </div>
 
                         <div class="col-md-3 form-group required">
                             <label class="form-label required">Város</label>
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control" placeholder="Város"
                                 [class.is-invalid]='profileModifyForm.get("city").errors && profileModifyForm.get("city").touched'
                                 class="form-control " formControlName="city" required>
 
                             <div *ngIf="profileModifyForm.get('city').hasError('required')" class="invalid-feedback">
-                                Adja meg a városát!
+                                Kérem adja meg városát!
                             </div>
                         </div>
 
                         <div class="col-md-3 form-group required">
                             <label class="form-label">Utca</label>
-                            <input type="text"
+                            <input type="text" placeholder="Utca"
                                 [class.is-invalid]='profileModifyForm.get("street").errors && profileModifyForm.get("street").touched'
                                 class="form-control " formControlName="street" required>
                             <div *ngIf="profileModifyForm.get('street').hasError('required')" class="invalid-feedback">
-                                Adja meg az utcát!
+                                Kérem adja meg az utcát!
                             </div>
                         </div>
 
                         <div class="col-md-3 form-group required">
                             <label class="form-label">Házszám</label>
-                            <input type="text"
+                            <input type="text" placeholder="Házszám"
                                 [class.is-invalid]='profileModifyForm.get("houseNumber").errors && profileModifyForm.get("houseNumber").touched'
                                 class="form-control " formControlName="houseNumber" required>
                             <div *ngIf="profileModifyForm.get('houseNumber').hasError('required')"
                                 class="invalid-feedback">
-                                Adja meg a házszámát!
+                                Kérem adja meg házszámát!
                             </div>
                         </div>
 
                         <div class="col-md-6 form-group required">
-                            <label class="form-label fa fa-envelope"> Email cím</label>
+                            <label class="form-label "> Email cím</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text">@</span>
-                                <input type="email"
+                                <input type="email" placeholder="pl: nev@pelda.com"
                                     [class.is-invalid]='profileModifyForm.get("email").errors && profileModifyForm.get("email").touched'
                                     class="form-control " formControlName="email" required>
                                 <div *ngIf="profileModifyForm.get('email').hasError('required')"
                                     class="invalid-feedback">
-                                    Adja meg az email címét!
+                                    Kérem adja meg email címét!
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-6 form-group required">
-                            <label class="form-label fa fa-mobile"> Telefonszám</label>
+                            <label class="form-label "> Telefonszám</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend3">+36</span>
-                                <input type="tel"
+                                <input type="tel" placeholder="Telefonszám"
                                     [class.is-invalid]='profileModifyForm.get("phoneNumber").errors && profileModifyForm.get("phoneNumber").touched'
                                     class="form-control " formControlName="phoneNumber" required>
                                 <div *ngIf="profileModifyForm.get('phoneNumber').hasError('required')"
                                     class="invalid-feedback">
-                                    Adja meg a telefonszámát!
+                                    Kérem adja meg a telefonszámát!
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-4 form-group required">
                             <label class="form-label">TAJ szám</label>
-                            <input
+                            <input placeholder="TAJ szám"
                                 [class.is-invalid]='profileModifyForm.get("medNumber").errors && profileModifyForm.get("medNumber").touched'
                                 type="text" class="form-control" formControlName="medNumber" required>
                             <div *ngIf="profileModifyForm.get('medNumber').hasError('required')"
                                 class="invalid-feedback">
-                                Kérem a TAJ számát!
+                                Kérem adja meg TAJ számát!
                             </div>
                         </div>
 
@@ -157,7 +157,7 @@
 
                                 <input [class.is-invalid]='profileModifyForm.get("password").errors'
                                     [type]="fieldTextType ? 'text' : 'password'" class="form-control"
-                                    formControlName="password">
+                                    formControlName="password" placeholder="********">
                                 <span class="input-group-text" (click)="toggleFieldTextType()">
                                     <i class="fa" [ngClass]="{
                                           'fa-eye-slash': !fieldTextType,
@@ -184,7 +184,7 @@
                             <div class="input-group has-validation">
                                 <input [class.is-invalid]='profileModifyForm.get("confirmPassword").errors'
                                     [type]="fieldTextType ? 'text' : 'password'" class="form-control"
-                                    formControlName="confirmPassword">
+                                    formControlName="confirmPassword" placeholder="********">
                                 <span class="input-group-text" (click)="toggleFieldTextType()">
                                     <i class="fa" [ngClass]="{
                                       'fa-eye-slash': !fieldTextType,
@@ -193,7 +193,7 @@
                                 </span>
                                 <div *ngIf="profileModifyForm.get('confirmPassword').hasError('required')"
                                     class="invalid-feedback">
-                                    Adja meg a jelszó megerősítését!
+                                    Jelszó megerősítése közelező!
                                 </div>
                                 <div *ngIf="profileModifyForm.get('confirmPassword').hasError('isMatching')"
                                     class="invalid-feedback">
@@ -214,8 +214,8 @@
                         </div>
 
                     </form>
-                    <p> {{profileModifyForm.value | json}}</p>
-                    <br>
+                   
+                    
 
 
 

@@ -1,9 +1,9 @@
 .card{
     border:none;
-    background-color: rgb(232, 241, 248);
+    background-color: rgb(188, 226, 255);
     }
 .card-body{
-overflow:scroll;
+overflow-y:scroll;
  height: 60vh; 
 
 }
