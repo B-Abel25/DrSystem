@@ -45,9 +45,9 @@ export class AppointmentService {
     return this.http.get<Appointment[]>(this.baseUrl + 'private/client/get/appointments');
   }
 
-  deleteAppointmentClient() {
+  deleteAppointmentClient(model:any) {
 
-    return this.http.delete(this.baseUrl + 'private/client/delete/appointment').subscribe({
+    return this.http.delete(this.baseUrl + 'private/client/delete/appointment', model).subscribe({
       next: data => {
         console.log(data)
       },
@@ -59,9 +59,9 @@ export class AppointmentService {
 
   }
 
-  deleteAppointmentDoctor() {
+  deleteAppointmentDoctor(model:any) {
 
-    return this.http.delete(this.baseUrl + 'private/doctor/delete/appointment').subscribe({
+    return this.http.delete(this.baseUrl + 'private/doctor/delete/appointment',model).subscribe({
       next: data => {
         console.log(data)
       },

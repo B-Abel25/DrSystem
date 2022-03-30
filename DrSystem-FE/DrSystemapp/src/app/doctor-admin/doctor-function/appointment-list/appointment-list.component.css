@@ -40,4 +40,7 @@
   .titleFormat{
       width: 100%;
   }
+  .btn {
+    justify-content: left;
+  }
   

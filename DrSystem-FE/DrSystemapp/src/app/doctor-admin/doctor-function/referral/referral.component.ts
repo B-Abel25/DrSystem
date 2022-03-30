@@ -6,6 +6,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Client } from 'src/app/_models/client';
 import { Doctor } from 'src/app/_models/doctor';
@@ -21,15 +22,17 @@ export class ReferralComponent implements OnInit {
   modalRef!: BsModalRef;
   referralForm: FormGroup;
   doctors: Doctor[];
-  client: Client;
+  client: Client[];
   constructor(
     private modalService: BsModalService,
     private fb: FormBuilder,
-    private doctorService: DoctorService
+    private doctorService: DoctorService,
+    private route : ActivatedRoute,
   ) {}
 
   ngOnInit() {
     this.initializationForm();
+    this.loadDoctorClients();
   }
   openModal(template: TemplateRef<any>) {
     this.ReferralOpenedEvent.emit();
@@ -39,7 +42,7 @@ export class ReferralComponent implements OnInit {
   initializationForm() {
     this.referralForm = this.fb.group({
       userNumber: [
-        '',
+        ,
         [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')],
       ],
       Doctor: ['', [Validators.required]],
@@ -72,6 +75,14 @@ export class ReferralComponent implements OnInit {
   loadDoctors() {
     this.doctorService.getDoctors().subscribe((doctors) => {
       this.doctors = doctors.sort((one, two) => (one.name < two.name ? -1 : 1));
+    });
+  }
+
+  loadDoctorClients() {
+    this.doctorService.getDoctorClients().subscribe((clientGet) => {
+     console.log(this.route.snapshot.paramMap.get('medNumber'));
+      
+      
     });
   }
 }

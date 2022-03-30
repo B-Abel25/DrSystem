@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CalendarOptions } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/hu';
+import { ToastrService } from 'ngx-toastr';
 import { Appointment } from 'src/app/_models/appointment';
 import { officeHours } from 'src/app/_models/officeHours';
 import { AppointmentService } from 'src/app/_services/appointment.service';
@@ -37,7 +38,8 @@ export class AppointmentListComponent implements OnInit {
   constructor(
     private appointmentService: AppointmentService,
     private formBuilder: FormBuilder,
-    private officeHoursService: OfficeHoursService
+    private officeHoursService: OfficeHoursService,
+    private toastr:ToastrService,
   ) {}
 
   ngOnInit() {
@@ -211,6 +213,11 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
-
+  deleteAppointment() {
+    console.log(this.addEventForm.value);
+    this.appointmentService.deleteAppointmentDoctor(this.addEventForm.value);
+    
+    this.toastr.error('Sikeresen elutasította a kérelmet!');
+  }
   
 }
