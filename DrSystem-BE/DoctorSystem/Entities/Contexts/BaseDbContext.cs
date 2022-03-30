@@ -30,29 +30,25 @@ namespace DoctorSystem.Entities.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //string posgresConnectionStr = _configuration.GetConnectionString("PostGresConnection");
-            //string mySqlConnectionStr = _configuration.GetConnectionString("LocalConnection");
+           
+            //string mySqlConnectionStr = _configuration.GetConnectionString("RemoteMySqlConnection"); //remote
+            //string mySqlConnectionStr = _configuration.GetConnectionString("LocalMySqlConnection"); //local
             //optionsBuilder.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr), options => options.EnableRetryOnFailure());
 
-            string connStr = _configuration.GetConnectionString("LocalPostgresConnection");
-            /*
+            
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             string connStr;
 
-            // Depending on if in development or production, use either Heroku-provided
-            // connection string, or development connection string from env var.
+
             if (env == "Development")
             {
-                // Use connection string from file.
-                connStr = _configuration.GetConnectionString("PostGresConnection");
+                connStr = _configuration.GetConnectionString("DockerPostGresConnection");
             }
             else
             {
-                // Use connection string provided at runtime by Heroku.
                 var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-                // Parse connection URL to connection string for Npgsql
                 connUrl = connUrl.Replace("postgres://", string.Empty);
                 var pgUserPass = connUrl.Split("@")[0];
                 var pgHostPortDb = connUrl.Split("@")[1];
@@ -65,10 +61,7 @@ namespace DoctorSystem.Entities.Contexts
 
                 connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};SSL Mode=Require;TrustServerCertificate=True";
             }
-
-            // Whether the connection string came from the local development configuration file
-            // or from the environment variable from Heroku, use it to set up your DbContext.
-            */
+            
             optionsBuilder.UseNpgsql(connStr, sqlOptions => sqlOptions.EnableRetryOnFailure());
             
         }
