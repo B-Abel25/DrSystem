@@ -1,9 +1,9 @@
 .card{
     border:none;
-    background-color: rgb(232, 241, 248);
+    background-color: rgb(188, 226, 255);
     }
 .card-body{
-overflow:scroll;
+overflow-y:scroll;
  height: 60vh; 
 
 }
@@ -24,6 +24,7 @@ overflow:scroll;
     background-repeat: no-repeat;
     background-size: cover;
     vertical-align: middle; 
+    align-items: center;
     }
    
   .overlay {
@@ -35,4 +36,7 @@ overflow:scroll;
  }
  .content .overlay {
     background-color: rgba(91, 132, 228, 0.97);
+}
+.padding{
+    padding-bottom: 10px;
 }

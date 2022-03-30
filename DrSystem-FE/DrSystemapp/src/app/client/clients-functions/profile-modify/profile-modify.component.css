@@ -6,30 +6,23 @@ input.form-control:focus {
     border: 1px solid #1950bd;
 }
 
-input.form-control:focus {
-    box-shadow: #041a38;
-}
+
 
 button[type=submit].btn {
+    color: rgb(255, 255, 255);
+    border: 2px solid #2ee4f5;
+    background-color: #80a6f0;
     border-radius: 20px;
-    background-color: #77b6e9;
-    color: rgb(10, 16, 68);
 }
 
-div.form-group label:not(.text-danger) {
-    color: #082042;
-    font-weight: 700;
-}
+
 
 label {
     color: #082042;
     font-weight: 700;
 }
 
-#required {
-    content: '*';
-    color: #fff;
-}
+
 
 div.form-group.required>label:first-child:after {
     content: '*';
@@ -37,22 +30,15 @@ div.form-group.required>label:first-child:after {
     padding-left: 5px;
 }
 
-#toast-container>div {
-    opacity: 1;
-}
+
 
 form {
     margin: 0px 0px ;
 }
 
-div.form-group input.invalid {
-    border: 1px solid #000000;
-}
 
-div.form-group label:first-child {
-    text-transform: none;
-    font-size: 1rem;
-}
+
+
 
 #link {
     text-align: center;
@@ -68,12 +54,13 @@ div.form-group label:first-child {
 .wrapped-div {
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
-    background: #5384e7;
+    background: #4885ff;
   
     
     width: 800px;
     position: absolute;
     padding: 0px;
+    padding-bottom: 10px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
     box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
 }
@@ -90,9 +77,7 @@ input:invalid {
     color: #f9f9fb;
 }
 
-.form-check-label {
-    color: #05051d
-}
+
 
 .col-md-8 {
     align-items: center;
@@ -115,12 +100,24 @@ input:invalid {
     height:100vh;
 ;}
     .content .overlay {
-      background-color: rgba(46, 76, 144, 0.97);
+        background-color: rgba(91, 132, 228, 0.97);
   }
 
 button[type=submit].btn:disabled {
-    border-radius: 20px;
-    background-color: #121518;
     color: rgb(255, 255, 255);
     border: 2px solid #2ee4f5;
+    background-color: #80a6f0;
+    opacity: 30%;
+    border-radius: 20px;
+}
+
+
+@media screen and (max-height: 900px) {
+   
+    .content{
+        overflow: hidden !important;
+    }
+    .wrapped-div{
+        width: 95%;
+    }
 }

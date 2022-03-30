@@ -1,12 +1,6 @@
-html {
-    font-family: 'Montserrat', Arial, sans-serif;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-  }
+
   
-  body {
-    background: #F2F3EB;
-  }
+ 
   
   button {
     overflow: visible;
@@ -34,11 +28,12 @@ html {
   .container {
     border: solid 1px #ffffff;
     -webkit-border-radius: 10px 10px 10px 10px;
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 5px 5px 5px 5px;
    margin-left:60px;
     position: relative;
     background-color: rgba(202, 216, 248, 0.97);
-    
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   }
   
   form {
@@ -57,7 +52,17 @@ html {
   }
   
   
-  
+  div.form-group label:not(.text-danger){
+    color: #082042;
+    font-weight: 900;
+}
+
+div.form-group.required>label:first-child:after{
+    content:'*';
+    color: #fff;
+    padding-left: 5px;
+}
+
   
   
   .email {
@@ -71,7 +76,7 @@ html {
     border: none;
       border: solid 2px #65a7f3;
       -webkit-border-radius: 10px 10px 10px 10px;
-      border-radius: 10px 10px 10px 10px;
+      border-radius: 5px 5px 5px 5px;
       color: #000000;
       font-size: 1.000em;
     font-weight: 400;
@@ -133,7 +138,7 @@ html {
     color: #F2F3EB;
   }
   
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 900px) {
     .container {
       margin: 20px auto;
       width: 95%;
@@ -195,4 +200,8 @@ html {
     .content .overlay {
       background-color: rgba(131, 159, 224, 0.97);
      
+  }
+
+  label{
+    padding-bottom: 10px;
   }

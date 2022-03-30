@@ -8,16 +8,16 @@
     
     <form [formGroup]="sendEmailForm" (ngSubmit)="sendMailSubmit()" id="contact_form">
      
-      <div class="subject">
-        <label for="subject"></label>
-        <input type="text"  placeholder="Tárgy" formControlName="subject" >
+      <div class="form-group required">
+        <label for="subject">Tárgy</label>
+        <input type="text"  formControlName="subject" >
       </div>
-      <div class="message">
-        <label for="message"></label>
+      <div class="form-group required">
+        <label for="message">Üzenet</label>
         <textarea name="message" formControlName="content"  id="message_input" cols="30" rows="5" required></textarea>
       </div>
-      <div style="align-items: right;"><button type="submit" class=" btn btn-lg btn-primary sumbit">Rögzítés</button></div>
-      <p>{{this.sendEmailForm.value | json}}</p>
+      <div style="align-items: right;"><button type="submit" [disabled]="!sendEmailForm.valid" class=" btn btn-lg btn-primary sumbit">Email küldése</button></div>
+    
     </form>
 
 

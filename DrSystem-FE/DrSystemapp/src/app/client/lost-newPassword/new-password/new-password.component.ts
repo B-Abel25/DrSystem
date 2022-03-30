@@ -20,7 +20,7 @@ export class NewPasswordComponent implements OnInit {
   ngOnInit() {
 
     this.initializationForm();
-    /*TODO megnézni esetleg van e szebb megoldás*/
+    
 
 
   }
@@ -41,10 +41,10 @@ export class NewPasswordComponent implements OnInit {
    
     this.accountService.newPassword(this.newPasswordForm.value).subscribe(response => {
       this.router.navigateByUrl('/login');
-
+      this.toatsr.success("Jelszó helyreállítás sikeres volt!")
     }, error => {
 
-      console.log(error)
+      this.toatsr.error(error.error);
 
     })
   }

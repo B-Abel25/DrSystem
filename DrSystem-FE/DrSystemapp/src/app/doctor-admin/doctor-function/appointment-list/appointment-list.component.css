@@ -3,8 +3,12 @@
     height: 100vh;
 }
 .container{
-    background-color: rgba(202, 216, 248, 0.97);
-    height: 800px;
+  
+    background-color: aliceblue;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    padding-bottom: 10px;
+
 }
 .split {
     height: 100%;

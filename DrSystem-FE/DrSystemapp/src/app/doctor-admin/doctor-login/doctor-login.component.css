@@ -7,9 +7,7 @@ input.form-control,input.form-control:focus{
 
 }
 
-input.form-control:focus{
-    box-shadow: none;
-}
+
 
 button[type=submit].btn{
     border-radius: 20px;
@@ -29,9 +27,7 @@ div.form-group.required>label:first-child:after{
     padding-left: 5px;
 }
 
-#toast-container > div {
-    opacity:1;
-}
+
 
 
   form{
@@ -39,10 +35,7 @@ div.form-group.required>label:first-child:after{
   }
 
 
- div.form-group label:first-child{
-    text-transform: uppercase;
-    font-size: 0.9rem;
- }
+ 
  #link{
      
      text-align: center;
@@ -65,7 +58,7 @@ color:#fff
     flex-direction: column; 
     justify-content: center;
    
-    padding: 100px;
+    padding-top: 100px;
   
 }
 
@@ -130,6 +123,18 @@ input:invalid {
     background-color: #80a6f0;
     opacity: 30%;
 }
+@media screen and (max-width: 900px) and (max-height: 900px){
+    .content{
+        overflow: hidden !important;
+        align-items: center;
+        
+    }
+    .wrapped-div{
+        width: 95%;
+    }
+   
+}
+
 
 
 
