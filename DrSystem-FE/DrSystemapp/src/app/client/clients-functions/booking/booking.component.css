@@ -15,7 +15,7 @@
     vertical-align: middle; 
     height:100vh;
     overflow-y:hidden;
-    
+    padding: 50px;
 }
 
 .content .overlay {
@@ -23,10 +23,7 @@
       height: 100vh;
 }
 
-.fc .fc-col-header-cell-cushion {
-    display: inline-block;
-    padding: 2px 4px;
-}
+
 
 .container{
     background-color: aliceblue;

@@ -72,7 +72,7 @@ input.form-control:focus{
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
     overflow: scroll;
-    
+    padding-right: 10px;
   }
   
   .overlay {
@@ -101,9 +101,19 @@ input.form-control:focus{
  .thead{
      position: sticky;
  }
- @media screen and (max-width: 768px) {
+ @media screen and (max-width: 900px) {
     .container {
       
-      width: 80%;
+      width: 95%;
     }
+    table{
+        width: 95%;
+    }
+  }
+
+  .scrollIt{
+    max-height: 450px !important;
+    overflow: scroll;
+    overflow-x: hidden !important;
+    position: relative;
   }
