@@ -121,6 +121,10 @@ h1{
     .wrapped-div{
         width: 95%;
     }
+    #datalistOptions{
+        height:50px ;
+        max-width: 50px;
+    }
 }
 
   .form-check-label{
@@ -136,4 +140,5 @@ a{
 a:hover{
       color:#680808
 }
+
   

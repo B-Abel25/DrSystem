@@ -2,14 +2,13 @@
 <div class="content">
    
 
-    <div class="split left">
-        <div class="centered">
-<full-calendar style="color:rgb(23, 33, 66); padding-top:20px" [options]="calendarOptions" dateClick="dateClick($event)" (click)="eventClick($event.detail)"  >
+    <div class="container">
+<full-calendar style="color:rgb(23, 33, 66); padding-top:20px; height: 500px;" [options]="calendarOptions" dateClick="dateClick($event)" (click)="eventClick($event.detail)"  >
 
 
 </full-calendar>
 </div>
-        </div>
+        
 <div class="modal" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -50,7 +49,7 @@
         </div>
     </div>
 </div>
-</div>
+
 
  <div class="modal" id="myModal2" [style.display]="showModal ? 'true' : 'false'">
     <div class="modal-dialog">
@@ -75,5 +74,6 @@
       </div>
     </div>
   </div> 
+</div>
 
 

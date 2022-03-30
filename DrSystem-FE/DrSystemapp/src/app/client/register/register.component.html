@@ -204,7 +204,7 @@
                                 class="form-control" list="datalistOptions" formControlName="doctor"
                                 id="exampleDataList" placeholder="Orvos keresése" required>
                             <datalist id="datalistOptions">
-                                <option *ngFor="let doctor of doctors">{{doctor.name}} - {{doctor.place.postCode}}
+                                <option id="option" *ngFor="let doctor of doctors">{{doctor.name}} - {{doctor.place.postCode}}
                                 </option>
                             </datalist>
 

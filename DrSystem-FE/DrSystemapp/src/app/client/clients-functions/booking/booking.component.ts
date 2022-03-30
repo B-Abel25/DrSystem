@@ -98,32 +98,7 @@ export class BookingComponent implements OnInit {
     this.loadOfficeHours();
    
     this.loadClientAppointments();
-    this.calendarOptions = {
-      dateClick: this.handleDateClick.bind(this),
-      weekends: false,
-      initialView: 'timeGridWeek',
-      locale: esLocale,
-      timeZone: 'local',
-      slotEventOverlap: false,
-      //eventMinHeight:2,
-      allDaySlot: false,
-      height:500,
-      eventClick: function (arg) {
-        alert(arg.event.title);
-        alert(arg.event.start);
-      },
-     
-      headerToolbar: {},
-
-      validRange: {
-        start: this.myDate,
-      },
-      eventBackgroundColor: '#ffff',
    
-      editable: false,
-      selectable: false,
-      selectMirror: true,
-    };
     
   }
   
@@ -170,12 +145,38 @@ export class BookingComponent implements OnInit {
   loadOfficeHours() {
     
     this.officeHoursService.getOfficeHoursClient().subscribe((officeHoursGet) => {
-    
+      this.calendarOptions = {
+        dateClick: this.handleDateClick.bind(this),
+        weekends: false,
+        initialView: 'timeGridWeek',
+        locale: esLocale,
+        timeZone: 'local',
+        slotEventOverlap: false,
+        //eventMinHeight:2,
+        allDaySlot: false,
+        height:500,
+        eventClick: function (arg) {
+          alert(arg.event.title);
+          alert(arg.event.start);
+        },
+       
+        headerToolbar: {},
+       
+        validRange: {
+          start: this.myDate,
+        },
+        eventBackgroundColor: '#ffff',
+     
+        editable: false,
+        selectable: false,
+        selectMirror: true,
+      };
       this.open=officeHoursGet.sort((one, two) => (one.open < two.open ? -1 : 1))[0].open;
       this.close=officeHoursGet.sort((one, two) => (one.close > two.close ? -1 : 1))[0].close;                    
        console.log(this.open);
-      this.open=this.calendarOptions.slotMinTime.toLocaleString();
-    this.close=this.calendarOptions.slotMinTime.toLocaleString();
+      this.calendarOptions.slotMinTime=this.open+":00";
+    this.calendarOptions.slotMaxTime=this.close+":00";
+   console.log(this.calendarOptions.slotMinTime)
       });
      
   }
