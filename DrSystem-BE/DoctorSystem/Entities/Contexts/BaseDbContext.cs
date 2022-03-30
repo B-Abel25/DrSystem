@@ -34,6 +34,8 @@ namespace DoctorSystem.Entities.Contexts
             //string mySqlConnectionStr = _configuration.GetConnectionString("LocalConnection");
             //optionsBuilder.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr), options => options.EnableRetryOnFailure());
 
+            string connStr = _configuration.GetConnectionString("LocalPostgresConnection");
+            /*
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             string connStr;
@@ -66,7 +68,7 @@ namespace DoctorSystem.Entities.Contexts
 
             // Whether the connection string came from the local development configuration file
             // or from the environment variable from Heroku, use it to set up your DbContext.
-            
+            */
             optionsBuilder.UseNpgsql(connStr, sqlOptions => sqlOptions.EnableRetryOnFailure());
             
         }
