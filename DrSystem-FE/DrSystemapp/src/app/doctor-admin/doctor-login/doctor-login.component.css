@@ -123,14 +123,18 @@ input:invalid {
     background-color: #80a6f0;
     opacity: 30%;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 900px) and (max-height: 900px){
     .content{
         overflow: hidden !important;
+        align-items: center;
+        
     }
     .wrapped-div{
         width: 95%;
     }
+   
 }
+
 
 
 
