@@ -27,16 +27,14 @@ export class DoctorClientMessagingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.client = JSON.parse(localStorage.getItem('clients')).find(
-      (item) => item.medNumber === this.route.snapshot.paramMap.get('medNumber')
-    );
+   
     this.loadMessages();
     
   }
 
   loadMessages() {
     this.messageService
-      .getMessageThreadDoctor(this.client.medNumber)
+      .getMessageThreadDoctor(this.route.snapshot.paramMap.get('medNumber'))
       .subscribe((messages) => {
         this.messages = messages;
       });
@@ -45,8 +43,9 @@ export class DoctorClientMessagingComponent implements OnInit {
   sendMessage() {
     
     this.messageService
-      .sendMessageDoctor(this.client.medNumber, this.messageContent)
+      .sendMessageDoctor(this.route.snapshot.paramMap.get('medNumber'), this.messageContent)
       .subscribe((messages) => {
+        
         this.messages.push(messages);
         error=>{
           this.toastr.error(error.error);

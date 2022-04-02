@@ -8,6 +8,7 @@
 }
 .content{
     background-color: rgba(131, 159, 224, 0.97);
+    height: 100vh;
 }
 
 .card{
@@ -27,4 +28,42 @@
         margin-bottom: 10px;
         padding-bottom: 10px;
         border-bottom: 1px dotted #fff;
+    }
+
+    .card2{
+        background-color: blue;
+    }
+     .split {
+        height: 100%;
+       
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        overflow-x: hidden;
+        padding-top: 20px;
+      }
+      
+      .left {
+        left: 0;
+        
+      }
+      
+      .right {
+        right: 0;
+       
+      } 
+      
+       .centered {
+        align-items: center;
+        
+        
+        text-align: center;
+      } 
+      .container{
+  
+        align-items: center;
+        padding-top: 100px;
+        justify-content: center;
+       
+      
     }

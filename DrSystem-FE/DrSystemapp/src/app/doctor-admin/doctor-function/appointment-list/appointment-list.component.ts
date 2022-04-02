@@ -73,16 +73,13 @@ export class AppointmentListComponent implements OnInit {
       
       };
      
-      this.deleteEventForm = this.formBuilder.group({
-     
-
-        Start:new FormControl(this.start),
-       
-      });
+      
      console.log(this.start);
       console.log(this.actualAppointment);
       $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
       $('.eventstarttitle').text(this.actualAppointment.start);
+
+     
     },
      titleFormat: { // will produce something like "Tuesday, September 18, 2018"
       month: 'long',
@@ -92,19 +89,7 @@ export class AppointmentListComponent implements OnInit {
     },
       
      hiddenDays:[2],
-      events: [
-        {
-          title: '',
-          start: '2022-03-21T10:00:00+01:00',
-          end: '2022-03-21T10:10:00+01:00',
-          color: 'red',
-        },
-        {
-          title: 'event 2',
-          date: '2022-03-21T11:00:00+01:00-11:10:00+01:00',
-          color: 'yellow',
-        },
-      ],
+     
       themeSystem: 'bootstrap5',
 
       editable: false,
