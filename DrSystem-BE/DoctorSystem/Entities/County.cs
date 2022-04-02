@@ -11,11 +11,9 @@ namespace DoctorSystem.Entities
     public class County : AbstractIdentifiable
     {
         [MySqlCollation("utf8_hungarian_ci")]
-        [Column("Name",TypeName = "varchar")]
-        [StringLength(22)]
+        [Column("Name",TypeName = "varchar(22)")]
+        [Required]
         public string Name { get; set; }
-
-        [JsonIgnore]
         public ICollection<City> Cities { get; set; }
     }
 }

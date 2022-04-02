@@ -36,5 +36,5 @@ services:
         ports:
             - "5432:5432"
 volumes:
-    sc-testdb-1: 
+    drsys-testdb: 
 #     scripts: 
