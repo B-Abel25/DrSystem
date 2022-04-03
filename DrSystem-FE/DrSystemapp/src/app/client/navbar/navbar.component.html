@@ -16,7 +16,11 @@
 		
 		<div  class="collapse navbar-collapse" id="navbarSupportedContent" >
 			<ul class="navbar-nav"  *ngIf="!(accountService.currentClient$ | async)">
-			
+				<li class="nav-item ">
+					<a class="nav-link"  [routerLink]="['']" routerLinkActive="active">
+					Főoldal
+					</a>
+					</li>
 							<li class="nav-item ">
 								<a class="nav-link"  [routerLink]="['/login']" routerLinkActive="active">
 								Bejelentkezés

@@ -111,6 +111,9 @@ h1{
     .content{
         overflow: hidden !important;
     }
+    .form{
+        height: 400px;
+    }
 }
 
 @media screen and (max-height: 900px) {

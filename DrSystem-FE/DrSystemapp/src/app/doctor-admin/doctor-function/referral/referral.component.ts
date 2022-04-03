@@ -32,7 +32,7 @@ export class ReferralComponent implements OnInit {
 
   ngOnInit() {
     this.initializationForm();
-    this.loadDoctorClients();
+    
   }
   openModal(template: TemplateRef<any>) {
     this.ReferralOpenedEvent.emit();
@@ -42,7 +42,7 @@ export class ReferralComponent implements OnInit {
   initializationForm() {
     this.referralForm = this.fb.group({
       userNumber: [
-        ,
+       ,
         [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')],
       ],
       Doctor: ['', [Validators.required]],

@@ -36,7 +36,7 @@ export class ClientListComponent implements OnInit {
   page: number = 1;
   name: any;
   ngOnInit() {
-    this.loadDoctorClients();
+   this.loadDoctorClients();
   }
 
   loadDoctorClients() {
@@ -64,7 +64,9 @@ export class ClientListComponent implements OnInit {
     if (this.modalRef != null) {
       this.modalRef.hide();
     }
+  
     this.modalRef = this.modalService.show(template);
+    
   }
   closeModal() {
     if (this.modalRef != null) {

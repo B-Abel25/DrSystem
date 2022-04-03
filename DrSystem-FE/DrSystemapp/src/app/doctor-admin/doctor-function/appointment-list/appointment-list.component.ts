@@ -74,13 +74,27 @@ export class AppointmentListComponent implements OnInit {
       end:param.event._instance.range.end.toUTCString(),
       
       };
-     
-      
-     console.log(this.start);
+     let time=this.actualAppointment.start.split(' ');
+      if (time[0]=='Wed,') {
+        time[0]='Szerda';
+      }
+      if (time[0]=='Tue,') {
+        time[0]='Kedd';
+      }
+      if (time[0]=='Mon,') {
+        time[0]='Hétfő';
+      }
+      if (time[0]=='Thu,') {
+        time[0]='Csütörtök';
+      }
+      if (time[0]=='Fri,') {
+        time[0]='Péntek';
+      }
+     console.log(time[0]);
       console.log(this.actualAppointment);
       $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
-      $('.eventstarttitle').text(this.actualAppointment.start);
-
+      $('.eventstarttitle').text(time[0]+" "+time[3]+" "+time[2]+" "+time[1]+" "+time[4]);
+     
      
     },
      titleFormat: { // will produce something like "Tuesday, September 18, 2018"
@@ -119,7 +133,7 @@ export class AppointmentListComponent implements OnInit {
 
   eventClick(model:any) {
     
-   
+  
   
   
   }
