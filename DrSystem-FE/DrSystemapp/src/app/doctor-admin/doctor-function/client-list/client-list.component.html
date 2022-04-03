@@ -54,7 +54,7 @@
                             </li>
 
                             <li class="list-inline-item">
-                                <app-referral (referralOpenedEvent)="closeModal()"></app-referral>
+                                <app-referral [medNumber]="client.medNumber" (referralOpenedEvent)="closeModal()"></app-referral>
                                 
                             </li>
                         </td>

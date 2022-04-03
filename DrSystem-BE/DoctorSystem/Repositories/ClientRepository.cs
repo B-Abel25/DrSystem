@@ -1,10 +1,11 @@
 ﻿using DoctorSystem.Entities;
 using DoctorSystem.Entities.Contexts;
+using DoctorSystem.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DoctorSystem.Services
+namespace DoctorSystem.Repositories
 {
     public class ClientRepository : IClientRepository
     {

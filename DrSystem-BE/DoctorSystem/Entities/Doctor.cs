@@ -12,9 +12,8 @@ namespace DoctorSystem.Entities
     public class Doctor : User
     {
         [Required]
-        [StringLength(6, MinimumLength = 6)]
+        [StringLength(5, MinimumLength = 5)]
         public string SealNumber { get; set; }
-        [Required]
         public ICollection<Client> Clients { get; set; }
         [Required]
         public int Duration { get; set; }

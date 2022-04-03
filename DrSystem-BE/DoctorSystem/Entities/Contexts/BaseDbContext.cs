@@ -28,62 +28,66 @@ namespace DoctorSystem.Entities.Contexts
         public virtual DbSet<OfficeHours> _officehours { get; set; }
         public virtual DbSet<Appointment> _appointments { get; set; }
 
-
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            string mySqlConnectionStr = _configuration.GetConnectionString("LocalConnection");
-            //string mySqlConnectionStr = _configuration.GetConnectionString("LocalConnection");
+        {        
+            //string mySqlConnectionStr = _configuration.GetConnectionString("RemoteMySqlConnection"); //remote
+            //string mySqlConnectionStr = _configuration.GetConnectionString("LocalMySqlConnection"); //local
+            
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-            optionsBuilder.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr), options => options.EnableRetryOnFailure());
+            string connStr;
 
-            //optionsBuilder.UseNpgsql(posgresConnectionStr,
-            //    sqlOptions =>
-            //    {
-            //        sqlOptions.EnableRetryOnFailure(
-            //        maxRetryCount: 2,
-            //        maxRetryDelay: TimeSpan.FromSeconds(30),
-            //        errorCodesToAdd: null);
-            //    });
+
+            if (env == "Development")
+            {
+                //connStr = _configuration.GetConnectionString("DockerPostGresConnection");
+                connStr = _configuration.GetConnectionString("LocalMySqlConnection");
+                optionsBuilder.UseMySql(connStr, ServerVersion.AutoDetect(connStr), options => options.EnableRetryOnFailure());
+            }
+            else
+            {
+                var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+                connUrl = connUrl.Replace("postgres://", string.Empty);
+                string pgUserPass = connUrl.Split("@")[0];
+                string pgHostPortDb = connUrl.Split("@")[1];
+                string pgHostPort = pgHostPortDb.Split("/")[0];
+                string pgDb = pgHostPortDb.Split("/")[1];
+                string pgUser = pgUserPass.Split(":")[0];
+                string pgPass = pgUserPass.Split(":")[1];
+                string pgHost = pgHostPort.Split(":")[0];
+                string pgPort = pgHostPort.Split(":")[1];
+
+                connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};SSL Mode=Require;TrustServerCertificate=True";
+                optionsBuilder.UseNpgsql(connStr, sqlOptions => sqlOptions.EnableRetryOnFailure());
+            }            
         }
-
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-           
-/*
-            // Add the shadow property to the model
-            modelBuilder.Entity<City>()
-                .Property<string>("CountyFK");
-*/
-            // Use the shadow property as a foreign key
-            modelBuilder.Entity<City>()
-                .HasOne(ci => ci.County)
-                .WithMany(co => co.Cities)
-                .HasForeignKey(ci => ci.CountyId);
-            
-/*
-            // Add the shadow property to the model
-            modelBuilder.Entity<Place>()
-                .Property<string>("CityFK");
-*/ 
-            // Use the shadow property as a foreign key
-            modelBuilder.Entity<Place>()
-                .HasOne(p => p.City)
-                .WithMany(ci => ci.Places)
-                .HasForeignKey(p => p.CityId);
-
-
             modelBuilder.Entity<Message>()
                 .HasOne(x => x.Reciever)
                 .WithMany(u => u.MessagesRecieved);
 
-
             modelBuilder.Entity<Message>()
                 .HasOne(x => x.Sender)
                 .WithMany(u => u.MessagesSent);
+
+            modelBuilder.Entity<Client>(entity => {
+                entity.HasIndex(e => e.MedNumber).IsUnique();
+            });
+
+            modelBuilder.Entity<Doctor>(entity => {
+                entity.HasIndex(e => e.SealNumber).IsUnique();
+            });
+
+            /*modelBuilder.Entity<City>(entity => {
+                entity.HasIndex(e => e.Name).IsUnique();
+            });
+            */
+            modelBuilder.Entity<County>(entity => {
+                entity.HasIndex(e => e.Name).IsUnique();
+            });
 
             base.OnModelCreating(modelBuilder);
         }
@@ -93,5 +97,8 @@ namespace DoctorSystem.Entities.Contexts
         //cd doc [TAB]
         //dotnet ef migrations add Teszt2 --context BaseDbContext
         //dotnet ef database update --context BaseDbContext
+
+
+        //docker run --name dev -e POSTGRES_USER=root -e POSTGRES_PASSWORD=toor -p 5432:5432 -d postgres:latest
     }
 }

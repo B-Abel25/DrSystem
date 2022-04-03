@@ -9,13 +9,19 @@ namespace DoctorSystem.Entities
     [MySqlCharset("utf8")]
     public class Appointment : AbstractAuditable
     {
+        [Column("AppointmentingUser", TypeName = "varchar(37)")]
+        [Required]
         public User AppointmentingUser { get; set; }
+        [Column("DoctorId", TypeName = "varchar(37)")]
+        [Required]
         public Doctor Doctor { get; set; }
+        [Required]
         public DateTime Date { get; set; }
+        [Column("Description", TypeName = "varchar(255)")]
+        [Required]
         [MySqlCollation("utf8_hungarian_ci")]
-        [Column("Description", TypeName = "varchar")]
-        [StringLength(300)]
         public string Description { get; set; }
+        [Required]
         public bool IsDeleted { get; set; }
     }
 }

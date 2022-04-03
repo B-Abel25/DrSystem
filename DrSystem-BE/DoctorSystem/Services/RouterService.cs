@@ -13,8 +13,12 @@ namespace DoctorSystem.Services
             _logger = logger;
             _config = config;
         }
+        public RouterService()
+        {
 
-        public string Route(string Url)
+        }
+
+        public virtual string Route(string Url)
         {
             return _config["Root"] + Url;
         }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DoctorSystem.Services
+namespace DoctorSystem.Repositories
 {
     public class DoctorRepository : IDoctorRepository
     { 

@@ -11,6 +11,7 @@ namespace DoctorSystem
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        [Column("Id", TypeName = "varchar(37)")]
         public string Id { get; set; }
 
         

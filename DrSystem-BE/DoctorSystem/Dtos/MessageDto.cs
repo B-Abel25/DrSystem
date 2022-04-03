@@ -10,8 +10,6 @@ namespace DoctorSystem.Dtos
         public string DateRead { get; set; }
         public string DateSent { get; set; }
         public string Content { get; set; }
-        public bool SenderDeleted { get; set; }
-        public bool RecieverDeleted { get; set; }
         public MessageDto(Message m)
         {
             Sender = new UserDto(m.Sender);
@@ -19,8 +17,6 @@ namespace DoctorSystem.Dtos
             DateRead = m.DateRead?.ToString("yyyy.MM.dd HH:mm:ss");
             DateSent = m.DateSent.ToString("yyyy.MM.dd HH:mm:ss");
             Content = m.Content;
-            SenderDeleted = m.SenderDeleted;
-            RecieverDeleted = m.RecieverDeleted;
         }
 
         public MessageDto()
