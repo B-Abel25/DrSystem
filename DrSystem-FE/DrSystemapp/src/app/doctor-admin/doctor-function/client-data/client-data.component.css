@@ -1,22 +1,53 @@
-.card-body{
-    padding:0 25px;
-
-}
 
 .row{
     align-items: center;
+    
 }
 .content{
     background-color: rgba(131, 159, 224, 0.97);
-    height: 100vh;
+    background-position: center;
+  background-repeat:no-repeat;
+  background-size:auto;
+  vertical-align:super; 
+  height: 100vh;
+  background-attachment: fixed; 
+  padding-left: 50px;
 }
 
-.card{
-    border:none;
+.card1{
+  height: 600px;
+  width: 300px;
+  
+  border-radius: 10px;
+ 
+  overflow: hidden;
+  
+  box-shadow: 0 70px 63px -60px #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
     background-color: rgb(227, 234, 240);
-    
+
     }
-   
+    .card2{
+      height: 600px;
+      width: 300px;
+      
+      border-radius: 10px;
+     
+      overflow: hidden;
+      
+      box-shadow: 0 70px 63px -60px #000000;
+      display: flex;
+      
+      text-align: center;
+      position: relative;
+    
+        background-color: rgb(227, 234, 240);
+    
+        }
     
     .chat{
         list-style: none;
@@ -24,34 +55,10 @@
         padding:0;
     }
     
-    .chat li{
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px dotted #fff;
-    }
+    
 
-    .card2{
-        background-color: blue;
-    }
-     .split {
-        height: 100%;
-       
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        overflow-x: hidden;
-        padding-top: 20px;
-      }
-      
-      .left {
-        left: 0;
-        
-      }
-      
-      .right {
-        right: 0;
-       
-      } 
+    
+     
       
        .centered {
         align-items: center;
@@ -61,9 +68,61 @@
       } 
       .container{
   
+        height: 100vh;
+       
+      
+        display: flex;
+        justify-content: space-around;
         align-items: center;
-        padding-top: 100px;
-        justify-content: center;
+       
        
       
     }
+
+    .column {
+      float: left;
+      width: 50%;
+      
+    }
+    
+    /* Remove extra left and right margins, due to padding in columns */
+    .row {
+      margin: 0 -5px;
+      }
+    
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    @media screen and (max-width: 600px) {
+      .column {
+        width: 100%;
+        height: 100%;
+        display: block;
+       
+       
+        
+      }
+      .card{
+        height: 250px;
+        width: 230px;
+        overflow: scroll;
+        overflow-x: hidden !important;
+        position: relative;
+        padding-top: 270px;
+      }
+      .padding{
+        padding-top: 20px;
+        padding-left: 20px;
+      }
+      .padding2{
+        padding-left: 20px;
+      }
+
+    }
+
+   
+    

@@ -21,6 +21,7 @@ export class ClientDataComponent implements OnInit {
 
   ngOnInit() {
     this.loadClientData();
+    this.loadClientAppointments();
   }
   loadClientData() {
     this.doctorService
@@ -36,6 +37,11 @@ export class ClientDataComponent implements OnInit {
       .getOneClientAppointments(this.route.snapshot.paramMap.get('medNumber'))
       .subscribe((clientOneAppointments) => {
         this.clientAppointment = clientOneAppointments;
+        for (let i = 0; i < this.clientAppointment.length; i++) {
+         
+          let time=this.clientAppointment[i].start.split("T")
+        }
+        console.log(clientOneAppointments);
       });
   }
 }
