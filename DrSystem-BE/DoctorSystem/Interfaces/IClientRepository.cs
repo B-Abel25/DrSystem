@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DoctorSystem.Services
+namespace DoctorSystem.Interfaces
 {
     public interface IClientRepository
     {

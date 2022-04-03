@@ -32,8 +32,6 @@ namespace DoctorSystem.Controllers
         private readonly Random random = new Random();
 
         public AccountController(
-            ILogger<AccountController> logger,
-            BaseDbContext context,
             ITokenService tokenService,
             EmailService emailService,
             RouterService routerService,
@@ -42,7 +40,6 @@ namespace DoctorSystem.Controllers
             IPlaceRepository placeRepository
             )
         {
-            _logger = logger;
             _tokenService = tokenService;
             _emailService = emailService;
             _router = routerService;

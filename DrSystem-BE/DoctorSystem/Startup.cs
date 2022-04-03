@@ -48,7 +48,6 @@ namespace DoctorSystem
             services.AddScoped<IOfficeHoursRepository, OfficeHoursRepository>();
             services.AddScoped<RouterService>();
             services.AddScoped<EmailService>();
-            services.AddScoped<WeatherForecast>();
 
             services.AddCors();
 

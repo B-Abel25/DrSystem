@@ -9,7 +9,7 @@
         autocomplete="off">
         <div class="col-md-8 form-group required">
           <label for="medNumber">TAJ szám</label>
-          <input name="medNumber" type="text" class="form-control" id="medNumber" [value]='Hello' formControlName="userNumber"
+          <input name="medNumber" type="text" class="form-control" id="medNumber" formControlName="userNumber"
             [class.is-invalid]="
               referralForm.get('userNumber').errors &&
               referralForm.get('userNumber').touched

@@ -4,6 +4,7 @@ import {
   OnInit,
   Output,
   TemplateRef,
+  Input,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -18,6 +19,7 @@ import { DoctorService } from 'src/app/_services/doctor.service';
 })
 export class ReferralComponent implements OnInit {
   @Output() ReferralOpenedEvent = new EventEmitter();
+  @Input() medNumber: string;
   modalRef!: BsModalRef;
   referralForm: FormGroup;
   doctors: Doctor[];
@@ -34,6 +36,7 @@ export class ReferralComponent implements OnInit {
   openModal(template: TemplateRef<any>) {
     this.ReferralOpenedEvent.emit();
     this.modalRef = this.modalService.show(template);
+    this.referralForm.controls['userNumber'].setValue(this.medNumber);
     this.loadDoctors();
   }
   initializationForm() {
