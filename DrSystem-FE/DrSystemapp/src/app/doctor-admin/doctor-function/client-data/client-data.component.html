@@ -44,9 +44,9 @@
     <div class="column padding">
         <div class="card2">
             <div class="card-body">
-                <span *ngIf="clientAppointment?.lenght<1">Nincs még foglalása</span>
+                <span *ngIf="clientAppointment?.lenght<0">Nincs még foglalása</span>
                 <ul class="chat">
-      
+                   
        
                  
                    <li *ngFor="let appointment of clientAppointment">

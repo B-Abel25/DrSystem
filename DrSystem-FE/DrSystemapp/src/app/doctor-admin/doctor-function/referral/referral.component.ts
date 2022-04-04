@@ -25,6 +25,7 @@ export class ReferralComponent implements OnInit {
   referralForm: FormGroup;
   doctors: Doctor[];
   client: Client[];
+  isEnabled:boolean;
   constructor(
     private modalService: BsModalService,
     private fb: FormBuilder,
@@ -39,14 +40,16 @@ export class ReferralComponent implements OnInit {
   openModal(template: TemplateRef<any>) {
     this.ReferralOpenedEvent.emit();
     this.modalRef = this.modalService.show(template);
+    
     this.referralForm.controls['userNumber'].setValue(this.medNumber);
+    this.referralForm.controls['userNumber'].disable();
     this.loadDoctors();
   }
   initializationForm() {
     this.referralForm = this.fb.group({
       userNumber: [
-       ,
-        [Validators.required, Validators.pattern('[0-9]{3}[0-9]{3}[0-9]{3}')],
+      '' ,
+        [],
       ],
       Doctor: ['', [Validators.required]],
 

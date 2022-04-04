@@ -32,7 +32,7 @@ export class AppointmentListComponent implements OnInit {
   deleteEventForm:FormGroup;
   submitted = false;
   Hours: officeHours;
-
+  time:string;
   currentDate = new Date();
   myDate = Date.now();
   constructor(
@@ -43,11 +43,10 @@ export class AppointmentListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    
     this.initializationForm();
-    
-    
     this.loadDoctorAppointment();
-   
+  
    
     console.log(this.duration)
     this.calendarOptions = {
@@ -63,8 +62,8 @@ export class AppointmentListComponent implements OnInit {
       slotMinTime: this.minTime,
      contentHeight:500,
      dateClick: this.handleDateClick.bind(this),
-     eventClick(param:any) {
-     
+     eventClick:function(param:any) {
+     //https://github.com/fullcalendar/fullcalendar/issues/5011
       $('#myModal2').modal('show');
       console.log(param);
       this.actualAppointment={
@@ -74,27 +73,34 @@ export class AppointmentListComponent implements OnInit {
       end:param.event._instance.range.end.toUTCString(),
       
       };
-     let time=this.actualAppointment.start.split(' ');
-      if (time[0]=='Wed,') {
-        time[0]='Szerda';
+     this.time=this.actualAppointment.start.split(' ');
+      if (this.time[0]=='Wed,') {
+        this.time[0]='Szerda';
       }
-      if (time[0]=='Tue,') {
-        time[0]='Kedd';
+      if (this.time[0]=='Tue,') {
+        this.time[0]='Kedd';
       }
-      if (time[0]=='Mon,') {
-        time[0]='Hétfő';
+      if (this.time[0]=='Mon,') {
+        this.time[0]='Hétfő';
       }
-      if (time[0]=='Thu,') {
-        time[0]='Csütörtök';
+      if (this.time[0]=='Thu,') {
+        this.time[0]='Csütörtök';
       }
-      if (time[0]=='Fri,') {
-        time[0]='Péntek';
+      if (this.time[0]=='Fri,') {
+        this.time[0]='Péntek';
       }
-     console.log(time[0]);
-      console.log(this.actualAppointment);
+  
       $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
-      $('.eventstarttitle').text(time[0]+" "+time[3]+" "+time[2]+" "+time[1]+" "+time[4]);
+      $('.eventstarttitle').text(this.time[0]+" "+this.time[3]+" "+this.time[2]+" "+this.time[1]+" "+this.time[4]);
      
+     
+this.deleteEventForm();
+      console.log(this.time);
+      console.log(this.deleteEventForm);
+      console.log( this.deleteEventForm.controls['Start'].setValue(this.actualAppointment.start));
+     let hello= this.deleteEventForm.controls['Start'].setValue(this.actualAppointment.start);
+      console.log(hello);
+      
      
     },
      titleFormat: { // will produce something like "Tuesday, September 18, 2018"
@@ -114,10 +120,12 @@ export class AppointmentListComponent implements OnInit {
       droppable: false,
       selectOverlap: false,
     };
+    
+   
   }
   handleDateClick(arg) {
     let time = arg.dateStr.split('T');
-
+    
     $('#myModal').modal('show');
     $('.modal-title, .eventstarttitle').text('');
     let currentTime = time[1].split('+');
@@ -126,15 +134,22 @@ export class AppointmentListComponent implements OnInit {
     $('.eventstarttitle').text(currentTime[0]);
     this.currentDateTimeSent = arg.dateStr;
 
-    console.log(this.currentDateTimeSent);
+    
     this.initializationForm();
   }
 
-
-  eventClick(model:any) {
+  proba()
+  {
+    console.log(this.time);
+    console.log(this.deleteEventForm);
+    console.log( this.deleteEventForm.controls['Start'].setValue(this.actualAppointment.start));
+    this.deleteEventForm.controls['Start'].setValue(this.actualAppointment.start);
     
-  
-  
+  }
+
+  eventClick(param:any) {
+    
+  this.proba();
   
   }
 
@@ -205,9 +220,11 @@ export class AppointmentListComponent implements OnInit {
     this.deleteEventForm = this.formBuilder.group({
      
 
-      Start:new FormControl(this.start),
+      Start:new FormControl('',[]),
      
     });
+    this.proba();
+
   }
 
 

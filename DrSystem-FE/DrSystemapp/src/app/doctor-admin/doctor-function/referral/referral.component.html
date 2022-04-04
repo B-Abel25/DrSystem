@@ -9,7 +9,7 @@
         autocomplete="off">
         <div class=" form-group required">
           <label >TAJ szám</label>
-          <input  type="text" class="form-control"   formControlName="userNumber"
+          <input [disabled]="isEnabled"  type="text" class="form-control"   formControlName="userNumber"
             [class.is-invalid]="
               referralForm.get('userNumber').errors &&
               referralForm.get('userNumber').touched
