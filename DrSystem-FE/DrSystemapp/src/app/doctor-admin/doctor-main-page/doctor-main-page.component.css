@@ -13,9 +13,38 @@
     background-repeat: no-repeat;
     background-size: cover;
     vertical-align: middle; 
-    min-height:100vh;
+    height:100vh;
     
   ;}
     .content .overlay {
       background-color: rgba(131, 159, 224, 0.97);
   }
+
+  .split {
+    height: 100%;
+    width: 70%;
+    position: fixed;
+    
+   
+    overflow-x: hidden;
+    
+  }
+  
+  .left {
+    left: 0;
+    
+  }
+  
+  .right {
+    right: 0;
+   
+  }
+  
+  .centered {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  

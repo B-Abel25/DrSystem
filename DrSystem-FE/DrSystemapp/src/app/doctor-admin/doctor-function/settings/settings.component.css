@@ -40,12 +40,19 @@ input.form-control{
   width: 200px;
 }
 
-#border1{
-  border: 1px solid #000000;
+
+@media screen and (max-width: 900px) {
+   .content{
+     overflow-y:scroll;
+   }
+  
 }
-#border2{
-  border: 1px solid #ffffff;
+
+#padding{
+  padding-top: 50px;
 }
+
+
 
 
   

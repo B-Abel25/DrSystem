@@ -2,14 +2,14 @@
   <button class="btn btn-light" (click)="openModal(referral)" ><i class="fa fa-arrow-right"></i> </button>
   <ng-template #referral>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Átutaló</h4>
+      <h4 class="modal-title">Átutaló</h4>
     </div>
-    <div class="modal-body">
-      <form [formGroup]="referralForm" id="requestForm" (ngSubmit)="referralForm.valid && sendResetMail()"
+    <div class="modal-body" >
+      <form [formGroup]="referralForm" id="requestForm" style=" justify-content: center;" (ngSubmit)="referralForm.valid && sendResetMail()"
         autocomplete="off">
-        <div class="col-md-8 form-group required">
-          <label for="medNumber">TAJ szám</label>
-          <input name="medNumber" type="text" class="form-control" id="medNumber" formControlName="userNumber"
+        <div class=" form-group required">
+          <label >TAJ szám</label>
+          <input  type="text" class="form-control"   formControlName="userNumber"
             [class.is-invalid]="
               referralForm.get('userNumber').errors &&
               referralForm.get('userNumber').touched
@@ -18,12 +18,12 @@
             A TAJ-szám nem megfelelő!
           </div>
         </div>
-        <div class="col-md-8 form-group required">
+        <div class=" form-group required">
           <label>Orvosok</label>
           <input
               [class.is-invalid]='referralForm.get("Doctor").errors && referralForm.get("Doctor").touched'
               class="form-control" list="datalistOptions" formControlName="Doctor"
-              id="exampleDataList" placeholder="Type to search..." required>
+              id="exampleDataList" placeholder="Orvosok keresése" required>
           <datalist id="datalistOptions">
               <option *ngFor="let doctor of doctors">{{doctor.name}} - {{doctor.place.postCode}}
               </option>
@@ -38,7 +38,7 @@
         <br />
         <button [disabled]="!referralForm.valid" form="requestForm" class="w-100 btn btn-lg btn-primary" type="submit"
           id="closeModal" (click)="Close()">
-          Helyreállít
+          Kérelem küldése
         </button>
       </form>
     </div>

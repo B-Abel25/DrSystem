@@ -62,14 +62,14 @@ namespace DoctorSystem.Controllers
             List<Appointment> apps = await _appointmentRepo.GetAppointmentsByDoctorAsync(client.Doctor);
             OfficeHours oh = await _officeHoursRepo.GetOfficeHoursByDoctorAndDay(client.Doctor, (Days)((int)appDto.Start.DayOfWeek));        
             
-            if (!(appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(client.Doctor.Duration)))
+            if (appDto.Start >= oh.Open && appDto.Start <= oh.Close.AddMinutes(client.Doctor.Duration))
             {
                 return Unauthorized("Az időpont az orvos rendelési idején kívülre esik");
             }
                         
             foreach (var app in apps)
             {
-                if (!(appDto.Start > app.Date && appDto.Start < app.Date.AddMinutes(client.Doctor.Duration)))
+                if (appDto.Start > app.Date && appDto.Start < app.Date.AddMinutes(client.Doctor.Duration))
                 {
                     return Unauthorized("Ez az időpont már le van foglalva, válasszon másikat");
                 }

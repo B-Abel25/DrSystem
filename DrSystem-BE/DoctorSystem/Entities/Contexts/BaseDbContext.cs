@@ -29,11 +29,9 @@ namespace DoctorSystem.Entities.Contexts
         public virtual DbSet<Appointment> _appointments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-           
+        {        
             //string mySqlConnectionStr = _configuration.GetConnectionString("RemoteMySqlConnection"); //remote
             //string mySqlConnectionStr = _configuration.GetConnectionString("LocalMySqlConnection"); //local
-
             
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
