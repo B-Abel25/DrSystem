@@ -54,12 +54,12 @@ namespace DoctorSystem.Repositories
                 .Include(x => x.Sender.Place.City.County).SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<List<Message>> GetUnreadRecievedMessages(User user)
+        public async Task<List<Message>> GetUnreadRecievedMessages(Doctor doctor)
         {
             return await _context._messages
                 .Include(x => x.Reciever.Place.City.County)
                 .Include(x => x.Sender.Place.City.County)
-                .Where(m => m.DateRead == null && m.Reciever.Id == user.Id)
+                .Where(m => m.DateRead == null && m.Reciever.Id == doctor.Id)
                 .ToListAsync();        
         }
 

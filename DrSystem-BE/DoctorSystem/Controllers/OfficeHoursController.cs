@@ -127,6 +127,7 @@ namespace DoctorSystem.Controllers
 
             return Accepted();
         }
+       
         private async Task<bool> RemoveOfficeHours(Doctor doctor)
         {
             List<OfficeHours> oh = await _officeHoursRepo.GetOfficeHoursAllDayByDoctor(doctor);
@@ -138,7 +139,6 @@ namespace DoctorSystem.Controllers
             await _officeHoursRepo.SaveAllAsync();
             return true;
         }
-
 
         [Authorize]
         [HttpGet]

@@ -35,7 +35,6 @@ namespace DoctorSystem.Controllers
         {
             _logger = logger;
             _tokenService = tokenService;
-            //_context = context;
             _emailService = emailService;
             _doctorRepo = doctorRepository;
             _placeRepo = placeRepo;
@@ -43,7 +42,7 @@ namespace DoctorSystem.Controllers
 
         [Route("doctors")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DoctorDto>>> GetDoctors()
+        public async Task<ActionResult<List<DoctorDto>>> GetDoctors()
         {
             List<Doctor> doctors = await _doctorRepo.GetDoctorsAsync();
 
@@ -65,7 +64,7 @@ namespace DoctorSystem.Controllers
 
         [Route("places")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PlaceDto>>> GetPlaces()
+        public async Task<ActionResult<List<PlaceDto>>> GetPlaces()
         {
             List<Place> places = await _placeRepo.GetPlacesAsync();
             List<PlaceDto> placeDtos = new List<PlaceDto>();

@@ -52,7 +52,7 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [Route("doctor/clients")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorId()
+        public async Task<ActionResult<List<ClientDto>>> GetClientsByDoctorId()
         {
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
@@ -75,7 +75,7 @@ namespace DoctorSystem.Controllers
         [Authorize]
         [Route("doctor/clients-request")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClientDto>>> GetClientsByDoctorIdAndNotMember()
+        public async Task<ActionResult<List<ClientDto>>> GetClientsByDoctorIdAndNotMember()
         {
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
