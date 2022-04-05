@@ -1,6 +1,7 @@
 .content{
     background-color:rgba(131, 159, 224, 0.97);
     height: 100vh;
+    padding-left: 50px;
 }
 .container{
   
@@ -8,6 +9,7 @@
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
     padding-bottom: 10px;
+    
 
 }
 .split {

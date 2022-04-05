@@ -35,6 +35,7 @@ export class AppointmentListComponent implements OnInit {
   time:string;
   currentDate = new Date();
   myDate = Date.now();
+  deleteStart:string="";
   constructor(
     private appointmentService: AppointmentService,
     private formBuilder: FormBuilder,
@@ -62,12 +63,13 @@ export class AppointmentListComponent implements OnInit {
       slotMinTime: this.minTime,
      contentHeight:500,
      dateClick: this.handleDateClick.bind(this),
-     eventClick:function(param:any) {
+     eventClick:function(param) {
      //https://github.com/fullcalendar/fullcalendar/issues/5011
       $('#myModal2').modal('show');
       console.log(param);
+     
       this.actualAppointment={
-      description:param.event._def.extendedProps.description,
+    
       title:param.event._def.title,
       start:param.event._instance.range.start.toUTCString(),
       end:param.event._instance.range.end.toUTCString(),
@@ -92,15 +94,10 @@ export class AppointmentListComponent implements OnInit {
   
       $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
       $('.eventstarttitle').text(this.time[0]+" "+this.time[3]+" "+this.time[2]+" "+this.time[1]+" "+this.time[4]);
-     
-     
-this.deleteEventForm();
-      console.log(this.time);
-      console.log(this.deleteEventForm);
-      console.log( this.deleteEventForm.controls['Start'].setValue(this.actualAppointment.start));
-     let hello= this.deleteEventForm.controls['Start'].setValue(this.actualAppointment.start);
-      console.log(hello);
       
+   
+     
+
      
     },
      titleFormat: { // will produce something like "Tuesday, September 18, 2018"
@@ -136,20 +133,14 @@ this.deleteEventForm();
 
     
     this.initializationForm();
+    console.log(this.initializationForm());
   }
 
-  proba()
-  {
-    console.log(this.time);
-    console.log(this.deleteEventForm);
-    console.log( this.deleteEventForm.controls['Start'].setValue(this.actualAppointment.start));
-    this.deleteEventForm.controls['Start'].setValue(this.actualAppointment.start);
-    
-  }
+ 
 
   eventClick(param:any) {
-    
-  this.proba();
+    console.log(param);
+  
   
   }
 
@@ -187,9 +178,11 @@ this.deleteEventForm();
       return;
     } else {
       $('#myModal').modal('hide');
+      console.log(this.addEventForm.value);
       
       this.appointmentService.AppointmentDoctor(this.addEventForm.value).subscribe(
         (response) => {
+         
           this.loadDoctorAppointment();
         },
         (error) => {
@@ -208,7 +201,7 @@ this.deleteEventForm();
 
 
   initializationForm() {
-    //console.log(this.currentDateTimeSent);
+    
     this.addEventForm = this.formBuilder.group({
       Description: new FormControl(''),
 
@@ -216,14 +209,14 @@ this.deleteEventForm();
     });
   }
   initializationDeleteForm() {
-    //console.log(this.currentDateTimeSent);
+   
     this.deleteEventForm = this.formBuilder.group({
      
 
       Start:new FormControl('',[]),
      
     });
-    this.proba();
+    
 
   }
 
@@ -245,10 +238,12 @@ this.deleteEventForm();
   }
 
   deleteAppointment() {
-    console.log(this.addEventForm.value);
+   
+
+    
     this.appointmentService.deleteAppointmentDoctor(this.addEventForm.value);
     
-    this.toastr.error('Sikeresen elutasította a kérelmet!');
+    this.toastr.success('Sikeresen elutasította a kérelmet!');
   }
   
 }

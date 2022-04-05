@@ -2,8 +2,8 @@
     position:absolute;
     left: 0;
     top: 0;
-    min-width: 100%;
-    min-height: 100vh;
+    width: 100%;
+    height: 100vh;
     margin-left: 48px;
   }
   
@@ -14,37 +14,23 @@
     background-size: cover;
     vertical-align: middle; 
     height:100vh;
+
     
+    
+    padding-left: 50px;
   ;}
     .content .overlay {
       background-color: rgba(131, 159, 224, 0.97);
   }
 
-  .split {
-    height: 100%;
-    width: 70%;
-    position: fixed;
-    
-   
-    overflow-x: hidden;
-    
-  }
-  
-  .left {
-    left: 0;
+  .container{
+    background-color: rgb(154, 208, 255);
+    height: 90vh;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
     
   }
-  
-  .right {
-    right: 0;
-   
-  }
-  
-  .centered {
-    position: absolute;
-    top: 20%;
-    left: 40%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
+
   

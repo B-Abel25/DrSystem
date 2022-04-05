@@ -36,12 +36,10 @@ export class ClientDataComponent implements OnInit {
     this.appointmentService
       .getOneClientAppointments(this.route.snapshot.paramMap.get('medNumber'))
       .subscribe((clientOneAppointments) => {
+        
         this.clientAppointment = clientOneAppointments;
-        for (let i = 0; i < this.clientAppointment.length; i++) {
-         
-          let time=this.clientAppointment[i].start.split("T")
-        }
-        console.log(clientOneAppointments);
+       
+        
       });
   }
 }
