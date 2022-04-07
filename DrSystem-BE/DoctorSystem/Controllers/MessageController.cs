@@ -85,8 +85,6 @@ namespace DoctorSystem.Controllers
             message.Sender = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
             message.Reciever = await _clientRepo.GetClientByMedNumberAsync(sendDto.RecieverNumber);
             message.Content = sendDto.Content;
-            message.SenderDeleted = false;
-            message.RecieverDeleted = false;
 
             _messageRepo.UpdateMessage(message);
             await _messageRepo.SaveAllAsync();
@@ -136,8 +134,6 @@ namespace DoctorSystem.Controllers
             message.Sender = client;
             message.Reciever = client.Doctor;
             message.Content = sendDto.Content;
-            message.SenderDeleted = false;
-            message.RecieverDeleted = false;
 
             _messageRepo.UpdateMessage(message);
             await _messageRepo.SaveAllAsync();
@@ -169,7 +165,9 @@ namespace DoctorSystem.Controllers
             return messageDtos;
 
         }
-
+        
+        #region DeleteMessageEndpoints
+        /*
         [Authorize]
         [Route("client/message/delete")]
         [HttpDelete]
@@ -190,7 +188,7 @@ namespace DoctorSystem.Controllers
             await _messageRepo.SaveAllAsync();
             return Accepted();
         }
-
+       
         [Authorize]
         [Route("doctor/message/delete")]
         [HttpDelete]
@@ -212,7 +210,9 @@ namespace DoctorSystem.Controllers
             await _messageRepo.SaveAllAsync();
             return Accepted();
         }
-
+        */
+        #endregion
+        
         [Authorize]
         [Route("doctor/messages/unread")]
         [HttpGet]

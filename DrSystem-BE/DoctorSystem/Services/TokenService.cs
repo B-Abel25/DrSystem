@@ -31,7 +31,7 @@ namespace DoctorSystem.Services
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claim),
-                Expires = DateTime.Now.AddHours(1),
+                Expires = DateTime.Now.AddHours(10),
                 SigningCredentials = creds
             };
 
@@ -54,7 +54,7 @@ namespace DoctorSystem.Services
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claim),
-                Expires = DateTime.Now.AddHours(1),
+                Expires = DateTime.Now.AddHours(10),
                 SigningCredentials = creds
             };
 

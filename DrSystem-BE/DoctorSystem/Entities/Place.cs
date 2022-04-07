@@ -8,15 +8,10 @@ namespace DoctorSystem.Entities
     [MySqlCharset("utf8")]
     public class Place : AbstractIdentifiable
     {
-        
+        [Required]
         public int PostCode { get; set; }
-        /*
-        [ForeignKey("Id")]
-        public string CityId { get; set; }
-        */
+        [Column("CityId", TypeName = "varchar(37)")]
+        [Required]
         public City City { get; set; }
-        public string CityId { get; set; }
-
-
     }
 }

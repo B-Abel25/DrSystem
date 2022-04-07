@@ -39,7 +39,7 @@ export class LoginComponent {
       this.router.navigateByUrl('/booking');
 
       this.loggedIn = true;
-      
+      this.toastr.success("Belépés sikeres!")
     }, error => {
       console.log(error);
       this.toastr.error(error.error);
@@ -49,6 +49,7 @@ export class LoginComponent {
   logout() {
     this.accountService.logout();
     this.router.navigateByUrl('/');
+    this.toastr.success("Kilépés sikeres!")
 
   }
   getCurrentClient() {

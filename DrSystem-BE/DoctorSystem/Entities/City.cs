@@ -10,18 +10,13 @@ namespace DoctorSystem.Entities
     [MySqlCharset("utf8")]
     public class City : AbstractIdentifiable
     {
+        [Required]
         [MySqlCollation("utf8_hungarian_ci")]
-        [Column("Name", TypeName = "varchar")]
-        [StringLength(22)]
+        [Column("Name", TypeName = "varchar(20)")]
         public string Name { get; set; }
-
-        [JsonIgnore]
         public ICollection<Place> Places { get; set; }
-        /*
-        [ForeignKey("Id")]
-        public string CountyId { get; set; }
-        */
+        [Required]
+        [Column("CountyId", TypeName = "varchar(37)")]
         public County County { get; set; }
-        public string CountyId { get; set; }
     }
 }

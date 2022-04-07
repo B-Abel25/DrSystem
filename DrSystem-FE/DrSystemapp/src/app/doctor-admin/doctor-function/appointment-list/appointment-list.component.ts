@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CalendarOptions } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/hu';
+import { ToastrService } from 'ngx-toastr';
 import { Appointment } from 'src/app/_models/appointment';
 import { officeHours } from 'src/app/_models/officeHours';
 import { AppointmentService } from 'src/app/_services/appointment.service';
@@ -31,21 +32,22 @@ export class AppointmentListComponent implements OnInit {
   deleteEventForm:FormGroup;
   submitted = false;
   Hours: officeHours;
-
+  time:string;
   currentDate = new Date();
   myDate = Date.now();
+  deleteStart:string="";
   constructor(
     private appointmentService: AppointmentService,
     private formBuilder: FormBuilder,
-    private officeHoursService: OfficeHoursService
+    private officeHoursService: OfficeHoursService,
+    private toastr:ToastrService,
   ) {}
 
   ngOnInit() {
+    
     this.initializationForm();
-    
-    
     this.loadDoctorAppointment();
-   
+  
    
     console.log(this.duration)
     this.calendarOptions = {
@@ -61,28 +63,42 @@ export class AppointmentListComponent implements OnInit {
       slotMinTime: this.minTime,
      contentHeight:500,
      dateClick: this.handleDateClick.bind(this),
-     eventClick(param:any) {
-     
+     eventClick:function(param) {
+     //https://github.com/fullcalendar/fullcalendar/issues/5011
       $('#myModal2').modal('show');
       console.log(param);
+     
       this.actualAppointment={
-      description:param.event._def.extendedProps.description,
+    
       title:param.event._def.title,
       start:param.event._instance.range.start.toUTCString(),
       end:param.event._instance.range.end.toUTCString(),
       
       };
-     
-      this.deleteEventForm = this.formBuilder.group({
+     this.time=this.actualAppointment.start.split(' ');
+      if (this.time[0]=='Wed,') {
+        this.time[0]='Szerda';
+      }
+      if (this.time[0]=='Tue,') {
+        this.time[0]='Kedd';
+      }
+      if (this.time[0]=='Mon,') {
+        this.time[0]='Hétfő';
+      }
+      if (this.time[0]=='Thu,') {
+        this.time[0]='Csütörtök';
+      }
+      if (this.time[0]=='Fri,') {
+        this.time[0]='Péntek';
+      }
+  
+      $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
+      $('.eventstarttitle').text(this.time[0]+" "+this.time[3]+" "+this.time[2]+" "+this.time[1]+" "+this.time[4]);
+      
+   
      
 
-        Start:new FormControl(this.start),
-       
-      });
-     console.log(this.start);
-      console.log(this.actualAppointment);
-      $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
-      $('.eventstarttitle').text(this.actualAppointment.start);
+     
     },
      titleFormat: { // will produce something like "Tuesday, September 18, 2018"
       month: 'long',
@@ -92,19 +108,7 @@ export class AppointmentListComponent implements OnInit {
     },
       
      hiddenDays:[2],
-      events: [
-        {
-          title: '',
-          start: '2022-03-21T10:00:00+01:00',
-          end: '2022-03-21T10:10:00+01:00',
-          color: 'red',
-        },
-        {
-          title: 'event 2',
-          date: '2022-03-21T11:00:00+01:00-11:10:00+01:00',
-          color: 'yellow',
-        },
-      ],
+     
       themeSystem: 'bootstrap5',
 
       editable: false,
@@ -113,10 +117,12 @@ export class AppointmentListComponent implements OnInit {
       droppable: false,
       selectOverlap: false,
     };
+    
+   
   }
   handleDateClick(arg) {
     let time = arg.dateStr.split('T');
-
+    
     $('#myModal').modal('show');
     $('.modal-title, .eventstarttitle').text('');
     let currentTime = time[1].split('+');
@@ -125,14 +131,15 @@ export class AppointmentListComponent implements OnInit {
     $('.eventstarttitle').text(currentTime[0]);
     this.currentDateTimeSent = arg.dateStr;
 
-    console.log(this.currentDateTimeSent);
+    
     this.initializationForm();
+    console.log(this.initializationForm());
   }
 
+ 
 
-  eventClick(model:any) {
-    
-   
+  eventClick(param:any) {
+    console.log(param);
   
   
   }
@@ -171,9 +178,11 @@ export class AppointmentListComponent implements OnInit {
       return;
     } else {
       $('#myModal').modal('hide');
+      console.log(this.addEventForm.value);
       
       this.appointmentService.AppointmentDoctor(this.addEventForm.value).subscribe(
         (response) => {
+         
           this.loadDoctorAppointment();
         },
         (error) => {
@@ -192,7 +201,7 @@ export class AppointmentListComponent implements OnInit {
 
 
   initializationForm() {
-    //console.log(this.currentDateTimeSent);
+    
     this.addEventForm = this.formBuilder.group({
       Description: new FormControl(''),
 
@@ -200,13 +209,15 @@ export class AppointmentListComponent implements OnInit {
     });
   }
   initializationDeleteForm() {
-    //console.log(this.currentDateTimeSent);
+   
     this.deleteEventForm = this.formBuilder.group({
      
 
-      Start:new FormControl(this.start),
+      Start:new FormControl('',[]),
      
     });
+    
+
   }
 
 
@@ -226,6 +237,13 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
+  deleteAppointment() {
+   
 
+    
+    this.appointmentService.deleteAppointmentDoctor(this.addEventForm.value);
+    
+    this.toastr.success('Sikeresen elutasította a kérelmet!');
+  }
   
 }

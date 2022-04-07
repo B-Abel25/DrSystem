@@ -16,7 +16,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoctorSystem.Controller
+namespace DoctorSystem.Controllers
 {
     [ApiController]
     [Route("private/")]

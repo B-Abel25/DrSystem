@@ -48,7 +48,6 @@ namespace DoctorSystem
             services.AddScoped<IOfficeHoursRepository, OfficeHoursRepository>();
             services.AddScoped<RouterService>();
             services.AddScoped<EmailService>();
-            services.AddScoped<WeatherForecast>();
 
             services.AddCors();
 
@@ -80,7 +79,7 @@ namespace DoctorSystem
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DoctorSystem v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

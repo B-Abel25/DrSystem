@@ -13,6 +13,10 @@ namespace DoctorSystem.Services
 
         private readonly ILogger<EmailService> _logger;
         private readonly IConfiguration _config;
+        public EmailService()
+        {
+
+        }
 
         public EmailService(ILogger<EmailService> logger, IConfiguration config)
         {

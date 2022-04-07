@@ -15,7 +15,12 @@ namespace DoctorSystem.Entities
         public bool Member { get; set; }
         [Required]
         public Doctor Doctor { get; set; }
+        [Column("MotherName", TypeName = "varchar(30)")]
+        [MySqlCollation("utf8_hungarian_ci")]
+        [Required]
         public string MotherName { get; set; }
+        [Column("BirthPlace", TypeName = "varchar(37)")]
+        [Required]
         public City BirthPlace { get; set; }
     }
 }

@@ -1,7 +1,10 @@
+<app-admin-navbar></app-admin-navbar>
 <div class="content">
-<div class="row center" *ngIf="client">
-<div class="col-4">
-  <div class="card">
+    
+     <div class="container">   
+<div class="row" *ngIf="client">
+    <div class="column padding2">
+  <div class="card1">
       <div class="card-body">
           <div>
               <strong>Név:</strong>
@@ -36,31 +39,40 @@
             <p>{{client.birthPlace}}</p>
         </div>
       </div>
-  </div>  
-</div>
-</div>
-<div class="container">
-    <div class="card">
-        <div class="card-body">
-            <ul #scrollMe
-            style="overflow:scroll; max-height: 80vh;"
-            [scrollTop]="scrollMe.scrollHeight"
-             *ngIf="clientAppointment?.length > 0" class="chat">
-                <li *ngFor="let appointment of clientAppointment">
-                    <div>
-                        
-    
-                        <div class="chat-body">
-                           
-                           
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
+  </div> 
+    </div> 
+    <div class="column padding">
+        <div class="card2">
+            <div class="card-body scroll">
+                
+                <span >Nincs még foglalása</span>
+                 
+                
+                
+                <ul class="chat">
+                   
+                   
+                 
+                   <li *ngFor="let appointment of clientAppointment">
+                       <div>
+                           <span class="float-center" >
+                               <p style="color:rgb(50, 206, 206)">{{appointment.title}}</p>
+                               
+                           </span>
        
-    </div>
-</div>
+                           <div class="chat-body">
+                              <p>{{appointment.start}}</p>
+                              <p>{{appointment.end}}</p>
+                              <p>{{appointment.description}}</p>
+                           </div>
+                       </div>
+                   </li>
+               </ul>
+</div> 
+ </div>
+        
+     </div>
+
 
 
 

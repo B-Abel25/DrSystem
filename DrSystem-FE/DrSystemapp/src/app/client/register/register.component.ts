@@ -27,7 +27,6 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
 
   doctors: Doctor[];
-  submitted: boolean = false;
   registerForm: FormGroup;
   validationErrors: string[];
   places: Place[];
@@ -38,7 +37,6 @@ export class RegisterComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private toastr: ToastrService,
-    private doctorService: DoctorService,
     private fb: FormBuilder,
     private router: Router
   ) {}
@@ -50,15 +48,7 @@ export class RegisterComponent implements OnInit {
     
   }
 
-  onSubmit() {
-    this.submitted = true;
-    if (this.registerForm.valid) {
-      alert(
-        'Form Submitted succesfully!!!\n Check the values in browser console.'
-      );
-     
-    }
-  }
+ 
 
   initializeForm() {
     this.registerForm = this.fb.group({
@@ -186,8 +176,8 @@ export class RegisterComponent implements OnInit {
         this.toastr.success("Sikeres regisztráció! Kérjük erősítse meg email címét!");
       },
       (error) => {
-        this.validationErrors = error;
-        console.log(error);
+      this.validationErrors = error;
+      this.toastr.error(error.error);
       }
     );
   }
@@ -209,7 +199,5 @@ export class RegisterComponent implements OnInit {
   loadPlaces() {
    
     this.placesString=[...new Set(this.places.map(x=>x.city))];
-    
-  
-}
+    }
 }

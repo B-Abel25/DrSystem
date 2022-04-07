@@ -1,10 +1,16 @@
 .content{
     background-color:rgba(131, 159, 224, 0.97);
     height: 100vh;
+    padding-left: 50px;
 }
 .container{
-    background-color: rgba(202, 216, 248, 0.97);
-    height: 800px;
+  
+    background-color: aliceblue;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    padding-bottom: 10px;
+    
+
 }
 .split {
     height: 100%;
@@ -35,5 +41,8 @@
   }
   .titleFormat{
       width: 100%;
+  }
+  .btn {
+    justify-content: left;
   }
   
