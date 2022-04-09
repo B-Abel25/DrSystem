@@ -50,7 +50,6 @@ namespace DoctorSystem.Services
 
         public void NewPassword(User u)
         {
-            //https://www.c-sharpcorner.com/article/send-email-using-templates-in-asp-net-core-applications/
             MimeMessage email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse("DoctorSystemapp@gmail.com"));
             email.To.Add(MailboxAddress.Parse(u.Email));
