@@ -38,7 +38,7 @@ export class MessageService {
     return this.http.get<Message[]>(this.baseUrl + 'private/client/messages');
   }
 
-  //TODO object helyett string kéne
+  
   sendMessageClient(content: string) {
     return this.http.post<Message>(
       this.baseUrl + 'private/client/message/send',

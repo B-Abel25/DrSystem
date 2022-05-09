@@ -34,9 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.toastr.error(error.statusText, error.status);
               }
               break;
-            case 401:
-              this.toastr.error(error.statusText, error.status);
-              break;
+           
             case 404:
               this.router.navigateByUrl('/not-found');
               break;

@@ -43,7 +43,7 @@ export class ClientListComponent implements OnInit {
     this.doctorService.getDoctorClients().subscribe((clients) => {
       this.filteredClients = clients;
       this.clients = clients;
-      // sort((one, two) => (one.name < two.name ? -1 : 1));
+      
       this.totalLength = clients.length;
     });
   }

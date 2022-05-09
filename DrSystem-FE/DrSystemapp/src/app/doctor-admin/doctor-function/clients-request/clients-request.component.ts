@@ -29,9 +29,7 @@ export class ClientsRequestComponent implements OnInit {
     this.doctor = JSON.parse(localStorage.getItem('doctor'));
     let contentHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
     console.log(contentHeader);
-    //const tokenInfo = this.getDecodedAccessToken(); // decode token
-    //const expireDate = tokenInfo.exp; // get token expiration dateTime
-    //console.log(tokenInfo);
+    
     this.loadDoctorClientsRequest();
   }
 
@@ -39,7 +37,7 @@ export class ClientsRequestComponent implements OnInit {
     this.doctorService.getDoctorClientsRequest().subscribe((clients) => {
       this.doctor.clients = clients;
       this.filteredClients = clients;
-      // sort((one, two) => (one.name < two.name ? -1 : 1));
+  
       this.totalLength = clients.length;
     });
   }
@@ -66,7 +64,7 @@ export class ClientsRequestComponent implements OnInit {
     this.filteredClients = this.doctor.clients.filter((res) => {
       return res.name.toLocaleLowerCase().match(this.name);
     });
-   // this.totalLength = this.filteredClients.length;
+   
   }
 
 

@@ -1,9 +1,7 @@
 
 @charset "UTF-8";
 
-/***********************************
-			/* 1. BODY */
-/***********************************/
+
 
 * {
   margin: 0;
@@ -155,13 +153,7 @@ button {
   zoom: 1;
 }
 
-			/* 1. END BODY */
-/***********************************/
-
-/***********************************
-			/* 2. CONTENT */
-/***********************************/
-/* 2.1. Section error */
+			
 .error {
   min-height: 100vh;
   position: relative;
@@ -300,9 +292,7 @@ button {
 .e-nav__link:nth-child(2):hover:after {
   color: #fff;
 }
-/* 2.1. END Section Error */
 
-/* 2.2. Social style */
 .error__social {
   position: absolute;
   top: 50%;
@@ -336,9 +326,7 @@ button {
 .e-social__link:hover {
   opacity: .7;
 }
-/* 2.2. END Social style */
 
-/* 2.3. Lamp */
 .lamp {
   position: absolute;
   left: 0px;
@@ -424,14 +412,7 @@ button {
     z-index: 1;
     border-radius: 90px 90px 0px 0px;
 }
-/* 2.3. END Lamp */
-/***********************************
-			/* 2. END CONTENT */
-/***********************************/
 
-/***********************************
-			/* 3. RESPONSIVE */
-/***********************************/
 .error {
   overflow: hidden;
   max-height: 100vh;

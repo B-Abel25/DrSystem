@@ -161,18 +161,7 @@ export class ProfileModifyComponent implements OnInit {
             .removeValidators(Validators.required);
           console.log('removed');
         }
-        // console.log('confirmPass');
-        // console.log(
-        //   this.profileModifyForm.controls['confirmPassword'].hasValidator(
-        //     Validators.required
-        //   )
-        // );
-        // console.log('Pass');
-        // console.log(
-        //   this.profileModifyForm.controls['confirmPassword'].hasValidator(
-        //     Validators.required
-        //   )
-        // );
+       
       }
     );
 
@@ -226,7 +215,7 @@ export class ProfileModifyComponent implements OnInit {
   loadProfileDatas() {
     this.accountService.getProfileDatas().subscribe((profile) => {
       this.profileDatas = profile;
-      // TODO:dupla replace helyett 1
+      
 
       this.profileDatas.birthDate = this.profileDatas.birthDate
         .replace('.', '-')

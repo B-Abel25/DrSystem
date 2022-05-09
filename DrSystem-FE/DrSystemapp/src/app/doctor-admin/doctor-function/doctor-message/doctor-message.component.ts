@@ -28,7 +28,7 @@ export class DoctorMessageComponent implements OnInit {
     this.messageService.getDoctorUnreadMessages().subscribe((response) => {
       this.clients = response;
       this.filteredClients = response;
-      // sort((one, two) => (one.name < two.name ? -1 : 1));
+      
       this.totalLength = response.length;
     });
   }
