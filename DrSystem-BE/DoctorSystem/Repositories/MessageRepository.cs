@@ -31,8 +31,7 @@ namespace DoctorSystem.Repositories
             return await _context._messages
                  .Include(x => x.Reciever.Place.City.County)
                  .Include(x => x.Sender.Place.City.County)
-                 .Where(x => x.Sender.Id == doctor.Id && x.Reciever.Id == client.Id ||
-                 x.Sender.Id == client.Id && x.Reciever.Id == doctor.Id)
+                 .Where(x => (x.Sender.Id == doctor.Id && x.Reciever.Id == client.Id) || (x.Sender.Id == client.Id && x.Reciever.Id == doctor.Id))
                  .OrderBy(x => x.DateSent)
                  .ToListAsync();
         }
@@ -73,7 +72,7 @@ namespace DoctorSystem.Repositories
             return await _context._messages
                 .Include(x => x.Reciever.Place.City.County)
                 .Include(x => x.Sender.Place.City.County)
-                .Where(x => x.Sender.Id == client.Id || x.Reciever.Id == client.Id)
+                .Where(x => (x.Sender.Id == client.Id && x.Reciever.Id == client.Doctor.Id) || (x.Reciever.Id == client.Id && x.Sender.Id == client.Doctor.Id))
                 .OrderBy(x => x.DateSent)
                 .ToListAsync();
         }

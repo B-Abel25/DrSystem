@@ -181,5 +181,28 @@ namespace DoctorSystem.Controllers
             return Accepted();
         }
 
+        [Route("doctor/transfer")]
+        [HttpPut]
+        public async Task<ActionResult> TransferClient(TransferDto dto)
+        {
+            string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
+            Doctor docOld = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
+            Doctor docNew = await _doctorRepo.GetDoctorBySealNumberAsync(dto.NewDoctorSealNumber);
+            Client cli = await _clientRepo.GetClientByMedNumberAsync(dto.MedNumber);
+
+            if (!docOld.Clients.Contains(cli))
+            {
+                return Unauthorized("Ez nem az ön páciense");
+            }
+            if (docOld != null && docNew != null && cli != null)
+            {
+                cli.Doctor=docNew;
+                await _clientRepo.SaveAllAsync();
+                return Accepted();
+            }
+
+            return Unauthorized("Váratlan hiba történt");
+        }
+
     }
 }
