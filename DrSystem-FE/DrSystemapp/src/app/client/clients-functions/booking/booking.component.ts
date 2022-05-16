@@ -154,11 +154,53 @@ export class BookingComponent implements OnInit {
         //eventMinHeight:2,
         allDaySlot: false,
         height:500,
-        eventClick: function (arg) {
-          console.log(arg);
-          alert(arg.event.title);
-          alert(arg.event.start);
-          alert(arg.event._def.extendedProps['description'])
+        eventClick: function (param) {
+          //https://github.com/fullcalendar/fullcalendar/issues/5011
+         console.log(param)
+         
+        
+         
+  
+          this.actualAppointment = {
+            title: param.event._def.title,
+            start: param.event._instance.range.start.toUTCString(),
+            end: param.event._instance.range.end.toUTCString(),
+            description: param.event._def.extendedProps['description'],
+          };
+          this.time = this.actualAppointment.start.split(' ');
+          if (this.time[0] == 'Wed,') {
+            this.time[0] = 'Szerda';
+          }
+          if (this.time[0] == 'Tue,') {
+            this.time[0] = 'Kedd';
+          }
+          if (this.time[0] == 'Mon,') {
+            this.time[0] = 'Hétfő';
+          }
+          if (this.time[0] == 'Thu,') {
+            this.time[0] = 'Csütörtök';
+          }
+          if (this.time[0] == 'Fri,') {
+            this.time[0] = 'Péntek';
+          }
+          if (this.actualAppointment.title!="Foglalt") {
+            $('#myModal2').modal('show');
+           }
+          $('.modal-title').text(' Foglaló: ' + this.actualAppointment.title);
+          $('.eventstarttitle').text(
+            this.time[0] +
+              ' ' +
+              this.time[3] +
+              ' ' +
+              this.time[2] +
+              ' ' +
+              this.time[1] +
+              ' ' +
+              this.time[4]
+          );
+          $('.eventdescription').text(this.actualAppointment.description);
+          this.stringJson = JSON.stringify(this.actualAppointment);
+          console.log(this.stringJson);
         },
        
         headerToolbar: {},
@@ -180,5 +222,14 @@ export class BookingComponent implements OnInit {
   
       });
      
+  }
+  closeModal()
+  {
+    $('#myModal2').modal('hide');
+  }
+
+  closeAppointmentModal()
+  {
+    $('#myModal').modal('hide');
   }
 }

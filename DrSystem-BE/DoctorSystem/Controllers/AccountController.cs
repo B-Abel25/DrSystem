@@ -256,7 +256,7 @@ namespace DoctorSystem.Controllers
             }
             _clientRepo.DeleteClient(client);
             await _clientRepo.SaveAllAsync();
-            return Redirect(_router.Route("/deleteClient"));
+            return Redirect(_router.Route("/deleteRegister"));
         }
 
        private bool EntityExistsAsync(object u)

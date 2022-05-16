@@ -53,9 +53,9 @@ export class AppointmentListComponent implements OnInit {
 
   ngOnInit() {
     this.initializationForm();
-    this.initializationDeleteForm();
+  
     this.loadDoctorAppointment();
-
+    
     this.calendarOptions = {
       //dateClick: this.handleDateClick.bind(this),
       weekends: false,
@@ -120,7 +120,7 @@ export class AppointmentListComponent implements OnInit {
         weekday: 'long',
       },
 
-      hiddenDays: [2],
+      
 
       themeSystem: 'bootstrap5',
 
@@ -130,6 +130,14 @@ export class AppointmentListComponent implements OnInit {
       droppable: false,
       selectOverlap: false,
     };
+        console.log(this.stringJson);
+      console.log(this.actualAppointment);
+      this.appointmentService.deleteAppointmentDoctor(
+        JSON.stringify(this.actualAppointment)
+      );
+      console.log('anyád');
+      //this.toastr.success('Sikeresen elutasította a kérelmet!');
+    
   }
   handleDateClick(arg) {
     let time = arg.dateStr.split('T');
@@ -200,12 +208,7 @@ export class AppointmentListComponent implements OnInit {
       Start: new FormControl(this.currentDateTimeSent),
     });
   }
-  initializationDeleteForm() {
-    this.deleteEventForm = this.formBuilder.group({
-      start: new FormControl(''),
-      description: new FormControl(''),
-    });
-  }
+  
 
   loadDuration() {
     this.officeHoursService.getDuration().subscribe((durationGet) => {
@@ -221,12 +224,22 @@ export class AppointmentListComponent implements OnInit {
   }
 
   deleteAppointment() {
-    console.log(JSON.stringify(this.actualAppointment));
+    console.log(this.stringJson);
     console.log(this.actualAppointment);
     this.appointmentService.deleteAppointmentDoctor(
       JSON.stringify(this.actualAppointment)
     );
     console.log('anyád');
     //this.toastr.success('Sikeresen elutasította a kérelmet!');
+  }
+
+  closeModal()
+  {
+    $('#myModal2').modal('hide');
+  }
+
+  closeAppointmentModal()
+  {
+    $('#myModal').modal('hide');
   }
 }

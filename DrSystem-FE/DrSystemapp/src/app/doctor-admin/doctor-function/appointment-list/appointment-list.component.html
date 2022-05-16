@@ -43,7 +43,12 @@
 
                     </div>
                     <br>
+                    <div class="modal-footer" style=" justify-content: center;">
                     <button type="submit" data-dismiss="modal" class="btn btn-primary">Foglalás</button>
+                    
+                    
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="closeAppointmentModal()" >Bezárás</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -56,13 +61,13 @@
     <div class="modal-dialog">
       <div class="modal-content">
       
-        <!-- Modal Header -->
+       
         <div class="modal-header"  style=" justify-content: center;">
             <h4 class="modal-title"></h4>
-            <!-- <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button> -->
+           
           </div>
           
-          <!-- Modal body -->
+         
           <div class="modal-body">
               <label >Foglalás:</label>
             <div  class="form-control eventstarttitle"></div>
@@ -71,9 +76,9 @@
             <div  class="form-control eventdescription"  ></div>
           </div>
           
-          <!-- Modal footer -->
+   
           <div class="modal-footer" style=" justify-content: center;">
-            <button type="button" class="btn btn-success" data-dismiss="modal" >Bezárás</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="closeModal()" >Bezárás</button>
             <button type="submit" class="btn btn-danger" (click)="deleteAppointment()" >Törlés</button>
             
           </div>
