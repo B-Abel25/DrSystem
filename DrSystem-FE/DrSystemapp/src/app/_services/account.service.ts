@@ -41,7 +41,7 @@ export class AccountService {
             this.setCurrentClient(client);
 
             this.currentClientSource.next(client);
-            console.log(model);
+           
           }
         })
       );
@@ -53,7 +53,7 @@ export class AccountService {
         map((password: LostPassword) => {
           if (password) {
             localStorage.setItem('password', JSON.stringify(password));
-            console.log(model);
+            
           }
         })
       );
@@ -65,7 +65,7 @@ export class AccountService {
       .pipe(
         map((password: NewPassword) => {
           if (password) {
-            console.log(model);
+            
           }
         })
       );
@@ -98,7 +98,7 @@ export class AccountService {
         map((datas:Registration) => {
           if (datas) {
             
-            console.log(model);
+           
           }
         })
       );

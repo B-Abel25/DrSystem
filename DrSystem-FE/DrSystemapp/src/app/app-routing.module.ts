@@ -29,10 +29,12 @@ import { ProfileModifyComponent } from './client/clients-functions/profile-modif
 
 import { SendEmailsComponent } from './doctor-admin/doctor-function/send-emails/send-emails.component';
 import { ValidateEmailComponent } from './validate-email/validate-email.component';
+import { DeleteClientEmailComponent } from './delete-client-email/delete-client-email.component';
 
 const routes: Routes = [
   { path: '', component: DrsystemHomeComponent },
 {path:'validEmail', component: ValidateEmailComponent},
+{path:'deleteRegister', component: DeleteClientEmailComponent},
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'new-password/:emailToken', component: NewPasswordComponent },

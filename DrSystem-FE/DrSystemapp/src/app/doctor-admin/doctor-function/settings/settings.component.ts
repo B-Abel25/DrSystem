@@ -24,7 +24,7 @@ export class SettingsComponent implements OnInit {
     
   }
   officeHours() {
-console.log(this.officeHoursForm.value)
+
 
 let tomb:officeHours[]=[];
 for (let index = 1; index < 6; index++) {
@@ -36,7 +36,7 @@ close:this.officeHoursForm.value[index].close,
 tomb.push(item);
   
 }
-console.log(tomb);
+
     this.officeHoursService.officeHoursPut(tomb);
   
   }
@@ -86,7 +86,7 @@ console.log(tomb);
     };
   }
 durationSubmit(){
-  console.log(this.durationForm.value);
+ 
 this.officeHoursService.durationPut(this.durationForm.value['duration']);
 
 }
@@ -101,9 +101,7 @@ this.officeHoursService.durationPut(this.durationForm.value['duration']);
   loadOfficeHours() {
     this.officeHoursService.getOfficeHours().subscribe((officeHoursGet) => {
       this.Hours = officeHoursGet;
-      console.log(officeHoursGet)
-      console.log(this.Hours);
-      console.log('komment2');
+    
       this.setHoursControlValues();
     });
   }
@@ -111,9 +109,9 @@ this.officeHoursService.durationPut(this.durationForm.value['duration']);
   loadDuration() {
     this.officeHoursService.getDuration().subscribe((durationGet) => {
       this.duration = durationGet;
-      console.log(durationGet)
+     
       
-      console.log('komment2');
+     
       this.setDurationControlValues();
     });
   }
@@ -122,7 +120,7 @@ setDurationControlValues()
   this.durationForm.controls['duration'].setValue(this.duration)
 }
   setHoursControlValues() {
-   console.log(this.officeHoursForm.controls['1']);
+   
   
      
    this.officeHoursForm.setValue({

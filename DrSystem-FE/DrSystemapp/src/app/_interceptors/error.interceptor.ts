@@ -47,7 +47,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
             default:
               this.toastr.error('Váratlan hiba történt!');
-              console.log(error);
+              
               break;
           }
         }

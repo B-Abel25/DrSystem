@@ -52,7 +52,7 @@ export class DoctorService {
         map((password: LostPassword) => {
           if (password) {
             localStorage.setItem('password', JSON.stringify(password));
-            console.log(model);
+           
           }
         })
       );
@@ -64,7 +64,7 @@ export class DoctorService {
       .pipe(
         map((password: NewPassword) => {
           if (password) {
-            console.log(model);
+           
           }
         })
       );
@@ -85,10 +85,10 @@ export class DoctorService {
       )
       .subscribe({
         next: (data) => {
-          console.log(data);
+          
         },
         error: (error) => {
-          console.error('There was an error!', error);
+          
         },
       });
   }
@@ -100,10 +100,10 @@ export class DoctorService {
       )
       .subscribe({
         next: (data) => {
-          console.log(data);
+         
         },
         error: (error) => {
-          console.error('There was an error!', error);
+          
         },
       });
   }

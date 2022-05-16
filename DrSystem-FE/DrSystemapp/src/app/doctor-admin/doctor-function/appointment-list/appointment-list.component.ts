@@ -33,6 +33,7 @@ export class AppointmentListComponent implements OnInit {
   submitted = false;
   Hours: officeHours;
   time:string;
+  description:string;
   currentDate = new Date();
   myDate = Date.now();
   deleteStart:string="";
@@ -49,7 +50,7 @@ export class AppointmentListComponent implements OnInit {
     this.loadDoctorAppointment();
   
    
-    console.log(this.duration)
+    
     this.calendarOptions = {
       //dateClick: this.handleDateClick.bind(this),
       weekends: false,
@@ -66,14 +67,14 @@ export class AppointmentListComponent implements OnInit {
      eventClick:function(param) {
      //https://github.com/fullcalendar/fullcalendar/issues/5011
       $('#myModal2').modal('show');
-      console.log(param);
+    
      
       this.actualAppointment={
     
       title:param.event._def.title,
       start:param.event._instance.range.start.toUTCString(),
       end:param.event._instance.range.end.toUTCString(),
-      
+      description:param.event._def.extendedProps['description'],
       };
      this.time=this.actualAppointment.start.split(' ');
       if (this.time[0]=='Wed,') {
@@ -94,7 +95,7 @@ export class AppointmentListComponent implements OnInit {
   
       $('.modal-title').text(' Foglaló: '+this.actualAppointment.title);
       $('.eventstarttitle').text(this.time[0]+" "+this.time[3]+" "+this.time[2]+" "+this.time[1]+" "+this.time[4]);
-      
+      $('.eventdescription').text(this.actualAppointment.description);
    
      
 
@@ -133,13 +134,13 @@ export class AppointmentListComponent implements OnInit {
 
     
     this.initializationForm();
-    console.log(this.initializationForm());
+    
   }
 
  
 
   eventClick(param:any) {
-    console.log(param);
+   
   
   
   }
@@ -178,7 +179,7 @@ export class AppointmentListComponent implements OnInit {
       return;
     } else {
       $('#myModal').modal('hide');
-      console.log(this.addEventForm.value);
+      
       
       this.appointmentService.AppointmentDoctor(this.addEventForm.value).subscribe(
         (response) => {
@@ -186,7 +187,7 @@ export class AppointmentListComponent implements OnInit {
           this.loadDoctorAppointment();
         },
         (error) => {
-          console.log(error);
+          
           
         }
       );

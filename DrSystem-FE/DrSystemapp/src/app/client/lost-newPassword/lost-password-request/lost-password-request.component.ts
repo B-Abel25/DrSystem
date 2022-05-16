@@ -34,7 +34,7 @@ export class LostPasswordRequestComponent implements OnInit {
 
   sendResetMail() {
     this.accountService.lostPassword(this.lostPasswordForm.value).subscribe(response => {
-      console.log(response);
+     
 this.toastr.success("Kérelem elküldve! Ellenőrizze email címét!");
     }, error => {
       this.toastr.error(error.error);

@@ -41,7 +41,7 @@ export class LoginComponent {
       this.loggedIn = true;
       this.toastr.success("Belépés sikeres!")
     }, error => {
-      console.log(error);
+      
       this.toastr.error(error.error);
       
     })
@@ -57,7 +57,7 @@ export class LoginComponent {
       this.loggedIn = !!client;
       
     }, error => {
-      console.log(error);
+      
     });
 
   }

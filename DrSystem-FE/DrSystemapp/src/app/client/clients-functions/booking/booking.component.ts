@@ -67,7 +67,7 @@ export class BookingComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.addEventForm.value);
+    
     this.submitted = true;
     
 
@@ -77,14 +77,14 @@ export class BookingComponent implements OnInit {
       return;
     } else {
       $('#myModal').modal('hide');
-      console.log(this.addEventForm.value);
+      
       this.appointmentService.Appointment(this.addEventForm.value).subscribe(
         (response) => {
           this.loadClientAppointments();
           this.toastr.success("Sikeres foglalás!")
         },
         (error) => {
-          console.log(error);
+        
           this.toastr.error(error.error);
         }
       );
@@ -155,8 +155,10 @@ export class BookingComponent implements OnInit {
         allDaySlot: false,
         height:500,
         eventClick: function (arg) {
+          console.log(arg);
           alert(arg.event.title);
           alert(arg.event.start);
+          alert(arg.event._def.extendedProps['description'])
         },
        
         headerToolbar: {},
@@ -172,10 +174,10 @@ export class BookingComponent implements OnInit {
       };
       this.open=officeHoursGet.sort((one, two) => (one.open < two.open ? -1 : 1))[0].open;
       this.close=officeHoursGet.sort((one, two) => (one.close > two.close ? -1 : 1))[0].close;                    
-       console.log(this.open);
+       
       this.calendarOptions.slotMinTime=this.open+":00";
     this.calendarOptions.slotMaxTime=this.close+":00";
-   console.log(this.calendarOptions.slotMinTime)
+  
       });
      
   }

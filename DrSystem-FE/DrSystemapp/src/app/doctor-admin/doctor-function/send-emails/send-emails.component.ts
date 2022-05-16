@@ -38,7 +38,7 @@ export class SendEmailsComponent implements OnInit {
         this.sendEmailForm.reset();
         this.toastr.success('Sikeres emailküldés!');
         
-        //TODO érékek kiürítése
+       
       });
   }
 }

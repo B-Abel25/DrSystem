@@ -147,11 +147,11 @@ export class ProfileModifyComponent implements OnInit {
           this.profileModifyForm
             .get('confirmPassword')
             .addValidators(Validators.required);
-          console.log('added');
+        
        
           // TODO https://www.angularfix.com/2021/09/get-validators-present-in.html
           // https://stackoverflow.com/questions/43838108/get-validators-present-in-formgroup-formcontrol
-          console.log();
+         
         } else if (passwordValue === '') {
           this.profileModifyForm
             .get('password')
@@ -159,13 +159,13 @@ export class ProfileModifyComponent implements OnInit {
           this.profileModifyForm
             .get('confirmPassword')
             .removeValidators(Validators.required);
-          console.log('removed');
+        
         }
        
       }
     );
 
-    console.log(this.profileModifyForm.controls);
+   
   }
 
   matchValues(matchTo: string): ValidatorFn {
@@ -177,7 +177,7 @@ export class ProfileModifyComponent implements OnInit {
   }
 
   profileModify() {
-    console.log(this.profileModifyForm.controls['password'].value);
+    
     if (this.profileModifyForm.controls['password'].value == '') {
       this.profileModifyForm.controls['password'].setValue('not-modified');
     }
@@ -190,7 +190,7 @@ export class ProfileModifyComponent implements OnInit {
         },
         (error) => {
           this.validationErrors = error;
-          console.log(error);
+         
         }
       );
     this.profileModifyForm.controls['password'].setValue('');
@@ -200,7 +200,7 @@ export class ProfileModifyComponent implements OnInit {
   loadPostCodes() {
     this.accountService.getPlaces().subscribe((postCodes) => {
       this.places = postCodes;
-      console.log('komment2');
+      
       this.loadPlaces();
       this.loadProfileDatas();
     });

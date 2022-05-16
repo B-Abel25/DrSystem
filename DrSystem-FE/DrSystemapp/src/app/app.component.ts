@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
     this.accountService.currentClient$.subscribe(client => {
       this.loggedIn = !!client;
     }, error => {
-      console.log(error);
+      
     });
 
   }
@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
     this.accountService.currentClient$.subscribe(doctor => {
       this.loggedIn = !!doctor;
     }, error => {
-      console.log(error);
+    
     });
 
   }

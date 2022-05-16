@@ -49,11 +49,11 @@ export class AppointmentService {
 
     return this.http.delete(this.baseUrl + 'private/client/delete/appointment', model).subscribe({
       next: data => {
-        console.log(data)
+        
       },
       error: error => {
 
-        console.error('There was an error!', error);
+      
       }
     });
 
@@ -63,11 +63,11 @@ export class AppointmentService {
 
     return this.http.delete(this.baseUrl + 'private/doctor/delete/appointment',model).subscribe({
       next: data => {
-        console.log(data)
+      
       },
       error: error => {
 
-        console.error('There was an error!', error);
+        
       }
     });
 

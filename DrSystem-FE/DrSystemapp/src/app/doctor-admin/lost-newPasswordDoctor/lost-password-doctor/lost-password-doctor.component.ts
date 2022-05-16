@@ -46,10 +46,10 @@ export class LostPasswordDoctorComponent implements OnInit {
   sendResetMail() {
     this.doctorService.lostPassword(this.lostPasswordForm.value).subscribe(
       (response) => {
-        console.log(response);
+       
       },
       (error) => {
-        console.log(error);
+        
       }
     );
   }

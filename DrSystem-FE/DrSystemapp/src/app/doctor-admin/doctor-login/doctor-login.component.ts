@@ -44,7 +44,7 @@ export class DoctorLoginComponent implements OnInit {
         this.loggedIn = true;
       },
       (error) => {
-        console.log(error);
+      
         this.toastr.error(error.error);
       }
     );
@@ -61,7 +61,7 @@ export class DoctorLoginComponent implements OnInit {
         this.loggedIn = !!doctor;
       },
       (error) => {
-        console.log(error);
+        
       }
     );
   }

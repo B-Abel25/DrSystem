@@ -1,0 +1,161 @@
+.clearfix:before,
+.clearfix:after {
+    display: table;
+
+    content: ' ';
+}
+.clearfix:after {
+    clear: both;
+}
+body {
+    background: #ffffff !important;
+    background-color: #9be1f3;
+}
+.page-404 .outer {
+    position: absolute;
+    top: 0;
+
+    display: table;
+background-color: #64a7b8;
+    width: 100%;
+    height: 100%;
+}
+.page-404 .outer .middle {
+    display: table-cell;
+
+    vertical-align: middle;
+}
+.page-404 .outer .middle .inner {
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.page-404 .outer .middle .inner .inner-circle {
+    height: 300px;
+
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+.page-404 .outer .middle .inner .inner-circle:hover i {
+    color: #19505e!important;
+    background-color: #008cff;
+    box-shadow: 0 0 0 15px #39bbdb;
+}
+.page-404 .outer .middle .inner .inner-circle:hover span {
+    color: #1c2c35;
+}
+.page-404 .outer .middle .inner .inner-circle i {
+    font-size: 2em;
+    line-height: 1em;
+
+    float: right;
+
+    width: 1.6em;
+    height: 1.6em;
+    margin-top: -.7em;
+    margin-right: -.5em;
+    padding: 20px;
+
+    -webkit-transition: all .4s;
+            transition: all .4s;
+    text-align: center;
+
+    color: #f5f5f5!important;
+    border-radius: 50%;
+    background-color: #acdae6;
+    box-shadow: 0 0 0 15px #1d3b8d;
+}
+.page-404 .outer .middle .inner .inner-circle span {
+    font-size: 4em;
+    font-weight: 700;
+    line-height: 1.2em;
+
+    display: block;
+
+    -webkit-transition: all .4s;
+            transition: all .4s;
+    text-align: center;
+
+    color: #1b43b1;
+}
+.page-404 .outer .middle .inner .inner-status {
+    font-size: 20px;
+
+    display: block;
+
+    margin-top: 20px;
+    margin-bottom: 5px;
+
+    text-align: center;
+
+    color: #abdfec;
+}
+.page-404 .outer .middle .inner .inner-detail {
+    line-height: 1.4em;
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    text-align: center;
+
+    color: #999999;
+}
+
+.error__nav {
+    max-width: 600px;
+    margin: 40px auto 0;
+    text-align: center;
+  }
+  .e-nav__link {
+    height: 45px;
+    line-height: 45px;
+    width: 170px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 15px;
+    border: 1px solid #181828;
+    color: #181828;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: .1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .e-nav__link:before {
+    content: '';
+    height: 100px;
+    background: #212121;
+    position: absolute;
+    top: 70px;
+    right: 70px;
+    width: 260px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    -webkit-transform: rotate(60deg);
+            transform: rotate(60deg);
+  }
+  
+  .e-nav__link:after {
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    z-index: 999;
+    position: relative;
+  }
+  
+  .e-nav__link:after {
+    content: "Kezdőlap";
+   
+  }
+  
+  .e-nav__link:hover:before {
+    top: -60px;
+    right: -50px;
+  }
+  
+  .e-nav__link:hover {
+    color: #fff;
+  }

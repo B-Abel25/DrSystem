@@ -28,7 +28,7 @@ export class ClientsRequestComponent implements OnInit {
   ngOnInit() {
     this.doctor = JSON.parse(localStorage.getItem('doctor'));
     let contentHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-    console.log(contentHeader);
+   
     
     this.loadDoctorClientsRequest();
   }

@@ -29,7 +29,7 @@ export class NewPasswordDoctorComponent implements OnInit {
 
   ngOnInit() {
     this.initializationForm();
-    /*TODO megnézni esetleg van e szebb megoldás*/
+    
   }
   initializationForm() {
     this.newPasswordFormDoctor = this.fb.group({
@@ -57,13 +57,13 @@ export class NewPasswordDoctorComponent implements OnInit {
     };
   }
   newPassword() {
-    console.log(this.newPasswordFormDoctor.value);
+    
     this.accountService.newPassword(this.newPasswordFormDoctor.value).subscribe(
       (response) => {
         this.router.navigateByUrl('/admin/login');
       },
       (error) => {
-        console.log(error);
+        
       }
     );
   }

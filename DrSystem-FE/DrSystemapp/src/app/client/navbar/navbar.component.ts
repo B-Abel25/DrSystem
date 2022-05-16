@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
       this.router.navigateByUrl('/booking');
       this.loggedIn = true;
     }, error => {
-      console.log(error);
+     
       this.toastr.error(error.error);
     })
   }
@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
     this.accountService.currentClient$.subscribe(client => {
       this.loggedIn = !!client;
     }, error => {
-      console.log(error);
+      
     });
 
   }

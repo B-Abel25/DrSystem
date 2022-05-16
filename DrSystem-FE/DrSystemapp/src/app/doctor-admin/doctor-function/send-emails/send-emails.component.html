@@ -6,7 +6,7 @@
     
    
     
-    <form [formGroup]="sendEmailForm" (ngSubmit)="sendMailSubmit()" id="contact_form">
+    <form [formGroup]="sendEmailForm" (ngSubmit)="sendEmailForm.valid && sendMailSubmit()" id="contact_form">
      
       <div class="form-group required">
         <label for="subject">Tárgy</label>

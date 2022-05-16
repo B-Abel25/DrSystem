@@ -28,7 +28,7 @@ export class AdminNavbarComponent implements OnInit {
         this.doctor = doctor;
       },
       (error) => {
-        console.log(error);
+       
       }
     );
   }

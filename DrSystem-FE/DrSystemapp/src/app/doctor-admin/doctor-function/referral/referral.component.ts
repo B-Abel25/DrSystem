@@ -86,7 +86,7 @@ export class ReferralComponent implements OnInit {
 
   loadDoctorClients() {
     this.doctorService.getDoctorClients().subscribe((clientGet) => {
-     console.log(this.route.snapshot.paramMap.get('medNumber'));
+     
       
       
     });
