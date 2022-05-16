@@ -72,5 +72,14 @@ namespace DoctorSystem.Controllers
             places.ForEach(x => placeDtos.Add(new PlaceDto(x)));
             return placeDtos;
         }
+
+        [Route("email-test")]
+        [HttpGet]
+        public async Task<ActionResult> EmailTest()
+        {
+            Doctor d = await _doctorRepo.GetDoctorBySealNumberAsync("");
+            _emailService.NewPassword(d);
+            return Accepted();
+        }
     }
 }
