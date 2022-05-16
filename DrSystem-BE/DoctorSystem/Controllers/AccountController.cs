@@ -214,7 +214,7 @@ namespace DoctorSystem.Controllers
             }
             client.EmailToken = "true";
             await _clientRepo.SaveAllAsync();
-            return Redirect(_router.Route("/login"));
+            return Redirect(_router.Route("/validateEmail"));
         }
 
 
@@ -242,7 +242,6 @@ namespace DoctorSystem.Controllers
                 }
             }
             return new DoctorDto(doc, _tokenService.CreateToken(doc));
-            //return new { Id = doc.Id, Token = _tokenService.CreateToken(doc) };
         }
 
 
@@ -257,7 +256,7 @@ namespace DoctorSystem.Controllers
             }
             _clientRepo.DeleteClient(client);
             await _clientRepo.SaveAllAsync();
-            return Redirect(_router.Route("/login"));
+            return Redirect(_router.Route("/deleteClient"));
         }
 
        private bool EntityExistsAsync(object u)
