@@ -93,5 +93,70 @@ namespace DoctorSystem.Services
             Send(email);
         }
      
+        public void AcceptClient(Client c)
+        {
+            MimeMessage email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("DoctorSystemapp@gmail.com"));
+            email.To.Add(MailboxAddress.Parse(c.Email));
+            email.Subject = "Kérelme elfogadásra került!";
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = string.Format(
+                File.ReadAllText("Services/EmailTemplates/AcceptClient.html", Encoding.UTF8), c.Name, c.Doctor.Name)
+            };
+
+
+            Send(email);
+        }
+
+        public void RefuseClient(Client c)
+        {
+            MimeMessage email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("DoctorSystemapp@gmail.com"));
+            email.To.Add(MailboxAddress.Parse(c.Email));
+            email.Subject = "Kérelme elutasításra került!";
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = string.Format(
+                File.ReadAllText("Services/EmailTemplates/RefuseClient.html", Encoding.UTF8), c.Name, c.Doctor.Name, c.Doctor.Email, c.Doctor.PhoneNumber)
+            };
+
+
+            Send(email);
+        }
+
+        public void NewAppointment(Client c)
+        {
+            MimeMessage email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("DoctorSystemapp@gmail.com"));
+            email.To.Add(MailboxAddress.Parse(c.Email));
+            email.Subject ="Foglalás rögzítve";
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = string.Format(
+                    //TODO paraméterek és template
+                File.ReadAllText("Services/EmailTemplates/NewAppointment.html", Encoding.UTF8), c.Name, c.Doctor.Name, c.Doctor.Email, c.Doctor.PhoneNumber)
+            };
+
+
+            Send(email);
+        }
+
+        public void DeleteAppointment(Client c)
+        {
+            MimeMessage email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("DoctorSystemapp@gmail.com"));
+            email.To.Add(MailboxAddress.Parse(c.Email));
+            email.Subject = "Foglalás törölve!";
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = string.Format(
+                    //TODO paraméterek és template
+                File.ReadAllText("Services/EmailTemplates/DeleteAppointment.html", Encoding.UTF8), c.Name, c.Doctor.Name, c.Doctor.Email, c.Doctor.PhoneNumber)
+            };
+
+
+            Send(email);
+        }
     }
 }

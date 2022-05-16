@@ -88,7 +88,7 @@ namespace DoctorSystem.Controllers
 
             _appointmentRepo.PutAppointment(appointment);
             await _appointmentRepo.SaveAllAsync();
-
+            _emailService.NewAppointment(client);
             return Accepted();
         }
 
@@ -217,6 +217,7 @@ namespace DoctorSystem.Controllers
                     docApp.IsDeleted = true;
                 }
             }
+            _emailService.DeleteAppointment(client);
             await _appointmentRepo.SaveAllAsync();
             return Accepted();
         }
@@ -239,6 +240,7 @@ namespace DoctorSystem.Controllers
                 }
             }
             await _appointmentRepo.SaveAllAsync();
+           
             return Accepted();
         }
 

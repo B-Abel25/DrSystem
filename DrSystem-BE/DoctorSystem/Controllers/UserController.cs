@@ -99,13 +99,14 @@ namespace DoctorSystem.Controllers
         [HttpPut]
         public async Task<ActionResult> AcceptClientRequest(string medNumber)
         {
-            //TODO email éretsítés az elfogadásról
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
             Client client = await _clientRepo.GetClientByMedNumberAsync(medNumber);
 
             if (doctor.Clients.Contains(client))
             {
+                //TODO email éretsítés az elfogadásról
+                _emailService.AcceptClient(client);
                 client.Member = true;
                 await _clientRepo.SaveAllAsync();
                 return Accepted();
@@ -118,12 +119,13 @@ namespace DoctorSystem.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeclineClientRequest(string medNumber)
         {
-            //TODO email éretsítés az elutasításról
             string doctorSealNumber = _tokenService.ReadToken(HttpContext.Request.Headers["Authorization"]);
             Doctor doctor = await _doctorRepo.GetDoctorBySealNumberAsync(doctorSealNumber);
             Client client = await _clientRepo.GetClientByMedNumberAsync(medNumber);
             if (doctor.Clients.Contains(client))
             {
+                //TODO email éretsítés az elutasításról
+                _emailService.RefuseClient(client);
                 _clientRepo.DeleteClient(client);
                 await _clientRepo.SaveAllAsync();
                 return Accepted();
