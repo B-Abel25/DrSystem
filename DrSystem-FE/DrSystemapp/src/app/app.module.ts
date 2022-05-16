@@ -45,7 +45,7 @@ import { ValidateEmailComponent } from './validate-email/validate-email.componen
 import { DeleteClientEmailComponent } from './delete-client-email/delete-client-email.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { FullCalendarModule, Interaction } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
+
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { SettingsComponent } from './doctor-admin/doctor-function/settings/settings.component';

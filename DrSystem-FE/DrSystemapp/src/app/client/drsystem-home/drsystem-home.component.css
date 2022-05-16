@@ -51,9 +51,7 @@ p {
 
 
 
-/*
- *  Reset bootstrap's default style
- */
+
 .form-control::-webkit-input-placeholder,
 ::-webkit-input-placeholder {
   opacity: 1;
@@ -61,13 +59,13 @@ p {
 
 .form-control:-moz-placeholder,
 :-moz-placeholder {
-  /* Firefox 18- */
+  
   opacity: 1;
   color: inherit; }
 
 .form-control::-moz-placeholder,
 ::-moz-placeholder {
-  /* Firefox 19+ */
+  
   opacity: 1;
   color: inherit; }
 
@@ -102,9 +100,7 @@ textarea, label {
 
 
 
-/*
- *  CSS Helper Class
- */
+
 .clear:before, .clear:after {
   content: " ";
   display: table; }
@@ -223,9 +219,7 @@ textarea, label {
 .preloader.active .loading-mask {
   width: 0; }
 
-/*------------------------------------------------
-	Start Styling
--------------------------------------------------*/
+
 .mt20{margin-top:20px;}
 
 
@@ -300,9 +294,7 @@ textarea, label {
     line-height: 0.9;
     text-transform: uppercase; }
 
-/*------------------------------------------------
-    Home Page
--------------------------------------------------*/
+
 
 .hexagon-item:first-child {
     margin-left: 0;
@@ -317,7 +309,7 @@ textarea, label {
     background-color: rgba(85, 130, 241, 0.97);
 }
 
-/* End of container */
+
 .hexagon-item {
   cursor: pointer;
   width: 200px;
@@ -486,9 +478,7 @@ textarea, label {
     -o-transform: rotate(30deg) translate(87px, -80px);
     transform: rotate(30deg) translate(87px, -80px);
 }
-/*------------------------------------------------
-    Welcome Page
--------------------------------------------------*/
+
 .author-image-large {
   position: absolute;
   right: 0;
@@ -537,7 +527,7 @@ textarea, label {
   -webkit-animation: focus-in-contract 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: focus-in-contract 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
-/***************************/
+
 
 @-webkit-keyframes focus-in-contract {
   0% {

@@ -37,8 +37,7 @@ export class BookingComponent implements OnInit {
   successdata: any;
   addEventForm: FormGroup;
   submitted = false;
-  minTime = '10:00:00';
-  slotDuration = '00:10:00';
+ 
   currentDate = new Date();
   myDate = Date.now();
   duration:number;
