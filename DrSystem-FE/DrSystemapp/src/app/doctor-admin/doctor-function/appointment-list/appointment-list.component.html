@@ -52,6 +52,7 @@
 
 
  <div class="modal" id="myModal2" [style.display]="showModal ? 'true' : 'false'">
+    
     <div class="modal-dialog">
       <div class="modal-content">
       
@@ -64,22 +65,24 @@
           <!-- Modal body -->
           <div class="modal-body">
               <label >Foglalás:</label>
-            <div  class="form-control eventstarttitle "></div>
+            <div  class="form-control eventstarttitle"></div>
             <br>
             <label >Foglalás oka:</label>
-            <div  class="form-control eventdescription "></div>
+            <div  class="form-control eventdescription"  ></div>
           </div>
           
           <!-- Modal footer -->
           <div class="modal-footer" style=" justify-content: center;">
             <button type="button" class="btn btn-success" data-dismiss="modal" >Bezárás</button>
-            <button type="button" class="btn btn-danger"  (click)="deleteAppointment()">Törlés</button>
+            <button type="submit" class="btn btn-danger" (click)="deleteAppointment()" >Törlés</button>
             
           </div>
-        
+          
       </div>
     </div>
+     
   </div> 
+
 </div>
 
 
