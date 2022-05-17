@@ -1,0 +1,11 @@
+Regisztráció
+Email elfogadása
+Orvos bejelentkezés
+Beteg elfogadása
+Üzenetküldés oda
+Üzenetküldés vissza
+Tagok listája
+Egy egy tag megmutatása
+Orvos nyitva tartása és időköze
+Foglalás orvos oldalról
+Foglalás beteg oldalról

@@ -214,7 +214,7 @@ namespace DoctorSystem.Controllers
             }
             client.EmailToken = "true";
             await _clientRepo.SaveAllAsync();
-            return Redirect(_router.Route("/validateEmail"));
+            return Redirect(_router.Route("/validEmail"));
         }
 
 
